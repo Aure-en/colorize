@@ -4,7 +4,7 @@ export const initialState = {
   palettes,
 };
 
-const reducer = (state = initialState, action = {}) => {
+const paletteReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     default:
       return state;
@@ -13,4 +13,4 @@ const reducer = (state = initialState, action = {}) => {
 
 export const getPalettes = (state) => state.palette.palettes;
 
-export default reducer;
+export default paletteReducer;

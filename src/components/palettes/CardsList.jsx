@@ -11,14 +11,17 @@ const CardsList = ({ palettes }) => (
 
 CardsList.propTypes = {
   palettes: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-      }).isRequired,
-    ).isRequired,
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      colors: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          hex: PropTypes.string.isRequired,
+          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        }).isRequired,
+      ).isRequired,
+    }).isRequired,
   ).isRequired,
 };
 
