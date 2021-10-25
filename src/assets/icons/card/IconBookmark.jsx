@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const IconBookmark = ({ isSaved }) => (
+const IconBookmark = ({ isFavorite }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-bookmark"
@@ -10,7 +10,7 @@ const IconBookmark = ({ isSaved }) => (
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="currentColor"
-    fill={isSaved ? 'currentColor' : 'none'}
+    fill={isFavorite ? 'currentColor' : 'none'}
     strokeLinecap="round"
     strokeLinejoin="round"
   >
@@ -20,11 +20,11 @@ const IconBookmark = ({ isSaved }) => (
 );
 
 IconBookmark.propTypes = {
-  isSaved: PropTypes.bool,
+  isFavorite: PropTypes.bool,
 };
 
 IconBookmark.defaultProps = {
-  isSaved: false,
+  isFavorite: false,
 };
 
 export default IconBookmark;

@@ -1,13 +1,12 @@
 export const SAVE_PALETTE = 'SAVE_PALETTE';
 export const UNSAVE_PALETTE = 'UNSAVE_PALETTE';
 
-export const savePalette = (palette, collectionId) => ({
+export const savePalette = (paletteId) => ({
   type: SAVE_PALETTE,
-  collectionId,
-  palette,
+  paletteId,
 });
 
-export const unsavePalette = (palette) => ({
+export const unsavePalette = (paletteId) => ({
   type: UNSAVE_PALETTE,
-  palette,
+  paletteId,
 });

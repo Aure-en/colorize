@@ -12,7 +12,7 @@ const ButtonLike = ({ paletteId }) => {
   const isLiked = likes.includes(paletteId);
 
   const handleClick = () => {
-    if (likes.includes(paletteId)) {
+    if (isLiked) {
       dispatch(unlikePalette(paletteId));
     } else {
       dispatch(likePalette(paletteId));
