@@ -1,10 +1,19 @@
-import { BrowserRouter as Router } from 'react-router-dom';
-import LeftNav from './components/LeftNavbar/LeftNav';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import GlobalStyles from './styles/globalStyles';
+import Theme from './components/settings/Theme';
+import Home from './routes/Home';
+
 
 function App() {
   return (
     <Router>
-      <LeftNav />
+      <GlobalStyles />
+      <Theme>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </Theme>
     </Router>
   );
 }
