@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-const Cards = ({ palettes }) => (
+const CardsList = ({ palettes }) => (
   <List>
     {palettes.map((palette, index) => <Card palette={palette} key={index} />)}
   </List>
 );
 
-Cards.propTypes = {
+CardsList.propTypes = {
   palettes: PropTypes.arrayOf(
     PropTypes.arrayOf(
       PropTypes.shape({
@@ -41,4 +41,4 @@ const List = styled.ul`
   }
 `;
 
-export default Cards;
+export default CardsList;

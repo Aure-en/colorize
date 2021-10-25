@@ -1,16 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getPalettes } from '../reducers/paletteReducer';
-import Cards from '../components/palettes/Cards';
+import Palettes from '../components/palettes/Palettes';
 
-const Home = () => {
-  const palettes = useSelector(getPalettes);
-
-  return (
-    <div>
-      <Cards palettes={palettes} />
-    </div>
-  );
-};
+const Home = () => (
+  <div>
+    <Palettes />
+  </div>
+);
 
 export default Home;
