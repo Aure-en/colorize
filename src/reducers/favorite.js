@@ -4,7 +4,7 @@ export const initialState = {
   default: [],
 };
 
-const favoriteReducer = (state = initialState, action = {}) => {
+const favorite = (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_PALETTE:
       return { ...state, default: [...state.default, action.paletteId] };
@@ -24,4 +24,4 @@ const favoriteReducer = (state = initialState, action = {}) => {
 
 export const getAllFavorites = (state) => Object.values(state.favorite).reduce((concat, current) => concat.concat(current));
 
-export default favoriteReducer;
+export default favorite;
