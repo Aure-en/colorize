@@ -67,6 +67,10 @@ const Color = styled.button`
   &:hover {
     flex: 3;
   }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default Card;

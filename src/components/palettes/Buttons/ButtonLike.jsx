@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { likePalette, unlikePalette } from '../../../actions/like';
 import IconHeart from '../../../assets/icons/card/IconHeart';
-import { getLikes } from '../../../reducers/likeReducer';
+import { getLikes } from '../../../reducers/like';
 
 const ButtonLike = ({ paletteId }) => {
   const likes = useSelector(getLikes);

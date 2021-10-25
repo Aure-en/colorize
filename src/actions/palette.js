@@ -1,11 +1,14 @@
-export const FETCH_PALETTES = 'FETCH_PALETTES';
-export const SAVE_PALETTES = 'SAVE_PALETTES';
+export const REORDER_COLORS = 'REORDER_COLORS';
+export const UPDATE_COLOR = 'UPDATE_COLOR';
 
-export const fetchPalettes = () => ({
-  type: FETCH_PALETTES,
+export const reorderColor = (from, to) => ({
+  type: REORDER_COLORS,
+  from,
+  to,
 });
 
-export const savePalettes = (palettes) => ({
-  type: SAVE_PALETTES,
-  palettes,
+export const updateColor = (position, color) => ({
+  type: UPDATE_COLOR,
+  position,
+  color,
 });

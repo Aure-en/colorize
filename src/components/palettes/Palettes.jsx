@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getPalettes } from '../../reducers/paletteReducer';
+import { getPalettes } from '../../reducers/palettes';
 import CardsList from './CardsList';
 
 const Palettes = () => {

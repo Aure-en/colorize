@@ -2,7 +2,7 @@ import { LIKE_PALETTE, UNLIKE_PALETTE } from '../actions/like';
 
 export const initialState = [];
 
-const likeReducer = (state = initialState, action = {}) => {
+const like = (state = initialState, action = {}) => {
   switch (action.type) {
     case LIKE_PALETTE:
       return [...state, action.palette];
@@ -17,4 +17,4 @@ const likeReducer = (state = initialState, action = {}) => {
 
 export const getLikes = (state) => state.like;
 
-export default likeReducer;
+export default like;
