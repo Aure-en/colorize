@@ -32,6 +32,7 @@ const Informations = styled.div`
   justify-content: space-between;
   width: 100%;
   overflow-wrap: break-word;
+
   @media all and (min-width: 800px) {
     flex-direction: row;
   }
