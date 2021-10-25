@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { ReactComponent as IconDots } from '../../../assets/icons/card/dots.svg';
 
-const ButtonMore = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const ButtonMore = () => (
+  <button type="button">
+    <IconDots />
+  </button>
+);
 
-export default ButtonMore
+export default ButtonMore;
