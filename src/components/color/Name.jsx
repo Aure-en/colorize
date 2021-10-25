@@ -21,7 +21,7 @@ Name.propTypes = {
 };
 
 const Code = styled.small`
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.$color};
   font-size: 0.925rem;
   text-transform: uppercase;
 `;

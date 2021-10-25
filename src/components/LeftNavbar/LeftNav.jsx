@@ -61,59 +61,51 @@ const LeftNav = () => (
 );
 
 const Nav = styled.nav`
-    background: #FFFF;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    padding: 0.5rem calc(100vw - 1000px) /2);
+  background: #FFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
 `;
 const NavLink = styled(Link)`
-color: #000;
-display: flex;
-align-items: center;
-flex-direction: column;
-text-decoration: none;
-padding: 0 1rem;
-padding-bottom: 1em;
-height: 100%;
-cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  padding: 0 1rem;
+  padding-bottom: 1em;
+  cursor: pointer;
 
-&.active {
+  &.active {
     color: #15cdfc;
-}
+  }
 `;
 
 const NavMenu = styled.div`
-display: flex;
-align-items: start;
-flex-direction: column;
-margin-right: -24px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 
-@media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     display: none;
-}
+  }
 `;
 
 const Searchbar = styled.div`
-padding-bottom: 25px;
-display: flex;
+  padding-bottom: 25px;
+  display: flex;
 `;
 
 const Input = styled.input`
-height: 40px;
+  height: 40px;
 `;
 
 const Btn = styled.button`
-display: flex;
-
+  display: flex;
 `;
 
 const Line = styled.div`
-padding: 10px;
-width: 100%;
-border-top: 2px solid grey;
+  padding: 10px;
+  width: 100%;
+  border-top: 2px solid grey;
 `;
 
 export default LeftNav;
