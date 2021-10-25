@@ -20,7 +20,7 @@ const Card = ({ palette }) => {
       </Colors>
       <Informations>
         <Name color={currentColor} />
-        <Buttons palette={palette} />
+        <Buttons paletteId={palette.id} />
       </Informations>
     </Wrapper>
   );
