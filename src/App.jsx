@@ -1,10 +1,10 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import Leftnav from './components/Leftnavbar/Leftnav';
+import LeftNav from './components/LeftNavbar/LeftNav';
 
 function App() {
   return (
     <Router>
-      <Leftnav />
+      <LeftNav />
     </Router>
   );
 }
