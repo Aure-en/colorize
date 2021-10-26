@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Name from '../../color/Name';
+import Name from './Name';
+import ColorButtons from './buttons/ColorButtons';
 
 const Color = ({ color }) => (
   <Card>
     <Background
       $color={color.hex}
     />
-    <Name color={color} />
+    <Informations>
+      <Name color={color} />
+      <ColorButtons color={color} index={color.id} />
+    </Informations>
   </Card>
 );
 
@@ -18,6 +22,7 @@ Color.propTypes = {
     hex: PropTypes.string.isRequired,
     rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 
@@ -37,6 +42,18 @@ const Background = styled.button`
   padding: 0;
   &:focus {
     outline: 2px solid transparent;
+  }
+`;
+
+const Informations = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  overflow-wrap: break-word;
+  
+  @media all and (min-width: 800px) {
+    flex-direction: row;
   }
 `;
 

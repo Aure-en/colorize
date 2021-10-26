@@ -20,6 +20,7 @@ const Theme = ({ children }) => {
     const newTheme = { ...theme };
     const themeKeys = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary'];
 
+    // Set the main palette in the theme
     themeKeys.forEach((key, index) => {
       if (palette.colors[index]) {
         newTheme[key] = palette.colors[index].hex;

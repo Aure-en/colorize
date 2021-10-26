@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Name from '../color/Name';
+import Name from '../palette/color/Name';
 import Buttons from './Buttons/Buttons';
 
 const Card = ({ palette }) => {

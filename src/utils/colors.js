@@ -73,3 +73,14 @@ const getDarkerShade = (color, step) => {
     name: getColorName(darker.hex()).name,
   };
 };
+
+// Color
+export const getColorFromHex = (hex) => {
+  const color = Color(hex);
+  return {
+    hex,
+    rgb: color.rgb().array(),
+    hsl: color.hsl().array(),
+    name: getColorName(hex).name,
+  };
+};

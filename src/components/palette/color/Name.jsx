@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Color from 'color';
 import { useSelector } from 'react-redux';
-import { getFormat } from '../../reducers/settings';
-import formatColorCode from '../../utils/format';
+import { getFormat } from '../../../reducers/settings';
+import formatColorCode from '../../../utils/format';
 
 const Name = ({ color }) => {
   const [textColor, setTextColor] = useState('');

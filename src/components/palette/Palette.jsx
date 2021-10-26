@@ -41,9 +41,11 @@ const Wrapper = styled.div`
   grid-gap: 1rem;
   width: 100%;
   flex: 1;
+
   & > * {
     flex: 1;
   }
+  
   @media all and (min-width: 600px) {
     flex-direction: ${(props) => (props.$direction === 'vertical' ? 'column' : 'row')};
   }
