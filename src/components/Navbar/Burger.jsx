@@ -25,15 +25,17 @@ const StyledBurger = styled.div`
   right: 20px;
   z-index: 20;
   display: none;
+
   @media (max-width: 768px) {
     display: flex;
     justify-content: space-around;
     flex-flow: column nowrap;
   }
   div {
+    bottom: 5px;
     width: 2rem;
     height: 0.25rem;
-    background-color: ${({ open }) => (open ? '#ccc' : '#333')};
+    background-color: ${({ open }) => (open ? 'White' : 'White')};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

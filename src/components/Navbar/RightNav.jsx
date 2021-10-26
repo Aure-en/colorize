@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const RightNav = ({ open }) => (
   <Ul open={open}>
-    <li><NavLink to="/home">Home</NavLink></li>
-    <li><NavLink to="/creation">Création</NavLink></li>
-    <li><NavLink to="/signup">Sign Up</NavLink></li>
-    <li><NavLink to="/signin">Sign In</NavLink></li>
+    <NavLink to="/home" className="navlink" activeStyle>Home</NavLink>
+    <NavLink to="/creation" className="navlink" activeStyle>Création</NavLink>
+    <NavLink to="/signup" className="navlink" activeStyle>Sign Up</NavLink>
+    <NavLink to="/signin" className="navlink" activeStyle>Sign In</NavLink>
   </Ul>
 );
 
@@ -21,9 +21,15 @@ const Ul = styled.ul`
   display: flex;
   flex-flow: row nowrap;
 
-  li {
+  .navlink {
     padding: 18px 10px;
     text-decoration: none;
+    color: white;
+
+    &:active {
+      text-decoration : underline;
+    }
+    
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
@@ -33,12 +39,14 @@ const Ul = styled.ul`
     top: 0;
     right: 0;
     height: 100vh;
-    width: 300px;
+    width: 100%;
     padding-top: 3.5rem;
     transition: transform 0.3s ease-in-out;
 
-    li {
+    .navlink {
       color: #fff;
+      text-align: center;
+      font-size: 2rem;
     }
   }
 `;
