@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Palette from '../palette/Palette';
+import Palette from '../../palette/Palette';
 import ShadesLine from './ShadesLine';
 
 const Shades = ({

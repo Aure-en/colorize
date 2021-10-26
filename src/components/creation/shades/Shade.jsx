@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Name from '../palette/color/Name';
+import Name from '../../palette/color/Name';
 
 const Step = ({ color }) => (
   <Card>
