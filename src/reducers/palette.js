@@ -3,6 +3,8 @@ import {
   INCREMENT_SHADES,
   SET_SHADES,
   UPDATE_COLOR,
+  LOCK_COLOR,
+  UNLOCK_COLOR,
 } from '../actions/palette';
 import palettesData from '../data/palettes';
 import {
@@ -75,6 +77,25 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         palette: newPalette,
+      };
+    }
+
+    // Lock color
+    case LOCK_COLOR: {
+      const newLocked = [...state.locked];
+      newLocked[action.index] = true;
+      return {
+        ...state,
+        locked: newLocked,
+      };
+    }
+
+    case UNLOCK_COLOR: {
+      const newLocked = [...state.locked];
+      newLocked[action.index] = null;
+      return {
+        ...state,
+        locked: newLocked,
       };
     }
 
