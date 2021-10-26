@@ -6,7 +6,7 @@ import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
 import { setShades } from '../../actions/palette';
 
-const Creation = () => {
+const Shades = () => {
   const dispatch = useDispatch();
   const palette = useSelector(getPalette);
   const shades = useSelector(getShades);
@@ -24,6 +24,12 @@ const Creation = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.main`
+  display: flex;
+  height: 100%;
+  grid-gap: 1rem;
+  width: 100%;
+  flex: 1;
+`;
 
-export default Creation;
+export default Shades;

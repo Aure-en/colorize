@@ -1,4 +1,5 @@
 import {
+  RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
   SET_SHADE,
@@ -36,7 +37,7 @@ export const initialState = {
     light: [],
     dark: [],
   },
-  loading: 'fulfilled',
+  loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
 };
 
 const palette = (state = initialState, action = {}) => {
@@ -97,6 +98,12 @@ const palette = (state = initialState, action = {}) => {
       };
     }
 
+    case RESET_PALETTE:
+      return {
+        ...state,
+        palette: { ...state.originalPalette },
+      };
+
     // Lock color
     case LOCK_COLOR: {
       const newLocked = [...state.locked];
@@ -122,6 +129,8 @@ const palette = (state = initialState, action = {}) => {
 };
 
 export const getPalette = (state) => state.palette.palette;
+
+export const getPaletteLoading = (state) => state.palette.loading;
 
 export const getShades = (state) => state.palette.shades;
 

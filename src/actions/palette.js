@@ -1,3 +1,5 @@
+export const FETCH_PALETTE = 'FETCH_PALETTE';
+export const RESET_PALETTE = 'RESET_PALETTE';
 export const REORDER_COLORS = 'REORDER_COLORS';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
 export const LOCK_COLOR = 'LOCK_COLOR';
@@ -6,6 +8,14 @@ export const SET_SHADE = 'SET_SHADE';
 export const SET_SHADES = 'SET_SHADES';
 export const INCREMENT_SHADES = 'INCREMENT_SHADES';
 export const DECREMENT_SHADES = 'DECREMENT_SHADES';
+
+export const fetchPalette = () => ({
+  type: FETCH_PALETTE,
+});
+
+export const resetPalette = () => ({
+  type: RESET_PALETTE,
+});
 
 export const reorderColor = (from, to) => ({
   type: REORDER_COLORS,
