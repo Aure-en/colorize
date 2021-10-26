@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../components/header/Header';
 import Cards from '../components/palettes/Cards';
 import palettes from '../data/palettes';
+import Navbar from '../components/Navbar/Navbar';
 
 const Home = () => (
   <div>
-    <Header />
+    <Navbar />
     <Cards palettes={palettes} />
   </div>
 );
