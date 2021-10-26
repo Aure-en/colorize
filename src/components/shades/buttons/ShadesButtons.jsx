@@ -20,12 +20,11 @@ const Buttons = () => {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+  align-self: center;
   font-size: 1.5rem;
-  grid-row: 1 / span 1;
 
   @media all and (min-width: 576px) {
     flex-direction: column;
-    grid-row: initial;
   }
 `;
 

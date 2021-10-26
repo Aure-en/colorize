@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateColor, unlockColor } from '../../../../actions/palette';
+import { updateColor, unlockColor, setShade } from '../../../../actions/palette';
 import { getLocked } from '../../../../reducers/palette';
 import { ReactComponent as IconEdit } from '../../../../assets/icons/color/edit.svg';
 
@@ -15,6 +15,7 @@ const Edit = ({ color }) => {
     (e) => {
       if (!throttle) {
         dispatch(updateColor(color.id, e.target.value));
+        dispatch(setShade(color.id, e.target.value));
         throttle = true;
         setTimeout(() => {
           throttle = false;
@@ -26,6 +27,7 @@ const Edit = ({ color }) => {
 
   const handleBlur = (e) => {
     dispatch(updateColor(color.id, e.target.value));
+    dispatch(setShade(color.id, e.target.value));
     if (locked[color.id]) dispatch(unlockColor(color.id));
   };
 

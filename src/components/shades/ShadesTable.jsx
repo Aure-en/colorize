@@ -83,12 +83,6 @@ const Wrapper = styled.main`
   height: 100%;
   grid-gap: 1rem;
   width: 100%;
-  grid-row: 2;
-  grid-column: 1 / span 2;
-  @media all and (min-width: 576px) {
-    grid-row: initial;
-    grid-column: initial;
-  }
 `;
 
 export default Shades;

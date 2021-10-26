@@ -17,7 +17,7 @@ const colors = namedColors.reduce(
  * @returns {string} (name)
  * Ex: getColorName(color.hex)
  */
- export const getColorName = nearestColor.from(colors);
+export const getColorName = nearestColor.from(colors);
 
 // Color shades
 export const getLighterShades = (palette, shadesNumber) => {
@@ -25,7 +25,7 @@ export const getLighterShades = (palette, shadesNumber) => {
   for (let step = 1; step <= shadesNumber; step += 1) {
     lighterShades.unshift(
       palette.colors.map(
-        (color) => getLighterShade(color, step),
+        (color) => getLighterShade(color.hex, step),
       ),
     );
   }
@@ -37,17 +37,17 @@ export const getDarkerShades = (palette, shadesNumber) => {
   for (let step = 1; step <= shadesNumber; step += 1) {
     darkerShades.push(
       palette.colors.map(
-        (color) => getDarkerShade(color, step),
+        (color) => getDarkerShade(color.hex, step),
       ),
     );
   }
   return darkerShades;
 };
 
-const getLighterShade = (color, step) => {
-  const colorObject = Color(color.hex);
-  const luminosity = colorObject.hsl().array()[2];
-  const lighter = colorObject.lightness(
+const getLighterShade = (colorHex, step) => {
+  const color = Color(colorHex);
+  const luminosity = color.hsl().array()[2];
+  const lighter = color.lightness(
     ((100 - luminosity) / (step + 1)) * step + luminosity,
   );
 
@@ -59,10 +59,10 @@ const getLighterShade = (color, step) => {
   };
 };
 
-const getDarkerShade = (color, step) => {
-  const colorObject = Color.rgb(color.rgb);
-  const luminosity = colorObject.hsl().array()[2];
-  const darker = colorObject.lightness(
+const getDarkerShade = (colorHex, step) => {
+  const color = Color(colorHex);
+  const luminosity = color.hsl().array()[2];
+  const darker = color.lightness(
     luminosity - (luminosity / (step + 1)) * step,
   );
 
@@ -71,6 +71,27 @@ const getDarkerShade = (color, step) => {
     hex: darker.hex(),
     hsl: darker.hsl().array(),
     name: getColorName(darker.hex()).name,
+  };
+};
+
+// Get lighter and darker shades of a color
+export const getColorSteps = (colorHex, shadesNumber) => {
+  const light = [];
+  const dark = [];
+
+  for (let step = 1; step <= shadesNumber; step += 1) {
+    light.unshift(
+      getLighterShade(colorHex, step),
+    );
+
+    dark.push(
+      getDarkerShade(colorHex, step),
+    );
+  }
+
+  return {
+    light,
+    dark,
   };
 };
 

@@ -1,6 +1,8 @@
 import {
+  RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
+  SET_SHADE,
   SET_SHADES,
   UPDATE_COLOR,
   LOCK_COLOR,
@@ -11,6 +13,7 @@ import {
   getLighterShades,
   getDarkerShades,
   getColorFromHex,
+  getColorSteps,
 } from '../utils/colors';
 
 export const initialState = {
@@ -34,7 +37,7 @@ export const initialState = {
     light: [],
     dark: [],
   },
-  loading: 'idle',
+  loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
 };
 
 const palette = (state = initialState, action = {}) => {
@@ -50,6 +53,21 @@ const palette = (state = initialState, action = {}) => {
           light: lighterShades,
           dark: darkerShades,
         },
+      };
+    }
+
+    case SET_SHADE: {
+      const shades = getColorSteps(action.color, state.shadesNumber);
+      const newShades = JSON.parse(JSON.stringify({ ...state.shades }));
+
+      for (let step = 0; step < state.shadesNumber; step += 1) {
+        newShades.light[step][action.index] = shades.light[step];
+        newShades.dark[step][action.index] = shades.dark[step];
+      }
+
+      return {
+        ...state,
+        shades: newShades,
       };
     }
 
@@ -80,6 +98,12 @@ const palette = (state = initialState, action = {}) => {
       };
     }
 
+    case RESET_PALETTE:
+      return {
+        ...state,
+        palette: { ...state.originalPalette },
+      };
+
     // Lock color
     case LOCK_COLOR: {
       const newLocked = [...state.locked];
@@ -105,6 +129,8 @@ const palette = (state = initialState, action = {}) => {
 };
 
 export const getPalette = (state) => state.palette.palette;
+
+export const getPaletteLoading = (state) => state.palette.loading;
 
 export const getShades = (state) => state.palette.shades;
 
