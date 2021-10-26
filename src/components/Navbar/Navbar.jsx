@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Burger from './Burger';
+import LeftNav from './LeftNav';
 import { ReactComponent as Logo } from '../../assets/img/logo.svg';
 
 const Navbar = () => (
   <Nav>
     <Logo className="logo" />
+    <LeftNav />
     <Burger />
   </Nav>
 );
@@ -20,7 +22,7 @@ const Nav = styled.nav`
   background: #0E2538;
   
   .logo {
-    padding-top: 5px;
+    padding-top: 10px;
   }
 `;
 
