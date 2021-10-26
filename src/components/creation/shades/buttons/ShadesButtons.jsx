@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getShadesNumber } from '../../../reducers/palette';
+import { getShadesNumber } from '../../../../reducers/palette';
 import DecrementShadesNumber from './DecrementShadesNumber';
 import IncrementShadesNumber from './IncrementShadesNumber';
 

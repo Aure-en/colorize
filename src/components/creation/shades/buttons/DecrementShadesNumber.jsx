@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { decrementShades } from '../../../actions/palette';
-import { ReactComponent as IconMinus } from '../../../assets/icons/shades/minus.svg';
+import { decrementShades } from '../../../../actions/palette';
+import { ReactComponent as IconMinus } from '../../../../assets/icons/shades/minus.svg';
 
 const DecrementShadesNumber = () => {
   const dispatch = useDispatch();

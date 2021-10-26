@@ -1,31 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import Shades from '../components/shades/Shades';
-import GenerateButton from '../components/palette/buttons/GenerateButton';
-import ResetButton from '../components/palette/buttons/ResetButton';
-import SaveButton from '../components/palette/buttons/SaveButton';
+import React, { useState } from 'react';
+import PageChange from '../components/creation/PageChange';
+import Shades from '../components/creation/shades/Shades';
 
-const Creation = () => (
-  <Wrapper>
-    <Buttons>
-      <GenerateButton />
-      <ResetButton />
-    </Buttons>
-    <Shades />
-    <SaveButton />
-  </Wrapper>
-);
+const Creation = () => {
+  const pages = ['preview', 'shades'];
+  const [page, setPage] = useState('shades');
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  padding: 2rem;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  margin-left: 2rem;
-`;
+  return (
+    <>
+      <PageChange currentPage={page} pages={pages} setCurrentPage={setPage} />
+      {page === 'preview'
+        ? (
+          <div>
+            preview
+          </div>
+        ) : (
+          <Shades />
+        )}
+    </>
+  );
+};
 
 export default Creation;
