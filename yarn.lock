@@ -3497,6 +3497,11 @@
   dependencies:
     "color-name" "~1.1.4"
 
+"color-name-list@^8.31.0":
+  "integrity" "sha512-6ojqFTZWVVTtHnx1J6cv4kg3Z5TBztU4zrzWAyNh9tXVDY373PvHOjU62BPYJzW4amuEM9oUxfRUTjJhlfaNqw=="
+  "resolved" "https://registry.npmjs.org/color-name-list/-/color-name-list-8.31.0.tgz"
+  "version" "8.31.0"
+
 "color-name@^1.0.0", "color-name@~1.1.4":
   "integrity" "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="
   "resolved" "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz"
@@ -7750,6 +7755,11 @@
   "integrity" "sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc="
   "resolved" "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   "version" "1.4.0"
+
+"nearest-color@^0.4.4":
+  "integrity" "sha512-orhcaIORC10tf41Ld2wwlcC+FaAavHG87JHWB3eHH5p7v2k9Tzym2XNEZzLAm5YJwGv6Q38WWc7SOb+Qfu/4NQ=="
+  "resolved" "https://registry.npmjs.org/nearest-color/-/nearest-color-0.4.4.tgz"
+  "version" "0.4.4"
 
 "negotiator@0.6.2":
   "integrity" "sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw=="

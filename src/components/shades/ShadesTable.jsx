@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Palette from '../palette/Palette';
 import ShadesLine from './ShadesLine';
@@ -39,6 +40,42 @@ const Shades = ({
     )}
   </Wrapper>
 );
+
+Shades.propTypes = {
+  mainPalette: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    colors: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        hex: PropTypes.string.isRequired,
+        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
+  shades: PropTypes.shape({
+    light: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          hex: PropTypes.string.isRequired,
+          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        }),
+      ),
+    ),
+    dark: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          hex: PropTypes.string.isRequired,
+          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        }),
+      ),
+    ),
+  }).isRequired,
+};
 
 const Wrapper = styled.main`
   display: flex;

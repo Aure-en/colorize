@@ -11,8 +11,8 @@ const Palette = ({
     $direction={direction}
     list={palette}
   >
-    {palette.colors.map((color) => (
-      <Color key={color.id} color={color} />
+    {palette.colors.map((color, index) => (
+      <Color key={index} color={color} />
     ))}
   </Wrapper>
 );
@@ -26,7 +26,6 @@ Palette.propTypes = {
         hex: PropTypes.string.isRequired,
         rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        id: PropTypes.number.isRequired,
       }).isRequired,
     ).isRequired,
   }).isRequired,

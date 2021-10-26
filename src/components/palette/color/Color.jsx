@@ -18,7 +18,6 @@ Color.propTypes = {
     hex: PropTypes.string.isRequired,
     rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 
