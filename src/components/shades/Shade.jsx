@@ -32,6 +32,7 @@ const Background = styled.button`
   flex: 1;
   border: none;
   cursor: pointer;
+
   &:focus {
     outline: 2px solid transparent;
   }

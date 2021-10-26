@@ -1,6 +1,7 @@
 import {
   DECREMENT_SHADES,
   INCREMENT_SHADES,
+  SET_SHADE,
   SET_SHADES,
   UPDATE_COLOR,
   LOCK_COLOR,
@@ -11,6 +12,7 @@ import {
   getLighterShades,
   getDarkerShades,
   getColorFromHex,
+  getColorSteps,
 } from '../utils/colors';
 
 export const initialState = {
@@ -34,7 +36,7 @@ export const initialState = {
     light: [],
     dark: [],
   },
-  loading: 'idle',
+  loading: 'fulfilled',
 };
 
 const palette = (state = initialState, action = {}) => {
@@ -50,6 +52,21 @@ const palette = (state = initialState, action = {}) => {
           light: lighterShades,
           dark: darkerShades,
         },
+      };
+    }
+
+    case SET_SHADE: {
+      const shades = getColorSteps(action.color, state.shadesNumber);
+      const newShades = JSON.parse(JSON.stringify({ ...state.shades }));
+
+      for (let step = 0; step < state.shadesNumber; step += 1) {
+        newShades.light[step][action.index] = shades.light[step];
+        newShades.dark[step][action.index] = shades.dark[step];
+      }
+
+      return {
+        ...state,
+        shades: newShades,
       };
     }
 

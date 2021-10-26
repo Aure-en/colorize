@@ -14,7 +14,7 @@ const Creation = () => {
 
   useEffect(() => {
     if (palette.colors.length > 0) dispatch(setShades());
-  }, [palette, shadesNumber]);
+  }, [shadesNumber]);
 
   return (
     <Wrapper>
