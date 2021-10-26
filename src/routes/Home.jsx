@@ -1,14 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import Palettes from '../components/palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/shared/Pagination';
 
 const Home = () => (
-  <div>
+  <Wrapper>
     <LeftNav />
     <Palettes />
     <Pagination />
-  </div>
+  </Wrapper>
 );
 
 export default Home;
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+`;

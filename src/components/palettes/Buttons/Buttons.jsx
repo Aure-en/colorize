@@ -1,16 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ButtonLike from './ButtonLike';
 import ButtonSave from './ButtonSave';
 import ButtonMore from './ButtonMore';
 
-const Buttons = ({ palette }) => (
+const Buttons = ({ paletteId }) => (
   <Wrapper>
-    <ButtonSave paletteId={palette.id} />
-    <ButtonLike paletteId={palette.id} />
-    <ButtonMore paletteId={palette.id} />
+    <ButtonSave paletteId={paletteId} />
+    <ButtonLike paletteId={paletteId} />
+    <ButtonMore paletteId={paletteId} />
   </Wrapper>
 );
+
+Buttons.propTypes = {
+  paletteId: PropTypes.number.isRequired,
+};
 
 const Wrapper = styled.div`
   display: flex;

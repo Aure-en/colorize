@@ -20,7 +20,7 @@ const Card = ({ palette }) => {
       </Colors>
       <Informations>
         <Name color={currentColor} />
-        <Buttons palette={palette} />
+        <Buttons paletteId={palette.id} />
       </Informations>
     </Wrapper>
   );
@@ -66,6 +66,10 @@ const Color = styled.button`
 
   &:hover {
     flex: 3;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
