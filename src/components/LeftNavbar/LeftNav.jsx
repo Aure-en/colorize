@@ -97,8 +97,7 @@ const Searchbar = styled.div`
   padding-bottom: 25px;
   display: flex;
   @media screen and (max-width: 768px) {
-   align-items: center;
-   justify-content: center;
+     align-self: center;
   }
 `;
 
@@ -107,7 +106,8 @@ const Input = styled.input`
   @media screen and (max-width: 768px) {
     align-items: center;
     justify-content: center;
-    height: 20px;
+    height: 30px;
+    border: none;
    }
 `;
 
