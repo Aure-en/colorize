@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Name from '../color/Name';
+import Name from '../palette/color/Name';
+import Buttons from './buttons/Buttons';
 
 const Card = ({ palette }) => {
-  const [currentColor, setCurrentColor] = useState(palette[0]);
-
-  useEffect(() => {
-    setCurrentColor(palette[0]);
-  }, [palette]);
+  const [currentColor, setCurrentColor] = useState(palette.colors[0]);
 
   return (
     <Wrapper>
       <Colors>
-        {palette.map((color) => (
+        {palette.colors.map((color) => (
           <Color
             key={color.hex}
             $color={color.hex}
@@ -23,14 +20,16 @@ const Card = ({ palette }) => {
       </Colors>
       <Informations>
         <Name color={currentColor} />
+        <Buttons paletteId={palette.id} />
       </Informations>
     </Wrapper>
   );
 };
 
 Card.propTypes = {
-  palette:
-    PropTypes.arrayOf(
+  palette: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         hex: PropTypes.string.isRequired,
@@ -38,6 +37,7 @@ Card.propTypes = {
         hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
       }).isRequired,
     ).isRequired,
+  }).isRequired,
 };
 
 const Wrapper = styled.li`
@@ -54,6 +54,7 @@ const Colors = styled.div`
 
 const Informations = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 const Color = styled.button`
@@ -65,6 +66,10 @@ const Color = styled.button`
 
   &:hover {
     flex: 3;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 

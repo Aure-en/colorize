@@ -1,13 +1,16 @@
 import React from 'react';
-import Cards from '../components/palettes/Cards';
-import palettes from '../data/palettes';
+import Palettes from '../components/palettes/Palettes';
+import LeftNav from '../components/LeftNavbar/LeftNav';
+import Pagination from '../components/shared/Pagination';
 import Navbar from '../components/Navbar/Navbar';
 
 const Home = () => (
-  <div>
+  <Wrapper>
     <Navbar />
-    <Cards palettes={palettes} />
-  </div>
+    <LeftNav />
+    <Palettes />
+    <Pagination />
+  </Wrapper>
 );
 
 export default Home;
