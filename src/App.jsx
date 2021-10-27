@@ -5,6 +5,7 @@ import Theme from './components/settings/Theme';
 import Home from './routes/Home';
 import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
+import Generate from './routes/Generate';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/creation" component={Creation} />
+          <Route exact path="/generate" component={Generate} />
         </Switch>
       </Theme>
     </Router>

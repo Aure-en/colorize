@@ -52,9 +52,11 @@ const getLighterShade = (colorHex, step) => {
   );
 
   return {
-    rgb: lighter.rgb().array(),
-    hex: lighter.hex(),
-    hsl: lighter.hsl().array(),
+    hex: color.hex(),
+    cmyk: color.cmyk().round().array(),
+    hsl: color.hsl().round().array(),
+    hsv: color.hsv().round().array(),
+    rgb: color.rgb().round().array(),
     name: getColorName(lighter.hex()).name,
   };
 };
@@ -67,9 +69,11 @@ const getDarkerShade = (colorHex, step) => {
   );
 
   return {
-    rgb: darker.rgb().array(),
-    hex: darker.hex(),
-    hsl: darker.hsl().array(),
+    hex: color.hex(),
+    cmyk: color.cmyk().round().array(),
+    hsl: color.hsl().round().array(),
+    hsv: color.hsv().round().array(),
+    rgb: color.rgb().round().array(),
     name: getColorName(darker.hex()).name,
   };
 };
@@ -99,9 +103,51 @@ export const getColorSteps = (colorHex, shadesNumber) => {
 export const getColorFromHex = (hex) => {
   const color = Color(hex);
   return {
-    hex,
-    rgb: color.rgb().array(),
-    hsl: color.hsl().array(),
+    hex: color.hex(),
+    cmyk: color.cmyk().round().array(),
+    hsl: color.hsl().round().array(),
+    hsv: color.hsv().round().array(),
+    rgb: color.rgb().round().array(),
     name: getColorName(hex).name,
   };
 };
+
+export const getColorFromRgb = (rgb) => {
+  const color = Color.rgb(rgb);
+  return {
+    hex: color.hex(),
+    cmyk: color.cmyk().round().array(),
+    hsl: color.hsl().round().array(),
+    hsv: color.hsv().round().array(),
+    rgb: color.rgb().round().array(),
+    name: getColorName(color.hex()).name,
+  };
+};
+
+export const formatColorToDB = (color) => {
+  return {
+    hex: color.hex,
+    cmyk: {
+      cyan: color.cmyk[0],
+      magenta: color.cmyk[1],
+      yellow: color.cmyk[2],
+      key: color.cmyk[3],
+    },
+    hsl: {
+      hue: color.hsl[0],
+      saturation: color.hsl[1],
+      lightness: color.hsl[2],
+    },
+    hsv: {
+      hue: color.hsv[0],
+      saturation: color.hsv[1],
+      lightness: color.hsv[2],
+    },
+    rgb: {
+      red: color.rgb[0],
+      green: color.rgb[1],
+      blue: color.rgb[2],
+    },
+    name: color.name
+  }
+}
