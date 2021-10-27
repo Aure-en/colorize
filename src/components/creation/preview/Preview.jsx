@@ -78,12 +78,12 @@ const Wrapper = styled.div`
   flex: 1;
   min-height: 100vh;
   padding: 1rem;
-  overflow: hidden;
   grid-gap: 1rem;
 
   @media all and (min-width: 900px) {
     grid-template-columns: 10rem 1fr auto;
     grid-template-rows: auto 1fr auto;
+    overflow: hidden;
   }
 `;
 
@@ -147,6 +147,7 @@ const Controls = styled.div`
   @media all and (min-width: 900px) {
     grid-row: 3;
     grid-column: 1;
+    justify-content: center;
   }
 `;
 

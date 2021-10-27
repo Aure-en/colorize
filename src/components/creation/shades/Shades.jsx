@@ -23,47 +23,61 @@ const Shades = () => {
 
   return (
     <Wrapper>
-      <Top>
-        <LeftButtons>
-          <GenerateButton />
-          <ResetButton />
-        </LeftButtons>
+      <Buttons>
+        <GenerateButton />
+        <ResetButton />
+      </Buttons>
+
+      <PageChangeWrapper>
         <PageChange />
-      </Top>
+      </PageChangeWrapper>
 
-      <Main>
-        <ShadesButtons />
-        <ShadesTable mainPalette={palette} shades={shades} />
-      </Main>
+      <ShadesButtons />
 
-      <SaveButton />
+      <ShadesTable mainPalette={palette} shades={shades} />
+
+      <Save>
+        <SaveButton />
+      </Save>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1rem;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: repeat(2, auto);
+
+  @media all and (min-width: 900px) {
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 1rem;
+  }
 `;
 
-const Top = styled.div`
+const PageChangeWrapper = styled.div`
+  grid-row: 1;
+  grid-column: 2;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
-const LeftButtons = styled.div`
+const Save = styled.div`
   display: flex;
-  margin-left: 2rem;
+  align-items: center;
+  justify-content: flex-end;
+  grid-row: 3;
+  grid-column: 2;
 `;
 
-const Main = styled.main`
+const Buttons = styled.div`
   display: flex;
-  height: 100%;
-  grid-gap: 1rem;
-  width: 100%;
-  flex: 1;
+
+  @media all and (min-width: 900px) {
+    grid-column: 2;
+    grid-row: 1;
+  }
 `;
 
 export default Shades;
