@@ -46,7 +46,7 @@ const Wrapper = styled.div`
     flex: 1;
   }
   
-  @media all and (min-width: 600px) {
+  @media all and (min-width: 900px) {
     flex-direction: ${(props) => (props.$direction === 'vertical' ? 'column' : 'row')};
   }
 `;

@@ -51,6 +51,7 @@ const Dropdown = styled.div`
 
 const DropdownHeader = styled.button`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   cursor: pointer;
   font-weight: 300;

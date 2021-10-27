@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   align-self: center;
   justify-self: center;
 
-  @media all and (min-width: 600px) {
+  @media all and (min-width: 900px) {
     flex-direction: column;
   }
 `;

@@ -38,74 +38,134 @@ const Preview = () => {
 
   return (
     <Wrapper>
-      <Colors>
+      <PaletteWrapper>
         <Palette palette={palette} direction="vertical" />
-        <Controls>
-          <GenerateButton />
-          <ResetButton />
-        </Controls>
-      </Colors>
-      <Middle>
+      </PaletteWrapper>
+
+      <Controls>
+        <GenerateButton />
+        <ResetButton />
+      </Controls>
+
+      <PageChangeWrapper>
         <PageChange />
-        <Previews>
-          {preview(currentPreview)}
-        </Previews>
+      </PageChangeWrapper>
+
+      <Previews>
+        {preview(currentPreview)}
+      </Previews>
+
+      <Save>
         <SaveButton />
-      </Middle>
-      <Buttons
-        select={setCurrentPreview}
-        total={TOTAL_PREVIEW}
-        current={currentPreview}
-      />
+      </Save>
+
+      <ButtonsWrapper>
+        <Buttons
+          select={setCurrentPreview}
+          total={TOTAL_PREVIEW}
+          current={currentPreview}
+        />
+      </ButtonsWrapper>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  position: relative;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: repeat(2, auto) 1fr auto;
+  grid-template-columns: 1fr 
   flex: 1;
   min-height: 100vh;
   padding: 1rem;
   overflow: hidden;
-
-  @media all and (min-width: 600px) {
-    grid-template-columns: 12rem 1fr auto;
-    grid-template-rows: initial;
-    grid-gap: 2rem;
-  }
+  grid-gap: 1rem;
 
   @media all and (min-width: 900px) {
-    grid-gap: 3rem;
-    padding: 3rem;
+    grid-template-columns: 10rem 1fr auto;
+    grid-template-rows: auto 1fr auto;
   }
 `;
 
-const Colors = styled.div`
+const PaletteWrapper = styled.div`
+  grid-row: 2;
+  grid-column: 1 / span 2;
+
+  @media all and (min-width: 900px) {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const PageChangeWrapper = styled.div`
+  grid-row: 1;
+  grid-column: 2;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+
+  @media all and (min-width: 900px) {
+    grid-row: 1;
+    grid-column: 3;
+  }
+`;
+
+const Save = styled.div`
+  grid-row: 4;
+  grid-column: 2;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+
+  @media all and (min-width: 900px) {
+    position: relative;
+    grid-row: 3;
+    grid-column: 3;
+    right: initial;
+    bottom: initial;
+  }
+`;
+
+const ButtonsWrapper = styled.div`
+  grid-row: 4;
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: center;
+
+  @media all and (min-width: 900px) {
+    grid-column: -1;
+    grid-row: 1 / 4;
+  }
 `;
 
 const Controls = styled.div`
   display: flex;
-`;
+  grid-row: 1;
+  grid-column: 1;
 
-const Middle = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-gap: 1rem;
+  @media all and (min-width: 900px) {
+    grid-row: 3;
+    grid-column: 1;
+  }
 `;
 
 const Previews = styled.div`
   position: relative;
   flex: 1;
   overflow: hidden;
+  grid-row: 3;
+  grid-column: 1 / span 2;
 
   & > div {
     position: absolute;
     width: 100%;
     height: 100%;
+  }
+
+  @media all and (min-width: 900px) {
+    grid-row: 2;
+    grid-column: 2 / span 2;
   }
 `;
 
