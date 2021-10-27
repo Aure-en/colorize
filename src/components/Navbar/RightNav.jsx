@@ -5,10 +5,15 @@ import { NavLink } from 'react-router-dom';
 
 const RightNav = ({ open }) => (
   <Ul open={open}>
-    <NavLink to="/" className="navlink">Home</NavLink>
-    <NavLink to="/creation" className="navlink">Création</NavLink>
-    <NavLink to="/signup" className="navlink">Sign Up</NavLink>
-    <NavLink to="/signin" className="navlink">Sign In</NavLink>
+    <NavLinkBetween>
+      <NavLink to="/" className="navlink">Home</NavLink>
+      <NavLink to="/creation" className="navlink">Création</NavLink>
+    </NavLinkBetween>
+    <NavLinkBetween>
+      <NavLink to="/signup" className="navlink">Sign Up</NavLink>
+      <NavLink to="/signin" className="navlink">Sign In</NavLink>
+    </NavLinkBetween>
+
   </Ul>
 );
 
@@ -20,6 +25,9 @@ const Ul = styled.ul`
   list-style: none;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 
   .navlink {
     padding: 18px 10px;
@@ -35,13 +43,13 @@ const Ul = styled.ul`
     flex-flow: column nowrap;
     background-color: #0D2538;
     position: fixed;
+    justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
     top: 0;
     right: 0;
     height: 100vh;
     width: 100%;
     padding-top: 3.5rem;
-    transition: transform 0.3s ease-in-out;
 
     .navlink {
       color: #fff;
@@ -49,6 +57,16 @@ const Ul = styled.ul`
       font-size: 2rem;
     }
   }
+`;
+
+const NavLinkBetween = styled.div`
+display: flex;
+flex-direction: column;
+padding-left: 10px;
+
+@media (min-width: 768px) {
+  flex-direction: row;
+}
 `;
 
 export default RightNav;

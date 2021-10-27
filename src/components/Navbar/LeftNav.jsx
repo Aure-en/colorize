@@ -11,14 +11,19 @@ const Title = styled.div`
   color: #fff;
   display: flex;
   align-items: center;
-  position absolute;
-  left: 80px;
-  top: 13px;
+  display: none;
   font-size: 25px;
+  padding-left: 5px;
 
   .left {
     float: left;
   }
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+
 `;
 
 export default LeftNav;
