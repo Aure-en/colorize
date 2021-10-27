@@ -8,7 +8,7 @@ const LeftNav = () => (
 );
 
 const Title = styled.div`
-  color: #fff;
+  color: ${(props) => props.theme.background};
   display: flex;
   align-items: center;
   display: none;

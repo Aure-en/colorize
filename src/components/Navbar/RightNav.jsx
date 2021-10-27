@@ -41,7 +41,7 @@ const Ul = styled.ul`
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: #0D2538;
+    background-color: ${(props) => props.theme.background_color_Nav};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};

@@ -35,7 +35,7 @@ const StyledBurger = styled.div`
     bottom: 5px;
     width: 2rem;
     height: 0.25rem;
-    background-color: ${({ open }) => (open ? 'White' : 'White')};
+    background-color: ${(props) => props.theme.background};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

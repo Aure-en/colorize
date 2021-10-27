@@ -15,11 +15,11 @@ const Navbar = () => (
 const Nav = styled.nav`
   width: 100%;
   height: 60px;
-  border-bottom: 2px solid #f1f1f1;
+  border-bottom: 2px solid ${(props) => props.theme.background};
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
-  background: #0E2538;
+  background: ${(props) => props.theme.background_color_Nav};
   
   .logo {
     padding-top: 10px;
