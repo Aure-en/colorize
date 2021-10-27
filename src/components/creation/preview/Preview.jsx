@@ -76,7 +76,7 @@ const Wrapper = styled.div`
   grid-template-rows: repeat(2, auto) 1fr auto;
   grid-template-columns: 1fr 
   flex: 1;
-  min-height: 100vh;
+  min-height: 90vh;
   padding: 1rem;
   grid-gap: 1rem;
 
