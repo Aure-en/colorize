@@ -61,7 +61,7 @@ const LeftNav = () => (
 );
 
 const Nav = styled.nav`
-  background: #FFFF;
+  background: ${(props) => props.theme.background};
   display: flex;
   flex-direction: column;
   align-items: start;
