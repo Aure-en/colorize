@@ -11,6 +11,7 @@ const Theme = ({ children }) => {
   const initial = {
     text_primary: TEXT_INITIAL,
     background: BACKGROUND_INITIAL,
+    background_color_Nav: '#0D2538',
   };
 
   const [theme, setTheme] = useState(initial);

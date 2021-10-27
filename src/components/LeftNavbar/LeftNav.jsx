@@ -2,10 +2,14 @@ import React from 'react';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
+import { ReactComponent as SearchMobileIcon } from '../../assets/icons/searchmobile.svg';
 
 const LeftNav = () => (
   <Nav>
     <Searchbar to="/">
+      <BtnMobile>
+        <SearchMobileIcon />
+      </BtnMobile>
       <Input type="Search" placeholder="Search" />
       <Btn>
         <SearchIcon />
@@ -92,14 +96,32 @@ const NavMenu = styled.div`
 const Searchbar = styled.div`
   padding-bottom: 25px;
   display: flex;
+  @media screen and (max-width: 768px) {
+   align-items: center;
+   justify-content: center;
+  }
 `;
 
 const Input = styled.input`
   height: 40px;
+  @media screen and (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+   }
 `;
 
 const Btn = styled.button`
   display: flex;
+  @media screen and (max-width: 768px) {
+    display:none
+   }
+`;
+const BtnMobile = styled.button`
+  display: flex;
+  @media screen and (min-width: 768px) {
+    display:none
+   }
 `;
 
 const Line = styled.div`

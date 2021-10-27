@@ -31,26 +31,31 @@ function Pagination() {
 
 const PaginationDropdown = styled.div`
 display: flex;
+align-items: ;
 justify-content: center;
+@media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Number = styled.a`
+display: flex;
 padding: 5px;
 text-decoration: none;
 display: inline-block;
 
-&.hover: {
+&:hover: {
     background-color: #fff;
     color: black;
   }
 `;
 
 const BtnPrevious = styled.button`
+display: flex;
 text-decoration: none;
-display: inline-block;
 background-color: #04AA6D;
 color: white;
-&.hover: {
+&:hover: {
     background-color: #fff;
     color: black;
   }
@@ -58,7 +63,7 @@ color: white;
 
 const BtnNext = styled.button`
 text-decoration: none;
-display: inline-block;
+display: flex;
 background-color: #04AA6D;
 color: white;
 
