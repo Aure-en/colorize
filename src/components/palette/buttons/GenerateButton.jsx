@@ -46,7 +46,6 @@ const Button = styled.button`
   font-size: 0.925rem;
   border: none;
   transition: background-color 0.2s ease-out;
-  margin-left: 1rem;
   animation: ${(props) => props.$rotate
     && css`
       ${rotation} 2s infinite linear

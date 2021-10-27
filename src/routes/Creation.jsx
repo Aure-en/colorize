@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
-import PageChange from '../components/creation/PageChange';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import Shades from '../components/creation/shades/Shades';
+import Preview from '../components/creation/preview/Preview';
+import { getCreationPage } from '../reducers/settings';
 
 const Creation = () => {
-  const pages = ['preview', 'shades'];
-  const [page, setPage] = useState('shades');
+  const page = useSelector(getCreationPage);
 
   return (
-    <>
-      <PageChange currentPage={page} pages={pages} setCurrentPage={setPage} />
+    <Wrapper>
       {page === 'preview'
         ? (
-          <div>
-            preview
-          </div>
+          <Preview />
         ) : (
           <Shades />
         )}
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+     }
+`;
 
 export default Creation;
