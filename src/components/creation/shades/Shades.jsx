@@ -9,6 +9,7 @@ import ResetButton from '../../palette/buttons/ResetButton';
 import SaveButton from '../../palette/buttons/SaveButton';
 
 import { setShades } from '../../../actions/palette';
+import PageChange from '../PageChange';
 
 const Shades = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Shades = () => {
           <GenerateButton />
           <ResetButton />
         </LeftButtons>
+        <PageChange />
       </Top>
 
       <Main>

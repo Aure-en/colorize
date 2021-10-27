@@ -9,9 +9,7 @@ const Corner = () => (
       <Heading>
         Find your
         {' '}
-        inspiration on
-        {' '}
-        <span>Colorize</span>
+        <span>inspiration</span>
       </Heading>
       <Subheading>
         We&apos;ve made the process of finding your dream house a piece of cake!
@@ -61,7 +59,7 @@ const Wrapper = styled.div`
 `;
 
 const Right = styled.div`
-  background: ${(props) => props.theme.text_bright};
+  background: ${(props) => props.theme.background};
   padding: 2rem;
   border-radius: 5px;
 

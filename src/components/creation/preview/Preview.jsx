@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Palette from '../../palette/Palette';
+import PageChange from '../PageChange';
 import GenerateButton from '../../palette/buttons/GenerateButton';
 import ResetButton from '../../palette/buttons/ResetButton';
 import SaveButton from '../../palette/buttons/SaveButton';
@@ -44,9 +45,13 @@ const Preview = () => {
           <ResetButton />
         </Controls>
       </Colors>
-      <Previews>
-        {preview(currentPreview)}
-      </Previews>
+      <Middle>
+        <PageChange />
+        <Previews>
+          {preview(currentPreview)}
+        </Previews>
+        <SaveButton />
+      </Middle>
       <Buttons
         select={setCurrentPreview}
         total={TOTAL_PREVIEW}
@@ -84,6 +89,12 @@ const Colors = styled.div`
 
 const Controls = styled.div`
   display: flex;
+`;
+
+const Middle = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 1rem;
 `;
 
 const Previews = styled.div`

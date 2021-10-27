@@ -141,7 +141,6 @@ const Button = styled.div`
   color: ${(props) => props.theme.text};
   border-radius: 3px;
   cursor: pointer;
-  margin: 2rem 0;
   justify-self: start;
   transition: background 0.2s linear;
 

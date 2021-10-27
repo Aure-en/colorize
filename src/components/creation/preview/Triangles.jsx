@@ -25,7 +25,7 @@ const Triangle = () => (
         </p>
       </Main>
 
-      <Button>Find your dream palette &#8594;</Button>
+      <Button>Find inspiration &#8594;</Button>
     </Text>
     <Shape />
   </Wrapper>

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import PageChange from '../components/creation/PageChange';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Shades from '../components/creation/shades/Shades';
 import Preview from '../components/creation/preview/Preview';
+import { getCreationPage } from '../reducers/settings';
 
 const Creation = () => {
-  const pages = ['preview', 'shades'];
-  const [page, setPage] = useState('shades');
+  const page = useSelector(getCreationPage);
 
   return (
     <>
-      <PageChange currentPage={page} pages={pages} setCurrentPage={setPage} />
       {page === 'preview'
         ? (
           <Preview />
