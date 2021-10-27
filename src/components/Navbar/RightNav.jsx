@@ -50,6 +50,7 @@ const Ul = styled.ul`
     height: 100vh;
     width: 100%;
     padding-top: 3.5rem;
+    z-index: 20;
 
     .navlink {
       color: #fff;
