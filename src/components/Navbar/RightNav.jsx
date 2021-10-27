@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const RightNav = ({ open }) => (
   <Ul open={open}>
-    <NavLink to="/" className="navlink" activeStyle>Home</NavLink>
-    <NavLink to="/creation" className="navlink" activeStyle>Création</NavLink>
-    <NavLink to="/signup" className="navlink" activeStyle>Sign Up</NavLink>
-    <NavLink to="/signin" className="navlink" activeStyle>Sign In</NavLink>
+    <NavLink to="/" className="navlink">Home</NavLink>
+    <NavLink to="/creation" className="navlink">Création</NavLink>
+    <NavLink to="/signup" className="navlink">Sign Up</NavLink>
+    <NavLink to="/signin" className="navlink">Sign In</NavLink>
   </Ul>
 );
 
