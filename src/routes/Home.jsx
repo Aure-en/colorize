@@ -4,11 +4,13 @@ import Palettes from '../components/palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
+import Filter from '../components/Filter/Filter';
 
 const Home = () => (
   <>
     <Wrapper>
       <LeftNav />
+      <Filter />
       <Carousel />
       <Palettes />
     </Wrapper>
