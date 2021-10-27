@@ -22,9 +22,12 @@ const Wrapper = styled.div`
   align-items: center;
   align-self: center;
   font-size: 1.5rem;
+  grid-row: 1;
+  grid-column: 1;
 
-  @media all and (min-width: 576px) {
+  @media all and (min-width: 900px) {
     flex-direction: column;
+    grid-row: 2;
   }
 `;
 

@@ -1,12 +1,16 @@
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/useDropdown';
+import { getCreationPage } from '../../reducers/settings';
+import { updateCreationPage } from '../../actions/settings';
 
-const PageChange = ({ currentPage, pages, setCurrentPage }) => {
+const PageChange = () => {
   const ref = useRef();
+  const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-
+  const pages = ['preview', 'shades'];
+  const currentPage = useSelector(getCreationPage);
   const pagesWithoutCurrent = (() => pages.filter((page) => page !== currentPage))();
 
   return (
@@ -22,10 +26,7 @@ const PageChange = ({ currentPage, pages, setCurrentPage }) => {
           {pagesWithoutCurrent.map((page) => (
             <Button
               type="button"
-              onClick={() => {
-                setCurrentPage(page);
-                setIsDropdownOpen(false);
-              }}
+              onClick={() => { dispatch(updateCreationPage()); }}
               key={page}
             >
               {page}
@@ -37,26 +38,20 @@ const PageChange = ({ currentPage, pages, setCurrentPage }) => {
   );
 };
 
-PageChange.propTypes = {
-  currentPage: PropTypes.string.isRequired,
-  pages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
-};
-
 const Dropdown = styled.div`
-  position: absolute;
+  position: relative;
   display: inline-block;
-  right: 2rem; // Creation page padding
-  top: 2rem; // Creation page padding
   z-index: 5;
   padding: 0.5rem 0;
   font-weight: 300;
   text-align: center;
   min-width: 6rem;
+  justify-self: end;
 `;
 
 const DropdownHeader = styled.button`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   cursor: pointer;
   font-weight: 300;
