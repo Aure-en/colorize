@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { addCopy, removeCopy } from '../actions/copy';
-import { getFormat } from '../reducers/settings';
+import { getFormat } from '../selectors/settings';
 import formatColorCode from '../utils/format';
 
 const useCopy = () => {

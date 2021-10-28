@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setShades } from '../../../actions/palette';
-import { getPalette, getShades, getShadesNumber } from '../../../reducers/palette';
+import { getPalette, getShades, getShadesNumber } from '../../../selectors/palette';
 
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
