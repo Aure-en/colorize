@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { getPalette } from '../../reducers/palette';
+import { getPalette } from '../../selectors/palette';
 
 const Theme = ({ children }) => {
   const TEXT_INITIAL = '#000';

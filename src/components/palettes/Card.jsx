@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import useCopy from '../../hooks/useCopy';
 import Name from '../palette/color/Name';
 import Buttons from './buttons/Buttons';
 
 const Card = ({ palette }) => {
   const [currentColor, setCurrentColor] = useState(palette.colors[0]);
+  const copy = useCopy();
 
   return (
     <Wrapper>
@@ -15,6 +17,9 @@ const Card = ({ palette }) => {
             key={color.hex}
             $color={color.hex}
             onMouseEnter={() => setCurrentColor(color)}
+            onClick={(e) => {
+              copy(e.pageX, e.pageY, color);
+            }}
           />
         ))}
       </Colors>

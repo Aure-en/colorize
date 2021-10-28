@@ -15,6 +15,4 @@ const like = (state = initialState, action = {}) => {
   }
 };
 
-export const getLikes = (state) => state.like;
-
 export default like;

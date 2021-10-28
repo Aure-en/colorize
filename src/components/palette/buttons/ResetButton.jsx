@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetPalette, setShades } from '../../../actions/palette';
-import { getOriginalPalette } from '../../../reducers/palette';
+import { getOriginalPalette } from '../../../selectors/palette';
 import { ReactComponent as IconReset } from '../../../assets/icons/palette/reset.svg';
 
 const Reset = () => {

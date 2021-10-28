@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Color from 'color';
 import { useSelector } from 'react-redux';
-import { getFormat } from '../../../reducers/settings';
+import { getFormat } from '../../../selectors/settings';
 import formatColorCode from '../../../utils/format';
 
 const Name = ({ color }) => {

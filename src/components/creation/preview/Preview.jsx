@@ -13,7 +13,7 @@ import Triangles from './Triangles';
 import Leaves from './Leaves';
 import Corner from './Corner';
 import Buttons from './Buttons';
-import { getPalette } from '../../../reducers/palette';
+import { getPalette } from '../../../selectors/palette';
 
 const preview = (number) => {
   switch (number) {
