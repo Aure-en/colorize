@@ -48,7 +48,7 @@ const Shades = () => {
 
 const Wrapper = styled.div`
   display: grid;
-  min-height: 100vh;
+  min-height: 100%;
   padding: 1rem;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: repeat(2, auto);
@@ -56,6 +56,7 @@ const Wrapper = styled.div`
   @media all and (min-width: 900px) {
     grid-template-columns: auto 1fr auto;
     grid-gap: 1rem;
+    padding: 1rem 3rem;
   }
 `;
 
