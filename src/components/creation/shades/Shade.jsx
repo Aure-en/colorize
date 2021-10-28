@@ -2,13 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Name from '../../palette/color/Name';
+import useCopy from '../../../hooks/useCopy';
 
-const Step = ({ color }) => (
-  <Card>
-    <Background $color={color.hex} />
-    <Name color={color} />
-  </Card>
-);
+const Step = ({ color }) => {
+  const copy = useCopy();
+
+  return (
+    <Card>
+      <Background
+        $color={color.hex}
+        onClick={(e) => {
+          copy(e.pageX, e.pageY, color);
+        }}
+      />
+      <Name color={color} />
+    </Card>
+  );
+};
 
 Step.propTypes = {
   color: PropTypes.shape({
