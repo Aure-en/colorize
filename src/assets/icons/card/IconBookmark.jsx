@@ -8,7 +8,7 @@ const IconBookmark = ({ isFavorite }) => (
     width="28"
     height="28"
     viewBox="0 0 24 24"
-    strokeWidth="1.5"
+    strokeWidth="1"
     stroke="currentColor"
     fill={isFavorite ? 'currentColor' : 'none'}
     strokeLinecap="round"
