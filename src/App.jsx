@@ -6,6 +6,7 @@ import Theme from './components/settings/Theme';
 import Home from './routes/Home';
 import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
+import Signin from './components/Signin/Signin';
 import Settings from './routes/Settings';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/creation" component={Creation} />
+            <Route exact path="/signin" component={Signin} />
             <Route exact path="/settings" component={Settings} />
           </Switch>
         </Wrapper>
