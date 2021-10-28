@@ -1,0 +1,24 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const LeftNav = () => (
+  <Title>
+    <div className="left">Colorize</div>
+  </Title>
+);
+
+const Title = styled.div`
+  color: ${(props) => props.theme.background};
+  align-items: center;
+  font-size: 25px;
+  padding-left: 5px;
+  display: none;
+
+  @media (max-width: 768px) {
+   display: flex;
+  }
+
+
+`;
+
+export default LeftNav;
