@@ -6,6 +6,7 @@ import Theme from './components/settings/Theme';
 import Home from './routes/Home';
 import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
+import Generate from './routes/Generate';
 import Signin from './components/Signin/Signin';
 import Settings from './routes/Settings';
 
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/generate" component={Generate} />
           </Switch>
         </Wrapper>
       </Theme>
@@ -29,8 +31,8 @@ function App() {
 }
 
 const Wrapper = styled.div`
-min-height: 100vh;
-display: grid;
-grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 export default App;
