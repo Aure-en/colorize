@@ -2,16 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import Switch from './Switch';
 
 const RightNav = ({ open }) => (
   <Ul open={open}>
     <NavLinkBetween>
       <NavLink to="/" className="navlink">Home</NavLink>
-      <NavLink to="/creation" className="navlink">Création</NavLink>
+      <NavLink to="/creation" className="navlink">Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
       <NavLink to="/signup" className="navlink">Sign Up</NavLink>
       <NavLink to="/signin" className="navlink">Sign In</NavLink>
+      <Switch />
     </NavLinkBetween>
 
   </Ul>
