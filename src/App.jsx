@@ -9,6 +9,7 @@ import Navbar from './components/Navbar/Navbar';
 import Generate from './routes/Generate';
 import Signin from './components/Signin/Signin';
 import Settings from './routes/Settings';
+import Copies from './components/copy/Copies';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Theme>
         <Wrapper>
           <Navbar />
+          <Copies />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/creation" component={Creation} />

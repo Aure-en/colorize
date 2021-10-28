@@ -3,18 +3,26 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Name from './Name';
 import ColorButtons from './buttons/ColorButtons';
+import useCopy from '../../../hooks/useCopy';
 
-const Color = ({ color }) => (
-  <Card>
-    <Background
-      $color={color.hex}
-    />
-    <Informations>
-      <Name color={color} />
-      <ColorButtons color={color} index={color.id} />
-    </Informations>
-  </Card>
-);
+const Color = ({ color }) => {
+  const copy = useCopy();
+
+  return (
+    <Card>
+      <Background
+        $color={color.hex}
+        onClick={(e) => {
+          copy(e.pageX, e.pageY, color);
+        }}
+      />
+      <Informations>
+        <Name color={color} />
+        <ColorButtons color={color} index={color.id} />
+      </Informations>
+    </Card>
+  );
+};
 
 Color.propTypes = {
   color: PropTypes.shape({
