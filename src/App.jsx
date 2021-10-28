@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 import GlobalStyles from './styles/globalStyles';
 import Theme from './components/settings/Theme';
 import Home from './routes/Home';
@@ -30,7 +30,6 @@ function App() {
 
 const Wrapper = styled.div`
 min-height: 100vh;
-width: 100vw;
 display: grid;
 grid-template-rows: auto 1fr;
 `;
