@@ -1,4 +1,5 @@
 import {
+  SET_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
@@ -44,6 +45,20 @@ export const initialState = {
 
 const palette = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_PALETTE: {
+      return {
+        ...state,
+        palette: {
+          id: null,
+          colors: JSON.parse(JSON.stringify(action.palette)),
+        },
+        originalPalette: {
+          id: null,
+          colors: JSON.parse(JSON.stringify(action.palette)),
+        },
+      };
+    }
+
     // Shades
     case SET_SHADES: {
       const lighterShades = getLighterShades(state.palette, state.shadesNumber);
@@ -133,6 +148,8 @@ const palette = (state = initialState, action = {}) => {
 };
 
 export const getPalette = (state) => state.palette.palette;
+
+export const getOriginalPalette = (state) => state.palette.originalPalette;
 
 export const getPaletteLoading = (state) => state.palette.loading;
 

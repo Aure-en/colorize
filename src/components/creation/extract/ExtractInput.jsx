@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { setPalette, setShades } from '../../../actions/palette';
 import {
   createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
@@ -14,7 +15,8 @@ const ExtractInput = () => {
       const src = URL.createObjectURL(event.target.files[0]);
       const imageElem = createImageElem(src);
       const callback = (palette) => {
-        // dispatch
+        dispatch(setPalette(palette));
+        dispatch(setShades(palette));
         removeImageElem(imageElem);
       };
       extractFromImage(imageElem, callback);
