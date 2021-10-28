@@ -31,8 +31,8 @@ const SignIn = () => (
 const Wrapper = styled.div`
   padding: 1rem;
   margin-top: 2rem;
-  width: 85%;
-  height : 40%;
+  width: 100%;
+  height : 60%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -68,8 +68,8 @@ const WrapperOne = styled.div`
 const WrapperTwo = styled.div`
   background: ${(props) => props.theme.background_color_Nav};
   width: 40%;
-  padding: 5px;
-  padding-left: 2rem;
+  padding: 1rem;
+  padding-left: 1rem;
   height: 100%;
 
   @media (max-width: 768px) {
@@ -140,7 +140,7 @@ margin: 1rem;
 const Button = styled.button`
   background : green;
   display:block;
-  width:20%;
+  width:30%;
   line-height:50px;
   text-align:center;
   vertical-align:middle;
@@ -159,7 +159,7 @@ color: ${(props) => props.theme.background}
 const LogoBrand = styled.div`
 font-size: 2rem;
 height: 20%; 
-margin: 1rem;
+margin: 0.5rem;
 margin-top: 4.5rem;  
 padding: 1rem;
 display: flex;
@@ -175,24 +175,24 @@ margin-left: 1rem;
 
 const UserRegistration = styled.div`
 color: ${(props) => props.theme.background};
-margin: 1rem 1rem 1rem;
+margin: 1rem 2rem 1rem;
 padding: 1rem;
 `;
 
 const Sign = styled.div`
 color: ${(props) => props.theme.background};
-margin: 1rem 1rem;
+margin: 1rem 2rem 1rem;
 padding: 1rem;
 display: flex;
 flezx-direction: row;
 `;
 
 const In = styled.div`
-width: 30%;
+width: 100%;
 `;
 
 const Up = styled.div`
-width: 40%;
+width: 100%;
 `;
 
 export default SignIn;
