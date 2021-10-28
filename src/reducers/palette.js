@@ -1,4 +1,5 @@
 import {
+  SET_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
@@ -17,20 +18,22 @@ import {
 } from '../utils/colors';
 
 export const initialState = {
-  palette: {
+  // JSON.parse + JSON.stringify to recreate a new object
+  // with nested arrays and objects with different references from originalPalette.
+  palette: JSON.parse(JSON.stringify({
     id: palettesData[0].id,
     colors: palettesData[0].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
-  },
-  originalPalette: {
+  })),
+  originalPalette: JSON.parse(JSON.stringify({
     id: palettesData[0].id,
     colors: palettesData[0].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
-  },
+  })),
   locked: [null, null, null, null, null],
   shadesNumber: 2,
   shades: {
@@ -42,6 +45,20 @@ export const initialState = {
 
 const palette = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_PALETTE: {
+      return {
+        ...state,
+        palette: {
+          id: null,
+          colors: JSON.parse(JSON.stringify(action.palette)),
+        },
+        originalPalette: {
+          id: null,
+          colors: JSON.parse(JSON.stringify(action.palette)),
+        },
+      };
+    }
+
     // Shades
     case SET_SHADES: {
       const lighterShades = getLighterShades(state.palette, state.shadesNumber);
@@ -61,8 +78,10 @@ const palette = (state = initialState, action = {}) => {
       const newShades = JSON.parse(JSON.stringify({ ...state.shades }));
 
       for (let step = 0; step < state.shadesNumber; step += 1) {
-        newShades.light[step][action.index] = shades.light[step];
-        newShades.dark[step][action.index] = shades.dark[step];
+        if (newShades.light[step] && newShades.dark[step]) {
+          newShades.light[step][action.index] = shades.light[step];
+          newShades.dark[step][action.index] = shades.dark[step];
+        }
       }
 
       return {
@@ -101,7 +120,7 @@ const palette = (state = initialState, action = {}) => {
     case RESET_PALETTE:
       return {
         ...state,
-        palette: { ...state.originalPalette },
+        palette: JSON.parse(JSON.stringify({ ...state.originalPalette })),
       };
 
     // Lock color
@@ -129,6 +148,8 @@ const palette = (state = initialState, action = {}) => {
 };
 
 export const getPalette = (state) => state.palette.palette;
+
+export const getOriginalPalette = (state) => state.palette.originalPalette;
 
 export const getPaletteLoading = (state) => state.palette.loading;
 

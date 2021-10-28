@@ -1,21 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import CurrentUserName from './CurrentUserName';
+import CurrentEmail from './CurrentEmail';
+import Password from './Password';
 
 const SettingsPage = () => (
   <SettingsContainer>
     <CurrentUserName />
+    <CurrentEmail />
+    <Password />
   </SettingsContainer>
 );
 
 const SettingsContainer = styled.div`
 display: flex;
-justify-content: center;
+flex-direction: column;
+justify-content: space-around;
 align-self: center;
-padding: 0.2em;
+padding: 12em;
 width: 90%;
 height: 90%;
-background-color: #C3CFD9;
+background-color: ${(props) => props.theme.background_color_Settings};
 @media screen and (min-width: 768px) {
    flex-direction: column;
    }

@@ -4,6 +4,7 @@ import favorite from './favorite';
 import like from './like';
 import palette from './palette';
 import settings from './settings';
+import user from './user';
 
 const rootReducer = combineReducers({
   palette,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   like,
   favorite,
   settings,
+  user,
 });
 
 export default rootReducer;

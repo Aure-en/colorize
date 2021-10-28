@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { getUser } from '../../../reducers/user';
 
-const data = [{ name: 'username' }];
+const CurrentUser = () => {
+  const currentUsername = useSelector(getUser);
 
-const CurrentUser = () => (
+  return (
+    <CurrentText>{currentUsername}</CurrentText>
+  );
+};
 
-  <CurrentUserName>{data.map((user) => <p>{user.name}</p>)}</CurrentUserName>
-
-);
-
-const CurrentUserName = styled.div`
+const CurrentText = styled.div`
 display: flex;
-justify-content: center;
-
 `;
 
 export default CurrentUser;

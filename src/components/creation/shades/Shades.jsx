@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { setShades } from '../../../actions/palette';
 import { getPalette, getShades, getShadesNumber } from '../../../reducers/palette';
+
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
+import PageChange from '../PageChange';
+import ExtractInput from '../extract/ExtractInput';
 import GenerateButton from '../../palette/buttons/GenerateButton';
 import ResetButton from '../../palette/buttons/ResetButton';
 import SaveButton from '../../palette/buttons/SaveButton';
-
-import { setShades } from '../../../actions/palette';
-import PageChange from '../PageChange';
 
 const Shades = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const Shades = () => {
   const shadesNumber = useSelector(getShadesNumber);
 
   useEffect(() => {
-    if (palette.colors.length > 0) dispatch(setShades());
+    if (palette.colors.length > 0) dispatch(setShades(palette));
   }, [shadesNumber]);
 
   return (
@@ -26,6 +28,7 @@ const Shades = () => {
       <Buttons>
         <GenerateButton />
         <ResetButton />
+        <ExtractInput />
       </Buttons>
 
       <PageChangeWrapper>

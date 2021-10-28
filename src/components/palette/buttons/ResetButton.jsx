@@ -1,14 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { resetPalette } from '../../../actions/palette';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetPalette, setShades } from '../../../actions/palette';
+import { getOriginalPalette } from '../../../reducers/palette';
 import { ReactComponent as IconReset } from '../../../assets/icons/palette/reset.svg';
 
 const Reset = () => {
   const dispatch = useDispatch();
+  const originalPalette = useSelector(getOriginalPalette);
 
   return (
-    <Button type="button" onClick={() => { dispatch(resetPalette()); }}>
+    <Button
+      type="button"
+      onClick={() => {
+        dispatch(resetPalette());
+        dispatch(setShades(originalPalette));
+      }}
+    >
       <IconReset />
     </Button>
   );

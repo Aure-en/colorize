@@ -1,9 +1,10 @@
 import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
 
 export const initialState = {
-  username: '',
+  username: 'Anonymous',
   id: '',
   jwt: '',
+  useremail: 'email',
 };
 
 const user = (state = initialState, action = {}) => {
@@ -28,5 +29,9 @@ const user = (state = initialState, action = {}) => {
       return state;
   }
 };
+
+export const getUser = (state) => state.user.username;
+
+export const getEmail = (state) => state.user.useremail;
 
 export default user;
