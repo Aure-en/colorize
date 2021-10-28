@@ -22,12 +22,11 @@ const Wrapper = styled.div`
 `;
 
 const BackgroundSettings = styled.div`
-display: flex;
-align-self: center;
-width: 90%;
-height: 90%;
-background-color: #C3CFD9;
-
+  display: flex;
+  align-self: center;
+  width: 90%;
+  height: 90%;
+  background-color: #C3CFD9;
 `;
 
 export default Settings;

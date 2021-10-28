@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 import GlobalStyles from './styles/globalStyles';
 import Theme from './components/settings/Theme';
 import Home from './routes/Home';
@@ -8,6 +8,7 @@ import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
+import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/generate" component={Generate} />
           </Switch>
         </Wrapper>
       </Theme>
@@ -31,9 +33,8 @@ function App() {
 }
 
 const Wrapper = styled.div`
-min-height: 100vh;
-width: 100vw;
-display: grid;
-grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 export default App;

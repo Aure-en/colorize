@@ -1,30 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import SortBy from './SortBy';
+import FilterBy from './FilterBy';
 
 const Filter = () => (
   <FilterContainer>
-    <DropdownFilterPopular>
-      <DropdownText value="Popular">
-        Popular
-      </DropdownText>
-      <DropdownText value="Saved">
-        Saved
-      </DropdownText>
-      <DropdownText value="New">
-        New
-      </DropdownText>
-    </DropdownFilterPopular>
-    <DropdownFilterAll>
-      <DropdownText value="All">
-        All
-      </DropdownText>
-      <DropdownText value="Generated">
-        Generated
-      </DropdownText>
-      <DropdownText value="User Submissions">
-        User Submissions
-      </DropdownText>
-    </DropdownFilterAll>
+    <SortBy />
+    <FilterBy />
   </FilterContainer>
 );
 
@@ -37,13 +19,4 @@ padding: 2em;
    }
 `;
 
-const DropdownFilterPopular = styled.select`
-
-`;
-
-const DropdownText = styled.option`
-`;
-
-const DropdownFilterAll = styled.select`
-`;
 export default Filter;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Palette from '../../palette/Palette';
 import PageChange from '../PageChange';
+import ExtractInput from '../extract/ExtractInput';
 import GenerateButton from '../../palette/buttons/GenerateButton';
 import ResetButton from '../../palette/buttons/ResetButton';
 import SaveButton from '../../palette/buttons/SaveButton';
@@ -45,6 +46,7 @@ const Preview = () => {
       <Controls>
         <GenerateButton />
         <ResetButton />
+        <ExtractInput />
       </Controls>
 
       <PageChangeWrapper>
@@ -73,12 +75,12 @@ const Preview = () => {
 const Wrapper = styled.div`
   position: relative;
   display: grid;
+  min-height: 100%;
+  padding: 1rem;
+  grid-gap: 1rem;
   grid-template-rows: repeat(2, auto) 1fr auto;
   grid-template-columns: 1fr 
   flex: 1;
-  min-height: 90vh;
-  padding: 1rem;
-  grid-gap: 1rem;
 
   @media all and (min-width: 900px) {
     grid-template-columns: 10rem 1fr auto;
