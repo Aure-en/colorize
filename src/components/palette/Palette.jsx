@@ -30,7 +30,6 @@ const Palette = ({
 
 Palette.propTypes = {
   palette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
