@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Shades from '../components/creation/shades/Shades';
 import Preview from '../components/creation/preview/Preview';
-import { getCreationPage } from '../reducers/settings';
+import { getCreationPage } from '../selectors/settings';
 
 const Creation = () => {
   const page = useSelector(getCreationPage);

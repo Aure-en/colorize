@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/useDropdown';
-import { getCreationPage } from '../../reducers/settings';
+import { getCreationPage } from '../../selectors/settings';
 import { updateCreationPage } from '../../actions/settings';
 
 const PageChange = () => {

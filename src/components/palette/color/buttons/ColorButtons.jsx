@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getLocked } from '../../../../reducers/palette';
+import { getLocked } from '../../../../selectors/palette';
 import Edit from './Edit';
 import Lock from './Lock';
 

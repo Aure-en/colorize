@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/useDropdown';
-import { getSortBy } from '../../reducers/palettes';
+import { getSortBy } from '../../selectors/palettes';
 import { updateSortBy } from '../../actions/palettes';
 
 const SortBy = () => {
