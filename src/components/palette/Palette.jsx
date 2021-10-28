@@ -1,21 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
 import Color from './color/Color';
+import { setPalette, setShades } from '../../actions/palette';
 
 const Palette = ({
   palette,
   direction,
-}) => (
-  <Wrapper
-    $direction={direction}
-    list={palette}
-  >
-    {palette.colors.map((color, index) => (
-      <Color key={index} color={color} />
-    ))}
-  </Wrapper>
-);
+}) => {
+  const dispatch = useDispatch();
+
+  return (
+    <Wrapper
+      $direction={direction}
+      list={palette.colors}
+      setList={(reorderedPalette) => {
+        dispatch(setPalette(reorderedPalette));
+        dispatch(setShades(reorderedPalette));
+      }}
+    >
+      {palette.colors.map((color, index) => (
+        <Color key={index} color={color} />
+      ))}
+    </Wrapper>
+  );
+};
 
 Palette.propTypes = {
   palette: PropTypes.shape({
@@ -36,7 +47,7 @@ Palette.defaultProps = {
   direction: 'horizontal',
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled(ReactSortable)`
   display: flex;
   grid-gap: 1rem;
   width: 100%;
