@@ -13,6 +13,7 @@ const CurrentUser = () => {
 
 const CurrentText = styled.div`
 display: flex;
+justify-content: center;
 `;
 
 export default CurrentUser;

@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import CurrentUserName from './CurrentUserName';
 import CurrentEmail from './CurrentEmail';
 import Password from './Password';
+import ButtonEdit from './ButtonEdit';
 
 const SettingsPage = () => (
   <SettingsContainer>
     <CurrentUserName />
     <CurrentEmail />
     <Password />
+    <ButtonEdit />
   </SettingsContainer>
 );
 

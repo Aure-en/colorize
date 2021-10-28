@@ -4,7 +4,7 @@ export const initialState = {
   username: 'Anonymous',
   id: '',
   jwt: '',
-  useremail: 'email',
+  email: 'email',
 };
 
 const user = (state = initialState, action = {}) => {
@@ -32,6 +32,6 @@ const user = (state = initialState, action = {}) => {
 
 export const getUser = (state) => state.user.username;
 
-export const getEmail = (state) => state.user.useremail;
+export const getEmail = (state) => state.user.email;
 
 export default user;
