@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getPalette, getShades, getShadesNumber } from '../../../reducers/palette';
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
+import ExtractInput from '../extract/ExtractInput';
 import GenerateButton from '../../palette/buttons/GenerateButton';
 import ResetButton from '../../palette/buttons/ResetButton';
 import SaveButton from '../../palette/buttons/SaveButton';
@@ -26,6 +27,7 @@ const Shades = () => {
       <Buttons>
         <GenerateButton />
         <ResetButton />
+        {/* <ExtractInput /> */}
       </Buttons>
 
       <PageChangeWrapper>
