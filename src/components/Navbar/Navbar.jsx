@@ -3,12 +3,16 @@ import styled from 'styled-components';
 import Burger from './Burger';
 import LeftNav from './LeftNav';
 import { ReactComponent as Logo } from '../../assets/img/logo.svg';
+import Switch from './Switch';
+import DropboxNav from './DropboxNav';
 
 const Navbar = () => (
   <Nav>
     <Logo className="logo" />
+    <Burger className="burger" />
     <LeftNav />
-    <Burger />
+    <Switch />
+    <DropboxNav />
   </Nav>
 );
 
@@ -24,6 +28,12 @@ const Nav = styled.nav`
   .logo {
     padding-top: 10px;
   }
+
+  @media (max-width: 768px) {
+    .logo {
+      display: none;
+  }
+    }
 `;
 
 export default Navbar;
