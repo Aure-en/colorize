@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import Nav from '../components/collections/nav/Nav';
-import List from '../components/collections/list/List';
+import Nav from '../components/Collections/Nav/Nav';
+import List from '../components/Collections/List/List';
 
-const Collections = () => {
-  return (
-    <Wrapper>
-      <Nav />
-      <List />
-    </Wrapper>
-  )
-}
+const Collections = () => (
+  <Wrapper>
+    <Nav />
+    <List />
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   display: grid;

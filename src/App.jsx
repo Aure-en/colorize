@@ -13,8 +13,8 @@ import Collections from './routes/Collections';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import Theme from './components/settings/Theme';
-import Copies from './components/copy/Copies';
+import Theme from './components/Settings/Theme';
+import Copies from './components/Copy/Copies';
 
 function App() {
   return (
