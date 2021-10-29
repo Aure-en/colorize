@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useCopy from '../../hooks/shared/useCopy';
-import Name from '../palette/color/Name';
-import Buttons from './buttons/Buttons';
+import Name from '../Palette/Color/Name';
+import Buttons from './Buttons/Buttons';
 
 const Card = ({ palette }) => {
   const [currentColor, setCurrentColor] = useState(palette.colors[0]);

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Palettes from '../components/palettes/Palettes';
+import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
-import Pagination from '../components/shared/Pagination';
+import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
 

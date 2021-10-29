@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import Palette from '../../palette/Palette';
+import Palette from '../../Palette/Palette';
 import PageChange from '../PageChange';
-import ExtractInput from '../extract/ExtractInput';
-import GenerateButton from '../../palette/buttons/GenerateButton';
-import ResetButton from '../../palette/buttons/ResetButton';
-import SaveButton from '../../palette/buttons/SaveButton';
+import ExtractInput from '../Extract/ExtractInput';
+import GenerateButton from '../../Palette/Buttons/GenerateButton';
+import ResetButton from '../../Palette/Buttons/ResetButton';
+import SaveButton from '../../Palette/Buttons/SaveButton';
 import Center from './Center';
 import Cover from './Cover';
 import Triangles from './Triangles';

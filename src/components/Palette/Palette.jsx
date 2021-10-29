@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
-import Color from './color/Color';
+import Color from './Color/Color';
 import { setPalette, setShades } from '../../actions/palette';
 
 const Palette = ({

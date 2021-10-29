@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import useCreateCollection from '../../../hooks/collections/useCreateCollection';
-import CloseButton from '../../shared/modal/CloseButton';
-import BackButton from '../../shared/modal/BackButton';
+import CloseButton from '../../Shared/Modal/CloseButton';
+import BackButton from '../../Shared/Modal/BackButton';
 
 const AddModal = ({ isModalOpen, closeModal }) => {
   const {

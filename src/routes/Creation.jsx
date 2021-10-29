@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Shades from '../components/creation/shades/Shades';
-import Preview from '../components/creation/preview/Preview';
+import Shades from '../components/Creation/Shades/Shades';
+import Preview from '../components/Creation/Preview/Preview';
 import { getCreationPage } from '../selectors/settings';
 
 const Creation = () => {
