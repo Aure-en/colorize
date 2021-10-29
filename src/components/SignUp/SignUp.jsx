@@ -1,22 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink as Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/img/logo.svg';
 
-const SignIn = () => (
+const SignUp = () => (
   <Wrapper>
-    <WrapperOne>
-      <Title>Sign In</Title>
-      <Email placeholder="Username or Email" />
-      <Password placeholder="Password" />
-      <WrapLeft>
-        <Button onClick="submit">Submit</Button>
-        <ForgetLink to="/forgetPass">Forget Password</ForgetLink>
-      </WrapLeft>
-    </WrapperOne>
     <WrapperTwo>
       <LogoBrand>
-        <Logo />
+        <Logo classname="logo" />
         <Brand>Colorize</Brand>
       </LogoBrand>
       <UserRegistration>User Registration</UserRegistration>
@@ -25,6 +15,16 @@ const SignIn = () => (
         <Up>Sign Up</Up>
       </Sign>
     </WrapperTwo>
+    <WrapperOne>
+      <Title>Sign Up</Title>
+      <Username placeholder="Username" />
+      <Email placeholder="Email" />
+      <Password placeholder="Password" />
+      <Repeat placeholder="Repeat" />
+      <WrapLeft>
+        <Button onClick="submit">Submit</Button>
+      </WrapLeft>
+    </WrapperOne>
   </Wrapper>
 );
 
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   padding: 1rem;
   margin-top: 2rem;
   width: 100%;
-  height : 60%;
+  height : 70%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -44,10 +44,9 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-  
+
   }
 
-  
 `;
 
 const WrapperOne = styled.div`
@@ -55,7 +54,6 @@ const WrapperOne = styled.div`
   width: 60%;
   padding: 5px;
   padding-left: 2rem;
-  margin-right: 0.5rem;
   height: 100%;
 
   @media (max-width: 768px) {
@@ -69,13 +67,13 @@ const WrapperOne = styled.div`
 const WrapperTwo = styled.div`
   background: ${(props) => props.theme.background_color_Nav};
   width: 40%;
-  padding: 1rem;
-  padding-left: 1rem;
+  padding: 5px;
+  padding-left: 0.5rem;
   height: 100%;
+  margin-right: 0.5rem;
 
   @media (max-width: 768px) {
     display: none;
-
   }
   
 `;
@@ -84,7 +82,7 @@ const Title = styled.h1`
   color: ${(props) => props.theme.background};
   font-size: 2rem;
   height: 20%; 
-  width: 80%;
+  width: 85%;
   margin: 1rem;
   padding-top: 2rem;
   margin-top: 4rem;
@@ -99,10 +97,10 @@ const Title = styled.h1`
 
 `;
 
-const Email = styled.input`
+const Username = styled.input`
 background: ${(props) => props.theme.background};
 height: 8%;
-width: 80%;
+width: 85%;
 padding: 1rem;
 margin: 2% 1rem;
 
@@ -115,10 +113,10 @@ margin: 2% 1rem;
 
 `;
 
-const Password = styled.input`
+const Email = styled.input`
 background: ${(props) => props.theme.background};
 height: 8%;
-width: 80%;
+width: 85%;
 padding: 1rem;
 margin: 2% 1rem;
 
@@ -126,6 +124,38 @@ margin: 2% 1rem;
   background-color: ${(props) => props.theme.background};
   height: 4rem;
   padding: 1rem;
+  margin-top: 1rem;
+  }
+`;
+
+const Password = styled.input`
+background: ${(props) => props.theme.background};
+height: 8%;
+width: 41%;
+padding: 1rem;
+margin: 2% 1rem;
+
+@media (max-width: 768px) {
+  background-color: ${(props) => props.theme.background};
+  height: 4rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  }
+
+`;
+
+const Repeat = styled.input`
+background: ${(props) => props.theme.background};
+height: 8%;
+width: 41%;
+padding: 1rem;
+margin: 1% 0;
+
+@media (max-width: 768px) {
+  background-color: ${(props) => props.theme.background};
+  height: 4rem;
+  padding: 1rem;
+  margin-top: 1rem:
   }
 
 `;
@@ -150,17 +180,10 @@ const Button = styled.button`
 
 `;
 
-const ForgetLink = styled(Link)`
-margin: 1rem 0rem;
-width: 100%;
-text-align:right;
-color: ${(props) => props.theme.background}
-`;
-
 const LogoBrand = styled.div`
 font-size: 2rem;
 height: 20%; 
-margin: 0.5rem;
+margin: 1rem;
 margin-top: 4.5rem;  
 padding: 1rem;
 display: flex;
@@ -183,9 +206,11 @@ padding: 1rem;
 const Sign = styled.div`
 color: ${(props) => props.theme.background};
 margin: 1rem 2rem 1rem;
-padding: 1rem;
+padding: 0 1rem;
+width: 60%;
+
 display: flex;
-flezx-direction: row;
+flex-direction: row;
 `;
 
 const In = styled.div`
@@ -196,4 +221,4 @@ const Up = styled.div`
 width: 100%;
 `;
 
-export default SignIn;
+export default SignUp;
