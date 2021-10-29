@@ -12,6 +12,8 @@ const Password = () => (
 const PasswordContainer = styled.div`
 display: flex;
 justify-content: center;
+font-size: 1.8em;
+padding-right: 2em;
 `;
 
 export default Password;

@@ -14,6 +14,8 @@ const CurrentUser = () => {
 const CurrentText = styled.div`
 display: flex;
 justify-content: center;
+font-size: 1.8em;
+padding-right: 2em;
 `;
 
 export default CurrentUser;

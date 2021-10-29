@@ -20,7 +20,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function ModalItem() {
+function ModalEmail() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -46,10 +46,10 @@ function ModalItem() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Username</ChangeUsernameTitle>
+        <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Email</ChangeUsernameTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer>
-          <ModalInput placeholder="New Username" required />
+          <ModalInput type="email@" placeholder="New Email" required />
           <ModalInput type="password" placeholder="Confirm Password" minLength="8" required />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
@@ -57,11 +57,9 @@ function ModalItem() {
     </ModalContainer>
   );
 }
-
 const ModalContainer = styled.div`
-display:flex;
+display: flex;
 justify-content: flex-end;
-
 `;
 
 const SubmitButton = styled.button`
@@ -97,4 +95,4 @@ flex-direction: column;
 const ModalInput = styled.input`
 margin-bottom: 1em;
 `;
-export default ModalItem;
+export default ModalEmail;

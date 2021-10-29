@@ -4,7 +4,7 @@ export const initialState = {
   username: 'Anonymous',
   id: '',
   jwt: '',
-  email: 'email',
+  email: 'Email',
 };
 
 const user = (state = initialState, action = {}) => {

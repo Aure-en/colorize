@@ -20,7 +20,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function ModalItem() {
+function ModalPassword() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -38,7 +38,9 @@ function ModalItem() {
 
   return (
     <ModalContainer>
-      <EditButton onClick={openModal}>Edit</EditButton>
+      <EditButtonContainer>
+        <EditButton onClick={openModal}>Edit</EditButton>
+      </EditButtonContainer>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -46,28 +48,32 @@ function ModalItem() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Username</ChangeUsernameTitle>
+        <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer>
-          <ModalInput placeholder="New Username" required />
+          <ModalInput type="password" placeholder="New Password" minLength="8" required />
           <ModalInput type="password" placeholder="Confirm Password" minLength="8" required />
+          <ModalInput type="password" placeholder="Current Password" minLength="8" required />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>
     </ModalContainer>
   );
 }
-
 const ModalContainer = styled.div`
-display:flex;
+display: flex;
 justify-content: flex-end;
-
 `;
 
 const SubmitButton = styled.button`
 align-self: center;
 color: #fff;
 background-color: #C3CFD9;
+
+`;
+
+const EditButtonContainer = styled.div`
+
 `;
 
 const EditButton = styled.button`
@@ -83,7 +89,7 @@ top: 0;
 right: 0;
 `;
 
-const ChangeUsernameTitle = styled.h2`
+const ChangePasswordTitle = styled.h2`
 display: flex;
 justify-content: center;
 padding-bottom: 1em;
@@ -95,6 +101,8 @@ flex-direction: column;
 `;
 
 const ModalInput = styled.input`
+display: flex;
 margin-bottom: 1em;
 `;
-export default ModalItem;
+
+export default ModalPassword;
