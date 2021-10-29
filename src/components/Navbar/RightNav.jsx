@@ -19,7 +19,6 @@ const RightNav = ({ open }) => (
 
 RightNav.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.bool.isRequired,
 };
 
 const Ul = styled.ul`
