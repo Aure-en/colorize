@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Name from '../../palette/color/Name';
-import useCopy from '../../../hooks/useCopy';
+import useCopy from '../../../hooks/shared/useCopy';
 
 const Step = ({ color }) => {
   const copy = useCopy();

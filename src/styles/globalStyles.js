@@ -72,6 +72,15 @@ strong {
 *:after {
   box-sizing: border-box;
 }
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+input {
+  font-family: 'Assistant', sans-serif;
+}
 `;
 
 export default GlobalStyles;

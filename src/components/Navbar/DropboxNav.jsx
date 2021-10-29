@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import useDropdown from '../../hooks/useDropdown';
+import useDropdown from '../../hooks/shared/useDropdown';
 import { getFormat } from '../../selectors/settings';
 import { updateFormat } from '../../actions/settings';
 

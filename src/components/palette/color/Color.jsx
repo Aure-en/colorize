@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Name from './Name';
 import ColorButtons from './buttons/ColorButtons';
-import useCopy from '../../../hooks/useCopy';
+import useCopy from '../../../hooks/shared/useCopy';
 
 const Color = ({ color }) => {
   const copy = useCopy();
