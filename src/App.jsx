@@ -11,7 +11,7 @@ import Collections from './routes/Collections';
 
 import Navbar from './components/Navbar/Navbar';
 import Theme from './components/settings/Theme';
-import Signin from './components/Signin/Signin';
+import SignIn from './components/SignIn/SignIn';
 import Copies from './components/copy/Copies';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/creation" component={Creation} />
-            <Route exact path="/signin" component={Signin} />
+            <Route exact path="/signin" component={SignIn} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />

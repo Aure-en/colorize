@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ReactComponent as IconCreate } from '../../../../assets/icons/collections/create.svg';
+import { ReactComponent as IconCreate } from '../../../assets/icons/collections/create.svg';
 
 const AddButton = ({ openModal }) => (
   <Button type="button" onClick={openModal}>

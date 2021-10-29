@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getCollections } from '../../../selectors/favorite';
 import Collection from './preview/Collection';
-import Add from './add/Add';
+import Add from './Add';
 
 const List = () => {
   const collections = useSelector(getCollections);

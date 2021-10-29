@@ -1,54 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useCreateCollection from '../../../../hooks/collections/useCreateCollection';
-import CloseButton from '../../../shared/modal/CloseButton';
-import BackButton from '../../../shared/modal/BackButton';
+import Modal from 'react-modal';
+import useCreateCollection from '../../../hooks/collections/useCreateCollection';
+import CloseButton from '../../shared/modal/CloseButton';
+import BackButton from '../../shared/modal/BackButton';
 
-const AddModal = ({ closeModal }) => {
+const AddModal = ({ isModalOpen, closeModal }) => {
   const {
     name, setName, error, loading, handleSubmit,
   } = useCreateCollection(closeModal);
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      bottom: 'initial',
+      right: 'initial',
+      transform: 'translate(-50%, -50%)',
+      padding: '3rem',
+      maxWidth: '50rem',
+    },
+  };
+
   return (
-    <Wrapper>
-      <CloseButton onClick={closeModal} />
+    <Modal
+      isOpen={isModalOpen}
+      onRequestClose={closeModal}
+      style={customStyles}
+    >
+      <Wrapper>
+        <CloseButton onClick={closeModal} />
 
-      <Header>
-        <Heading>Create a new collection</Heading>
-        <Subheading>Gather your inspiration in a single place.</Subheading>
-      </Header>
+        <Header>
+          <Heading>Create a new collection</Heading>
+          <Subheading>Gather your inspiration in a single place.</Subheading>
+        </Header>
 
-      <Form onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-      >
-        <Field>
-          <Label htmlFor="name">
-            Name
-            <Input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter the collection name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Label>
-          {error && <Error>{error}</Error>}
-        </Field>
+        <Form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+        >
+          <Field>
+            <Label htmlFor="name">
+              Name
+              <Input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter the collection name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Label>
+            {error && <Error>{error}</Error>}
+          </Field>
 
-        <Buttons>
-          <BackButton onClick={closeModal} />
-          <Submit>create</Submit>
-        </Buttons>
-      </Form>
-    </Wrapper>
+          <Buttons>
+            <BackButton onClick={closeModal} />
+            <Submit>create</Submit>
+          </Buttons>
+        </Form>
+      </Wrapper>
+    </Modal>
   );
 };
 
 AddModal.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 
@@ -121,7 +141,7 @@ const Buttons = styled.div`
 const Submit = styled.button`
   text-transform: uppercase;
   border: 1px solid ${(props) => props.theme.text_primary};
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
 `;
 
 export default AddModal;
