@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Preview from './Preview';
 import Name from './Name';
 import Number from './Number';
 
 const Collection = ({ collection }) => (
-  <Wrapper>
+  <Wrapper to={`/collections/${collection.id}`}>
     <Preview palettes={collection.palettes} />
     <div>
       <Name name={collection.name} />

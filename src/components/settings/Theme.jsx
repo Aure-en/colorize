@@ -5,12 +5,10 @@ import { ThemeProvider } from 'styled-components';
 import { getPalette } from '../../selectors/palette';
 
 const Theme = ({ children }) => {
-  const TEXT_INITIAL = '#000';
-  const BACKGROUND_INITIAL = '#FFF';
-
   const initial = {
-    text_primary: TEXT_INITIAL,
-    background: BACKGROUND_INITIAL,
+    text_primary: '#000',
+    text_secondary: '#9a9a9a',
+    background: '#FFF',
     background_color_Nav: '#0D2538',
   };
 
@@ -26,7 +24,7 @@ const Theme = ({ children }) => {
       if (palette.colors[index]) {
         newTheme[key] = palette.colors[index].hex;
       } else {
-        newTheme[key] = TEXT_INITIAL;
+        newTheme[key] = '#000';
       }
     });
 

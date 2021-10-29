@@ -72,6 +72,11 @@ strong {
 *:after {
   box-sizing: border-box;
 }
+
+a {
+  text-decoration: none;
+  color: initial;
+}
 `;
 
 export default GlobalStyles;
