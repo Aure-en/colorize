@@ -8,6 +8,7 @@ import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
+import Profile from './routes/Profile';
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 import Copies from './components/copy/Copies';
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/Profile" component={Profile} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
           </Switch>
