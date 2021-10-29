@@ -6,7 +6,7 @@ import Theme from './components/settings/Theme';
 import Home from './routes/Home';
 import Creation from './routes/Creation';
 import Navbar from './components/Navbar/Navbar';
-import SignIn from './components/Signin/Signin';
+import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';

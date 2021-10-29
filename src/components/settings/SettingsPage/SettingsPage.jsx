@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import CurrentUserName from './CurrentUserName';
+import CurrentUsername from './CurrentUsername';
 import CurrentEmail from './CurrentEmail';
 import Password from './Password';
 import ModalUsername from './ModalUsername';
-import ModalPassword from './ModaPassword';
+import ModalPassword from './ModalPassword';
 import ModalEmail from './ModalEmail';
 
 const SettingsPage = () => (
   <SettingsContainer>
     <ModalContainer>
-      <CurrentUserName />
+      <CurrentUsername />
       <ModalUsername />
     </ModalContainer>
     <ModalContainer>

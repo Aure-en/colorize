@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../../reducers/user';
+import { getUser } from '../../../selectors/user';
 
 const CurrentUser = () => {
   const currentUsername = useSelector(getUser);

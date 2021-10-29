@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { getEmail } from '../../../reducers/user';
+import { getEmail } from '../../../selectors/user';
 
 const CurrentEmail = () => {
   const currentEmail = useSelector(getEmail);
