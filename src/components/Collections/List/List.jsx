@@ -21,7 +21,11 @@ const Wrapper = styled.main`
   grid-template-columns: repeat(auto-fit, 15rem);
   justify-content: center;
   grid-gap: 4rem;
-  padding: 3rem;
+  padding: 0 3rem 3rem 3rem;
+
+  @media all and (min-width: 768px) {
+    padding: 3rem;
+  }
 `;
 
 export default List;
