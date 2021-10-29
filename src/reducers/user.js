@@ -1,9 +1,10 @@
 import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
 
 export const initialState = {
-  username: '',
+  username: 'Anonymous',
   id: '',
   jwt: '',
+  email: 'Email',
 };
 
 const user = (state = initialState, action = {}) => {
