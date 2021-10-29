@@ -38,7 +38,9 @@ function ModalEmail() {
 
   return (
     <ModalContainer>
-      <EditButton onClick={openModal}>Edit</EditButton>
+      <EditButtonContainer>
+        <EditButton onClick={openModal}>Edit</EditButton>
+      </EditButtonContainer>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -59,7 +61,6 @@ function ModalEmail() {
 }
 const ModalContainer = styled.div`
 display: flex;
-justify-content: flex-end;
 `;
 
 const SubmitButton = styled.button`
@@ -69,10 +70,16 @@ background-color: #C3CFD9;
 `;
 
 const EditButton = styled.button`
+display: flex;
+align-self: center;
 background-color: #4B5C6B;
 font-size: 1.2em;
 border-radius: 0.2em;
 padding: 0.2em 1em 0.2em 1em;
+`;
+const EditButtonContainer = styled.div`
+display: flex;
+margin-left: 5em;
 `;
 
 const CloseButton = styled.button`
@@ -95,4 +102,5 @@ flex-direction: column;
 const ModalInput = styled.input`
 margin-bottom: 1em;
 `;
+
 export default ModalEmail;

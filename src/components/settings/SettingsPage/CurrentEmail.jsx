@@ -12,8 +12,6 @@ const CurrentEmail = () => {
 };
 
 const CurrentEmailContainer = styled.div`
-display: flex;
-justify-content: center;
 font-size: 1.8em;
 padding-right: 2em;
 `;

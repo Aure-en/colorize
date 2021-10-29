@@ -38,7 +38,9 @@ function ModalItem() {
 
   return (
     <ModalContainer>
-      <EditButton onClick={openModal}>Edit</EditButton>
+      <EditButtonContainer>
+        <EditButton onClick={openModal}>Edit</EditButton>
+      </EditButtonContainer>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -60,7 +62,6 @@ function ModalItem() {
 
 const ModalContainer = styled.div`
 display:flex;
-justify-content: flex-end;
 
 `;
 
@@ -75,6 +76,11 @@ background-color: #4B5C6B;
 font-size: 1.2em;
 border-radius: 0.2em;
 padding: 0.2em 1em 0.2em 1em;
+`;
+
+const EditButtonContainer = styled.div`
+display: flex;
+margin-right: 0.2em;
 `;
 
 const CloseButton = styled.button`
@@ -97,4 +103,5 @@ flex-direction: column;
 const ModalInput = styled.input`
 margin-bottom: 1em;
 `;
+
 export default ModalItem;

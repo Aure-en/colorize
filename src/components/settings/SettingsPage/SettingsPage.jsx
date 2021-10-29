@@ -21,7 +21,6 @@ const SettingsPage = () => (
       <Password />
       <ModalPassword />
     </ModalContainer>
-
   </SettingsContainer>
 );
 
@@ -42,9 +41,7 @@ background-color: ${(props) => props.theme.background_color_Settings};
 
 const ModalContainer = styled.div`
 display: flex;
-align-items: center;
-align-self: center;
-justify-content: space-between;
+justify-content: center;
 @media screen and (max-width: 768px) {
   justify-content: space-between;
  }

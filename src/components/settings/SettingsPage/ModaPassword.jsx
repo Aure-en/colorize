@@ -51,9 +51,9 @@ function ModalPassword() {
         <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer>
-          <ModalInput type="password" placeholder="New Password" minLength="8" required />
-          <ModalInput type="password" placeholder="Confirm Password" minLength="8" required />
           <ModalInput type="password" placeholder="Current Password" minLength="8" required />
+          <ModalInput type="password" placeholder="Confirm Password" minLength="8" required />
+          <ModalInput type="password" placeholder="New Password" minLength="8" required />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>
@@ -62,7 +62,6 @@ function ModalPassword() {
 }
 const ModalContainer = styled.div`
 display: flex;
-justify-content: flex-end;
 `;
 
 const SubmitButton = styled.button`
@@ -73,7 +72,8 @@ background-color: #C3CFD9;
 `;
 
 const EditButtonContainer = styled.div`
-
+display: flex;
+margin-left: 2em;
 `;
 
 const EditButton = styled.button`
