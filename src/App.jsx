@@ -2,16 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyles from './styles/globalStyles';
-import Theme from './components/settings/Theme';
+
 import Home from './routes/Home';
 import Creation from './routes/Creation';
+
+import Generate from './routes/Generate';
+import Settings from './routes/Settings';
+import Collections from './routes/Collections';
+import Profile from './routes/Profile';
+
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
-import Profile from './routes/Profile';
-import Generate from './routes/Generate';
-import Settings from './routes/Settings';
-import Copies from './components/copy/Copies';
+import Theme from './components/Settings/Theme';
+import Copies from './components/Copy/Copies';
 
 function App() {
   return (
@@ -29,6 +33,7 @@ function App() {
             <Route exact path="/Profile" component={Profile} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
+            <Route exact path="/collections" component={Collections} />
           </Switch>
         </Wrapper>
       </Theme>

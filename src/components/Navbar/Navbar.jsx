@@ -23,7 +23,7 @@ const Nav = styled.nav`
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
-  background: ${(props) => props.theme.background_color_Nav};
+  background: ${(props) => props.theme.backgroundColorNav};
   
   .logo {
     padding-top: 10px;

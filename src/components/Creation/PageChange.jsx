@@ -2,34 +2,34 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/shared/useDropdown';
-import { getSortBy } from '../../selectors/palettes';
-import { updateSortBy } from '../../actions/palettes';
+import { getCreationPage } from '../../selectors/settings';
+import { updateCreationPage } from '../../actions/settings';
 
-const SortBy = () => {
+const PageChange = () => {
   const ref = useRef();
   const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const sorts = ['popular', 'saved', 'new'];
-  const currentSort = useSelector(getSortBy);
-  const sortWithoutCurrent = (() => sorts.filter((sort) => sort !== currentSort))();
+  const pages = ['preview', 'shades'];
+  const currentPage = useSelector(getCreationPage);
+  const pagesWithoutCurrent = (() => pages.filter((page) => page !== currentPage))();
 
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentSort}
+        {currentPage}
         {' '}
         &#9660; {/* Caret down */}
       </DropdownHeader>
 
       {isDropdownOpen && (
         <DropdownList>
-          {sortWithoutCurrent.map((sort) => (
+          {pagesWithoutCurrent.map((page) => (
             <Button
               type="button"
-              onClick={() => { dispatch(updateSortBy(sort)); }}
-              key={sort}
+              onClick={() => { dispatch(updateCreationPage()); }}
+              key={page}
             >
-              {sort}
+              {page}
             </Button>
           ))}
         </DropdownList>
@@ -85,4 +85,4 @@ const Button = styled.button`
   }
 `;
 
-export default SortBy;
+export default PageChange;

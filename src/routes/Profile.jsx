@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProfilePage from '../components/Profile/ProfilePage';
-import Palettes from '../components/palettes/Palettes';
+import Palettes from '../components/Palettes/Palettes';
 
 const Profile = () => (
 
@@ -24,7 +24,6 @@ const Wrapper = styled.div`
 `;
 
 const PalettesWrapper = styled.div`
-height: 100vw;
 `;
 
 export default Profile;

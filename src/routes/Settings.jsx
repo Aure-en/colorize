@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SettingsPage from '../components/settings/SettingsPage/SettingsPage';
+import SettingsPage from '../components/Settings/SettingsPage/SettingsPage';
 
 const Settings = () => (
 

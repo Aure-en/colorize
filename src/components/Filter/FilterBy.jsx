@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import useDropdown from '../../hooks/useDropdown';
+import useDropdown from '../../hooks/shared/useDropdown';
 import { getFilterBy } from '../../selectors/palettes';
 import { updateFilterBy } from '../../actions/palettes';
 
@@ -67,7 +67,7 @@ const DropdownList = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${(props) => props.theme.text_primary};
+  border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 5;
   width: 100%;
   background: ${(props) => props.theme.background};

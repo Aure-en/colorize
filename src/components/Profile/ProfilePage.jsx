@@ -21,9 +21,10 @@ const ProfileContainer = styled.div`
 display: flex;
 flex-direction: column;
 @media screen and (max-width: 768px) {
-  justify-content: space-between;
- 
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   }
 `;
 
 const TopContainer = styled.div`
