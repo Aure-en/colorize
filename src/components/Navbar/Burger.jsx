@@ -20,7 +20,6 @@ const Burger = () => {
 const StyledBurger = styled.div`
   width: 2rem;
   height: 2rem;
-  position: fixed;
   top: 10px;
   right: 20px;
   z-index: 20;
@@ -31,6 +30,8 @@ const StyledBurger = styled.div`
     justify-content: space-around;
     flex-flow: column nowrap;
     z-index: 25;
+    position: relative;
+    margin-left: 1rem;
   }
   div {
     bottom: 5px;

@@ -7,7 +7,7 @@ const RightNav = ({ open }) => (
   <Ul open={open}>
     <NavLinkBetween>
       <NavLink to="/" className="navlink">Home</NavLink>
-      <NavLink to="/creation" className="navlink">Création</NavLink>
+      <NavLink to="/creation" className="navlink">Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
       <NavLink to="/signup" className="navlink">Sign Up</NavLink>

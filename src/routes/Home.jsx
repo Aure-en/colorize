@@ -21,6 +21,7 @@ const Home = () => (
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
+
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;

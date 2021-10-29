@@ -5,13 +5,15 @@ import GlobalStyles from './styles/globalStyles';
 
 import Home from './routes/Home';
 import Creation from './routes/Creation';
+
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 import Collections from './routes/Collections';
 
 import Navbar from './components/Navbar/Navbar';
-import Theme from './components/settings/Theme';
 import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import Theme from './components/settings/Theme';
 import Copies from './components/copy/Copies';
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/signin" component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />

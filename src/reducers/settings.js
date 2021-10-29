@@ -1,4 +1,4 @@
-import { UPDATE_CREATION_PAGE } from '../actions/settings';
+import { UPDATE_CREATION_PAGE, UPDATE_FORMAT } from '../actions/settings';
 
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'
@@ -13,6 +13,11 @@ const settings = (state = initialState, action = {}) => {
         creationPage: state.creationPage === 'preview' ? 'shades' : 'preview',
       };
 
+    case UPDATE_FORMAT:
+      return {
+        ...state,
+        format: action.format,
+      };
     default:
       return state;
   }
