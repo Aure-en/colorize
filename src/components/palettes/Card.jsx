@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import useCopy from '../../hooks/useCopy';
+import useCopy from '../../hooks/shared/useCopy';
 import Name from '../palette/color/Name';
 import Buttons from './buttons/Buttons';
 

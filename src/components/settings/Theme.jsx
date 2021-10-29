@@ -6,9 +6,9 @@ import { getPalette } from '../../selectors/palette';
 
 const Theme = ({ children }) => {
   const initial = {
-    text_primary: '#000',
+    text_primary: '#000000',
     text_secondary: '#9a9a9a',
-    background: '#FFF',
+    background: '#FFFFFF',
     background_color_Nav: '#0D2538',
   };
 

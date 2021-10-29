@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
-import useWindowSize from '../../hooks/useWindowSize';
+import useWindowSize from '../../hooks/shared/useWindowSize';
 
 const Cover = () => {
   const windowSize = useWindowSize();
