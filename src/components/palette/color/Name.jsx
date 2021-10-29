@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Color from 'color';
 import { useSelector } from 'react-redux';
-import { getFormat } from '../../../reducers/settings';
+import { getFormat } from '../../../selectors/settings';
 import formatColorCode from '../../../utils/format';
 
 const Name = ({ color }) => {
@@ -50,10 +50,11 @@ const Informations = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  overflow-wrap: break-word;
+  word-break: break-word;
 
   @media all and (min-width: 800px) {
     flex-direction: row;
+    word-break: initial;
   }
 `;
 

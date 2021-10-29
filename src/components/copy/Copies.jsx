@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Copy from './Copy';
-import { getCopied } from '../../reducers/copy';
+import { getCopied } from '../../selectors/copy';
 
 const Copies = () => {
   const copied = useSelector(getCopied);

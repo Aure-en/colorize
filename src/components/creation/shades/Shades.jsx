@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setShades } from '../../../actions/palette';
-import { getPalette, getShades, getShadesNumber } from '../../../reducers/palette';
+import { getPalette, getShades, getShadesNumber } from '../../../selectors/palette';
 
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
@@ -48,7 +48,7 @@ const Shades = () => {
 
 const Wrapper = styled.div`
   display: grid;
-  min-height: 100vh;
+  min-height: 100%;
   padding: 1rem;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: repeat(2, auto);
@@ -56,6 +56,7 @@ const Wrapper = styled.div`
   @media all and (min-width: 900px) {
     grid-template-columns: auto 1fr auto;
     grid-gap: 1rem;
+    padding: 1rem 3rem;
   }
 `;
 

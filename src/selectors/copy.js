@@ -1,0 +1,1 @@
+export const getCopied = (state) => state.copy;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Palette from '../../palette/Palette';
 import ShadesLine from './ShadesLine';
 
-const Shades = ({
+const ShadesTable = ({
   mainPalette,
   shades,
 }) => (
@@ -41,9 +41,8 @@ const Shades = ({
   </Wrapper>
 );
 
-Shades.propTypes = {
+ShadesTable.propTypes = {
   mainPalette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -91,4 +90,4 @@ const Wrapper = styled.main`
   }
 `;
 
-export default Shades;
+export default ShadesTable;

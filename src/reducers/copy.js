@@ -22,6 +22,4 @@ const settings = (state = initialState, action = {}) => {
   }
 };
 
-export const getCopied = (state) => state.copy;
-
 export default settings;

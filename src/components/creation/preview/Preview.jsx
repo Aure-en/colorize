@@ -13,7 +13,7 @@ import Triangles from './Triangles';
 import Leaves from './Leaves';
 import Corner from './Corner';
 import Buttons from './Buttons';
-import { getPalette } from '../../../reducers/palette';
+import { getPalette } from '../../../selectors/palette';
 
 const preview = (number) => {
   switch (number) {
@@ -86,6 +86,7 @@ const Wrapper = styled.div`
     grid-template-columns: 10rem 1fr auto;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
+    padding: 1rem 3rem;
   }
 `;
 
