@@ -40,6 +40,10 @@ Collection.propTypes = {
 
 const Wrapper = styled(Link)`
   display: block;
+
+  & > *:first-child {
+    margin-bottom: 0.25rem;
+  }
 `;
 
 export default Collection;
