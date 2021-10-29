@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/useDropdown';
-import { getFormat } from '../../reducers/settings';
+import { getFormat } from '../../selectors/settings';
 import { updateFormat } from '../../actions/settings';
 
 const DropboxNav = () => {
