@@ -53,7 +53,7 @@ const Wrapper = styled.div`
   width: 15rem;
   height: 13rem;
   overflow: hidden;
-  border: 1px solid ${(props) => props.theme.text_secondary}70;
+  border: 1px solid ${(props) => props.theme.textSecondary}70;
 `;
 
 const Palettes = styled.div`

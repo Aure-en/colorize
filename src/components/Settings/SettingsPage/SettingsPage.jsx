@@ -32,7 +32,7 @@ align-self: center;
 padding: 12em;
 width: 90%;
 height: 90%;
-background-color: ${(props) => props.theme.background_color_Settings};
+background-color: ${(props) => props.theme.backgroundColorSettings};
 @media screen and (max-width: 768px) {
   justify-content: space-between;
   background-color: ${(props) => props.theme.background};

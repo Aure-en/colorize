@@ -21,7 +21,7 @@ const CollectionsList = () => {
 };
 
 const Ul = styled.ul`
-  border-top: 1px solid ${(props) => props.theme.text_secondary};
+  border-top: 1px solid ${(props) => props.theme.textSecondary};
   width: 100%;
   padding-top: 1rem;
 `;

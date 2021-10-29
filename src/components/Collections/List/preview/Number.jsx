@@ -16,7 +16,7 @@ Number.propTypes = {
 };
 
 const Wrapper = styled.div`
-  color: ${(props) => props.theme.text_secondary}
+  color: ${(props) => props.theme.textSecondary}
 `;
 
 export default Number;

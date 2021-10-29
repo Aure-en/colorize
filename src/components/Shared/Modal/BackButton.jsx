@@ -11,10 +11,10 @@ BackButton.propTypes = {
 };
 
 const Button = styled.button`
-  color: ${(props) => props.theme.text_secondary};
+  color: ${(props) => props.theme.textSecondary};
 
   &:hover {
-    color: ${(props) => props.theme.text_primary};
+    color: ${(props) => props.theme.textPrimary};
   }
 `;
 

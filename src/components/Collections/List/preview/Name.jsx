@@ -21,7 +21,7 @@ const Wrapper = styled.div`
     height: 1px;
     background: linear-gradient(
       to right,
-      ${(props) => props.theme.text_primary}
+      ${(props) => props.theme.textPrimary}
     );
     width: 0%;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);

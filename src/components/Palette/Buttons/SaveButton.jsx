@@ -9,7 +9,7 @@ const SaveButton = () => (
 
 const Button = styled.button`
   color: ${(props) => props.theme.background};
-  background: ${(props) => props.theme.text_primary};
+  background: ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   font-size: 0.925rem;

@@ -6,11 +6,11 @@ import { getPalette } from '../../selectors/palette';
 
 const Theme = ({ children }) => {
   const initial = {
-    text_primary: '#000000',
-    text_secondary: '#9a9a9a',
+    textPrimary: '#000000',
+    textSecondary: '#9a9a9a',
     background: '#FFFFFF',
-    background_color_Nav: '#0D2538',
-    background_color_Settings: '#C3CFD9',
+    backgroundColorNav: '#0D2538',
+    backgroundColorSettings: '#C3CFD9',
   };
 
   const [theme, setTheme] = useState(initial);

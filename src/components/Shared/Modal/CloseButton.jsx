@@ -15,10 +15,10 @@ const Button = styled.button`
   position: absolute;
   right: 1rem;
   top: 1rem;
-  color: ${(props) => props.theme.text_secondary};
+  color: ${(props) => props.theme.textSecondary};
 
   &:hover {
-    color: ${(props) => props.theme.text_primary};
+    color: ${(props) => props.theme.textPrimary};
   }
 `;
 

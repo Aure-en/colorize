@@ -24,7 +24,7 @@ const Button = styled.button`
   cursor: pointer;
   margin: 0.5rem 0;
   transition: color 0.2s ease-out;
-  color: ${(props) => props.theme.text_primary};
+  color: ${(props) => props.theme.textPrimary};
   &:hover {
     color: ${(props) => props.theme.primary};
   }

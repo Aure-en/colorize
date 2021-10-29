@@ -90,7 +90,7 @@ const Heading = styled.h2`
 `;
 
 const Subheading = styled.p`
-  color: ${(props) => props.theme.text_secondary};
+  color: ${(props) => props.theme.textSecondary};
 `;
 
 const Form = styled.form`
@@ -107,7 +107,7 @@ const Field = styled.div`
 
 const Input = styled.input`
   border: none;
-  border-bottom: 1px solid ${(props) => props.theme.text_primary};
+  border-bottom: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 0 0.25rem 0;
 
   &::placeholder {
@@ -115,7 +115,7 @@ const Input = styled.input`
   }
 
   &:focus {
-    border-bottom: 1px solid ${(props) => props.theme.text_primary};
+    border-bottom: 1px solid ${(props) => props.theme.textPrimary};
     outline: 2px solid transparent;
   }
 `;
@@ -140,7 +140,7 @@ const Buttons = styled.div`
 
 const Submit = styled.button`
   text-transform: uppercase;
-  border: 1px solid ${(props) => props.theme.text_primary};
+  border: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
 `;
 

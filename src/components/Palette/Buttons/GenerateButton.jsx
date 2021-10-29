@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button`
-  color: ${(props) => props.theme.text_primary};
+  color: ${(props) => props.theme.textPrimary};
   padding: 0.5rem;
   text-transform: uppercase;
   font-size: 0.925rem;
