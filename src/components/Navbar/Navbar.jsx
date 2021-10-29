@@ -11,7 +11,7 @@ const Navbar = () => (
     <Logo className="logo" />
     <Burger className="burger" />
     <LeftNav />
-    <Switch />
+    <Switch className="switch" />
     <DropboxNav />
   </Nav>
 );
@@ -24,6 +24,8 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   background: ${(props) => props.theme.background_color_Nav};
+  position: fixed;
+  z-index: 20;
   
   .logo {
     padding-top: 10px;
