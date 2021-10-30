@@ -23,7 +23,11 @@ const Nav = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 2rem;
+  margin-bottom: 2rem;
+
+  @media all and (min-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 export default Nav;
