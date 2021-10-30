@@ -9,6 +9,7 @@ import Creation from './routes/Creation';
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 import Collections from './routes/Collections';
+import Collection from './routes/Collection';
 
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
@@ -32,6 +33,7 @@ function App() {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />
+            <Route exact path="/collections/:collectionId" component={Collection} />
           </Switch>
         </Wrapper>
       </Theme>
