@@ -25,7 +25,7 @@ const Card = ({ palette }) => {
       </Colors>
       <Informations>
         <Name color={currentColor} />
-        <Buttons paletteId={palette.id} />
+        <Buttons palette={palette} />
       </Informations>
     </Wrapper>
   );
@@ -49,7 +49,6 @@ const Wrapper = styled.li`
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  overflow: hidden;
 `;
 
 const Colors = styled.div`

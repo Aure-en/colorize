@@ -3,18 +3,28 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ButtonLike from './ButtonLike';
 import ButtonSave from './ButtonSave';
-import ButtonMore from './ButtonMore';
+import More from './More/More';
 
-const Buttons = ({ paletteId }) => (
+const Buttons = ({ palette }) => (
   <Wrapper>
-    <ButtonSave paletteId={paletteId} />
-    <ButtonLike paletteId={paletteId} />
-    <ButtonMore paletteId={paletteId} />
+    <ButtonSave paletteId={palette.id} />
+    <ButtonLike paletteId={palette.id} />
+    <More palette={palette} />
   </Wrapper>
 );
 
 Buttons.propTypes = {
-  paletteId: PropTypes.number.isRequired,
+  palette: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    colors: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        hex: PropTypes.string.isRequired,
+        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
 };
 
 const Wrapper = styled.div`
