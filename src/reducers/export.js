@@ -1,4 +1,4 @@
-import { OPEN_MODAL, CLOSE_MODAL } from '../actions/export';
+import { OPEN_MODAL, CLOSE_MODAL, UPDATE_CODE_FORMAT, UPDATE_COLOR_FORMAT } from '../actions/export';
 
 export const initialState = {
   isModalOpen: false,
@@ -21,6 +21,18 @@ const settings = (state = initialState, action = {}) => {
         ...state,
         isModalOpen: false,
         palette: {},
+      };
+
+    case UPDATE_CODE_FORMAT:
+      return {
+        ...state,
+        codeFormat: action.codeFormat,
+      };
+
+    case UPDATE_COLOR_FORMAT:
+      return {
+        ...state,
+        colorFormat: action.colorFormat,
       };
 
     default:
