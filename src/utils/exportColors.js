@@ -25,8 +25,10 @@ const getColorInFormat = (color, format) => {
 const getColorCss = (key, value) => `--${key}: ${value};`;
 const getColorScss = (key, value) => `${key}: ${value};`;
 
-export const getPaletteCssInFormat = (palette, format) => palette.colors.reduce(
-  (code, color, index) => `${code}
-  ${getColorCss(colorKeys[index], getColorInFormat(color, format))}`,
-  '',
-);
+export const getPaletteCssInFormat = (palette, format) => palette.colors
+  .reduce(
+    (code, color, index) => `${code}
+${getColorCss(colorKeys[index], getColorInFormat(color, format))}`,
+    '',
+  )
+  .slice(1); // Remove first extra line-break

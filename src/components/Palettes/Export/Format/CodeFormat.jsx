@@ -1,16 +1,19 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useDropdown from '../../../hooks/shared/useDropdown';
+import useDropdown from '../../../../hooks/shared/useDropdown';
 
-const Format = ({ format, setFormat }) => {
+const ColorFormat = ({ format, setFormat }) => {
   const ref = useRef();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
   const formats = ['css', 'scss', 'object', 'array'];
 
   return (
     <Dropdown ref={ref}>
-      <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+      <DropdownHeader
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        $format={format}
+      >
         {format}
         {' '}
         &#9660;
@@ -23,8 +26,11 @@ const Format = ({ format, setFormat }) => {
           {formats.map((format) => (
             <Button
               type="button"
-              onClick={() => { setFormat(format); }}
+              onClick={() => {
+                setFormat(format);
+              }}
               key={format}
+              $format={format}
             >
               {format}
             </Button>
@@ -35,7 +41,7 @@ const Format = ({ format, setFormat }) => {
   );
 };
 
-Format.propTypes = {
+ColorFormat.propTypes = {
   format: PropTypes.string.isRequired,
   setFormat: PropTypes.func.isRequired,
 };
@@ -53,7 +59,9 @@ const DropdownHeader = styled.button`
   align-items: center;
   cursor: pointer;
   font-weight: 300;
-  text-transform: capitalize;
+  text-transform: ${(props) => (props.$format === 'css' || props.$format === 'scss'
+    ? 'uppercase'
+    : 'capitalize')};
 
   & > svg {
     margin-left: 0.25rem;
@@ -66,20 +74,23 @@ const DropdownList = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 10;
-  width: 100%;
+  width: 110%;
   padding: 0.25rem 0;
+  background: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.textPrimary};
 `;
 
 const Button = styled.button`
   text-align: start;
   font-weight: 300;
-  text-transform: capitalize;
+  text-transform: ${(props) => (props.$format === 'css' || props.$format === 'scss'
+    ? 'uppercase'
+    : 'capitalize')};
   padding: 0.1rem 0.5rem;
-  color: ${(props) => props.theme.background};
 
   &:hover {
     background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
   }
 `;
 
-export default Format;
+export default ColorFormat;
