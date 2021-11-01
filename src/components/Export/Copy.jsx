@@ -11,7 +11,7 @@ const Copy = ({ code }) => {
 
   const copyAnimation = () => {
     setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleClick = () => {
@@ -32,7 +32,7 @@ Copy.propTypes = {
 
 const Button = styled.button`
   color: ${(props) => props.theme.background};
-  background: ${(props) => (props.$copied ? props.theme.primary : props.theme.textPrimary)};
+  background: ${(props) => (props.$copied ? props.theme.textSecondary : props.theme.textPrimary)};
   padding: 0.5rem 1rem;
   text-transform: uppercase;
   font-size: 0.925rem;
@@ -42,7 +42,7 @@ const Button = styled.button`
   margin-top: 1rem;
 
   &:hover {
-    background: ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.textSecondary};
   }
 `;
 

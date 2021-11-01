@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Copy from './Copy';
-import Export from '../../Export/Button';
+import Export from '../../../Export/Button';
 
 const Menu = ({ palette, closeMenu }) => (
   <Wrapper>
