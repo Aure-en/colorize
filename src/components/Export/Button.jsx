@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import ButtonLike from './ButtonLike';
-import ButtonSave from './ButtonSave';
-import More from './More/More';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../actions/export';
 
-const Buttons = ({ palette }) => (
-  <Wrapper>
-    <ButtonSave paletteId={palette.id} />
-    <ButtonLike paletteId={palette.id} />
-    <More palette={palette} />
-  </Wrapper>
-);
+const Button = ({ palette, closeMenu }) => {
+  const dispatch = useDispatch();
 
-Buttons.propTypes = {
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        dispatch(openModal(palette));
+        closeMenu();
+      }}
+    >
+      Export Palette
+    </button>
+  );
+};
+
+Button.propTypes = {
   palette: PropTypes.shape({
     id: PropTypes.number.isRequired,
     colors: PropTypes.arrayOf(
@@ -25,10 +31,7 @@ Buttons.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
+  closeMenu: PropTypes.func.isRequired,
 };
 
-const Wrapper = styled.div`
-  display: flex;
-`;
-
-export default Buttons;
+export default Button;

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Modal from 'react-modal';
 import useCreateCollection from '../../../hooks/collections/useCreateCollection';
-import CloseButton from '../../Shared/Modal/CloseButton';
+import Modal from '../../Shared/Modal/Modal';
 import BackButton from '../../Shared/Modal/BackButton';
 
 const AddModal = ({ isModalOpen, closeModal }) => {
@@ -11,27 +10,12 @@ const AddModal = ({ isModalOpen, closeModal }) => {
     name, setName, error, loading, handleSubmit,
   } = useCreateCollection(closeModal);
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      bottom: 'initial',
-      right: 'initial',
-      transform: 'translate(-50%, -50%)',
-      padding: '3rem',
-      maxWidth: '50rem',
-    },
-  };
-
   return (
     <Modal
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-      style={customStyles}
+      isModalOpen={isModalOpen}
+      closeModal={closeModal}
     >
       <Wrapper>
-        <CloseButton onClick={closeModal} />
-
         <Header>
           <Heading>Create a new collection</Heading>
           <Subheading>Gather your inspiration in a single place.</Subheading>
@@ -59,7 +43,7 @@ const AddModal = ({ isModalOpen, closeModal }) => {
 
           <Buttons>
             <BackButton onClick={closeModal} />
-            <Submit>create</Submit>
+            <Submit>Create</Submit>
           </Buttons>
         </Form>
       </Wrapper>

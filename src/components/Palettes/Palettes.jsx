@@ -7,9 +7,7 @@ const Palettes = () => {
   const palettes = useSelector(getPalettes);
 
   return (
-    <div>
-      <CardsList palettes={palettes} />
-    </div>
+    <CardsList palettes={palettes} />
   );
 };
 
