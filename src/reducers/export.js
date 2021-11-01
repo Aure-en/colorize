@@ -3,6 +3,8 @@ import { OPEN_MODAL, CLOSE_MODAL } from '../actions/export';
 export const initialState = {
   isModalOpen: false,
   palette: {},
+  codeFormat: 'css',
+  colorFormat: 'hex',
 };
 
 const settings = (state = initialState, action = {}) => {

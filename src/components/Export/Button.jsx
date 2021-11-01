@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../../actions/export';
+import { openModal } from '../../actions/export';
 
 const Button = ({ palette, closeMenu }) => {
   const dispatch = useDispatch();

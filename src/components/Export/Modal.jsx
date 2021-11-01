@@ -1,35 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { getPaletteCssInFormat } from '../../../utils/exportColors';
-
-import Modal from '../../Shared/Modal/Modal';
+import Modal from '../Shared/Modal/Modal';
 import CodeFormat from './Format/CodeFormat';
 import ColorFormat from './Format/ColorFormat';
 import Code from './Code';
 import Copy from './Copy';
 
+import { getPaletteInFormat } from '../../utils/exportColors';
+import { getCodeFormat, getColorFormat } from '../../selectors/export';
+import { updateColorFormat, updateCodeFormat } from '../../actions/export';
+
 const ExportModal = ({ isModalOpen, closeModal, palette }) => {
-  const [codeFormat, setCodeFormat] = useState('css');
-  const [colorFormat, setColorFormat] = useState('hex');
+  const dispatch = useDispatch();
+
+  const codeFormat = useSelector(getCodeFormat);
+  const colorFormat = useSelector(getColorFormat);
+
   const [code, setCode] = useState('');
 
   useEffect(() => {
     if (palette?.colors) {
-      const newCode = getPaletteCssInFormat(palette, colorFormat);
+      const newCode = getPaletteInFormat(palette, codeFormat, colorFormat);
       setCode(newCode);
     }
   }, [palette, colorFormat, codeFormat]);
 
   return (
-    <Modal isModalOpen={isModalOpen} onRequestClose={closeModal}>
+    <Modal isModalOpen={isModalOpen} closeModal={closeModal}>
       <Content>
         <Heading>Export Palette</Heading>
 
         <AlignEnd>
-          <CodeFormat format={codeFormat} setFormat={setCodeFormat} />
-          <ColorFormat format={colorFormat} setFormat={setColorFormat} />
+          <CodeFormat
+            format={codeFormat}
+            setFormat={(format) => dispatch(updateCodeFormat(format))}
+          />
+          <ColorFormat
+            format={colorFormat}
+            setFormat={(format) => dispatch(updateColorFormat(format))}
+          />
         </AlignEnd>
 
         <Code colorFormat={colorFormat} codeFormat={codeFormat} code={code} />
