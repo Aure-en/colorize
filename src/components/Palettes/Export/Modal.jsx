@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+import Format from './Format';
 
-const ExportModal = ({ isModalOpen, closeModal }) => {
+const ExportModal = ({ isModalOpen, closeModal, palette }) => {
+  const [format, setFormat] = useState('hex');
+
   const customStyles = {
     content: {
       top: '50%',
@@ -21,7 +24,7 @@ const ExportModal = ({ isModalOpen, closeModal }) => {
       onRequestClose={closeModal}
       style={customStyles}
     >
-      modal
+      <Format format={format} setFormat={setFormat} />
     </Modal>
   );
 };

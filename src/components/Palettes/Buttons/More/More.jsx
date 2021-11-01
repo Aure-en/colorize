@@ -12,7 +12,7 @@ const More = ({ palette }) => {
   return (
     <Wrapper ref={dropdownRef}>
       <Button toggleMenu={() => setIsDropdownOpen(!isDropdownOpen)} />
-      {isDropdownOpen && <Menu palette={palette} />}
+      {isDropdownOpen && <Menu palette={palette} closeMenu={() => setIsDropdownOpen(false)} />}
     </Wrapper>
   );
 };

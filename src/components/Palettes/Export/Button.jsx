@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
-import Modal from './Modal';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../actions/export';
 
-const Export = ({ palette }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Button = ({ palette, closeMenu }) => {
+  const dispatch = useDispatch();
 
   return (
-    <>
-      <Button toggleMenu={() => setIsModalOpen(!isModalOpen)} />
-      <Modal
-        isModalOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
-        palette={palette}
-      />
-    </>
+    <button
+      type="button"
+      onClick={() => {
+        dispatch(openModal(palette));
+        closeMenu();
+      }}
+    >
+      Export Palette
+    </button>
   );
 };
 
-Export.propTypes = {
+Button.propTypes = {
   palette: PropTypes.shape({
     id: PropTypes.number.isRequired,
     colors: PropTypes.arrayOf(
@@ -30,6 +31,7 @@ Export.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
+  closeMenu: PropTypes.func.isRequired,
 };
 
-export default Export;
+export default Button;

@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Copy from './Copy/Copy';
-import Export from './Export/Export';
+import Copy from './Copy';
+import Export from '../../Export/Button';
 
-const Menu = ({ palette }) => (
+const Menu = ({ palette, closeMenu }) => (
   <Wrapper>
     <Link to={`/palettes/${palette.id}`}>View Palette</Link>
-    <Export palette={palette} />
-    <Copy paletteId={palette.id} />
+    <Export palette={palette} closeMenu={closeMenu} />
+    <Copy paletteId={palette.id} closeMenu={closeMenu} />
   </Wrapper>
 );
 
@@ -25,6 +25,7 @@ Menu.propTypes = {
       }).isRequired,
     ).isRequired,
   }).isRequired,
+  closeMenu: PropTypes.func.isRequired,
 };
 
 const Wrapper = styled.div`
