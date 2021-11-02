@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as SearchMobileIcon } from '../../assets/icons/searchmobile.svg';
-import Avatar from '../../assets/img/Avatar.png';
 
 const RightNavAfterSignin = ({ open }) => (
   <Ul open={open}>
@@ -19,7 +18,6 @@ const RightNavAfterSignin = ({ open }) => (
       <NavLink to="/collection" className="navlink">Collection</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
-      <Avatar />
       <Username>Username</Username>
       <NavLink to="/profil" className="navlink">Profil</NavLink>
       <NavLink to="/settings" className="navlink">Settings</NavLink>
