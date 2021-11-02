@@ -41,10 +41,6 @@ padding-left: 0.5em;
 padding-bottom: 0.8em;
 `;
 
-const UsernameContainer = styled.div`
-display: flex;
-`;
-
 const FilterSpaceContainer = styled.div`
 display: flex;
 `;
