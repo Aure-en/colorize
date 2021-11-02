@@ -117,7 +117,7 @@ export const isColorLight = (colorHex) => {
 
 export const getLightShade = (colorData) => {
   const color = Color(colorData.hex);
-  const lightColor = color.lightness() > 90 ? `${color.lightness(80).hex()}15` : `${color.hex()}15`;
+  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}30` : `${color.hex()}25`;
   return lightColor;
 }
 

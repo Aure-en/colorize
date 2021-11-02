@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as SearchMobileIcon } from '../../assets/icons/searchmobile.svg';
 
-const RightNavAfterSignin = ({ open }) => (
+const RightNavAfterSignIn = ({ open }) => (
   <Ul open={open}>
     <Searchbar to="/">
       <Input type="Search" placeholder="Search" />
@@ -13,21 +13,20 @@ const RightNavAfterSignin = ({ open }) => (
       </BtnMobile>
     </Searchbar>
     <NavLinkBetween>
-      <NavLink to="/" className="navlink">Home</NavLink>
-      <NavLink to="/creation" className="navlink">Creation</NavLink>
-      <NavLink to="/collection" className="navlink">Collection</NavLink>
+      <NavLink to="/" exact className="navlink">Home</NavLink>
+      <NavLink to="/creation" exact className="navlink">Creation</NavLink>
+      <NavLink to="/collections" exact className="navlink">Collections</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
       <Username>Username</Username>
-      <NavLink to="/profil" className="navlink">Profil</NavLink>
-      <NavLink to="/settings" className="navlink">Settings</NavLink>
-      <NavLink to="/" className="navlink">Sign Out</NavLink>
+      <NavLink to="/profil" exact className="navlink">Profil</NavLink>
+      <NavLink to="/settings" exact className="navlink">Settings</NavLink>
+      <NavLink to="/signout" exact className="navlink">Sign Out</NavLink>
     </NavLinkBetween>
-
   </Ul>
 );
 
-RightNavAfterSignin.propTypes = {
+RightNavAfterSignIn.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
@@ -42,16 +41,16 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: white;
+    color: ${(props) => props.theme.textOnPrimary};
 
-    &:active {
-      text-decoration : underline;
+    &.active {
+      font-weight: 500;
     }
-    
   }
+
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.background_color_Nav};
+    background-color: ${(props) => props.theme.primary};
     position: fixed;
     justify-content: start;
     align-items: center;
@@ -64,7 +63,6 @@ const Ul = styled.ul`
     z-index: 20;
 
     .navlink {
-      color: #fff;
       text-align: center;
       font-size: 2rem;
     }
@@ -90,22 +88,20 @@ display: none;
     width: 100%;
     align-items: center;
     justify-content: center;
-    color: ${(props) => props.theme.background}
+    color: ${(props) => props.theme.textOnPrimary}
   }
 `;
 
 const Input = styled.input`
 display: none;
 
- @media (max-width: 768px) {
-  display: flex;
-  height: 60px;
-  width: 70%;
-  padding-left: 1rem;
-  font-size: 1.5rem;
-  color: ${(props) => props.theme.background_color_Nav}
-
- }
+  @media (max-width: 768px) {
+    display: flex;
+    height: 60px;
+    width: 70%;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+  }
 `;
 
 const BtnMobile = styled.button`
@@ -118,13 +114,14 @@ display: none;
 
 const Username = styled.p`
 display: none;
+
 @media (max-width: 768px) {
   display: flex;
   font-size: 3rem;
   margin: 1rem;
   margin-top: 4rem;
-  color: ${(props) => props.theme.background}
+  color: ${(props) => props.theme.textOnPrimary}
 }
 `;
 
-export default RightNavAfterSignin;
+export default RightNavAfterSignIn;

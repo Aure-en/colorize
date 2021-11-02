@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     width: 100%;
 
     &:hover {
-      background: ${(props) => props.theme.primary};
+      background: ${(props) => props.theme.secondaryBackground};
     }
   }
 

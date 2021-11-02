@@ -83,6 +83,7 @@ a {
 
 input {
   font-family: 'Assistant', sans-serif;
+  font-size: 1rem;
 }
 `;
 
