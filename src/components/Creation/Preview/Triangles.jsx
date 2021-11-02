@@ -35,12 +35,12 @@ export default Triangle;
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   overflow: hidden;
   padding: 1rem;
 
   @media all and (min-width: 800px) {
-    padding: 3rem;
+    grid-column-gap: 3rem;
   }
 `;
 
@@ -48,10 +48,6 @@ const Text = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: 1rem;
-
-  @media all and (min-width: 800px) {
-    padding: 0 3rem;
-  }
 `;
 
 const Header = styled.div`
@@ -71,7 +67,7 @@ const Main = styled.div`
   & > p {
     line-height: 2rem;
 
-    @media all and (min-width: 800px) {
+    @media all and (min-width: 900px) {
       max-width: 60%;
     }
   }

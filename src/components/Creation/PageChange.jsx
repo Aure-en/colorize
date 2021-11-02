@@ -81,7 +81,7 @@ const Button = styled.button`
   padding: 0.1rem 0.5rem;
 
   &:hover {
-    background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.secondaryBackground};
   }
 `;
 

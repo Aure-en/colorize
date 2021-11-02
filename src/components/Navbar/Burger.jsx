@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import RightNavAfterSignin from './RightNavAfterSignin';
+import RightNavAfterSignIn from './RightNavAfterSignIn';
 
 const Burger = () => {
   const [open, setOpen] = useState(false);
@@ -12,7 +12,7 @@ const Burger = () => {
         <div />
         <div />
       </StyledBurger>
-      <RightNavAfterSignin open={open} />
+      <RightNavAfterSignIn open={open} />
     </>
   );
 };
@@ -20,10 +20,9 @@ const Burger = () => {
 const StyledBurger = styled.div`
   width: 2rem;
   height: 2rem;
-  top: 10px;
-  right: 20px;
   z-index: 20;
   display: none;
+  cursor: pointer;
 
   @media (max-width: 768px) {
     display: flex;
@@ -33,11 +32,11 @@ const StyledBurger = styled.div`
     position: relative;
     margin-left: 1rem;
   }
+  
   div {
-    bottom: 5px;
     width: 2rem;
     height: 0.25rem;
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.textOnPrimary};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

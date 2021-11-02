@@ -25,7 +25,7 @@ const ExtractInput = () => {
   };
 
   return (
-    <Label htmlFor="extract-image">
+    <Label htmlFor="extract-image" title="Extract palette">
       <IconExtract />
       <Input type="file" accept="image/*" id="extract-image" name="extract-image" onChange={handleChange} />
     </Label>
@@ -40,7 +40,7 @@ const Label = styled.label`
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 
   & > svg {

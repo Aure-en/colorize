@@ -1,12 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { ReactComponent as IconDots } from '../../../../assets/icons/card/dots.svg';
 
 const Button = ({ toggleMenu }) => (
-  <button type="button" onClick={toggleMenu}>
+  <ButtonDots type="button" onClick={toggleMenu}>
     <IconDots />
-  </button>
+  </ButtonDots>
 );
+
+const ButtonDots = styled.button`
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  & > svg {
+    position: relative;
+    bottom: 2px;
+  }
+`;
 
 Button.propTypes = {
   toggleMenu: PropTypes.func.isRequired,

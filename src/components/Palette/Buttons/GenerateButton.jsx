@@ -18,6 +18,7 @@ const Generate = () => {
         }}
         $rotate={paletteLoading === 'pending'}
         disabled={paletteLoading === 'pending'}
+        title="Generate palette"
       >
         <IconGenerate />
       </Button>
@@ -52,7 +53,7 @@ const Button = styled.button`
     `};
 
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
