@@ -72,6 +72,7 @@ const SubmitButton = styled.button`
 align-self: center;
 color: #fff;
 background-color: #C3CFD9;
+padding: 0.2em;
 
 `;
 

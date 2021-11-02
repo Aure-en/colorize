@@ -29,7 +29,8 @@ const Carousel = () => (
 const CarouselContainer = styled.div`
 display: flex;
 justify-content: center;
-padding: 0.2em;
+padding-bottom: 1em;
+padding-top: 1em;
 @media screen and (min-width: 768px) {
     display:none
    }

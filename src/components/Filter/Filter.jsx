@@ -13,7 +13,7 @@ const Filter = () => (
 const FilterContainer = styled.div`
 display: flex;
 justify-content: space-evenly;
-padding: 2em;
+padding-left: 2em;
 @media screen and (min-width: 768px) {
     display:none
    }
