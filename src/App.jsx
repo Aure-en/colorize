@@ -3,21 +3,21 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyles from './styles/globalStyles';
 
-import Home from './routes/Home';
+import Collection from './routes/Collection';
+import Collections from './routes/Collections';
 import Creation from './routes/Creation';
 import Generate from './routes/Generate';
-import Settings from './routes/Settings';
-import Collections from './routes/Collections';
+import Home from './routes/Home';
+import Palette from './routes/Palette';
 import Profile from './routes/Profile';
-import Collection from './routes/Collection';
+import Settings from './routes/Settings';
 
-
+import Copies from './components/Copy/Copies';
 import Modals from './components/Shared/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Theme from './components/Settings/Theme';
-import Copies from './components/Copy/Copies';
 
 function App() {
   return (
@@ -28,14 +28,15 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/creation" component={Creation} />
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/Profile" component={Profile} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />
             <Route exact path="/collections/:collectionId" component={Collection} />
+            <Route exact path="/creation" component={Creation} />
+            <Route exact path="/generate" component={Generate} />
+            <Route exact path="/palettes/:paletteId" component={Palette} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/signin" component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/settings" component={Settings} />
           </Switch>
           <Copies />
           <Modals />

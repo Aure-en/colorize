@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import ModalModel from 'react-modal';
 import CloseButton from './CloseButton';
 
 const Modal = ({ isModalOpen, closeModal, children }) => {
+  const theme = useTheme();
+
   const customStyles = {
     content: {
       top: '50%',
@@ -13,6 +16,9 @@ const Modal = ({ isModalOpen, closeModal, children }) => {
       transform: 'translate(-50%, -50%)',
       padding: '3rem',
       maxWidth: '50rem',
+    },
+    overlay: {
+      backgroundColor: `${theme.primaryText}50`,
     },
   };
 

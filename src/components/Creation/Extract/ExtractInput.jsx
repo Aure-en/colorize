@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPalette, setOriginalPalette, setShades } from '../../../actions/palette';
 import {
@@ -9,15 +10,17 @@ import { ReactComponent as IconExtract } from '../../../assets/icons/palette/ext
 
 const ExtractInput = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (event) => {
     if (event.target.files.length > 0) {
       const src = URL.createObjectURL(event.target.files[0]);
       const imageElem = createImageElem(src);
       const callback = (palette) => {
-        dispatch(setPalette(palette));
-        dispatch(setOriginalPalette(palette));
+        dispatch(setPalette({ id: null, colors: palette }));
+        dispatch(setOriginalPalette({ id: null, colors: palette }));
         dispatch(setShades(palette));
+        history.push('/creation');
         removeImageElem(imageElem);
       };
       extractFromImage(imageElem, callback);
