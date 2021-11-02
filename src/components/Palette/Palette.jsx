@@ -17,7 +17,7 @@ const Palette = ({
       $direction={direction}
       list={palette.colors}
       setList={(reorderedPalette) => {
-        dispatch(setPalette(reorderedPalette));
+        dispatch(setPalette({ id: null, colors: reorderedPalette }));
         dispatch(setShades(reorderedPalette));
       }}
     >

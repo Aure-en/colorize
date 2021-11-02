@@ -50,8 +50,8 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         palette: JSON.parse(JSON.stringify({
-          id: null,
-          colors: action.palette.map((color, index) => ({
+          id: action.palette.id,
+          colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,
           })),
@@ -64,8 +64,8 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         originalPalette: JSON.parse(JSON.stringify({
-          id: null,
-          colors: action.palette.map((color, index) => ({
+          id: action.palette.id,
+          colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,
           })),

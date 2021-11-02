@@ -6,7 +6,6 @@ import CloseButton from './CloseButton';
 
 const Modal = ({ isModalOpen, closeModal, children }) => {
   const theme = useTheme();
-  console.log(theme);
 
   const customStyles = {
     content: {
