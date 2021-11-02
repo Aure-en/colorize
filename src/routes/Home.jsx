@@ -19,13 +19,16 @@ const Home = () => (
 );
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 
-  @media screen and (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-     }
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 3rem;
+    padding: 3rem;
+  }
 `;
 
 export default Home;

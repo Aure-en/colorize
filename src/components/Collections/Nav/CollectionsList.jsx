@@ -21,14 +21,33 @@ const CollectionsList = () => {
 };
 
 const Ul = styled.ul`
-  border-top: 1px solid ${(props) => props.theme.textSecondary};
+  position: relative;
   width: 100%;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      ${(props) => props.theme.primaryText} 50%,
+      transparent 100%
+    );
+  }
 `;
 
 const CollectionLink = styled(Link)`
   display: inline-block;
   padding: 0.5rem 0;
+
+  &:hover {
+    color: ${(props) => props.theme.primaryText};
+  }
 `;
 
 export default CollectionsList;

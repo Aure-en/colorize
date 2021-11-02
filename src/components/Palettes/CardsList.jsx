@@ -35,11 +35,11 @@ const List = styled.ul`
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media all and (min-width: 730px) {
+  @media all and (min-width: 1000px) {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  @media all and (min-width: 900px) {
+  @media all and (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
   }
 `;

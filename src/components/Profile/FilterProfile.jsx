@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import SortBy from './SortBy';
-import FilterBy from './FilterBy';
+import SortBy from '../Filter/SortBy';
+import FilterBy from '../Filter/FilterBy';
 
 const Filter = () => (
   <FilterContainer>
@@ -12,11 +12,13 @@ const Filter = () => (
 
 const FilterContainer = styled.div`
 display: flex;
-justify-content: space-evenly;
-padding-left: 2em;
-@media screen and (min-width: 768px) {
-    display:none
-   }
+@media screen and (max-width: 768px) {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 2em;
+  margin-left: 4em;
+ }
 `;
 
 export default Filter;

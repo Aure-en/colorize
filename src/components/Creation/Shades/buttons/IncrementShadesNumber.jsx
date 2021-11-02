@@ -22,11 +22,11 @@ const Button = styled.button`
   background: none;
   font-size: 1.5rem;
   cursor: pointer;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   transition: color 0.2s ease-out;
   color: ${(props) => props.theme.textPrimary};
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
