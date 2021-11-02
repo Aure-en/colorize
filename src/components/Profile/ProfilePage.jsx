@@ -6,9 +6,7 @@ import Filter from './FilterProfile';
 const ProfilePage = () => (
   <ProfileContainer>
     <TopContainer>
-      <UsernameContainer>
-        <CurrentUsername />
-      </UsernameContainer>
+      <CurrentUsername />
       <FilterSpaceContainer>
         <Filter />
       </FilterSpaceContainer>
