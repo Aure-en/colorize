@@ -22,10 +22,11 @@ const Creation = () => {
 
 const Wrapper = styled.div`
   width: 100%;
+
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
-     }
+  }
 `;
 
 export default Creation;
