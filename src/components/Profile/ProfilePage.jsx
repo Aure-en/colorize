@@ -6,9 +6,7 @@ import Filter from './FilterProfile';
 const ProfilePage = () => (
   <ProfileContainer>
     <TopContainer>
-      <UsernameContainer>
-        <CurrentUsername />
-      </UsernameContainer>
+      <CurrentUsername />
       <FilterSpaceContainer>
         <Filter />
       </FilterSpaceContainer>
@@ -21,6 +19,7 @@ const ProfileContainer = styled.div`
 display: flex;
 flex-direction: column;
 @media screen and (max-width: 768px) {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,14 +30,25 @@ const TopContainer = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: baseline;
+@media screen and (max-width: 768px) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+   }
 `;
 
 const CreationTitle = styled.h1`
 font-size: 2em;
 text-weight: bolder;
-padding-top: 2em;
-padding-left: 0.5em;
-padding-bottom: 0.8em;
+margin-top: 2em;
+margin-left: 0.5em;
+margin-bottom: 0.8em;
+@media screen and (max-width: 768px) {
+  display: flex;
+  margin-left: 0;
+  justify-content: center;
+ }
+
 `;
 
 const FilterSpaceContainer = styled.div`

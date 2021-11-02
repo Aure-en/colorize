@@ -15,6 +15,10 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    width: '100vw',
+    height: '100vh',
+    maxWidth: '20rem',
+    maxHeight: '12rem',
   },
 };
 
@@ -67,6 +71,7 @@ const SubmitButton = styled.button`
 align-self: center;
 color: #fff;
 background-color: #C3CFD9;
+padding: 0.2em;
 `;
 
 const EditButton = styled.button`
