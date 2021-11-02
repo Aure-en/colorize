@@ -12,9 +12,6 @@ const Filter = () => (
 
 const FilterContainer = styled.div`
 display: flex;
-justify-content: space-evenly;
-padding: 2em;
-padding-left: 35%;
 `;
 
 export default Filter;
