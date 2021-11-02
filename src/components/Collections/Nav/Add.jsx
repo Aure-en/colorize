@@ -18,6 +18,10 @@ const Add = () => {
 
 const Button = styled.button`
   padding: 0.5rem 0 1rem 0;
+
+  &:hover {
+    color: ${(props) => props.theme.primaryText};
+  }
 `;
 
 export default Add;

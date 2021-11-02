@@ -117,7 +117,7 @@ export const isColorLight = (colorHex) => {
 
 export const getLightShade = (colorData) => {
   const color = Color(colorData.hex);
-  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}30` : `${color.hex()}25`;
+  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}30` : `${color.hex()}15`;
   return lightColor;
 }
 
@@ -125,14 +125,14 @@ export const getDarkShade = (colorData) => {
   const color = Color(colorData.hex);
   let darkColor;
 
-  if (color.lightness() < 30) {
-    darkColor = color.lightness(30).hex();
-  } else if (color.lightness() < 65) {
+  if (color.lightness() < 40) {
+    darkColor = color.lightness(40);
+  } else if (color.lightness() < 60) {
     darkColor = color.lightness(color.lightness() - 15);
   } else {
     darkColor = color.lightness(50);
   }
-  return darkColor;
+  return darkColor.hex();
 }
 
 // Get lighter and darker shades of a color

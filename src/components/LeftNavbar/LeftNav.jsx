@@ -72,14 +72,12 @@ const Nav = styled.nav`
   justify-content: start;
 `;
 const NavLink = styled(Link)`
-  color: #000;
   text-decoration: none;
-  padding: 0 1rem;
-  padding-bottom: 1em;
+  padding: 0.5rem 1rem;
   cursor: pointer;
 
-  &.active {
-    color: #15cdfc;
+  &:hover {
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
@@ -125,9 +123,15 @@ const BtnMobile = styled.button`
 `;
 
 const Line = styled.div`
-  padding: 10px;
   width: 100%;
-  border-top: 2px solid grey;
+  height: 1px;
+  margin: 0.5rem 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    ${(props) => props.theme.primaryText} 50%,
+    transparent 100%
+  );
 `;
 
 export default LeftNav;
