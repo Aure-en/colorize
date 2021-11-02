@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   flex-wrap: nowrap;
 
   @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.backgroundColorNav};
+    background-color: ${(props) => props.theme.background};
     margin: 0;
     padding: 0;
     width: 100%;
@@ -46,12 +46,10 @@ const Wrapper = styled.div`
     overflow: hidden;
   
   }
-
-  
 `;
 
 const WrapperOne = styled.div`
-  background: ${(props) => props.theme.backgroundColorNav};
+  background: ${(props) => props.theme.textPrimary};
   width: 60%;
   padding: 5px;
   padding-left: 2rem;
@@ -59,7 +57,7 @@ const WrapperOne = styled.div`
   height: 100%;
 
   @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.backgroundColorNav};
+    background-color: ${(props) => props.theme.background};
     margin: 2rem;
     padding: 1rem;
     width: 100%;
@@ -67,7 +65,7 @@ const WrapperOne = styled.div`
 `;
 
 const WrapperTwo = styled.div`
-  background: ${(props) => props.theme.backgroundColorNav};
+  background: ${(props) => props.theme.textPrimary};
   width: 40%;
   padding: 1rem;
   padding-left: 1rem;
