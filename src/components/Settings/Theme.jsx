@@ -7,7 +7,7 @@ import { getIsDarkMode } from '../../selectors/settings';
 import { getLightShade, getDarkShade, isColorLight } from '../../utils/colors';
 
 const Theme = ({ children }) => {
-  const DARK_DEFAULT = '#000000';
+  const DARK_DEFAULT = '#292929';
   const LIGHT_DEFAULT = '#FFFFFF';
 
   const initial = {
@@ -21,7 +21,6 @@ const Theme = ({ children }) => {
   const [theme, setTheme] = useState(initial);
   const palette = useSelector(getPalette);
   const darkMode = useSelector(getIsDarkMode);
-  console.log(1);
 
   useEffect(() => {
     const newTheme = { ...theme };
@@ -52,17 +51,17 @@ const Theme = ({ children }) => {
   }, [palette]);
 
   useEffect(() => {
-    console.log("test");
     if (darkMode) {
       setTheme({
-        ...theme, textPrimary: '#fff', textSecondary: '#9a9a9a', background: '#292929'
+        ...theme, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
       });
     } else {
       setTheme({
-        ...theme, textPrimary: '#262626', textSecondary: '#9a9a9a',background: '#FFFFFF'
+        ...theme, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
       });
     }
   }, [darkMode]);
+
   return (
     <ThemeProvider theme={theme}>
       {children}

@@ -1,5 +1,4 @@
 import { UPDATE_CREATION_PAGE, UPDATE_FORMAT, TOGGLE_SWITCHER } from '../actions/settings';
-import { DARK_MODE, LIGHT_MODE } from '../components/Settings/Theme';
 
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'

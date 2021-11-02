@@ -16,7 +16,8 @@ const DropboxNav = () => {
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentFormat}&#9660;
+        {currentFormat}
+        &#9660;
         {/* Caret down */}
       </DropdownHeader>
 
@@ -58,7 +59,7 @@ const DropdownHeader = styled.button`
   cursor: pointer;
   font-weight: 300;
   text-transform: capitalize;
-  color: ${(props) => props.theme.textOnPrimary};
+  color: ${(props) => props.theme.textPrimary};
 
   & > svg {
     margin-left: 0.25rem;
@@ -82,10 +83,10 @@ const Button = styled.button`
   font-weight: 300;
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
-  color: ${(props) => props.theme.text_primary};
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.textSecondary}15; // (color with 0.15 opacity)
   }
 `;
 

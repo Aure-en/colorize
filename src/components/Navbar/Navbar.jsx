@@ -28,8 +28,8 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.textOnPrimary};
+  // background: ${(props) => props.theme.background};
+  // color: ${(props) => props.theme.textPrimary};
 `;
 
 export default Navbar;

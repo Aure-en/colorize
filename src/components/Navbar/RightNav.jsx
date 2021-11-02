@@ -31,7 +31,7 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: ${(props) => props.theme.textOnPrimary};
+    color: ${(props) => props.theme.textPrimary};
 
     &.active {
       font-weight: 500;
@@ -39,7 +39,7 @@ const Ul = styled.ul`
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${(props) => props.theme.textPrimary};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
@@ -62,7 +62,7 @@ const NavLinkBetween = styled.div`
   flex-direction: column;
   padding-left: 10px;
   z-index: 20;
-  color: ${(props) => props.theme.textOnPrimary};
+  color: ${(props) => props.theme.textPrimary};
 
 @media (min-width: 768px) {
   flex-direction: row;

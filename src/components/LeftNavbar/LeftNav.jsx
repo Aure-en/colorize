@@ -72,12 +72,13 @@ const Nav = styled.nav`
   justify-content: start;
 `;
 const NavLink = styled(Link)`
+  color: ${(props) => props.theme.textPrimary};
   text-decoration: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.primaryText};
+    color: ${(props) => props.theme.textPrimary};
   }
 `;
 
@@ -130,7 +131,7 @@ const Line = styled.div`
   background: linear-gradient(
     to right,
     transparent 0%,
-    ${(props) => props.theme.primaryText} 50%,
+    ${(props) => props.theme.textPrimary} 50%,
     transparent 100%
   );
 `;
