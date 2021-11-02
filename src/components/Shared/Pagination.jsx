@@ -53,8 +53,7 @@ display: inline-block;
 const BtnPrevious = styled.button`
 display: flex;
 text-decoration: none;
-background-color: #04AA6D;
-color: white;
+color: #04AA6D;
 &:hover: {
     background-color: #fff;
     color: black;
@@ -64,8 +63,6 @@ color: white;
 const BtnNext = styled.button`
 text-decoration: none;
 display: flex;
-background-color: #04AA6D;
-color: white;
-
+color: #04AA6D;
 `;
 export default Pagination;

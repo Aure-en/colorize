@@ -8,7 +8,9 @@ import Creation from './routes/Creation';
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 import Collections from './routes/Collections';
+import Profile from './routes/Profile';
 import Collection from './routes/Collection';
+
 
 import Modals from './components/Shared/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
@@ -29,6 +31,7 @@ function App() {
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/Profile" component={Profile} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />
