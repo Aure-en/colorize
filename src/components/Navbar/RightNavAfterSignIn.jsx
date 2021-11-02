@@ -42,6 +42,7 @@ const Ul = styled.ul`
     padding: 18px 10px;
     text-decoration: none;
     color: ${(props) => props.theme.textPrimary};
+    
 
     &.active {
       font-weight: 500;
@@ -50,7 +51,8 @@ const Ul = styled.ul`
 
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.textPrimary};
+    background: ${(props) => props.theme.textPrimary};
+    
     position: fixed;
     justify-content: start;
     align-items: center;
@@ -65,15 +67,19 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
+      color: ${(props) => props.theme.background};
     }
   }
 `;
 
 const NavLinkBetween = styled.div`
+  color: ${(props) => props.theme.background};
   display: flex;
   flex-direction: column;
   padding-left: 10px;
 
+
+  
   @media (min-width: 768px) {
     flex-direction: row;
   }
@@ -120,7 +126,7 @@ display: none;
   font-size: 3rem;
   margin: 1rem;
   margin-top: 4rem;
-  color: ${(props) => props.theme.textPrimary}
+  color: ${(props) => props.theme.background}
 }
 `;
 

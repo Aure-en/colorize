@@ -53,6 +53,7 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
+      color: ${(props) => props.theme.background};
     }
   }
 `;

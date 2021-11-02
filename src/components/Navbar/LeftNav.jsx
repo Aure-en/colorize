@@ -15,9 +15,10 @@ const Title = styled.div`
   display: none;
 
   @media (max-width: 768px) {
-   display: flex;
-   z-index: 20;
-   font-size: 2rem;
+    color: ${(props) => props.theme.background};
+    display: flex;
+    z-index: 20;
+    font-size: 2rem;
   }
 `;
 

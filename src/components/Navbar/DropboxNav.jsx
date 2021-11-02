@@ -86,7 +86,7 @@ const Button = styled.button`
   color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    background: ${(props) => props.theme.textSecondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.background}15; // (color with 0.15 opacity)
   }
 `;
 
