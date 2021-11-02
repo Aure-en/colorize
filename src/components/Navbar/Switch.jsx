@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -57,6 +58,10 @@ const Toggle = styled.div`
 
 .react-switch-label:active .react-switch-button {
   width: 60px;
+}
+
+@media (max-width: 768px){
+  z-index:20;
 }
 `;
 

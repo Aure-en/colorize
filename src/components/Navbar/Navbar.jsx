@@ -11,7 +11,7 @@ const Navbar = () => (
     <Logo className="logo" />
     <Burger className="burger" />
     <LeftNav />
-    <Switch />
+    <Switch className="switch" />
     <DropboxNav />
   </Nav>
 );
@@ -23,7 +23,13 @@ const Nav = styled.nav`
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
+<<<<<<< HEAD
   background: ${(props) => props.theme.backgroundColorNav};
+=======
+  background: ${(props) => props.theme.background_color_Nav};
+  position: fixed;
+  z-index: 20;
+>>>>>>> 88e4414df8001fa519e8de0bce2a552596a5f2fe
   
   .logo {
     padding-top: 10px;
