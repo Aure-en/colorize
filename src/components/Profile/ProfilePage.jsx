@@ -29,6 +29,7 @@ flex-direction: column;
 
 const TopContainer = styled.div`
 display: flex;
+justify-content: space-between;
 align-items: baseline;
 `;
 
