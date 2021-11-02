@@ -11,8 +11,16 @@ const Collections = () => (
 );
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 15rem 1fr;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+
+  @media all and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    grid-gap: 3rem;
+    padding: 3rem;
+  }
 `;
 
 export default Collections;

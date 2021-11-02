@@ -1,18 +1,21 @@
 import { combineReducers } from 'redux';
-import palettes from './palettes';
+
+import copy from './copy';
+import exportReducer from './export';
 import favorite from './favorite';
 import like from './like';
 import palette from './palette';
-import copy from './copy';
+import palettes from './palettes';
 import settings from './settings';
 import user from './user';
 
 const rootReducer = combineReducers({
   copy,
+  export: exportReducer,
+  favorite,
+  like,
   palette,
   palettes,
-  like,
-  favorite,
   settings,
   user,
 });

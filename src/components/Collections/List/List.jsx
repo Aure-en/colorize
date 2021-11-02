@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getCollections } from '../../../selectors/favorite';
-import Collection from './preview/Collection';
+import Collection from './Preview/Collection';
 import Add from './Add';
 
 const List = () => {
@@ -21,7 +21,6 @@ const Wrapper = styled.main`
   grid-template-columns: repeat(auto-fit, 15rem);
   justify-content: center;
   grid-gap: 4rem;
-  padding: 3rem;
 `;
 
 export default List;

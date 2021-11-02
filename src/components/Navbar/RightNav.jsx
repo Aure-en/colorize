@@ -64,6 +64,7 @@ const NavLinkBetween = styled.div`
 display: flex;
 flex-direction: column;
 padding-left: 10px;
+z-index: 20;
 
 @media (min-width: 768px) {
   flex-direction: row;

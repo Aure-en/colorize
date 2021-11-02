@@ -10,12 +10,14 @@ const LeftNav = () => (
 const Title = styled.div`
   color: ${(props) => props.theme.background};
   align-items: center;
-  font-size: 25px;
+  font-size: 1.5px;
   padding-left: 5px;
   display: none;
 
   @media (max-width: 768px) {
    display: flex;
+   z-index: 20;
+   font-size: 2rem;
   }
 
 

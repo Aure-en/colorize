@@ -5,12 +5,14 @@ import GlobalStyles from './styles/globalStyles';
 
 import Home from './routes/Home';
 import Creation from './routes/Creation';
-
 import Generate from './routes/Generate';
 import Settings from './routes/Settings';
 import Collections from './routes/Collections';
 import Profile from './routes/Profile';
+import Collection from './routes/Collection';
 
+
+import Modals from './components/Shared/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
@@ -24,7 +26,6 @@ function App() {
       <Theme>
         <Wrapper>
           <Navbar />
-          <Copies />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/creation" component={Creation} />
@@ -34,7 +35,10 @@ function App() {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/collections" component={Collections} />
+            <Route exact path="/collections/:collectionId" component={Collection} />
           </Switch>
+          <Copies />
+          <Modals />
         </Wrapper>
       </Theme>
     </Router>

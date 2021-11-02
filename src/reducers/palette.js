@@ -1,5 +1,6 @@
 import {
   SET_PALETTE,
+  SET_ORIGINAL_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
@@ -48,20 +49,27 @@ const palette = (state = initialState, action = {}) => {
     case SET_PALETTE: {
       return {
         ...state,
-        palette: {
+        palette: JSON.parse(JSON.stringify({
           id: null,
-          colors: JSON.parse(JSON.stringify(action.palette.map((color, index) => ({
+          colors: action.palette.map((color, index) => ({
             ...color,
             id: index,
-          })))),
-        },
-        originalPalette: {
+          })),
+        })),
+
+      };
+    }
+
+    case SET_ORIGINAL_PALETTE: {
+      return {
+        ...state,
+        originalPalette: JSON.parse(JSON.stringify({
           id: null,
-          colors: JSON.parse(JSON.stringify(action.palette.map((color, index) => ({
+          colors: action.palette.map((color, index) => ({
             ...color,
             id: index,
-          })))),
-        },
+          })),
+        })),
       };
     }
 
