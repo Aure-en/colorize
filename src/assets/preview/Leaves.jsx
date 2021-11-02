@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components';
 const Leaves = () => {
   const theme = useTheme();
   return (
-    <svg xmlnsXlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" height="70%" preserveAspectRatio="xMaxYMax slice">
+    <svg xmlnsXlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000" height="80%" preserveAspectRatio="xMaxYMax slice">
       <g transform="scale(2.8612303290414878)">
         <rect x="0" y="0" width="699" height="699" fill="#ffffff" />
         <rect x="0" y="0" width="233" height="233" fill="#ffffff" />

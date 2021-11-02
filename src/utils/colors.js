@@ -73,7 +73,7 @@ export const getLighterShades = (palette, shadesNumber) => {
   for (let step = 1; step <= shadesNumber; step += 1) {
     lighterShades.unshift(
       palette.colors.map(
-        (color) => getLighterShade(color.hex, step),
+        (color) => getLighterShade(color.hex, shadesNumber, step),
       ),
     );
   }
@@ -85,27 +85,27 @@ export const getDarkerShades = (palette, shadesNumber) => {
   for (let step = 1; step <= shadesNumber; step += 1) {
     darkerShades.push(
       palette.colors.map(
-        (color) => getDarkerShade(color.hex, step),
+        (color) => getDarkerShade(color.hex, shadesNumber, step),
       ),
     );
   }
   return darkerShades;
 };
 
-const getLighterShade = (colorHex, step) => {
+const getLighterShade = (colorHex, shadesNumber, currentShade) => {
   const color = Color(colorHex);
-  const luminosity = color.hsl().array()[2];
+  const luminosity = color.lightness();
   const lighter = color.lightness(
-    ((100 - luminosity) / (step + 1)) * step + luminosity,
+    ((100 - luminosity) / (shadesNumber + 1) * currentShade + luminosity),
   );
   return getColorData(lighter);
 };
 
-const getDarkerShade = (colorHex, step) => {
+const getDarkerShade = (colorHex, shadesNumber, currentShade) => {
   const color = Color(colorHex);
-  const luminosity = color.hsl().array()[2];
+  const luminosity = color.lightness();
   const darker = color.lightness(
-    luminosity - (luminosity / (step + 1)) * step,
+    luminosity - (luminosity / (shadesNumber + 1) * currentShade),
   );
   return getColorData(darker);
 };
@@ -123,7 +123,15 @@ export const getLightShade = (colorData) => {
 
 export const getDarkShade = (colorData) => {
   const color = Color(colorData.hex);
-  const darkColor = color.lightness() < 15 ? color.lightness(25).hex() : color.lightness(30).hex();
+  let darkColor;
+
+  if (color.lightness() < 30) {
+    darkColor = color.lightness(30).hex();
+  } else if (color.lightness() < 65) {
+    darkColor = color.lightness(color.lightness() - 15);
+  } else {
+    darkColor = color.lightness(50);
+  }
   return darkColor;
 }
 
@@ -134,11 +142,11 @@ export const getColorSteps = (colorHex, shadesNumber) => {
 
   for (let step = 1; step <= shadesNumber; step += 1) {
     light.unshift(
-      getLighterShade(colorHex, step),
+      getLighterShade(colorHex, shadesNumber, step),
     );
 
     dark.push(
-      getDarkerShade(colorHex, step),
+      getDarkerShade(colorHex, shadesNumber, step),
     );
   }
 
