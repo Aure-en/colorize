@@ -17,23 +17,23 @@ const Navbar = () => (
 );
 
 const Nav = styled.nav`
-width: 100%;
-height: 60px;
-border-bottom: 2px solid ${(props) => props.theme.background};
-padding: 0 20px;
-display: flex;
-justify-content: space-between;
-background: ${(props) => props.theme.backgroundColorNav};
+  width: 100%;
+  height: 60px;
+  border-bottom: 2px solid ${(props) => props.theme.background};
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  background: ${(props) => props.theme.backgroundColorNav};
 
-.logo {
-    padding-top: 10px;
-}
+  .logo {
+      padding-top: 10px;
+  }
 
-@media (max-width: 768px) {
-    .logo {
-        display: none;
-    }
-}
-`;
+  @media (max-width: 768px) {
+      .logo {
+          display: none;
+      }
+  }
+  `;
 
 export default Navbar;

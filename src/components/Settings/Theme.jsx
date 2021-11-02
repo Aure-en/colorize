@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { getPalette } from '../../selectors/palette';
+import { getIsDarkMode } from '../../selectors/settings';
 
 const Theme = ({ children }) => {
   const initial = {
@@ -15,6 +16,7 @@ const Theme = ({ children }) => {
 
   const [theme, setTheme] = useState(initial);
   const palette = useSelector(getPalette);
+  const darkMode = useSelector(getIsDarkMode);
 
   useEffect(() => {
     const newTheme = { ...theme };
@@ -45,6 +47,18 @@ Theme.propTypes = {
 
 Theme.defaultProps = {
   children: <div />,
+};
+
+export const LIGHT_MODE = {
+  textPrimary: '#262626',
+  textSecondary: '#9a9a9a',
+  background: '#FFFFFF',
+};
+
+export const DARK_MODE = {
+  textPrimary: '#fff',
+  textSecondary: '#9a9a9a',
+  background: '#292929',
 };
 
 export default Theme;

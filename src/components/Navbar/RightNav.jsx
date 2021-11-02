@@ -6,14 +6,13 @@ import { NavLink } from 'react-router-dom';
 const RightNav = ({ open }) => (
   <Ul open={open}>
     <NavLinkBetween>
-      <NavLink to="/" className="navlink">Home</NavLink>
-      <NavLink to="/creation" className="navlink">Creation</NavLink>
+      <NavLink exact to="/" className="navlink">Home</NavLink>
+      <NavLink exact to="/creation" className="navlink">Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
-      <NavLink to="/signup" className="navlink">Sign Up</NavLink>
-      <NavLink to="/signin" className="navlink">Sign In</NavLink>
+      <NavLink exact to="/signup" className="navlink">Sign Up</NavLink>
+      <NavLink exact to="/signin" className="navlink">Sign In</NavLink>
     </NavLinkBetween>
-
   </Ul>
 );
 
@@ -37,8 +36,8 @@ const Ul = styled.ul`
     &:active {
       text-decoration : underline;
     }
-    
   }
+  
   @media (max-width: 768px) {
     flex-flow: column nowrap;
     background-color: ${(props) => props.theme.backgroundColorNav};

@@ -19,8 +19,6 @@ const Title = styled.div`
    z-index: 20;
    font-size: 2rem;
   }
-
-
 `;
 
 export default LeftNav;

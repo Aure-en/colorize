@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as SearchMobileIcon } from '../../assets/icons/searchmobile.svg';
 
-const RightNavAfterSignin = ({ open }) => (
+const RightNavAfterSignIn = ({ open }) => (
   <Ul open={open}>
     <Searchbar to="/">
       <Input type="Search" placeholder="Search" />
@@ -19,7 +19,7 @@ const RightNavAfterSignin = ({ open }) => (
     </NavLinkBetween>
     <NavLinkBetween>
       <Username>Username</Username>
-      <NavLink to="/profil" className="navlink">Profil</NavLink>
+      <NavLink to="/profile" className="navlink">Profile</NavLink>
       <NavLink to="/settings" className="navlink">Settings</NavLink>
       <NavLink to="/" className="navlink">Sign Out</NavLink>
     </NavLinkBetween>
@@ -27,7 +27,7 @@ const RightNavAfterSignin = ({ open }) => (
   </Ul>
 );
 
-RightNavAfterSignin.propTypes = {
+RightNavAfterSignIn.propTypes = {
   open: PropTypes.bool.isRequired,
 };
 
@@ -47,11 +47,10 @@ const Ul = styled.ul`
     &:active {
       text-decoration : underline;
     }
-    
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.background_color_Nav};
+    background-color: ${(props) => props.theme.backgroundColorNav};
     position: fixed;
     justify-content: start;
     align-items: center;
@@ -72,17 +71,17 @@ const Ul = styled.ul`
 `;
 
 const NavLinkBetween = styled.div`
-display: flex;
-flex-direction: column;
-padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
 
-@media (min-width: 768px) {
-  flex-direction: row;
-}
-`;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+  `;
 
 const Searchbar = styled.div`
-display: none;
+  display: none;
 
   @media (max-width: 768px) {
     display: flex;
@@ -95,36 +94,35 @@ display: none;
 `;
 
 const Input = styled.input`
-display: none;
+  display: none;
 
- @media (max-width: 768px) {
-  display: flex;
-  height: 60px;
-  width: 70%;
-  padding-left: 1rem;
-  font-size: 1.5rem;
-  color: ${(props) => props.theme.background_color_Nav}
-
- }
-`;
+  @media (max-width: 768px) {
+    display: flex;
+    height: 60px;
+    width: 70%;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+    color: ${(props) => props.theme.backgroundColorNav}
+  }
+  `;
 
 const BtnMobile = styled.button`
-display: none;
+  display: none;
 
-@media (max-width: 768px) {
-  display: flex;
-}
-`;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  `;
 
 const Username = styled.p`
-display: none;
-@media (max-width: 768px) {
-  display: flex;
-  font-size: 3rem;
-  margin: 1rem;
-  margin-top: 4rem;
-  color: ${(props) => props.theme.background}
-}
-`;
+  display: none;
+  @media (max-width: 768px) {
+    display: flex;
+    font-size: 3rem;
+    margin: 1rem;
+    margin-top: 4rem;
+    color: ${(props) => props.theme.background}
+  }
+  `;
 
-export default RightNavAfterSignin;
+export default RightNavAfterSignIn;

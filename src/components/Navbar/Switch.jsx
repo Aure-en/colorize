@@ -1,24 +1,33 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
+import { toggleSwitcher } from '../../actions/settings';
+import { useDispatch } from 'react-redux';
 
-const Switch = () => (
-  <Toggle>
-    <input
-      className="react-switch-checkbox"
-      id="react-switch-new"
-      type="checkbox"
-    />
-    <label
-      className="react-switch-label"
-      htmlFor="react-switch-new"
+const Switch = (isDarkMode, toggleDarkMode) => {
+  const dispatch = useDispatch();
+  return (
+
+    <Toggle
+      checked={isDarkMode}
+      onChange={() => dispatch(toggleSwitcher())}
     >
-      <span className="react-switch-button" />
-    </label>
-  </Toggle>
-);
+      <input
+        className="react-switch-checkbox"
+        id="react-switch-new"
+        type="checkbox"
+      />
+      <label
+        className="react-switch-label"
+        htmlFor="react-switch-new"
+      >
+        <span className="react-switch-button" />
+      </label>
+    </Toggle>
+  );
+};
 
-const Toggle = styled.div`
+const Toggle = styled.button`
 .react-switch-checkbox {
   height: 0;
   width: 0;
@@ -30,8 +39,8 @@ const Toggle = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  width: 45px;
-  height: 25px;
+  width: 35px;
+  height: 20px;
   background: grey;
   border-radius: 100px;
   position: relative;
@@ -41,10 +50,10 @@ const Toggle = styled.div`
 .react-switch-label .react-switch-button {
   content: '';
   position: absolute;
-  top: 2px;
+  top: 2.5px;
   left: 2px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 45px;
   transition: 0.2s;
   background: #fff;
@@ -57,7 +66,7 @@ const Toggle = styled.div`
 }
 
 .react-switch-label:active .react-switch-button {
-  width: 60px;
+  width: 35px;
 }
 
 @media (max-width: 768px){
