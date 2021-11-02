@@ -157,12 +157,10 @@ const Controls = styled.div`
 const Previews = styled.div`
   position: relative;
   flex: 1;
-  overflow: hidden;
   grid-row: 3;
   grid-column: 1 / span 2;
 
   & > div {
-    position: absolute;
     width: 100%;
     height: 100%;
   }
@@ -170,6 +168,12 @@ const Previews = styled.div`
   @media all and (min-width: 900px) {
     grid-row: 2;
     grid-column: 2 / span 2;
+  }
+
+  @media all and (min-width: 768px) {
+    & > div {
+      position: absolute;
+    }
   }
 `;
 

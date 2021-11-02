@@ -26,7 +26,7 @@ Code.propTypes = {
 const Wrapper = styled.code`
   display: block;
   white-space: pre;
-  background: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme.primaryBackground};
   padding: 1rem;
 
   overflow-y: auto;

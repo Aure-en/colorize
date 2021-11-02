@@ -16,6 +16,7 @@ const Reset = () => {
         dispatch(resetPalette());
         dispatch(setShades(originalPalette));
       }}
+      title='Undo changes'
     >
       <IconReset />
     </Button>
@@ -30,7 +31,7 @@ const Button = styled.button`
   transition: all 0.2s ease-out;
 
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 

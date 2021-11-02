@@ -52,7 +52,7 @@ const Button = styled.button`
     `};
 
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 

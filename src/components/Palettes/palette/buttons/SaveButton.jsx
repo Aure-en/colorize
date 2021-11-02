@@ -19,7 +19,7 @@ const Button = styled.button`
   justify-self: end;
 
   &:hover {
-    background: ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.primaryText};
   }
 `;
 

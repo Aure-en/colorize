@@ -110,6 +110,23 @@ const getDarkerShade = (colorHex, step) => {
   return getColorData(darker);
 };
 
+export const isColorLight = (colorHex) => {
+  const color = Color(colorHex);
+  return color.isLight();
+} 
+
+export const getLightShade = (colorData) => {
+  const color = Color(colorData.hex);
+  const lightColor = color.lightness() > 90 ? `${color.lightness(80).hex()}15` : `${color.hex()}15`;
+  return lightColor;
+}
+
+export const getDarkShade = (colorData) => {
+  const color = Color(colorData.hex);
+  const darkColor = color.lightness() < 15 ? color.lightness(25).hex() : color.lightness(30).hex();
+  return darkColor;
+}
+
 // Get lighter and darker shades of a color
 export const getColorSteps = (colorHex, shadesNumber) => {
   const light = [];
