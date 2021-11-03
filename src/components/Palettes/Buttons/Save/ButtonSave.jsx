@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { requestSavePalette, requestUnsavePalette } from '../../../actions/favorite';
-import { getAllFavorites } from '../../../selectors/favorite';
-import IconBookmark from '../../../assets/icons/card/IconBookmark';
+import { requestSavePalette, requestUnsavePalette } from '../../../../actions/favorite';
+import { getAllFavorites } from '../../../../selectors/favorite';
+import IconBookmark from '../../../../assets/icons/card/IconBookmark';
 
 const ButtonSave = ({ paletteId }) => {
   const favorites = useSelector(getAllFavorites);

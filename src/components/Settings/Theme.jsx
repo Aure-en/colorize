@@ -4,7 +4,12 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { getPalette } from '../../selectors/palette';
 import { getIsDarkMode } from '../../selectors/settings';
-import { getBackgroundShade, getShadeOnBackground, isColorLight } from '../../utils/colors';
+import {
+  getBackgroundActiveShade,
+  getBackgroundShade,
+  getShadeOnBackground,
+  isColorLight,
+} from '../../utils/colors';
 
 const Theme = ({ children }) => {
   const DARK_DEFAULT = '#292929';
@@ -24,7 +29,13 @@ const Theme = ({ children }) => {
 
   useEffect(() => {
     const newTheme = { ...theme };
-    const themeKeys = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary'];
+    const themeKeys = [
+      'primary',
+      'secondary',
+      'tertiary',
+      'quaternary',
+      'quinary',
+    ];
     const [primary, secondary] = palette.colors;
 
     // Set the main palette in the theme
@@ -37,7 +48,9 @@ const Theme = ({ children }) => {
     });
 
     // Text color depending on how bright the primary color is.
-    newTheme.textOnPrimary = isColorLight(primary.hex) ? DARK_DEFAULT : LIGHT_DEFAULT;
+    newTheme.textOnPrimary = isColorLight(primary.hex)
+      ? DARK_DEFAULT
+      : LIGHT_DEFAULT;
 
     // Text colors from palette
     newTheme.primaryText = getShadeOnBackground(primary, darkMode);
@@ -47,26 +60,31 @@ const Theme = ({ children }) => {
     newTheme.primaryBackground = getBackgroundShade(primary);
     newTheme.secondaryBackground = getBackgroundShade(secondary);
 
+    // Background active colors from palette
+    newTheme.primaryBackgroundActive = getBackgroundActiveShade(primary);
+
     setTheme(newTheme);
   }, [darkMode, palette]);
 
   useEffect(() => {
     if (darkMode) {
       setTheme((prev) => ({
-        ...prev, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
+        ...prev,
+        textPrimary: '#FFFFFF',
+        textSecondary: '#9a9a9a',
+        background: '#292929',
       }));
     } else {
       setTheme((prev) => ({
-        ...prev, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
+        ...prev,
+        textPrimary: '#292929',
+        textSecondary: '#9a9a9a',
+        background: '#FFFFFF',
       }));
     }
   }, [darkMode]);
 
-  return (
-    <ThemeProvider theme={theme}>
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 Theme.propTypes = {

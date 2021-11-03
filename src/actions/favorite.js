@@ -2,6 +2,7 @@ export const SAVE_PALETTE = 'SAVE_PALETTE';
 export const UNSAVE_PALETTE = 'UNSAVE_PALETTE';
 export const REQUEST_SAVE_PALETTE = 'REQUEST_SAVE_PALETTE';
 export const REQUEST_UNSAVE_PALETTE = 'REQUEST_UNSAVE_PALETTE';
+export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
 export const savePalette = (palette, collectionId) => ({
   type: SAVE_PALETTE,
@@ -23,4 +24,9 @@ export const requestSavePalette = (paletteId, collectionId) => ({
 export const requestUnsavePalette = (paletteId) => ({
   type: REQUEST_UNSAVE_PALETTE,
   paletteId,
+});
+
+export const updateCurrentCollection = (collectionId) => ({
+  type: UPDATE_CURRENT_COLLECTION,
+  collectionId,
 });
