@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Color from 'color';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
 import { unlockColor, lockColor } from '../../../../actions/palette';
+import { getIsDarkMode } from '../../../../selectors/settings';
+
+import { getTextShade } from '../../../../utils/colors';
+
 import IconLock from '../../../../assets/icons/color/IconLock';
 import IconUnlock from '../../../../assets/icons/color/IconUnlock';
 
 const Lock = ({ color, isLocked }) => {
   const [textColor, setTextColor] = useState('');
   const dispatch = useDispatch();
+  const isDarkMode = useSelector(getIsDarkMode);
 
-  // If the color is bright, darken it to use it on the card.
+  // Adapt the color so the text stays visible on the background.
   useEffect(() => {
-    const newColor = Color.rgb(color.rgb);
-    if (newColor.hsl().array()[2] > 70) {
-      setTextColor(newColor.lightness(70).hsl().string());
-    } else {
-      setTextColor(newColor.hsl().string());
-    }
-  }, [color]);
+    setTextColor(getTextShade(color, isDarkMode));
+  }, [color, isDarkMode]);
 
   return (
     <Button

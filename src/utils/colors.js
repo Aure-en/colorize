@@ -149,6 +149,30 @@ export const getDarkShade = (colorData) => {
   return darkColor.hex();
 }
 
+export const getShadeOnBackground = (colorData, isBackgroundDark = false) => {
+  if (isBackgroundDark) {
+    return getLightShade(colorData);
+  }
+  return getDarkShade(colorData);
+}
+
+const getTextOnLight = (colorData) => {
+  const color = Color(colorData.hex);
+  return color.lightness() > 70 ? color.lightness(70).hex() : color.hex();
+}
+
+const getTextOnDark = (colorData) => {
+  const color = Color(colorData.hex);
+  return color.lightness() < 50 ? color.lightness(50).hex() : color.hex();
+}
+
+export const getTextShade = (colorData, isBackgroundDark = false) => {
+  if (isBackgroundDark) {
+    return getTextOnDark(colorData);
+  }
+  return getTextOnLight(colorData);
+}
+
 // Get lighter and darker shades of a color
 export const getColorSteps = (colorHex, shadesNumber) => {
   const light = [];
