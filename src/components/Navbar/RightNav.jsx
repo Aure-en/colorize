@@ -65,9 +65,9 @@ const NavLinkBetween = styled.div`
   z-index: 20;
   color: ${(props) => props.theme.textOnPrimary};
 
-@media (min-width: 768px) {
-  flex-direction: row;
-}
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export default RightNav;

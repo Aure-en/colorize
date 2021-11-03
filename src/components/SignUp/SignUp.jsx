@@ -34,6 +34,8 @@ const Wrapper = styled.div`
   width: 100%;
   height : 70%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
 
@@ -44,14 +46,12 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-
   }
-
 `;
 
 const WrapperOne = styled.div`
   background: ${(props) => props.theme.primaryText};
-  width: 60%;
+  width: 30%;
   padding: 5px;
   padding-left: 2rem;
   height: 100%;
@@ -66,7 +66,7 @@ const WrapperOne = styled.div`
 
 const WrapperTwo = styled.div`
   background: ${(props) => props.theme.primaryText};
-  width: 40%;
+  width: 20%;
   padding: 5px;
   padding-left: 0.5rem;
   height: 100%;
@@ -75,11 +75,10 @@ const WrapperTwo = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-  
 `;
 
 const Title = styled.h1`
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.background};
   font-size: 2rem;
   height: 20%; 
   width: 85%;
@@ -87,85 +86,80 @@ const Title = styled.h1`
   padding-top: 2rem;
   margin-top: 4rem;
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
     background: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.textPrimary};
     height: 6rem;
     padding: 1rem;
     padding-top: 2rem;
-    color: black;
-    }
-
+  }
 `;
 
 const Username = styled.input`
-background: ${(props) => props.theme.textPrimary};
-height: 8%;
-width: 85%;
-padding: 1rem;
-margin: 2% 1rem;
-
-@media (max-width: 768px) {
-  background-color: ${(props) => props.theme.textPrimary};
-  height: 4rem;
+  background: ${(props) => props.theme.textPrimary};
+  height: 8%;
+  width: 85%;
   padding: 1rem;
-  margin-top: 2rem;
-  }
+  margin: 2% 1rem;
 
+  @media (max-width: 768px) {
+    background-color: ${(props) => props.theme.textPrimary};
+    height: 4rem;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
 `;
 
 const Email = styled.input`
-background: ${(props) => props.theme.textPrimary};
-height: 8%;
-width: 85%;
-padding: 1rem;
-margin: 2% 1rem;
-
-@media (max-width: 768px) {
-  background-color: ${(props) => props.theme.textPrimary};
-  height: 4rem;
+  background: ${(props) => props.theme.textPrimary};
+  height: 8%;
+  width: 85%;
   padding: 1rem;
-  margin-top: 1rem;
+  margin: 2% 1rem;
+
+  @media (max-width: 768px) {
+    background-color: ${(props) => props.theme.textPrimary};
+    height: 4rem;
+    padding: 1rem;
+    margin-top: 1rem;
   }
 `;
 
 const Password = styled.input`
-background: ${(props) => props.theme.textPrimary};
-height: 8%;
-width: 41%;
-padding: 1rem;
-margin: 2% 1rem;
-
-@media (max-width: 768px) {
-  background-color: ${(props) => props.theme.textPrimary};
-  height: 4rem;
+  background: ${(props) => props.theme.textPrimary};
+  height: 8%;
+  width: 41%;
   padding: 1rem;
-  margin-top: 1rem;
-  }
+  margin: 2% 1rem;
 
+  @media (max-width: 768px) {
+    background-color: ${(props) => props.theme.textPrimary};
+    height: 4rem;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
 `;
 
 const Repeat = styled.input`
-background: ${(props) => props.theme.textPrimary};
-height: 8%;
-width: 41%;
-padding: 1rem;
-margin: 1% 0;
-
-@media (max-width: 768px) {
-  background-color: ${(props) => props.theme.textPrimary};
-  height: 4rem;
+  background: ${(props) => props.theme.textPrimary};
+  height: 8%;
+  width: 41%;
   padding: 1rem;
-  margin-top: 1rem:
-  }
+  margin: 1% 0;
 
+  @media (max-width: 768px) {
+    background-color: ${(props) => props.theme.textPrimary};
+    height: 4rem;
+    padding: 1rem;
+    margin-top: 1rem:
+  }
 `;
 
 const WrapLeft = styled.div`
-display: flex;
-flex-direction: row;
-width: 80%;
-margin: 1rem;
-
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 1rem;
 `;
 
 const Button = styled.button`
@@ -177,53 +171,51 @@ const Button = styled.button`
   vertical-align:middle;
   color:white;
   text-decoration:none;
-
 `;
 
 const LogoBrand = styled.div`
-font-size: 2rem;
-height: 20%; 
-margin: 1rem;
-margin-top: 4.5rem;  
-padding: 1rem;
-display: flex;
-flex-direction: row
-
+  font-size: 2rem;
+  height: 20%; 
+  margin: 1rem;
+  margin-top: 4.5rem;  
+  padding: 1rem;
+  display: flex;
+  flex-direction: row
 `;
 
 const Brand = styled.div`
-color: ${(props) => props.theme.secondary};
-width: 55%;
-margin-left: 1rem;
+  color: ${(props) => props.theme.background};
+  width: 55%;
+  margin-left: 1rem;
 `;
 
 const UserRegistration = styled.div`
-color: ${(props) => props.theme.secondary};
-margin: 1rem 2rem 1rem;
-padding: 1rem;
+  color: ${(props) => props.theme.background};
+  margin: 1rem 2rem 1rem;
+  padding: 1rem;
 `;
 
 const Sign = styled.div`
-color: ${(props) => props.theme.secondary};
-margin: 1rem 2rem 1rem;
-padding-left: 1rem;
-width: 60%;
-display: flex;
-flex-direction: row;
+  color: ${(props) => props.theme.background};
+  margin: 1rem 2rem 1rem;
+  padding-left: 1rem;
+  width: 60%;
+  display: flex;
+  flex-direction: row;
 `;
 
 const In = styled.div`
-color: ${(props) => props.theme.secondary};
-width: 30%;
-display: flex;
-justify-content: flex-start;
+  color: ${(props) => props.theme.background};
+  width: 30%;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 const Up = styled.div`
-color: ${(props) => props.theme.secondary};
-width: 40%;
-display: flex;
-justify-content: flex-start;
+  color: ${(props) => props.theme.background};
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export default SignUp;

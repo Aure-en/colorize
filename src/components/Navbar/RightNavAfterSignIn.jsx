@@ -99,7 +99,7 @@ const Searchbar = styled.div`
 `;
 
 const Input = styled.input`
-display: none;
+  display: none;
 
   @media (max-width: 768px) {
     display: flex;
@@ -116,18 +116,18 @@ const BtnMobile = styled.button`
   @media (max-width: 768px) {
     display: flex;
   }
-  `;
+`;
 
 const Username = styled.p`
-display: none;
+  display: none;
 
-@media (max-width: 768px) {
-  display: flex;
-  font-size: 3rem;
-  margin: 1rem;
-  margin-top: 4rem;
-  color: ${(props) => props.theme.textOnPrimary}
-}
+  @media (max-width: 768px) {
+    display: flex;
+    font-size: 3rem;
+    margin: 1rem;
+    margin-top: 4rem;
+    color: ${(props) => props.theme.textOnPrimary}
+  }
 `;
 
 export default RightNavAfterSignIn;
