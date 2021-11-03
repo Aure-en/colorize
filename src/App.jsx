@@ -11,6 +11,7 @@ import Home from './routes/Home';
 import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
+import NotFound from './routes/NotFound';
 
 import Copies from './components/Copy/Copies';
 import Modals from './components/Shared/Modal/Modals';
@@ -37,6 +38,7 @@ function App() {
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/settings" component={Settings} />
+            <Route component={NotFound} />
           </Switch>
           <Copies />
           <Modals />
