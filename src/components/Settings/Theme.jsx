@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { getPalette } from '../../selectors/palette';
 import { getIsDarkMode } from '../../selectors/settings';
-import { getLightShade, getDarkShade, isColorLight } from '../../utils/colors';
+import { getBackgroundShade, getLightShade, getDarkShade, isColorLight } from '../../utils/colors';
 
 const Theme = ({ children }) => {
   const DARK_DEFAULT = '#292929';
@@ -40,25 +40,30 @@ const Theme = ({ children }) => {
     newTheme.textOnPrimary = isColorLight(primary.hex) ? DARK_DEFAULT : LIGHT_DEFAULT;
 
     // Text colors from palette
-    newTheme.primaryText = getDarkShade(primary);
-    newTheme.secondaryText = getDarkShade(secondary);
+    if (darkMode) {
+      newTheme.primaryText = getLightShade(primary);
+      newTheme.secondaryText = getLightShade(secondary);
+    } else {
+      newTheme.primaryText = getDarkShade(primary);
+      newTheme.secondaryText = getDarkShade(secondary);
+    }
 
     // Background colors from palette
-    newTheme.primaryBackground = getLightShade(primary);
-    newTheme.secondaryBackground = getLightShade(secondary);
+    newTheme.primaryBackground = getBackgroundShade(primary);
+    newTheme.secondaryBackground = getBackgroundShade(secondary);
 
     setTheme(newTheme);
   }, [palette]);
 
   useEffect(() => {
     if (darkMode) {
-      setTheme({
-        ...theme, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
-      });
+      setTheme((prev) => ({
+        ...prev, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
+      }));
     } else {
-      setTheme({
-        ...theme, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
-      });
+      setTheme((prev) => ({
+        ...prev, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
+      }));
     }
   }, [darkMode]);
 

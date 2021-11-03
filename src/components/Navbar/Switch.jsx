@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { toggleSwitcher } from '../../actions/settings';
 
-const Switch = (isDarkMode, toggleDarkMode) => {
+const Switch = (isDarkMode) => {
   const dispatch = useDispatch();
   return (
 
