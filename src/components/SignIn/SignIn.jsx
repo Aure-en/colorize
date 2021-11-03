@@ -29,11 +29,13 @@ const SignIn = () => (
 );
 
 const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1rem;
   margin-top: 2rem;
   width: 100%;
-  height : 60%;
-  display: flex;
+  height : 100%;
   flex-direction: row;
   flex-wrap: nowrap;
 
@@ -49,7 +51,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapperOne = styled.div`
-  background: ${(props) => props.theme.textOnPrimary};
+  background: ${(props) => props.theme.primaryText};
   width: 60%;
   padding: 5px;
   padding-left: 2rem;
@@ -65,7 +67,7 @@ const WrapperOne = styled.div`
 `;
 
 const WrapperTwo = styled.div`
-  background: ${(props) => props.theme.textOnPrimary};
+  background: ${(props) => props.theme.primaryText};
   width: 40%;
   padding: 1rem;
   padding-left: 1rem;
@@ -98,14 +100,14 @@ const Title = styled.h1`
 `;
 
 const Email = styled.input`
-background: ${(props) => props.theme.background};
+background: ${(props) => props.theme.textPrimary};
 height: 8%;
 width: 80%;
 padding: 1rem;
 margin: 2% 1rem;
 
 @media (max-width: 768px) {
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.textPrimary};
   height: 4rem;
   padding: 1rem;
   margin-top: 2rem;
@@ -114,14 +116,14 @@ margin: 2% 1rem;
 `;
 
 const Password = styled.input`
-background: ${(props) => props.theme.background};
+background: ${(props) => props.theme.textPrimary};
 height: 8%;
 width: 80%;
 padding: 1rem;
 margin: 2% 1rem;
 
 @media (max-width: 768px) {
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.textPrimary};
   height: 4rem;
   padding: 1rem;
   }
@@ -181,17 +183,25 @@ padding: 1rem;
 const Sign = styled.div`
 color: ${(props) => props.theme.secondary};
 margin: 1rem 2rem 1rem;
-padding: 1rem;
+padding-left: 1rem;
 display: flex;
-flezx-direction: row;
+justify-content: flex-start;
+flex-direction: row;
 `;
 
-const In = styled.div`
-width: 100%;
+const In = styled.button`
+color: ${(props) => props.theme.secondary};
+width: 30%;
+display: flex;
+justify-content: flex-start;
+
 `;
 
-const Up = styled.div`
-width: 100%;
+const Up = styled.button`
+color: ${(props) => props.theme.secondary};
+width: 40%;
+display: flex;
+justify-content: flex-start;
 `;
 
 export default SignIn;

@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
-import { toggleSwitcher } from '../../actions/settings';
 import { useDispatch } from 'react-redux';
+import { toggleSwitcher } from '../../actions/settings';
 
 const Switch = (isDarkMode, toggleDarkMode) => {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const Toggle = styled.div`
     height: 20px;
     border-radius: 45px;
     transition: 0.2s;
-    background: #fff;
+    background: ${(props) => props.theme.background};
     box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
   }
 

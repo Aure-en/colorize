@@ -3,7 +3,7 @@ import { UPDATE_CREATION_PAGE, UPDATE_FORMAT, TOGGLE_SWITCHER } from '../actions
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'
   format: 'hex',
-  isDarkMode: true,
+  isDarkMode: false,
 };
 
 const settings = (state = initialState, action = {}) => {

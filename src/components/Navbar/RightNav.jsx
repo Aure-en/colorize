@@ -39,7 +39,7 @@ const Ul = styled.ul`
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.textPrimary};
+    background-color: ${(props) => props.theme.primaryText};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};

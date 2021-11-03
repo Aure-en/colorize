@@ -53,11 +53,11 @@ const Theme = ({ children }) => {
   useEffect(() => {
     if (darkMode) {
       setTheme({
-        ...theme, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
+        ...theme, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
       });
     } else {
       setTheme({
-        ...theme, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
+        ...theme, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
       });
     }
   }, [darkMode]);
