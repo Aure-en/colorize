@@ -31,7 +31,7 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.textOnPrimary};
 
     &.active {
       font-weight: 500;
@@ -63,7 +63,7 @@ const NavLinkBetween = styled.div`
   flex-direction: column;
   padding-left: 10px;
   z-index: 20;
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textOnPrimary};
 
 @media (min-width: 768px) {
   flex-direction: row;

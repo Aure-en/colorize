@@ -41,7 +41,7 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.textOnPrimary};
     
 
     &.active {
@@ -94,7 +94,7 @@ const Searchbar = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-    color: ${(props) => props.theme.textPrimary}
+    color: ${(props) => props.theme.textOnPrimary}
   }
 `;
 
@@ -126,7 +126,7 @@ display: none;
   font-size: 3rem;
   margin: 1rem;
   margin-top: 4rem;
-  color: ${(props) => props.theme.background}
+  color: ${(props) => props.theme.textOnPrimary}
 }
 `;
 

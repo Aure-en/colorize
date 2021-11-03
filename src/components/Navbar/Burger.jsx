@@ -37,7 +37,7 @@ const StyledBurger = styled.div`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${(props) => props.theme.textPrimary};
+    background: ${(props) => props.theme.textOnPrimary};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

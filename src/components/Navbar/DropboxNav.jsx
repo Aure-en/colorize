@@ -59,7 +59,7 @@ const DropdownHeader = styled.button`
   cursor: pointer;
   font-weight: 300;
   text-transform: capitalize;
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textOnPrimary};
 
   & > svg {
     margin-left: 0.25rem;
@@ -86,7 +86,7 @@ const Button = styled.button`
   color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    background: ${(props) => props.theme.background}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.secondary};15; // (color with 0.15 opacity)
   }
 `;
 

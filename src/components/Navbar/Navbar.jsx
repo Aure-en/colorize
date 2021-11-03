@@ -29,7 +29,7 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   background: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textOnPrimary};
   `;
 
 export default Navbar;
