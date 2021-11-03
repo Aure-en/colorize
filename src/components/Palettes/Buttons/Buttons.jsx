@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ButtonLike from './ButtonLike';
-import ButtonSave from './ButtonSave';
+import Save from './Save/Save';
 import More from './More/More';
 
 const Buttons = ({ palette }) => (
   <Wrapper>
-    <ButtonSave paletteId={palette.id} />
+    <Save paletteId={palette.id} />
     <ButtonLike paletteId={palette.id} />
     <More palette={palette} />
   </Wrapper>
