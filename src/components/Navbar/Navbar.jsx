@@ -28,7 +28,7 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.textOnPrimary};
   `;
 
