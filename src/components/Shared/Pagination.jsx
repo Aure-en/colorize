@@ -33,9 +33,7 @@ const PaginationDropdown = styled.div`
 display: flex;
 align-items: ;
 justify-content: center;
-@media screen and (max-width: 768px) {
-    display: none;
-  }
+
 `;
 
 const Number = styled.a`
