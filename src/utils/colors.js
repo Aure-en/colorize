@@ -115,10 +115,24 @@ export const isColorLight = (colorHex) => {
   return color.isLight();
 } 
 
-export const getLightShade = (colorData) => {
+export const getBackgroundShade = (colorData) => {
   const color = Color(colorData.hex);
   const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}30` : `${color.hex()}15`;
   return lightColor;
+}
+
+export const getLightShade = (colorData) => {
+  const color = Color(colorData.hex);
+  let lightColor;
+
+  if (color.lightness() > 80) {
+    lightColor = color.lightness(80);
+  } else if (color.lightness() > 60) {
+    lightColor = color.lightness(color.lightness() + 15);
+  } else {
+    lightColor = color.lightness(color.lightness() + 25);
+  }
+  return lightColor.hex();
 }
 
 export const getDarkShade = (colorData) => {
