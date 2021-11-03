@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { getPalette } from '../../selectors/palette';
-import { getLightShade, getDarkShade, isColorLight } from '../../utils/colors';
+import { getIsDarkMode } from '../../selectors/settings';
+import { getBackgroundShade, getLightShade, getDarkShade, isColorLight } from '../../utils/colors';
 
 const Theme = ({ children }) => {
-  const DARK_DEFAULT = '#000000';
+  const DARK_DEFAULT = '#292929';
   const LIGHT_DEFAULT = '#FFFFFF';
 
   const initial = {
@@ -19,6 +20,7 @@ const Theme = ({ children }) => {
 
   const [theme, setTheme] = useState(initial);
   const palette = useSelector(getPalette);
+  const darkMode = useSelector(getIsDarkMode);
 
   useEffect(() => {
     const newTheme = { ...theme };
@@ -38,15 +40,32 @@ const Theme = ({ children }) => {
     newTheme.textOnPrimary = isColorLight(primary.hex) ? DARK_DEFAULT : LIGHT_DEFAULT;
 
     // Text colors from palette
-    newTheme.primaryText = getDarkShade(primary);
-    newTheme.secondaryText = getDarkShade(secondary);
+    if (darkMode) {
+      newTheme.primaryText = getLightShade(primary);
+      newTheme.secondaryText = getLightShade(secondary);
+    } else {
+      newTheme.primaryText = getDarkShade(primary);
+      newTheme.secondaryText = getDarkShade(secondary);
+    }
 
     // Background colors from palette
-    newTheme.primaryBackground = getLightShade(primary);
-    newTheme.secondaryBackground = getLightShade(secondary);
+    newTheme.primaryBackground = getBackgroundShade(primary);
+    newTheme.secondaryBackground = getBackgroundShade(secondary);
 
     setTheme(newTheme);
   }, [palette]);
+
+  useEffect(() => {
+    if (darkMode) {
+      setTheme((prev) => ({
+        ...prev, textPrimary: '#292929', textSecondary: '#9a9a9a', background: '#FFFFFF',
+      }));
+    } else {
+      setTheme((prev) => ({
+        ...prev, textPrimary: '#FFFFFF', textSecondary: '#9a9a9a', background: '#292929',
+      }));
+    }
+  }, [darkMode]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,6 +80,18 @@ Theme.propTypes = {
 
 Theme.defaultProps = {
   children: <div />,
+};
+
+export const LIGHT_MODE = {
+  textPrimary: '#262626',
+  textSecondary: '#9a9a9a',
+  background: '#FFFFFF',
+};
+
+export const DARK_MODE = {
+  textPrimary: '#fff',
+  textSecondary: '#9a9a9a',
+  background: '#292929',
 };
 
 export default Theme;

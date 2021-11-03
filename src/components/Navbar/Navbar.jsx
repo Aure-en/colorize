@@ -30,6 +30,6 @@ const Nav = styled.nav`
   justify-content: space-between;
   background: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.textOnPrimary};
-`;
+  `;
 
 export default Navbar;

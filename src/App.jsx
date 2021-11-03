@@ -50,5 +50,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
+  background: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.textPrimary}
 `;
 export default App;

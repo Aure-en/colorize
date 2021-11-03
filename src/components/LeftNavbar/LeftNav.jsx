@@ -72,6 +72,7 @@ const Nav = styled.nav`
   justify-content: start;
 `;
 const NavLink = styled(Link)`
+  color: ${(props) => props.theme.textPrimary};
   text-decoration: none;
   padding: 0.5rem 1rem;
   cursor: pointer;

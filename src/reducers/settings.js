@@ -1,8 +1,9 @@
-import { UPDATE_CREATION_PAGE, UPDATE_FORMAT } from '../actions/settings';
+import { UPDATE_CREATION_PAGE, UPDATE_FORMAT, TOGGLE_SWITCHER } from '../actions/settings';
 
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'
   format: 'hex',
+  isDarkMode: true,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -17,6 +18,12 @@ const settings = (state = initialState, action = {}) => {
       return {
         ...state,
         format: action.format,
+      };
+
+    case TOGGLE_SWITCHER:
+      return {
+        ...state,
+        isDarkMode: !state.isDarkMode,
       };
     default:
       return state;

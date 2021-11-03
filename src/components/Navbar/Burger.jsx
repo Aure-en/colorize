@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import RightNavAfterSignIn from './RightNavAfterSignIn';
+// import RightNavAfterSignIn from './RightNavAfterSignIn';
+import RightNav from './RightNav';
 
 const Burger = () => {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ const Burger = () => {
         <div />
         <div />
       </StyledBurger>
-      <RightNavAfterSignIn open={open} />
+      <RightNav open={open} />
     </>
   );
 };
@@ -36,7 +37,7 @@ const StyledBurger = styled.div`
   div {
     width: 2rem;
     height: 0.25rem;
-    background-color: ${(props) => props.theme.textOnPrimary};
+    background: ${(props) => props.theme.textOnPrimary};
     border-radius: 10px;
     transform-origin: 1px;
     transition: all 0.3s linear;

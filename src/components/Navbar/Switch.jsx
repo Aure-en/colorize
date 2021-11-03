@@ -1,22 +1,31 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
+import { toggleSwitcher } from '../../actions/settings';
+import { useDispatch } from 'react-redux';
 
-const Switch = () => (
-  <Toggle>
-    <input
-      className="react-switch-checkbox"
-      id="react-switch-new"
-      type="checkbox"
-    />
-    <label
-      className="react-switch-label"
-      htmlFor="react-switch-new"
+const Switch = (isDarkMode, toggleDarkMode) => {
+  const dispatch = useDispatch();
+  return (
+
+    <Toggle
+      checked={isDarkMode}
+      onChange={() => dispatch(toggleSwitcher())}
     >
-      <span className="react-switch-button" />
-    </label>
-  </Toggle>
-);
+      <input
+        className="react-switch-checkbox"
+        id="react-switch-new"
+        type="checkbox"
+      />
+      <label
+        className="react-switch-label"
+        htmlFor="react-switch-new"
+      >
+        <span className="react-switch-button" />
+      </label>
+    </Toggle>
+  );
+};
 
 const Toggle = styled.div`
   display: flex;
