@@ -1,4 +1,6 @@
-import { OPEN_MODAL, CLOSE_MODAL, UPDATE_CODE_FORMAT, UPDATE_COLOR_FORMAT } from '../actions/export';
+import {
+  OPEN_MODAL, CLOSE_MODAL, UPDATE_CODE_FORMAT, UPDATE_COLOR_FORMAT,
+} from '../actions/export';
 
 export const initialState = {
   isModalOpen: false,

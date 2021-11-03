@@ -5,7 +5,7 @@ export const initialState = [
   {
     name: 'Default',
     palettes: [palettes[0], palettes[1], palettes[2], palettes[3]],
-    id: 1,
+    id: 0,
   },
   {
     name: 'Pastel',
@@ -26,11 +26,33 @@ export const initialState = [
 
 const favorite = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SAVE_PALETTE:
-      return state;
+    case SAVE_PALETTE: {
+      return [...state].map((collection) =>
+        collection.id === action.collectionId
+          ? {
+              ...collection,
+              palettes: [...collection.palettes, action.palette],
+            }
+          : collection
+      );
+    }
 
-    case UNSAVE_PALETTE:
-      return state;
+    case UNSAVE_PALETTE: {
+      const collections = [...state];
+      const collectionWithPalette = collections.find((collection) => 
+        collection.palettes.find((palette) => palette.id === action.paletteId));
+      const collectionWithoutPalette = {
+        ...collectionWithPalette,
+        palettes: collectionWithPalette.palettes.filter(
+          (palette) => palette.id !== action.paletteId,
+        ) };
+      const stateWithoutPalette = collections.map((collection) =>
+        collection.id === collectionWithoutPalette.id
+          ? collectionWithoutPalette
+          : collection
+      );
+      return stateWithoutPalette;
+    }
 
     default:
       return state;
