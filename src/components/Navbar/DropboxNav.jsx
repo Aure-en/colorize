@@ -16,7 +16,8 @@ const DropboxNav = () => {
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentFormat}&#9660;
+        {currentFormat}
+        &#9660;
         {/* Caret down */}
       </DropdownHeader>
 
