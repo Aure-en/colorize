@@ -8,7 +8,7 @@ const LeftNav = () => (
   <Nav>
     <Searchbar to="/">
       <BtnMobile>
-        <SearchMobileIcon className="btnMob" />
+        <SearchMobileIcon />
       </BtnMobile>
       <Input type="Search" placeholder="Search" />
       <Btn>

@@ -37,17 +37,18 @@ padding-top: 1em;
 `;
 
 const BtnPrevious = styled.button`
-
+color: ${(props) => props.theme.textPrimary};
 `;
 
 const BtnNext = styled.button`
-
+color: ${(props) => props.theme.textPrimary};
 `;
 
 const Themes = styled.div`
 display: flex;
 `;
 const ThemesName = styled.a`
+color: ${(props) => props.theme.textPrimary};
 justify-content: space-between;
 padding-left: 2em;
 padding-right: 2em;
