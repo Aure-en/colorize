@@ -78,7 +78,7 @@ const NavLink = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
@@ -131,7 +131,7 @@ const Line = styled.div`
   background: linear-gradient(
     to right,
     transparent 0%,
-    ${(props) => props.theme.textPrimary} 50%,
+    ${(props) => props.theme.primaryText} 50%,
     transparent 100%
   );
 `;
