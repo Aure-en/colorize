@@ -4,6 +4,7 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import Modal from 'react-modal';
+import styled from 'styled-components';
 
 const customStyles = {
   content: {
