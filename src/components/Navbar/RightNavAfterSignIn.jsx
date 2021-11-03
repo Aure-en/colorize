@@ -19,7 +19,7 @@ const RightNavAfterSignIn = ({ open }) => (
     </NavLinkBetween>
     <NavLinkBetween>
       <Username>Username</Username>
-      <NavLink to="/profil" exact className="navlink">Profil</NavLink>
+      <NavLink to="/profile" exact className="navlink">Profile</NavLink>
       <NavLink to="/settings" exact className="navlink">Settings</NavLink>
       <NavLink to="/signout" exact className="navlink">Sign Out</NavLink>
     </NavLinkBetween>

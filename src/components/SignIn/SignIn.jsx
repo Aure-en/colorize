@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapperOne = styled.div`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.textOnPrimary};
   width: 60%;
   padding: 5px;
   padding-left: 2rem;
@@ -65,7 +65,7 @@ const WrapperOne = styled.div`
 `;
 
 const WrapperTwo = styled.div`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.textOnPrimary};
   width: 40%;
   padding: 1rem;
   padding-left: 1rem;
@@ -79,7 +79,7 @@ const WrapperTwo = styled.div`
 `;
 
 const Title = styled.h1`
-  color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.secondary};
   font-size: 2rem;
   height: 20%; 
   width: 80%;
@@ -88,7 +88,7 @@ const Title = styled.h1`
   margin-top: 4rem;
 
     @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.secondary};
     height: 6rem;
     padding: 1rem;
     padding-top: 2rem;
@@ -152,7 +152,7 @@ const ForgetLink = styled(Link)`
 margin: 1rem 0rem;
 width: 100%;
 text-align:right;
-color: ${(props) => props.theme.background}
+color: ${(props) => props.theme.secondary}
 `;
 
 const LogoBrand = styled.div`
@@ -167,19 +167,19 @@ flex-direction: row
 `;
 
 const Brand = styled.div`
-color: ${(props) => props.theme.background};
+color: ${(props) => props.theme.secondary};
 width: 55%;
 margin-left: 1rem;
 `;
 
 const UserRegistration = styled.div`
-color: ${(props) => props.theme.background};
+color: ${(props) => props.theme.secondary};
 margin: 1rem 2rem 1rem;
 padding: 1rem;
 `;
 
 const Sign = styled.div`
-color: ${(props) => props.theme.background};
+color: ${(props) => props.theme.secondary};
 margin: 1rem 2rem 1rem;
 padding: 1rem;
 display: flex;
