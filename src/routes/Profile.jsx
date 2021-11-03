@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ProfilePage from '../components/Profile/ProfilePage';
 import Palettes from '../components/Palettes/Palettes';
+import Pagination from '../components/Shared/Pagination';
 
 const Profile = () => (
 
@@ -10,6 +11,7 @@ const Profile = () => (
     <PalettesWrapper>
       <Palettes />
     </PalettesWrapper>
+    <Pagination />
   </Wrapper>
 
 );
@@ -24,6 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const PalettesWrapper = styled.div`
+padding-bottom: 2em;
 `;
 
 export default Profile;

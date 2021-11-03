@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   position: absolute;
   right: 0;
   border: 1px solid ${(props) => props.theme.textPrimary};
-  background: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   min-width: 7rem;
 
   & > * {
@@ -49,6 +49,6 @@ const Wrapper = styled.div`
     text-align: start;
     line-height: inherit;
   }
-`;
+  `;
 
 export default Menu;

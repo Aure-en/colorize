@@ -8,7 +8,7 @@ const LeftNav = () => (
   <Nav>
     <Searchbar to="/">
       <BtnMobile>
-        <SearchMobileIcon />
+        <SearchMobileIcon className="btnMob" />
       </BtnMobile>
       <Input type="Search" placeholder="Search" />
       <Btn>
@@ -71,6 +71,7 @@ const Nav = styled.nav`
   align-items: start;
   justify-content: start;
 `;
+
 const NavLink = styled(Link)`
   color: ${(props) => props.theme.textPrimary};
   text-decoration: none;
@@ -113,13 +114,13 @@ const Input = styled.input`
 
 const Btn = styled.button`
   display: flex;
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 768px) {
     display:none
    }
 `;
 const BtnMobile = styled.button`
   display: flex;
-  @media screen and (min-width: 768px) {
+  @media screen and (max-width: 768px) {
     display:none
    }
 `;

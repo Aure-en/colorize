@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { savePalette, unsavePalette } from '../../../actions/favorite';
+import { requestSavePalette, requestUnsavePalette } from '../../../actions/favorite';
 import { getAllFavorites } from '../../../selectors/favorite';
 import IconBookmark from '../../../assets/icons/card/IconBookmark';
 
@@ -9,22 +10,26 @@ const ButtonSave = ({ paletteId }) => {
   const favorites = useSelector(getAllFavorites);
   const dispatch = useDispatch();
 
-  const isFavorite = favorites.find((favorite) => favorite === paletteId) !== undefined;
+  const isFavorite = favorites.find((favorite) => favorite.id === paletteId) !== undefined;
 
   const handleClick = () => {
     if (isFavorite) {
-      dispatch(unsavePalette(paletteId));
+      dispatch(requestUnsavePalette(paletteId));
     } else {
-      dispatch(savePalette(paletteId));
+      dispatch(requestSavePalette(paletteId, 0));
     }
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <BtnSave type="button" onClick={handleClick}>
       <IconBookmark isFavorite={isFavorite} />
-    </button>
+    </BtnSave>
   );
 };
+
+const BtnSave = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+`;
 
 ButtonSave.propTypes = {
   paletteId: PropTypes.number.isRequired,

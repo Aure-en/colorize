@@ -33,19 +33,18 @@ const PaginationDropdown = styled.div`
 display: flex;
 align-items: ;
 justify-content: center;
-@media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const Number = styled.a`
+color: ${(props) => props.theme.textPrimary};
 display: flex;
 padding: 5px;
 text-decoration: none;
 display: inline-block;
 
 &:hover: {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.background};
+    ;
     color: black;
   }
 `;
@@ -53,7 +52,7 @@ display: inline-block;
 const BtnPrevious = styled.button`
 display: flex;
 text-decoration: none;
-color: #04AA6D;
+color: ${(props) => props.theme.textPrimary};
 &:hover: {
     background-color: #fff;
     color: black;
@@ -63,6 +62,6 @@ color: #04AA6D;
 const BtnNext = styled.button`
 text-decoration: none;
 display: flex;
-color: #04AA6D;
+color: ${(props) => props.theme.textPrimary};
 `;
 export default Pagination;
