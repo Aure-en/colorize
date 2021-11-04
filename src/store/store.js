@@ -4,11 +4,12 @@ import rootReducer from '../reducers/root';
 
 import likeMiddleware from '../middlewares/like';
 import favoriteMiddleware from '../middlewares/favorite';
+import palettesMiddleware from '../middlewares/palettes';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancers = composeEnhancers(
-  applyMiddleware(likeMiddleware, favoriteMiddleware),
+  applyMiddleware(likeMiddleware, favoriteMiddleware, palettesMiddleware),
 );
 
 const store = createStore(rootReducer, enhancers);
