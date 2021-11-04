@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const NotFound = () => (
+const NoPalettes = () => (
   <Wrapper>
     <Content>
-      <Heading>404</Heading>
-      <Subheading>Are you lost?</Subheading>
-      <Paragraph>Sorry, we were unable to find the page you are looking for.</Paragraph>
+      <Heading>There is nothing there.</Heading>
+      <Text>
+        <p>Sorry, we were unable to find any palettes meeting your criteria.</p>
+        <CreationLink to="/creation">How about creating yours?</CreationLink>
+      </Text>
       {/* &#8592; = ← */}
       <HomeLink to="/">&#8592; Take a step back</HomeLink>
     </Content>
@@ -31,13 +33,30 @@ const Content = styled.div`
 `;
 
 const Heading = styled.div`
-  font-size: 5rem;
-  font-weight: 300;
-`;
-
-const Subheading = styled.div`
   font-size: 1.25rem;
   color: ${(props) => props.theme.primaryText};
+`;
+
+const CreationLink = styled(Link)`
+  position: relative;
+  color: ${(props) => props.theme.primaryText};
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background: ${(props) => props.theme.primaryText};
+    width: 0%;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover:after {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
 `;
 
 const HomeLink = styled(Link)`
@@ -49,14 +68,19 @@ const HomeLink = styled(Link)`
   border: none;
   transition: background-color 0.2s ease-out;
   justify-self: end;
+  margin-top: 1.5rem;
 
   &:hover {
     background: ${(props) => props.theme.primaryText};
   }
 `;
 
-const Paragraph = styled.p`
-  margin: 1.5rem 0;
+const Text = styled.div`
+  margin-top: 1rem;
+
+  & > p {
+    margin-bottom: 1rem;
+  }
 `;
 
-export default NotFound;
+export default NoPalettes;

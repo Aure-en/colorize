@@ -6,22 +6,28 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getCollections,
   getCurrentCollection,
+  getFavoriteCollection,
 } from '../../../../selectors/favorite';
-import { requestSavePalette, updateCurrentCollection } from '../../../../actions/favorite';
+import { requestSavePalette, requestUnsavePalette, updateCurrentCollection } from '../../../../actions/favorite';
 
-const Menu = ({ paletteId, close }) => {
+const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
+  const favoriteCollection = useSelector((state) => getFavoriteCollection(state, paletteId));
 
   const handleClick = (collectionId) => {
-    dispatch(requestSavePalette(paletteId, collectionId));
-    dispatch(updateCurrentCollection(collectionId));
+    if (favoriteCollection === collectionId) {
+      dispatch(requestUnsavePalette(paletteId));
+    } else {
+      dispatch(requestSavePalette(paletteId, collectionId));
+      dispatch(updateCurrentCollection(collectionId));
+    }
     close();
   };
 
   return (
-    <Wrapper>
+    <Wrapper $position={position === 'left'}>
       <div>
         <Category>Default</Category>
         <Button onClick={() => handleClick(currentCollection)}>
@@ -38,7 +44,8 @@ const Menu = ({ paletteId, close }) => {
         {collections.map((collection) => (
           <Button
             onClick={() => handleClick(collection.id)}
-            $selected={collection.id === currentCollection}
+            $selected={collection.id === favoriteCollection}
+            key={collection.id}
           >
             {collection.name}
           </Button>
@@ -51,10 +58,17 @@ const Menu = ({ paletteId, close }) => {
 Menu.propTypes = {
   paletteId: PropTypes.number.isRequired,
   close: PropTypes.func.isRequired,
+  position: PropTypes.string,
+};
+
+Menu.defaultProps = {
+  position: undefined,
 };
 
 const Wrapper = styled.div`
   position: absolute;
+  bottom: ${(props) => props.$position && '0'};
+  right: ${(props) => props.$position && '8.75rem'};
   padding: 0.5rem 0;
   max-height: 10rem;
   overflow-y: auto;

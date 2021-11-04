@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+
 import Palette from '../../Palette/Palette';
 import PageChange from '../PageChange';
-import ExtractInput from '../Extract/ExtractInput';
 import GenerateButton from '../../Palette/Buttons/GenerateButton';
 import ResetButton from '../../Palette/Buttons/ResetButton';
 import SaveButton from '../../Palette/Buttons/SaveButton';
+import More from '../More/More';
+import ExtractInput from '../Extract/ExtractInput';
+
 import Center from './Center';
 import Cover from './Cover';
 import Triangles from './Triangles';
 import Leaves from './Leaves';
 import Corner from './Corner';
 import Buttons from './Buttons';
+
 import { getPalette } from '../../../selectors/palette';
 
 const preview = (number) => {
@@ -58,16 +62,17 @@ const Preview = () => {
       </Previews>
 
       <Save>
+        {palette.id !== null && <More palette={palette} />}
         <SaveButton />
       </Save>
 
-      <ButtonsWrapper>
+      <SlidesButtons>
         <Buttons
           select={setCurrentPreview}
           total={TOTAL_PREVIEW}
           current={currentPreview}
         />
-      </ButtonsWrapper>
+      </SlidesButtons>
     </Wrapper>
   );
 };
@@ -116,6 +121,8 @@ const PageChangeWrapper = styled.div`
 `;
 
 const Save = styled.div`
+  display: flex;
+  align-items: center;
   grid-row: 4;
   grid-column: 2;
   position: absolute;
@@ -131,7 +138,7 @@ const Save = styled.div`
   }
 `;
 
-const ButtonsWrapper = styled.div`
+const SlidesButtons = styled.div`
   grid-row: 4;
   grid-column: 1 / span 2;
   display: flex;
