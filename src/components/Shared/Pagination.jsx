@@ -16,4 +16,5 @@ export default function BasicPagination() {
 const PaginationDropdown = styled.div`
 display: flex;
 justify-content: center;
+color: ${(props) => props.theme.textPrimary};
 `;

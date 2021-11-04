@@ -25,6 +25,7 @@ const Text = styled.div`
   position: absolute;
   bottom: 0;
   text-align: center;
+  color: ${(props) => props.theme.primaryText};
 
   & > h2 {
     font-size: 2rem;

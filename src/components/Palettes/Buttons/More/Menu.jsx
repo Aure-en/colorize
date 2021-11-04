@@ -32,13 +32,14 @@ const Wrapper = styled.div`
   position: absolute;
   right: 0;
   border: 1px solid ${(props) => props.theme.textPrimary};
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   min-width: 7rem;
 
   & > * {
     display: inline-block;
     padding: 0.25rem 0.5rem;
     width: 100%;
+    color: ${(props) => props.theme.textPrimary};
 
     &:hover {
       background: ${(props) => props.theme.secondaryBackground};
@@ -48,6 +49,7 @@ const Wrapper = styled.div`
   & > button {
     text-align: start;
     line-height: inherit;
+    color: ${(props) => props.theme.textPrimary};
   }
   `;
 

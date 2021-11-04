@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as SearchMobileIcon } from '../../assets/icons/searchmobile.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
 const RightNavAfterSignIn = ({ open }) => (
   <Ul open={open}>
     <Searchbar to="/">
       <Input type="Search" placeholder="Search" />
-      <BtnMobile>
-        <SearchMobileIcon />
-      </BtnMobile>
+      <Btn>
+        <SearchIcon className="search-icon" />
+      </Btn>
     </Searchbar>
     <NavLinkBetween>
       <NavLink to="/" exact className="navlink">Home</NavLink>
@@ -110,8 +110,13 @@ const Input = styled.input`
   }
 `;
 
-const BtnMobile = styled.button`
+const Btn = styled.button`
   display: none;
+  padding: 5px 5px;
+
+  .search-icon {
+    stroke: ${(props) => props.theme.background}
+  }
 
   @media (max-width: 768px) {
     display: flex;
