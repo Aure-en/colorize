@@ -55,6 +55,7 @@ const WrapperOne = styled.div`
   padding: 5px;
   padding-left: 2rem;
   height: 100%;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     background-color: ${(props) => props.theme.background};
@@ -71,6 +72,8 @@ const WrapperTwo = styled.div`
   padding-left: 0.5rem;
   height: 100%;
   margin-right: 0.5rem;
+  border-radius: 10px;
+
 
   @media (max-width: 768px) {
     display: none;
@@ -96,7 +99,7 @@ const Title = styled.h1`
 `;
 
 const Username = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 85%;
   padding: 1rem;
@@ -111,7 +114,7 @@ const Username = styled.input`
 `;
 
 const Email = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 85%;
   padding: 1rem;
@@ -126,7 +129,7 @@ const Email = styled.input`
 `;
 
 const Password = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 41%;
   padding: 1rem;
@@ -141,7 +144,7 @@ const Password = styled.input`
 `;
 
 const Repeat = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 41%;
   padding: 1rem;

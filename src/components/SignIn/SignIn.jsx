@@ -56,6 +56,7 @@ const WrapperOne = styled.div`
   padding-left: 2rem;
   margin-right: 0.5rem;
   height: 100%;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     background-color: ${(props) => props.theme.background};
@@ -71,6 +72,7 @@ const WrapperTwo = styled.div`
   padding: 1rem;
   padding-left: 1rem;
   height: 100%;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     display: none;
@@ -96,7 +98,7 @@ const Title = styled.h1`
 `;
 
 const Email = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 80%;
   padding: 1rem;
@@ -111,7 +113,7 @@ const Email = styled.input`
 `;
 
 const Password = styled.input`
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   height: 8%;
   width: 80%;
   padding: 1rem;
@@ -146,7 +148,7 @@ const ForgetLink = styled(Link)`
   margin: 1rem 0rem;
   width: 100%;
   text-align:right;
-  color: ${(props) => props.theme.primaryText}
+  color: ${(props) => props.theme.background}
   `;
 
 const LogoBrand = styled.div`
