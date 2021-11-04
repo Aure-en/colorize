@@ -8,7 +8,7 @@ import {
   getCurrentCollection,
   getFavoriteCollection,
 } from '../../../../selectors/favorite';
-import { requestSavePalette, updateCurrentCollection } from '../../../../actions/favorite';
+import { requestSavePalette, requestUnsavePalette, updateCurrentCollection } from '../../../../actions/favorite';
 
 const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
@@ -17,8 +17,12 @@ const Menu = ({ paletteId, close, position }) => {
   const favoriteCollection = useSelector((state) => getFavoriteCollection(state, paletteId));
 
   const handleClick = (collectionId) => {
-    dispatch(requestSavePalette(paletteId, collectionId));
-    dispatch(updateCurrentCollection(collectionId));
+    if (favoriteCollection === collectionId) {
+      dispatch(requestUnsavePalette(paletteId));
+    } else {
+      dispatch(requestSavePalette(paletteId, collectionId));
+      dispatch(updateCurrentCollection(collectionId));
+    }
     close();
   };
 
