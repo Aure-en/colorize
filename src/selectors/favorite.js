@@ -7,7 +7,7 @@ export const getCurrentCollection = (state) => state.favorite.currentCollection;
 
 export const getCollections = (state) => state.favorite.collections;
 
-export const getCollection = (state, id) => state.favorite.find((collection) => collection.id === +id);
+export const getCollection = (state, id) => state.favorite.collections.find((collection) => collection.id === +id);
 
 export const getFavoriteCollection = (state, paletteId) => {
   const collectionWithPalette = state.favorite.collections.find(

@@ -68,6 +68,7 @@ const Header = styled.header`
 `;
 
 const Heading = styled.h2`
+  color: ${(props) => props.theme.textPrimary};
   font-size: 1.75rem;
   line-height: 2.75rem;
   margin: 0;
@@ -93,6 +94,7 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 0 0.25rem 0;
+  background: transparent;
 
   &::placeholder {
     color: ${(props) => props.theme.text_silent};
@@ -110,6 +112,7 @@ const Label = styled.label`
   text-transform: uppercase;
   font-size: 0.825rem;
   letter-spacing: 1px;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const Error = styled.div`
@@ -126,6 +129,7 @@ const Submit = styled.button`
   text-transform: uppercase;
   border: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export default AddModal;

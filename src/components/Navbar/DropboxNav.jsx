@@ -84,6 +84,10 @@ const Button = styled.button`
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
   color: ${(props) => props.theme.textPrimary};
+
+  &:hover {
+    background: ${(props) => props.theme.secondaryBackground};
+  }
 `;
 
 export default DropboxNav;

@@ -16,6 +16,7 @@ const Modal = ({ isModalOpen, closeModal, children }) => {
       transform: 'translate(-50%, -50%)',
       padding: '3rem',
       maxWidth: '50rem',
+      background: theme.background,
     },
     overlay: {
       backgroundColor: `${theme.primaryText}50`,

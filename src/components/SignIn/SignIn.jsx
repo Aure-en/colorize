@@ -1,32 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { NavLink as Link } from 'react-router-dom';
+import { requestLogin } from '../../actions/user';
 import { ReactComponent as Logo } from '../../assets/img/logo.svg';
 
-const SignIn = () => (
-  <Wrapper>
-    <WrapperOne>
-      <Title>Sign In</Title>
-      <Email placeholder="Username or Email" />
-      <Password placeholder="Password" />
-      <WrapLeft>
-        <Button onClick="submit">Submit</Button>
-        <ForgetLink to="/forgetPass">Forget Password</ForgetLink>
-      </WrapLeft>
-    </WrapperOne>
-    <WrapperTwo>
-      <LogoBrand>
-        <Logo />
-        <Brand>Colorize</Brand>
-      </LogoBrand>
-      <UserRegistration>User Registration</UserRegistration>
-      <Sign>
-        <In>Sign In</In>
-        <Up>Sign Up</Up>
-      </Sign>
-    </WrapperTwo>
-  </Wrapper>
-);
+const SignIn = () => {
+  const [identifier, setIdentifier] = useState('');
+  const errorsObj = { username: '', email: '', password: '' };
+  const [errors, setErrors] = useState(errorsObj);
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  function onSignIn(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+    console.log('onSignIn');
+
+    if (password === '') {
+      errorObj.email = 'Password is Required';
+      error = true;
+    }
+
+    if (identifier === '') {
+      errorObj.email = 'Identifier is Required';
+      error = true;
+    }
+
+    setErrors(errorObj);
+
+    if (error) return;
+
+    dispatch(requestLogin(identifier, password));
+  }
+  return (
+    <Wrapper>
+      <WrapperOne>
+        <Title>Sign In</Title>
+        <Form onSubmit={onSignIn}>
+          <Email placeholder="Username or Email" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+          <Password placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <WrapLeft>
+            <Button type="submit">Submit</Button>
+            <ForgetLink to="/forgetPass">Forget Password</ForgetLink>
+          </WrapLeft>
+        </Form>
+      </WrapperOne>
+      <WrapperTwo>
+        <LogoBrand>
+          <Logo />
+          <Brand>Colorize</Brand>
+        </LogoBrand>
+        <UserRegistration>User Registration</UserRegistration>
+        <Sign>
+          <In>Sign In</In>
+          <Up>Sign Up</Up>
+        </Sign>
+      </WrapperTwo>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -196,4 +231,7 @@ const Up = styled.button`
   justify-content: flex-start;
   `;
 
+const Form = styled.form`
+
+`;
 export default SignIn;
