@@ -42,6 +42,7 @@ const Ul = styled.ul`
 `;
 
 const CollectionLink = styled(Link)`
+  color: ${(props) => props.theme.textPrimary};
   display: inline-block;
   padding: 0.5rem 0;
 

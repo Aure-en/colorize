@@ -25,6 +25,7 @@ const Reset = () => {
 
 const Button = styled.button`
   background: transparent;
+  color: ${(props) => props.theme.textPrimary};
   padding: 0.5rem;
   text-transform: uppercase;
   font-size: 0.925rem;

@@ -39,7 +39,7 @@ const Ul = styled.ul`
   }
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.textPrimary};
+    background-color: ${(props) => props.theme.primaryText};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
@@ -65,9 +65,9 @@ const NavLinkBetween = styled.div`
   z-index: 20;
   color: ${(props) => props.theme.textOnPrimary};
 
-@media (min-width: 768px) {
-  flex-direction: row;
-}
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export default RightNav;

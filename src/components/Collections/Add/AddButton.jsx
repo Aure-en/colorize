@@ -23,6 +23,7 @@ const Button = styled.button`
   width: 15rem;
   height: 13rem;
   padding: 0;
+  color: ${(props) => props.theme.textPrimary}
 `;
 
 export default AddButton;

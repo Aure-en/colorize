@@ -40,6 +40,7 @@ Collection.propTypes = {
 
 const Wrapper = styled(Link)`
   display: block;
+  color: ${(props) => props.theme.textPrimary};
 
   & > *:first-child {
     margin-bottom: 0.25rem;

@@ -26,6 +26,7 @@ CardsList.propTypes = {
 };
 
 const List = styled.ul`
+  padding: 1rem;
   display: grid;
   width: 100%;
   flex: 1;

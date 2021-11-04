@@ -98,7 +98,7 @@ const Wrapper = styled.div`
 
 const PaletteWrapper = styled.div`
   grid-row: 2;
-  grid-column: 1 / span 2;
+  grid-column: 1 / span 2; 
 
   @media all and (min-width: 900px) {
     grid-row: 1 / span 2;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestSavePalette, requestUnsavePalette } from '../../../../actions/favorite';
 import { getAllFavorites } from '../../../../selectors/favorite';
@@ -20,11 +21,15 @@ const ButtonSave = ({ paletteId }) => {
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <BtnSave type="button" onClick={handleClick}>
       <IconBookmark isFavorite={isFavorite} />
-    </button>
+    </BtnSave>
   );
 };
+
+const BtnSave = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+`;
 
 ButtonSave.propTypes = {
   paletteId: PropTypes.number.isRequired,
