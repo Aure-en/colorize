@@ -44,6 +44,7 @@ const Button = styled.button`
   transition: color 0.2s linear, transform 0.2s linear;
   opacity: ${(props) => (props.$current ? 1 : 0.5)};
   transform: ${(props) => props.$current && 'scale(1.2)'};
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
     color: ${(props) => props.theme.secondaryText};

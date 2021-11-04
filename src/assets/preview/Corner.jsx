@@ -18,8 +18,8 @@ const Corner = () => {
     >
 
       <g>
-        <line fill="#ffffff" x1="0" y1="193.1" x2="0" y2="0" />
-        <path fill="#ffffff" d="M310.6,193.1" />
+        <line fill={theme.background} x1="0" y1="193.1" x2="0" y2="0" />
+        <path fill={theme.background} d="M310.6,193.1" />
         <g>
           <g>
             <polygon fill={theme.primary} points="146,51.3 146.3,103.5 95.8,51.3 			" />

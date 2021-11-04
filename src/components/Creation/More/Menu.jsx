@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Copy from './Copy';
-import Export from '../../../Export/Button';
+
+import Save from './Save';
+import Export from '../../Export/Button';
+import Copy from '../../Palettes/Buttons/More/Copy';
 
 const Menu = ({ palette, closeMenu }) => (
   <Wrapper>
-    <Link to={`/palettes/${palette.id}`}>View Palette</Link>
+    <Save paletteId={palette.id} closeMenu={closeMenu} />
     <Export palette={palette} closeMenu={closeMenu} />
     <Copy paletteId={palette.id} closeMenu={closeMenu} />
   </Wrapper>
@@ -31,15 +32,16 @@ Menu.propTypes = {
 const Wrapper = styled.div`
   position: absolute;
   right: 0;
+  bottom: 2rem;
   border: 1px solid ${(props) => props.theme.textPrimary};
   background: ${(props) => props.theme.background};
-  min-width: 7rem;
+  min-width: 8.9rem;
+  padding: 0.5rem 0;
 
   & > * {
     display: inline-block;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0rem 0.25rem 1.75rem;
     width: 100%;
-    color: ${(props) => props.theme.textPrimary};
 
     &:hover {
       background: ${(props) => props.theme.secondaryBackground};
@@ -49,8 +51,7 @@ const Wrapper = styled.div`
   & > button {
     text-align: start;
     line-height: inherit;
-    color: ${(props) => props.theme.textPrimary};
   }
-  `;
+`;
 
 export default Menu;

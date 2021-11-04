@@ -34,18 +34,18 @@ export const initialState = {
 const favorite = (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_PALETTE: {
-      let collections = { ...state.collections };
+      let collections = [...{ ...state }.collections];
 
       // Remove palette from collection if it is already saved.
       const collectionWithPaletteId = collections.findIndex(
         (collection) =>
-          collection.palettes.find((palette) => palette.id === action.paletteId)
+          collection.palettes.find((palette) => palette.id === action.paletteId),
       );
 
-      if (collectionWithPaletteId) {
+      if (collectionWithPaletteId !== -1) {
         collections[collectionWithPaletteId] = collections[
           collectionWithPaletteId
-        ].filter((palette) => palette.id !== action.palette.id);
+        ].palettes.filter((palette) => palette.id !== action.palette.id);
       }
 
       // Add palette to the selected collection
