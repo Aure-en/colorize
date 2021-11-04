@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { getUser } from '../../../selectors/user';
 
 const CurrentUser = () => {
-  const currentUsername = useSelector(getUser);
+  const currentUsername = useSelector(getUser)?.username;
 
   return (
     <CurrentText>{currentUsername}</CurrentText>
