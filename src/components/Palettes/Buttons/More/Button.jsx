@@ -13,6 +13,7 @@ const ButtonDots = styled.button`
   display: flex;
   align-items: center;
   height: 100%;
+  color: ${(props) => props.theme.textPrimary};
 
   & > svg {
     position: relative;

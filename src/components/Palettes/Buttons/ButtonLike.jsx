@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { requestLikePalette, requestUnlikePalette } from '../../../actions/like';
 import IconHeart from '../../../assets/icons/card/IconHeart';
@@ -20,11 +21,15 @@ const ButtonLike = ({ paletteId }) => {
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <BtnLike type="button" onClick={handleClick}>
       <IconHeart isLiked={isLiked} />
-    </button>
+    </BtnLike>
   );
 };
+
+const BtnLike = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+`;
 
 ButtonLike.propTypes = {
   paletteId: PropTypes.number.isRequired,

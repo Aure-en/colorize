@@ -56,6 +56,7 @@ const DropdownHeader = styled.button`
   cursor: pointer;
   font-weight: 300;
   text-transform: capitalize;
+  color: ${(props) => props.theme.textPrimary};
 
   & > svg {
     margin-left: 0.25rem;
@@ -70,7 +71,7 @@ const DropdownList = styled.div`
   border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 5;
   width: 100%;
-  background: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   padding: 0.25rem 0;
 `;
 
