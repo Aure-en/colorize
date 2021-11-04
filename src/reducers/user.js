@@ -1,9 +1,9 @@
 import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
 
 export const initialState = {
-  username: 'Anonymous',
-  id: '',
-  jwt: '',
+  username: 'Username',
+  id: 1,
+  jwt: 'JWT',
   email: 'Email',
 };
 
@@ -23,6 +23,7 @@ const user = (state = initialState, action = {}) => {
         username: '',
         id: '',
         jwt: '',
+        email: '',
       };
 
     default:

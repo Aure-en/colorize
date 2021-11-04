@@ -2,29 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { logout } from '../../actions/user';
+
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
-const RightNavAfterSignIn = ({ open }) => (
-  <Ul open={open}>
-    <Searchbar to="/">
-      <Input type="Search" placeholder="Search" />
-      <Btn>
-        <SearchIcon className="search-icon" />
-      </Btn>
-    </Searchbar>
-    <NavLinkBetween>
-      <NavLink to="/" exact className="navlink">Home</NavLink>
-      <NavLink to="/creation" exact className="navlink">Creation</NavLink>
-      <NavLink to="/collections" exact className="navlink">Collections</NavLink>
-    </NavLinkBetween>
-    <NavLinkBetween>
-      <Username>Username</Username>
-      <NavLink to="/profile" exact className="navlink">Profile</NavLink>
-      <NavLink to="/settings" exact className="navlink">Settings</NavLink>
-      <NavLink to="/signout" exact className="navlink">Sign Out</NavLink>
-    </NavLinkBetween>
-  </Ul>
-);
+const RightNavAfterSignIn = ({ open }) => {
+  const dispatch = useDispatch();
+
+  return (
+    <Ul open={open}>
+      <Searchbar to="/">
+        <Input type="Search" placeholder="Search" />
+        <Btn>
+          <SearchIcon className="search-icon" />
+        </Btn>
+      </Searchbar>
+      <NavLinkBetween>
+        <NavLink to="/" exact className="navlink">Home</NavLink>
+        <NavLink to="/creation" exact className="navlink">Creation</NavLink>
+        <NavLink to="/collections" exact className="navlink">Collections</NavLink>
+      </NavLinkBetween>
+      <NavLinkBetween>
+        <Username>Username</Username>
+        <NavLink to="/profile" exact className="navlink">Profile</NavLink>
+        <NavLink to="/settings" exact className="navlink">Settings</NavLink>
+        <button type="button" onClick={() => dispatch(logout())} className="navlink">Sign Out</button>
+      </NavLinkBetween>
+    </Ul>
+  );
+};
 
 RightNavAfterSignIn.propTypes = {
   open: PropTypes.bool.isRequired,
@@ -78,12 +86,11 @@ const NavLinkBetween = styled.div`
   flex-direction: column;
   padding-left: 10px;
 
-
-  
   @media (min-width: 768px) {
     flex-direction: row;
+    align-items: center;
   }
-  `;
+`;
 
 const Searchbar = styled.div`
   display: none;
