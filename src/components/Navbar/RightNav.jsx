@@ -37,10 +37,9 @@ const Ul = styled.ul`
       font-weight: 500;
     }
   }
-
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${(props) => props.theme.textPrimary};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
@@ -54,6 +53,7 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
+      color: ${(props) => props.theme.background};
     }
   }
 `;

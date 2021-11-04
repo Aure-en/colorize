@@ -115,10 +115,30 @@ export const isColorLight = (colorHex) => {
   return color.isLight();
 } 
 
+export const getBackgroundShade = (colorData) => {
+  const color = Color(colorData.hex);
+  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}25` : `${color.hex()}15`;
+  return lightColor;
+}
+
+export const getBackgroundActiveShade = (colorData) => {
+  const color = Color(colorData.hex);
+  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}40` : `${color.hex()}25`;
+  return lightColor;
+}
+
 export const getLightShade = (colorData) => {
   const color = Color(colorData.hex);
-  const lightColor = color.lightness() > 90 ? `${color.lightness(70).hex()}30` : `${color.hex()}15`;
-  return lightColor;
+  let lightColor;
+
+  if (color.lightness() > 80) {
+    lightColor = color.lightness(80);
+  } else if (color.lightness() > 60) {
+    lightColor = color.lightness(color.lightness() + 15);
+  } else {
+    lightColor = color.lightness(color.lightness() + 25);
+  }
+  return lightColor.hex();
 }
 
 export const getDarkShade = (colorData) => {
@@ -133,6 +153,30 @@ export const getDarkShade = (colorData) => {
     darkColor = color.lightness(50);
   }
   return darkColor.hex();
+}
+
+export const getShadeOnBackground = (colorData, isBackgroundDark = false) => {
+  if (isBackgroundDark) {
+    return getLightShade(colorData);
+  }
+  return getDarkShade(colorData);
+}
+
+const getTextOnLight = (colorData) => {
+  const color = Color(colorData.hex);
+  return color.lightness() > 70 ? color.lightness(70).hex() : color.hex();
+}
+
+const getTextOnDark = (colorData) => {
+  const color = Color(colorData.hex);
+  return color.lightness() < 50 ? color.lightness(50).hex() : color.hex();
+}
+
+export const getTextShade = (colorData, isBackgroundDark = false) => {
+  if (isBackgroundDark) {
+    return getTextOnDark(colorData);
+  }
+  return getTextOnLight(colorData);
 }
 
 // Get lighter and darker shades of a color

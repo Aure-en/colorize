@@ -42,6 +42,7 @@ const Ul = styled.ul`
     padding: 18px 10px;
     text-decoration: none;
     color: ${(props) => props.theme.textOnPrimary};
+    
 
     &.active {
       font-weight: 500;
@@ -50,7 +51,8 @@ const Ul = styled.ul`
 
   @media (max-width: 768px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.primary};
+    background: ${(props) => props.theme.textPrimary};
+    
     position: fixed;
     justify-content: start;
     align-items: center;
@@ -65,22 +67,26 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
+      color: ${(props) => props.theme.background};
     }
   }
 `;
 
 const NavLinkBetween = styled.div`
-display: flex;
-flex-direction: column;
-padding-left: 10px;
+  color: ${(props) => props.theme.background};
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
 
-@media (min-width: 768px) {
-  flex-direction: row;
-}
-`;
+
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+  `;
 
 const Searchbar = styled.div`
-display: none;
+  display: none;
 
   @media (max-width: 768px) {
     display: flex;
@@ -105,12 +111,12 @@ display: none;
 `;
 
 const BtnMobile = styled.button`
-display: none;
+  display: none;
 
-@media (max-width: 768px) {
-  display: flex;
-}
-`;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+  `;
 
 const Username = styled.p`
 display: none;
