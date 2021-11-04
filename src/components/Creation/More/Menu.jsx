@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Copy from '../../Palettes/Buttons/More/Copy';
+
+import Save from './Save';
 import Export from '../../Export/Button';
+import Copy from '../../Palettes/Buttons/More/Copy';
 
 const Menu = ({ palette, closeMenu }) => (
   <Wrapper>
+    <Save paletteId={palette.id} closeMenu={closeMenu} />
     <Export palette={palette} closeMenu={closeMenu} />
     <Copy paletteId={palette.id} closeMenu={closeMenu} />
   </Wrapper>
@@ -32,11 +35,12 @@ const Wrapper = styled.div`
   bottom: 2rem;
   border: 1px solid ${(props) => props.theme.textPrimary};
   background: ${(props) => props.theme.background};
-  min-width: 7rem;
+  min-width: 8.9rem;
+  padding: 0.5rem 0;
 
   & > * {
     display: inline-block;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0rem 0.25rem 1.75rem;
     width: 100%;
 
     &:hover {

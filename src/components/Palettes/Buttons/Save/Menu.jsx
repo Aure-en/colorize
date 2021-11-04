@@ -10,7 +10,7 @@ import {
 } from '../../../../selectors/favorite';
 import { requestSavePalette, updateCurrentCollection } from '../../../../actions/favorite';
 
-const Menu = ({ paletteId, close }) => {
+const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
@@ -23,7 +23,7 @@ const Menu = ({ paletteId, close }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper $position={position === 'left'}>
       <div>
         <Category>Default</Category>
         <Button onClick={() => handleClick(currentCollection)}>
@@ -54,10 +54,17 @@ const Menu = ({ paletteId, close }) => {
 Menu.propTypes = {
   paletteId: PropTypes.number.isRequired,
   close: PropTypes.func.isRequired,
+  position: PropTypes.string,
+};
+
+Menu.defaultProps = {
+  position: undefined,
 };
 
 const Wrapper = styled.div`
   position: absolute;
+  bottom: ${(props) => props.$position && '0'};
+  right: ${(props) => props.$position && '8.75rem'};
   padding: 0.5rem 0;
   max-height: 10rem;
   overflow-y: auto;
