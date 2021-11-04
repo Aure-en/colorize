@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getCollections,
   getCurrentCollection,
+  getFavoriteCollection,
 } from '../../../../selectors/favorite';
 import { requestSavePalette, updateCurrentCollection } from '../../../../actions/favorite';
 
@@ -13,6 +14,7 @@ const Menu = ({ paletteId, close }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
+  const favoriteCollection = useSelector((state) => getFavoriteCollection(state, paletteId));
 
   const handleClick = (collectionId) => {
     dispatch(requestSavePalette(paletteId, collectionId));
@@ -38,7 +40,8 @@ const Menu = ({ paletteId, close }) => {
         {collections.map((collection) => (
           <Button
             onClick={() => handleClick(collection.id)}
-            $selected={collection.id === currentCollection}
+            $selected={collection.id === favoriteCollection}
+            key={collection.id}
           >
             {collection.name}
           </Button>
