@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../selectors/user';
+
+import RightNav from './RightNav';
 import RightNavAfterSignIn from './RightNavAfterSignIn';
-// import RightNav from './RightNav';
 
 const Burger = () => {
   const [open, setOpen] = useState(false);
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
   return (
     <>
@@ -13,7 +17,9 @@ const Burger = () => {
         <div />
         <div />
       </StyledBurger>
-      <RightNavAfterSignIn open={open} />
+      {isLoggedIn
+        ? <RightNavAfterSignIn open={open} />
+        : <RightNav open={open} />}
     </>
   );
 };
