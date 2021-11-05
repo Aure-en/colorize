@@ -5,14 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import Shades from '../components/Creation/Shades/Shades';
 import Preview from '../components/Creation/Preview/Preview';
 import { getCreationPage } from '../selectors/settings';
-import { getMainPalette } from '../selectors/palette';
 import { getPalette } from '../selectors/palettes';
 import { setOriginalPalette, setMainPalette, setShades } from '../actions/palette';
+import { fetchPalette } from '../actions/palettes';
 
 const Palette = ({ match }) => {
   const dispatch = useDispatch();
   const page = useSelector(getCreationPage);
-  const palette = useSelector(getMainPalette);
 
   // Compose key to save palette
   const { paletteId } = match.params;
@@ -23,12 +22,12 @@ const Palette = ({ match }) => {
 
   useEffect(() => {
     if (paletteFromStore) {
+      const { palette } = paletteFromStore;
       dispatch(setMainPalette(palette));
       dispatch(setOriginalPalette(palette));
       dispatch(setShades(palette.colors));
     } else {
-      // Move fetch palette
-      dispatch()
+      dispatch(fetchPalette(key, paletteId));
     }
   }, [paletteFromStore, paletteId]);
 
