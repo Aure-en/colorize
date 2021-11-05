@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const LeftNav = () => (
   <Title>
-    <div className="left">Colorize</div>
+    <TitleBrand>Colorize</TitleBrand>
   </Title>
 );
 
@@ -22,6 +22,10 @@ const Title = styled.div`
     z-index: 20;
     font-size: 2rem;
   }
+`;
+
+const TitleBrand = styled.div`
+  color: ${(props) => props.theme.textOnPrimary};
 `;
 
 export default LeftNav;

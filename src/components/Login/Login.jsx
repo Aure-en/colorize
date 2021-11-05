@@ -100,7 +100,7 @@ const Login = () => {
                 <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
                 <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <LogPass>
-                  <Input className="submit" type="submit" value="Login" />
+                  <Input to="/home" className="submit" type="submit" value="Login" />
                   <Forgot to="/forgetPass">Forgot Password</Forgot>
                 </LogPass>
               </Form>
@@ -201,6 +201,7 @@ const BlueBg = styled.div`
     top: 0;
     height: 720px;                                  /* hauteur de la fenetre transparente mobile */
     width: 90%;                                     /* Largeur de la fenetre transparente mobile */
+    border-radius: 3%;
   }
 `;
 
@@ -216,7 +217,6 @@ const box = `
   @media (max-width: 768px) {
     position: absolute;
     width: 100%;
-
     bottom: 0;
   }
 `;
@@ -388,8 +388,11 @@ const Form = styled.form`
 const FormBxTitles = styled.h3`
   font-size: 1.8em;
   color: ${(props) => props.theme.secondaryText};
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   font-weight: 500;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 `;
 
 const inputSubmit = `
