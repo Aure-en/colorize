@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import useCreateCollection from '../../../hooks/collections/useCreateCollection';
+
 import Modal from '../../Shared/Modal/Modal';
 import BackButton from '../../Shared/Modal/BackButton';
 
