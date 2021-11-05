@@ -12,11 +12,11 @@ const AuthModal = ({ isModalOpen, closeModal }) => (
       <Text>
         <p>You must be authenticated to create, save or like palettes.</p>
         <p>
-          <EntryLink to="/signup">Create an account</EntryLink>
+          <EntryLink to="/signup" onClick={closeModal}>Create an account</EntryLink>
           {' '}
           or
           {' '}
-          <EntryLink to="/signin">sign in</EntryLink>
+          <EntryLink to="/signin" onClick={closeModal}>sign in</EntryLink>
           {' '}
           to collect palettes and find inspiration.
         </p>
