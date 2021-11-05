@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { openModal } from '../../actions/export';
+import { openModal } from '../../actions/modals';
+import { updateExportPalette } from '../../actions/export';
 
 const Button = ({ palette, closeMenu }) => {
   const dispatch = useDispatch();
@@ -10,7 +11,8 @@ const Button = ({ palette, closeMenu }) => {
     <button
       type="button"
       onClick={() => {
-        dispatch(openModal(palette));
+        dispatch(openModal('export'));
+        dispatch(updateExportPalette(palette));
         closeMenu();
       }}
     >
