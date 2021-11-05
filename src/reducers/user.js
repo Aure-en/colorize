@@ -1,4 +1,4 @@
-import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
+import { SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT } from '../actions/user';
 
 export const initialState = {
   username: '',
@@ -25,6 +25,14 @@ const user = (state = initialState, action = {}) => {
         id: null,
         jwt: '',
         email: '',
+      };
+
+    case SUCCESS_SIGNUP:
+      return {
+        ...state,
+        username: action.username,
+        id: action.userId,
+        jwt: action.jwt,
       };
 
     default:
