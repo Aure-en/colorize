@@ -7,7 +7,7 @@ export const initialState = [
   },
   {
     name: 'auth',
-    isOpen: false,
+    isOpen: true,
   },
 ];
 
