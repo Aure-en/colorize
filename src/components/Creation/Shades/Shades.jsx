@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setShades } from '../../../actions/palette';
-import { getPalette, getShades, getShadesNumber } from '../../../selectors/palette';
+import { getMainPalette, getShades, getShadesNumber } from '../../../selectors/palette';
 
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
@@ -15,7 +15,7 @@ import SaveButton from '../../Palette/Buttons/SaveButton';
 
 const Shades = () => {
   const dispatch = useDispatch();
-  const palette = useSelector(getPalette);
+  const palette = useSelector(getMainPalette);
   const shades = useSelector(getShades);
   const shadesNumber = useSelector(getShadesNumber);
 

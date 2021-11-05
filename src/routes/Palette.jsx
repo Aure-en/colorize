@@ -5,22 +5,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import Shades from '../components/Creation/Shades/Shades';
 import Preview from '../components/Creation/Preview/Preview';
 import { getCreationPage } from '../selectors/settings';
+import { getMainPalette } from '../selectors/palette';
 import { getPalette } from '../selectors/palettes';
-import { setOriginalPalette, setPalette, setShades } from '../actions/palette';
+import { setOriginalPalette, setMainPalette, setShades } from '../actions/palette';
 
 const Palette = ({ match }) => {
-  const { paletteId } = match.params;
   const dispatch = useDispatch();
-  const palette = useSelector((state) => getPalette(state, paletteId));
   const page = useSelector(getCreationPage);
+  const palette = useSelector(getMainPalette);
+
+  // Compose key to save palette
+  const { paletteId } = match.params;
+  const category = 'palettes';
+  const key = `/${category}/${paletteId}`;
+
+  const paletteFromStore = useSelector((state) => getPalette(state, paletteId));
 
   useEffect(() => {
-    if (palette) {
-      dispatch(setPalette(palette));
+    if (paletteFromStore) {
+      dispatch(setMainPalette(palette));
       dispatch(setOriginalPalette(palette));
       dispatch(setShades(palette.colors));
+    } else {
+      // Move fetch palette
+      dispatch()
     }
-  }, [palette, paletteId]);
+  }, [paletteFromStore, paletteId]);
 
   return (
     <Wrapper>

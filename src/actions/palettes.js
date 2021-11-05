@@ -1,4 +1,5 @@
 export const FETCH_PALETTES = 'FETCH_PALETTES';
+export const FETCH_PALETTE = 'FETCH_PALETTE';
 export const SAVE_PALETTES = 'SAVE_PALETTES';
 export const UPDATE_SORT_BY = 'UPDATE_SORT_BY';
 export const UPDATE_FILTER_BY = 'UDPATE_FILTER_BY';
@@ -13,6 +14,12 @@ export const fetchPalettes = ({
   filter,
   sort,
   page,
+});
+
+export const fetchPalette = (key, paletteId) => ({
+  type: FETCH_PALETTE,
+  key,
+  paletteId,
 });
 
 export const savePalettes = (key, palettes) => ({

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSortable } from 'react-sortablejs';
 import PropTypes from 'prop-types';
 import Color from './Color/Color';
-import { setPalette, setShades } from '../../actions/palette';
+import { setMainPalette, setShades } from '../../actions/palette';
 
 const Palette = ({
   palette,
@@ -17,7 +17,7 @@ const Palette = ({
       $direction={direction}
       list={palette.colors}
       setList={(reorderedPalette) => {
-        dispatch(setPalette({ id: null, colors: reorderedPalette }));
+        dispatch(setMainPalette({ id: null, colors: reorderedPalette }));
         dispatch(setShades(reorderedPalette));
       }}
     >
