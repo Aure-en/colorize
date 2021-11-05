@@ -16,9 +16,7 @@ import NotFound from './routes/NotFound';
 import Copies from './components/Copy/Copies';
 import Modals from './components/Shared/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
-// import SignIn from './components/SignIn/SignIn';
-import SignInTest from './components/SignInTest/SignInTest';
-// import SignUp from './components/SignUp/SignUp';
+import Login from './components/Login/Login';
 import Theme from './components/Settings/Theme';
 
 function App() {
@@ -36,8 +34,7 @@ function App() {
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path="/signin" component={SignInTest} />
-            <Route exact path="/signup" component={SignInTest} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
             <Route component={NotFound} />
           </Switch>

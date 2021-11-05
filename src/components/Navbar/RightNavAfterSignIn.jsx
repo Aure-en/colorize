@@ -28,7 +28,7 @@ const RightNavAfterSignIn = ({ open }) => {
         <Username>Username</Username>
         <NavLink to="/profile" exact className="navlink">Profile</NavLink>
         <NavLink to="/settings" exact className="navlink">Settings</NavLink>
-        <button type="button" onClick={() => dispatch(logout())} className="navlink">Sign Out</button>
+        <button type="button" onClick={() => dispatch(logout())} className="navlink">Log Out</button>
       </NavLinkBetween>
     </Ul>
   );
