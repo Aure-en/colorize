@@ -17,7 +17,7 @@ import Leaves from './Leaves';
 import Corner from './Corner';
 import Buttons from './Buttons';
 
-import { getPalette } from '../../../selectors/palette';
+import { getMainPalette } from '../../../selectors/palette';
 
 const preview = (number) => {
   switch (number) {
@@ -39,7 +39,7 @@ const preview = (number) => {
 const Preview = () => {
   const TOTAL_PREVIEW = 5;
   const [currentPreview, setCurrentPreview] = useState(1);
-  const palette = useSelector(getPalette);
+  const palette = useSelector(getMainPalette);
 
   return (
     <Wrapper>

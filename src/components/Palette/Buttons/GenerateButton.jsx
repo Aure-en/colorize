@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as IconGenerate } from '../../../assets/icons/palette/generate.svg';
-import { fetchPalette } from '../../../actions/palette';
+import { fetchPalette } from '../../../actions/palettes';
 import { getPaletteLoading } from '../../../selectors/palette';
 
 const Generate = () => {
