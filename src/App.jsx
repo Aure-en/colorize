@@ -28,12 +28,13 @@ function App() {
         <Wrapper>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path={['/', '/palettes', '/themes/:themeId']} component={Home} />
             <Route exact path="/collections" component={Collections} />
             <Route exact path="/collections/:collectionId" component={Collection} />
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
+            <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/signin" component={SignIn} />
             <Route exact path="/signup" component={SignUp} />

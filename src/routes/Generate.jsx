@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ColorThief from 'colorthief';
-import { getColorFromRgb } from '../utils/colors';
+import { getColorFromRgb, formatColorToDB } from '../utils/colors';
 
 const Generate = () => {
   const ref = useRef();
@@ -15,7 +15,11 @@ const Generate = () => {
 
   const extractPalette = (img) => {
     let palette = colorThief.getPalette(img, 5);
-    palette = palette.map((rgb) => getColorFromRgb(rgb));
+    palette = palette.map((rgb) => {
+      const colorAllFormats = getColorFromRgb(rgb);
+      const color = formatColorToDB(colorAllFormats);
+      return color;
+    });
     return palette;
   };
 
@@ -66,6 +70,16 @@ const Generate = () => {
     }
   };
 
+  const removeDuplicateFromPalettes = () => {
+    setPalettes((prev) => {
+      const uniqueArray = prev.filter((palette, index) => {
+        const _palette = JSON.stringify(palette);
+        return index === prev.findIndex((obj) => JSON.stringify(obj) === _palette);
+      });
+      return uniqueArray;
+    });
+  };
+
   const generateManyFromUrl = async (url, pagesNumber = 1) => {
     const pages = [...Array(pagesNumber).keys()];
 
@@ -81,36 +95,93 @@ const Generate = () => {
 
       imagesUrls.forEach((src) => {
         extractFromImage(src);
-        // Send form to DB
       });
     });
   };
 
   const generateManyFromPopular = async () => {
     const POPULAR_URL = `https://api.unsplash.com/photos?client_id=${process.env.REACT_APP_UNSPLASH_API}&order_by=popular&per_page=30`;
-    generateManyFromUrl(POPULAR_URL, 3);
+    generateManyFromUrl(POPULAR_URL, 10);
   };
 
   const generateManyFromTheme = async (theme) => {
     const THEME_URL = `https://api.unsplash.com/search/photos?client_id=${process.env.REACT_APP_UNSPLASH_API}&query=${theme}&per_page=30`;
-    generateManyFromUrl(THEME_URL);
+    generateManyFromUrl(THEME_URL, 3);
+  };
+
+  const sendPalettesToDB = () => {
+    console.log(process.env.REACT_APP_SERVER);
+    console.log(palettes);
+    palettes.forEach((palette) => {
+      fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/1`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            colors: palette,
+          }),
+        },
+      );
+    });
+  };
+
+  const sendOneToDB = () => {
+    const body = {
+      colors: [
+        {
+          hex: '#F1EDE9',
+          name: 'Cloud Dancer',
+        },
+        {
+          hex: '#8CABB8',
+          name: 'Pewter Blue',
+        },
+        {
+          hex: '#B89058',
+          name: 'Radiance',
+        },
+        {
+          hex: '#9C7251',
+          name: 'Cigar Box',
+        },
+        {
+          hex: '#4C464F',
+          name: 'Extravagance',
+        },
+      ],
+    };
+
+    fetch(
+      `${process.env.REACT_APP_SERVER}/palettes`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      },
+    );
   };
 
   return (
-    <>
+    <Wrapper>
       <button type="button" onClick={getPaletteFromImage}>Generate One</button>
       <button type="button" onClick={generateManyFromPopular}>Generate Popular</button>
       <button type="button" onClick={() => generateManyFromTheme('pastel')}>Generate from theme</button>
+      <button type="button" onClick={removeDuplicateFromPalettes}>Remove Duplicate</button>
+      <button type="button" onClick={sendPalettesToDB}>Send Palettes</button>
+      <button type="button" onClick={sendOneToDB}>Send one</button>
       <Wrapper>
         <Image id="image" crossOrigin="anonymous" ref={ref} />
         <Palette>{palette.map((color) => <ColorSquare $color={color.hex} />)}</Palette>
       </Wrapper>
-    </>
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 const Image = styled.img`

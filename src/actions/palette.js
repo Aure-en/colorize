@@ -1,6 +1,5 @@
-export const SET_PALETTE = 'SET_PALETTE';
+export const SET_MAIN_PALETTE = 'SET_MAIN_PALETTE';
 export const SET_ORIGINAL_PALETTE = 'SET_ORIGINAL_PALETTE';
-export const FETCH_PALETTE = 'FETCH_PALETTE';
 export const RESET_PALETTE = 'RESET_PALETTE';
 export const REORDER_COLORS = 'REORDER_COLORS';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
@@ -11,18 +10,14 @@ export const SET_SHADES = 'SET_SHADES';
 export const INCREMENT_SHADES = 'INCREMENT_SHADES';
 export const DECREMENT_SHADES = 'DECREMENT_SHADES';
 
-export const setPalette = (palette) => ({
-  type: SET_PALETTE,
+export const setMainPalette = (palette) => ({
+  type: SET_MAIN_PALETTE,
   palette,
 });
 
 export const setOriginalPalette = (palette) => ({
   type: SET_ORIGINAL_PALETTE,
   palette,
-});
-
-export const fetchPalette = () => ({
-  type: FETCH_PALETTE,
 });
 
 export const resetPalette = () => ({
