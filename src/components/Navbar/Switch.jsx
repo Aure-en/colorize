@@ -70,7 +70,7 @@ const Toggle = styled.div`
   }
 
   .react-switch-label:active .react-switch-button {
-    width: 60px;
+    width: 50%;
   }
 `;
 
