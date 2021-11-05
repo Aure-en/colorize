@@ -9,6 +9,10 @@ export const initialState = [
     name: 'auth',
     isOpen: false,
   },
+  {
+    name: 'createPalette',
+    isOpen: false,
+  },
 ];
 
 const modals = (state = initialState, action = {}) => {
