@@ -1,199 +1,385 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { NavLink as Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/img/logo.svg';
+import { requestLogin, requestSignUp } from '../../actions/user';
 
-const SignIn = () => (
-  <Wrapper>
-    <WrapperOne>
-      <Title>Sign In</Title>
-      <Email placeholder="Username or Email" />
-      <Password placeholder="Password" />
-      <WrapLeft>
-        <Button onClick="submit">Submit</Button>
-        <ForgetLink to="/forgetPass">Forget Password</ForgetLink>
-      </WrapLeft>
-    </WrapperOne>
-    <WrapperTwo>
-      <LogoBrand>
-        <Logo />
-        <Brand>Colorize</Brand>
-      </LogoBrand>
-      <UserRegistration>User Registration</UserRegistration>
-      <Sign>
-        <In>Sign In</In>
-        <Up>Sign Up</Up>
-      </Sign>
-    </WrapperTwo>
-  </Wrapper>
-);
+const SignInTest = () => {
+  const [identifier, setIdentifier] = useState('');
+  const errorsObj = { username: '', email: '', password: '' };
+  const [errors, setErrors] = useState(errorsObj);
+  const [password, setPassword] = useState('');
 
-const Wrapper = styled.div`
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirm] = useState('');
+
+  const dispatch = useDispatch();
+
+  function onSignIn(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+
+    if (password === '') {
+      errorObj.email = 'Password is Required';
+      error = true;
+    }
+
+    if (identifier === '') {
+      errorObj.email = 'Identifier is Required';
+      error = true;
+    }
+
+    setErrors(errorObj);
+
+    if (error) return;
+
+    dispatch(requestLogin(identifier, password));
+  }
+
+  function onSignUp(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+
+    if (username === '') {
+      errorObj.username = 'Username is Required';
+      error = true;
+    }
+
+    if (email === '') {
+      errorObj.email = 'Email is Required';
+      error = true;
+    }
+
+    if (password === '') {
+      errorObj.email = 'Password is Required';
+      error = true;
+    }
+
+    setErrors(errorObj);
+
+    if (error) return;
+
+    dispatch(requestSignUp(username, email, password));
+  }
+
+  return (
+
+    <Body>
+      <Brand>
+        <BrandImg src="logo.svg" alt="logo" />
+        <BrandTitle>Colorize</BrandTitle>
+      </Brand>
+      <Container>
+        <BlueBg>
+          <SignIn>
+            <BlueBgTitles>Already Have an Account ?</BlueBgTitles>
+            <SignInBtn to="/signin">
+              <Svg><Rect /></Svg>
+              Sign In
+            </SignInBtn>
+          </SignIn>
+          <SignUp>
+            <BlueBgTitles>Don't Have an Account</BlueBgTitles>
+            <SignUpBtn to="/signup">
+              <Svg><Rect /></Svg>
+              Sign Up
+            </SignUpBtn>
+          </SignUp>
+        </BlueBg>
+        <FormBx>
+          <SignInForm>
+            <Form onSubmit={onSignIn}>
+              <FormBxTitles>Sign In</FormBxTitles>
+              <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+              <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <LogPass>
+                <Input className="submit" type="submit" value="Login" />
+                <Forgot to="/forgetPass">Forgot Password</Forgot>
+              </LogPass>
+            </Form>
+          </SignInForm>
+
+          <SignUpForm>
+            <Form onSubmit={onSignUp}>
+              <FormBxTitles>Sign Up</FormBxTitles>
+              <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
+              <Input className="submit" type="submit" value="Register" />
+            </Form>
+          </SignUpForm>
+        </FormBx>
+      </Container>
+    </Body>
+  );
+};
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #03a9f4;
+  transition: 0.5s;
+
+  &:active {
+    background: #f43648;
+  }
+`;
+
+const Brand = styled.div`
+  width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  margin-top: 2rem;
-  width: 100%;
-  height : 70%;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  margin-bottom: 4.5rem;
+`;
 
-  @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.background};
-    margin: 0;
-    padding: 0;
-    width: 100%;
+const BrandImg = styled.img`
+  width: 25%;
+  margin-right: 3rem;
+`;
+
+const BrandTitle = styled.p`
+  width: 70%;
+  font-size: 3rem;
+`;
+
+const Container = styled.div`
+  position: relative;
+  width: 800px;
+  height: 500px;
+  margin: 20px;
+
+  @media all and (max-width: 768px) {
+    max-width: 400px;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const BlueBg = styled.div`
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 5px 45px rgba(0,0,0,0.15);
+
+  @media all and (max-width: 768px) {
+    top: 0;
     height: 100%;
-    overflow: hidden;
   }
 `;
 
-const WrapperOne = styled.div`
-  background: ${(props) => props.theme.primaryText};
-  width: 30%;
-  padding: 5px;
-  padding-left: 2rem;
-  margin-right: 0.5rem;
+const box = `
+  position: relative;
+  width: 50%;
   height: 100%;
-  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-  @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.background};
-    margin: 2rem;
-    padding: 1rem;
+  @media all and (max-width: 768px) {
+    position: absolute;
     width: 100%;
+    height: 150px;
+    bottom: 0;
   }
 `;
 
-const WrapperTwo = styled.div`
-  background: ${(props) => props.theme.primaryText};
-  width: 20%;
-  padding: 1rem;
-  padding-left: 1rem;
-  height: 100%;
-  border-radius: 10px;
+const SignIn = styled.div`
+${box};
 
-  @media (max-width: 768px) {
-    display: none;
-  }
+@media all and (max-width: 768px) {
+  top: 0;
+}
+
 `;
 
-const Title = styled.h1`
-  color: ${(props) => props.theme.background};
-  font-size: 2rem;
-  height: 20%; 
-  width: 80%;
-  margin: 1rem;
-  padding-top: 2rem;
-  margin-top: 4rem;
-
-  @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.background};
-    color: ${(props) => props.theme.textPrimary};
-    height: 6rem;
-    padding: 1rem;
-    padding-top: 2rem;
-  }
+const SignUp = styled.div`
+${box};
+margin-top: 10px;
 `;
 
-const Email = styled.input`
-  background: ${(props) => props.theme.background};
-  height: 8%;
-  width: 80%;
-  padding: 1rem;
-  margin: 2% 1rem;
+const FormBx = styled.div`
+position: absolute;
+top: 0;
+left: 0;
+width: 50%;
+height: 100%;
+background: #fff;
+z-index: 1000;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 5px 45px rgba(0,0,0,0.25);
+transition: 0.5s ease-in-out;
+overflow: hidden;
 
-  @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.textPrimary};
-    height: 4rem;
-    padding: 1rem;
-    margin-top: 2rem;
-  }
-`;
+&:active {
+  left: 50%;
 
-const Password = styled.input`
-  background: ${(props) => props.theme.background};
-  height: 8%;
-  width: 80%;
-  padding: 1rem;
-  margin: 2% 1rem;
-
-  @media (max-width: 768px) {
-    background-color: ${(props) => props.theme.textPrimary};
-    height: 4rem;
-    padding: 1rem;
-  }
-`;
-
-const WrapLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  margin: 1rem;
-  `;
-
-const Button = styled.button`
-  background : green;
-  display:block;
-  width:30%;
-  line-height:50px;
-  text-align:center;
-  vertical-align:middle;
-  color:white;
-  text-decoration:none;
-  `;
-
-const ForgetLink = styled(Link)`
-  margin: 1rem 0rem;
+@media all and (max-width: 768px) {
   width: 100%;
-  text-align:right;
-  color: ${(props) => props.theme.background}
-  `;
+  height: 500px;
+  top: 0;
+  box-shadow: none;
 
-const LogoBrand = styled.div`
-  font-size: 2rem;
-  height: 20%; 
-  margin: 0.5rem;
-  margin-top: 4.5rem;  
-  padding: 1rem;
+  &:active {
+    left: 0;
+    top: 150px;
+  }
+  }
+
+}
+`;
+
+const form = `
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 50px;
+  transition: 0.5s;
+`;
+
+const SignInForm = styled.div`
+${form};
+transition-delay: 0.25s;
+&:active {
+  left: -100%;
+  transition-delay: 0s;
+}
+`;
+
+const SignUpForm = styled.div`
+${form};
+left: 100%;
+transition-delay: 0s;
+&:active {
+  left: 0;
+  transition-delay: 0.25s;
+}
+`;
+
+const BlueBgTitles = styled.h2`
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-bottom: 60px;
+`;
+
+const link = `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  line-height: 60px;
+  font-family: sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+`;
+
+const SignInBtn = styled(Link)`
+${link};
+margin-top: 20px;
+`;
+
+const SignUpBtn = styled(Link)`
+${link};
+margin-top: 20px;
+`;
+
+const commonSvgRect = `
+position: absolute;
+top: 0.5rem;
+left: 0;
+width: 100%;
+height: 100%;
+fill: transparent;
+`;
+
+const Svg = styled.svg`
+${commonSvgRect};
+`;
+
+const Rect = styled.rect`
+${commonSvgRect};
+
+stroke: #fff;
+stroke-width: 4;
+transition: 1s;
+stroke-dasharray: 500,500;
+stroke-dashoffset: 0;
+
+&:hover {
+  stroke-dasharray: 100,290;
+  stroke-dashoffset: 220;
+  stroke: #fff;
+}
+`;
+
+const Form = styled.form`
+  width: 100%;
   display: flex;
-  flex-direction: row
-  `;
+  flex-direction: column;
+`;
 
-const Brand = styled.div`
-  color: ${(props) => props.theme.background};
-  width: 55%;
-  margin-left: 1rem;
-  `;
+const FormBxTitles = styled.h3`
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 500;
+`;
+const inputSubmit = `
+background: #03a9f4;
+border: none;
+color: #fff;
+max-width: 100px;
+cursor: pointer;
 
-const UserRegistration = styled.div`
-  color: ${(props) => props.theme.background};
-  margin: 1rem 2rem 1rem;
-  padding: 1rem;
-  `;
+&:active {
+  background: #f43648;
+}
+`;
 
-const Sign = styled.div`
-  color: ${(props) => props.theme.background};
-  margin: 1rem 2rem 1rem;
-  padding-left: 1rem;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  `;
+const Input = styled.input`
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+  border: 1px solid #333;
 
-const In = styled.button`
-  color: ${(props) => props.theme.background};
-  width: 30%;
-  display: flex;
-  justify-content: flex-start;
-  `;
+  &.submit {
+    ${inputSubmit};
+  }
+`;
 
-const Up = styled.button`
-  color: ${(props) => props.theme.background};
-  width: 40%;
-  display: flex;
-  justify-content: flex-start;
-  `;
+const LogPass = styled.div`
 
-export default SignIn;
+`;
+
+const Forgot = styled(Link)`
+color: #333;
+margin-left: 40px;
+font-weight: 300;
+`;
+
+export default SignInTest;
