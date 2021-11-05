@@ -1,10 +1,10 @@
-import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
+import { SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT } from '../actions/user';
 
 export const initialState = {
-  username: 'Username',
-  id: 1,
-  jwt: 'JWT',
-  email: 'Email',
+  username: '',
+  id: null,
+  jwt: '',
+  email: '',
 };
 
 const user = (state = initialState, action = {}) => {
@@ -15,15 +15,24 @@ const user = (state = initialState, action = {}) => {
         username: action.username,
         id: action.userId,
         jwt: action.jwt,
+        email: action.email,
       };
 
     case LOGOUT:
       return {
         ...state,
         username: '',
-        id: '',
+        id: null,
         jwt: '',
         email: '',
+      };
+
+    case SUCCESS_SIGNUP:
+      return {
+        ...state,
+        username: action.username,
+        id: action.userId,
+        jwt: action.jwt,
       };
 
     default:

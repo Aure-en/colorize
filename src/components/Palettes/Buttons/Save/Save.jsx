@@ -29,7 +29,7 @@ const Save = ({ paletteId }) => {
 };
 
 Save.propTypes = {
-  paletteId: PropTypes.string.isRequired,
+  paletteId: PropTypes.number.isRequired,
 };
 
 const Wrapper = styled.div`

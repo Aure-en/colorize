@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setPalette, setOriginalPalette, setShades } from '../../../actions/palette';
+import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/palette';
 import {
   createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
@@ -17,7 +17,7 @@ const ExtractInput = () => {
       const src = URL.createObjectURL(event.target.files[0]);
       const imageElem = createImageElem(src);
       const callback = (palette) => {
-        dispatch(setPalette({ id: null, colors: palette }));
+        dispatch(setMainPalette({ id: null, colors: palette }));
         dispatch(setOriginalPalette({ id: null, colors: palette }));
         dispatch(setShades(palette));
         history.push('/creation');
