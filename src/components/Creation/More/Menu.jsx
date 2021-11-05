@@ -2,17 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../../selectors/user';
+
 import Save from './Save';
 import Export from '../../Export/Button';
 import Copy from '../../Palettes/Buttons/More/Copy';
 
-const Menu = ({ palette, closeMenu }) => (
-  <Wrapper>
-    <Save paletteId={palette.id} closeMenu={closeMenu} />
-    <Export palette={palette} closeMenu={closeMenu} />
-    <Copy paletteId={palette.id} closeMenu={closeMenu} />
-  </Wrapper>
-);
+const Menu = ({ palette, closeMenu }) => {
+  const isLoggedIn = useSelector(getIsLoggedIn);
+
+  return (
+    <Wrapper>
+      {isLoggedIn && <Save paletteId={palette.id} closeMenu={closeMenu} />}
+      <Export palette={palette} closeMenu={closeMenu} />
+      <Copy paletteId={palette.id} closeMenu={closeMenu} />
+    </Wrapper>
+  );
+};
 
 Menu.propTypes = {
   palette: PropTypes.shape({
