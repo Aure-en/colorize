@@ -1,0 +1,1 @@
+export const getThemes = (state) => state.themes;

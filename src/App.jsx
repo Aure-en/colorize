@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { fetchThemes } from './actions/themes';
+
 import GlobalStyles from './styles/globalStyles';
 
 import Collection from './routes/Collection';
@@ -20,6 +24,12 @@ import Login from './components/Login/Login';
 import Theme from './components/Settings/Theme';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchThemes());
+  }, []);
+
   return (
     <Router>
       <GlobalStyles />
@@ -27,12 +37,13 @@ function App() {
         <Wrapper>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path={['/', '/palettes', '/themes/:themeId']} component={Home} />
             <Route exact path="/collections" component={Collections} />
             <Route exact path="/collections/:collectionId" component={Collection} />
             <Route exact path="/creation" component={Creation} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
+            <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />

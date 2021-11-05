@@ -1,5 +1,5 @@
 import {
-  SET_PALETTE,
+  SET_MAIN_PALETTE,
   SET_ORIGINAL_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
@@ -46,11 +46,11 @@ export const initialState = {
 
 const palette = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_PALETTE: {
+    case SET_MAIN_PALETTE: {
       return {
         ...state,
         palette: JSON.parse(JSON.stringify({
-          id: action.palette.id,
+          ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,
@@ -64,7 +64,7 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         originalPalette: JSON.parse(JSON.stringify({
-          id: action.palette.id,
+          ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,

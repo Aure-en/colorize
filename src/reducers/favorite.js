@@ -3,23 +3,22 @@ import {
   UNSAVE_PALETTE,
   UPDATE_CURRENT_COLLECTION,
 } from '../actions/favorite';
-import palettes from '../data/palettes';
 
 export const initialState = {
   collections: [
     {
       name: 'Default',
-      palettes: [palettes[0], palettes[1], palettes[2], palettes[3]],
+      palettes: [],
       id: 0,
     },
     {
       name: 'Pastel',
-      palettes: [palettes[4], palettes[5]],
+      palettes: [],
       id: 12,
     },
     {
       name: 'Renovation',
-      palettes: [palettes[6]],
+      palettes: [],
       id: 45,
     },
     {

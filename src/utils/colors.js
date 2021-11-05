@@ -25,27 +25,6 @@ export const getColorData = (color) => ({
 export const formatColorToDB = (color) => {
   return {
     hex: color.hex,
-    cmyk: {
-      cyan: color.cmyk[0],
-      magenta: color.cmyk[1],
-      yellow: color.cmyk[2],
-      key: color.cmyk[3],
-    },
-    hsl: {
-      hue: color.hsl[0],
-      saturation: color.hsl[1],
-      lightness: color.hsl[2],
-    },
-    hsv: {
-      hue: color.hsv[0],
-      saturation: color.hsv[1],
-      lightness: color.hsv[2],
-    },
-    rgb: {
-      red: color.rgb[0],
-      green: color.rgb[1],
-      blue: color.rgb[2],
-    },
     name: color.name
   }
 }

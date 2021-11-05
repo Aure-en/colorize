@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
-import { getPalette } from '../../selectors/palette';
+import { getMainPalette } from '../../selectors/palette';
 import { getIsDarkMode } from '../../selectors/settings';
 import {
   getBackgroundActiveShade,
@@ -24,7 +24,7 @@ const Theme = ({ children }) => {
   };
 
   const [theme, setTheme] = useState(initial);
-  const palette = useSelector(getPalette);
+  const palette = useSelector(getMainPalette);
   const darkMode = useSelector(getIsDarkMode);
 
   useEffect(() => {

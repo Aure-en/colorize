@@ -16,7 +16,7 @@ const Reset = () => {
         dispatch(resetPalette());
         dispatch(setShades(originalPalette));
       }}
-      title='Undo changes'
+      title="Undo changes"
     >
       <IconReset />
     </Button>

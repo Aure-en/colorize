@@ -6,21 +6,30 @@ import Shades from '../components/Creation/Shades/Shades';
 import Preview from '../components/Creation/Preview/Preview';
 import { getCreationPage } from '../selectors/settings';
 import { getPalette } from '../selectors/palettes';
-import { setOriginalPalette, setPalette, setShades } from '../actions/palette';
+import { setOriginalPalette, setMainPalette, setShades } from '../actions/palette';
+import { fetchPalette } from '../actions/palettes';
 
 const Palette = ({ match }) => {
-  const { paletteId } = match.params;
   const dispatch = useDispatch();
-  const palette = useSelector((state) => getPalette(state, paletteId));
   const page = useSelector(getCreationPage);
 
+  // Compose key to save palette
+  const { paletteId } = match.params;
+  const category = 'palettes';
+  const key = `/${category}/${paletteId}`;
+
+  const paletteFromStore = useSelector((state) => getPalette(state, paletteId));
+
   useEffect(() => {
-    if (palette) {
-      dispatch(setPalette(palette));
+    if (paletteFromStore) {
+      const { palette } = paletteFromStore;
+      dispatch(setMainPalette(palette));
       dispatch(setOriginalPalette(palette));
       dispatch(setShades(palette.colors));
+    } else {
+      dispatch(fetchPalette(key, paletteId));
     }
-  }, [palette, paletteId]);
+  }, [paletteFromStore, paletteId]);
 
   return (
     <Wrapper>

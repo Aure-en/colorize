@@ -15,7 +15,7 @@ const Modal = ({ isModalOpen, closeModal, children }) => {
       right: 'initial',
       transform: 'translate(-50%, -50%)',
       padding: '3rem',
-      maxWidth: '50rem',
+      maxWidth: '40rem',
       background: theme.background,
     },
     overlay: {

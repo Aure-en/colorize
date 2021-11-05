@@ -1,4 +1,4 @@
-export const getPalette = (state) => state.palette.palette;
+export const getMainPalette = (state) => state.palette.palette;
 
 export const getOriginalPalette = (state) => state.palette.originalPalette;
 
