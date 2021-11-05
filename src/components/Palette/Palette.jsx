@@ -17,7 +17,7 @@ const Palette = ({
       $direction={direction}
       list={palette.colors}
       setList={(reorderedPalette) => {
-        dispatch(setMainPalette({ id: null, colors: reorderedPalette }));
+        dispatch(setMainPalette({ id: palette.id, colors: reorderedPalette }));
         dispatch(setShades(reorderedPalette));
       }}
     >
@@ -40,6 +40,7 @@ Palette.propTypes = {
         cmyk: PropTypes.arrayOf(PropTypes.number).isRequired,
       }).isRequired,
     ).isRequired,
+    id: PropTypes.number,
   }).isRequired,
   direction: PropTypes.oneOf(['vertical', 'horizontal']),
 };

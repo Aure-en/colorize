@@ -5,13 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setShades } from '../../../actions/palette';
 import { getMainPalette, getShades, getShadesNumber } from '../../../selectors/palette';
 
+import PageChange from '../PageChange';
 import ShadesTable from './ShadesTable';
 import ShadesButtons from './buttons/ShadesButtons';
-import PageChange from '../PageChange';
 import ExtractInput from '../Extract/ExtractInput';
 import GenerateButton from '../../Palette/Buttons/GenerateButton';
 import ResetButton from '../../Palette/Buttons/ResetButton';
 import SaveButton from '../../Palette/Buttons/SaveButton';
+import More from '../More/More';
 
 const Shades = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Shades = () => {
       <ShadesTable mainPalette={palette} shades={shades} />
 
       <Save>
+        {palette.id !== null && <More palette={palette} />}
         <SaveButton />
       </Save>
     </Wrapper>
