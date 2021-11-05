@@ -17,15 +17,19 @@ const userMiddleware = (store) => (next) => async (action) => {
       break; }
 
     case REQUEST_LOGIN: {
-      console.log('text2');
       const { dispatch } = store;
       const response = await fetch(
         'http://ec2-3-92-209-62.compute-1.amazonaws.com/projet-o-en-couleurs/public/api/login_check',
-        { method: 'POST', body: JSON.stringify({ email: action.identifier, password: action.password }) },
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: action.identifier, password: action.password }),
+        },
       );
 
       const loginsuccess = await response.json();
-      console.log(loginsuccess);
       dispatch(successLogin(loginsuccess.username,
         loginsuccess.email,
         loginsuccess.jwt,
