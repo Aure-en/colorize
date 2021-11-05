@@ -10,4 +10,4 @@ export const getPage = (state, key) =>
 export const getPalette = (state, paletteId) =>
   state.palettes.palettes.find((group) => group.key === `/palettes/${paletteId}`);
 
-export const getLoading = (state) => state.loading;
+export const getLoading = (state) => state.palettes.loading;

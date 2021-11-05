@@ -6,6 +6,7 @@ import { getPage, getLoading, getSortBy, getFilterBy } from '../../selectors/pal
 import { updateLoading, fetchPalettes } from '../../actions/palettes';
 
 import CardsList from './CardsList';
+import Loading from '../Shared/Loading';
 
 const Palettes = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Palettes = () => {
   const key = `/${category}/${filter}/${sort}/${page}`;
 
   const pageFromStore = useSelector((state) => getPage(state, key));
+  const loading = useSelector(getLoading);
 
   const [palettes, setPalettes] = useState([]);
 
@@ -39,6 +41,10 @@ const Palettes = () => {
       }
     })();
   }, [pageFromStore]);
+
+  if (loading === 'pending') {
+    return <Loading />;
+  }
 
   return (
     <CardsList palettes={palettes} />

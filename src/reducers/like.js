@@ -1,7 +1,6 @@
 import { LIKE_PALETTE, UNLIKE_PALETTE } from '../actions/like';
-import palettes from '../data/palettes';
 
-export const initialState = [palettes[3], palettes[4]];
+export const initialState = [];
 
 const like = (state = initialState, action = {}) => {
   switch (action.type) {

@@ -8,11 +8,12 @@ export const submitLogin = (identifier, password) => ({
   password,
 });
 
-export const successLogin = (username, userId, jwt) => ({
+export const successLogin = (username, userId, jwt, email) => ({
   type: SUCCESS_LOGIN,
   username,
   userId,
   jwt,
+  email,
 });
 
 export const logout = () => ({
