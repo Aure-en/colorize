@@ -79,14 +79,14 @@ const Login = () => {
         <Container>
           <BlueBg>
             <SignIn>
-              <BlueBgTitles>Already Have an Account ?</BlueBgTitles>
+              <BlueBgTitles className="titleSignin">Already Have an Account ?</BlueBgTitles>
               <SignInBtn to="/Login" onClick={toggleClass}>
                 <Svg><Rect /></Svg>
                 Sign In
               </SignInBtn>
             </SignIn>
             <SignUp>
-              <BlueBgTitles>Don't Have an Account</BlueBgTitles>
+              <BlueBgTitles className="titleSignup">Don't Have an Account ?</BlueBgTitles>
               <SignUpBtn to="/Login" onClick={toggleClass}>
                 <Svg><Rect /></Svg>
                 Sign Up
@@ -139,11 +139,11 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100%;                             /* taille de la fenetre minimum */
-  background: #03a9f4;
+  background: ${(props) => props.theme.primaryText};
   transition: 0.5s;
 
   &.active {
-    background: #f43648;
+    background: ${(props) => props.theme.secondaryText};
   }
 `;
 
@@ -161,6 +161,8 @@ const Brand = styled.div`
 
 const BrandTitle = styled.p`
   font-size: 3rem;
+  color: ${(props) => props.theme.background};
+
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -187,8 +189,8 @@ const Container = styled.div`
 const BlueBg = styled.div`
   position: absolute;
   top: 40px;
-  width: 100%;                                      /* largeur de la fenetre transparente bureau */
-  height: 620px;                                    /* hauteur de la fenetre transparente bureau */
+  width: 90%;                                      /* largeur de la fenetre transparente bureau */
+  height: 620px;                                   /* hauteur de la fenetre transparente bureau */
   display: flex;
   justify-content: center;
   align-items: center;    
@@ -197,8 +199,8 @@ const BlueBg = styled.div`
 
   @media (max-width: 768px) {
     top: 0;
-    height: 720px;                                  /* hauteur de la fenetre transparente mobile 770px*/
-    width: 90%;
+    height: 720px;                                  /* hauteur de la fenetre transparente mobile */
+    width: 90%;                                     /* Largeur de la fenetre transparente mobile */
   }
 `;
 
@@ -237,14 +239,22 @@ const SignUp = styled.div`
 `;
 
 const BlueBgTitles = styled.h2`
-  color: #fff;
+  color: ${(props) => props.theme.background};
   font-size: 1.8em;
   font-weight: 400;
-  margin-bottom: 80px;
+  margin-bottom: 135px;
 
   @media (max-width: 768px) {
     font-size: 1.3em;
     margin-bottom: 35px;
+  }
+
+  &.titleSignup {
+    padding-left: 45px;
+  }
+
+  &.titleSignin {
+    padding-right: 25px;
   }
 `;
 
@@ -260,7 +270,7 @@ const link = `
   font-family: sans-serif;
   font-size: 27px;                                        /* augmente la taille du texte signup */
   letter-spacing: 2px;
-  color: #fff;
+  color: #fff;                        color attention
   text-decoration: none;
 `;
 
@@ -290,7 +300,7 @@ const Svg = styled.svg`
 const Rect = styled.rect`
   ${commonSvgRect};
 
-  stroke: #fff;
+  stroke: ${(props) => props.theme.background};
   stroke-width: 4;
   transition: 1s;
   stroke-dasharray: 500,300;
@@ -299,7 +309,7 @@ const Rect = styled.rect`
   &:hover {
     stroke-dasharray: 100,330;                      /* Hover (trait) du bouton SignUp / Signin */
     stroke-dashoffset: 220;
-    stroke: #fff;
+    stroke: ${(props) => props.theme.background};
   }
 `;
 
@@ -311,7 +321,9 @@ const FormBx = styled.div`
   left: 0;
   width: 50%;
   height: 100%;
-  background: #fff;
+  background: ${(props) => props.theme.background};
+  border-radius: 5%; +++++++++++
+
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -321,7 +333,7 @@ const FormBx = styled.div`
   overflow: hidden;
 
   &.active {
-    left: 50%;
+    left: 43%;                                             /* décaler la fenetre blanche bureau */
   }
 
   @media all and (max-width: 768px) {
@@ -375,20 +387,20 @@ const Form = styled.form`
 
 const FormBxTitles = styled.h3`
   font-size: 1.8em;
-  color: #333;
+  color: ${(props) => props.theme.secondaryText};
   margin-bottom: 40px;
   font-weight: 500;
 `;
 
 const inputSubmit = `
-  background: #03a9f4;
+  background: ${(props) => props.theme.primaryText} !important;
   border: none;
-  color: #fff;
+  // color: ${(props) => props.theme.background};
   max-width: 100px;
   cursor: pointer;
 
   &.active {
-    background: #f43648;
+    // background: ${(props) => props.theme.primaryText};
   }
 `;
 
@@ -397,8 +409,9 @@ const Input = styled.input`
   margin-bottom: 30px;
   padding: 15px;
   outline: none;
-  font-size: 16px;
-  border: 1px solid #333;
+  font-size: 18px;
+  border: 1px solid ${(props) => props.theme.textPrimary};
+  ;
 
   &.submit {
     ${inputSubmit};
@@ -409,8 +422,8 @@ const LogPass = styled.div`
 `;
 
 const Forgot = styled(Link)`
-  color: #333;
-  margin-left: 49%;
+color: ${(props) => props.theme.secondaryText};
+margin-left: 49%;
   font-weight: 300;
 
   @media (max-width: 768px) {
