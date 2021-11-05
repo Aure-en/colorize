@@ -3,19 +3,17 @@ import {
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
+  console.log(action);
   switch (action.type) {
-    case REQUEST_SIGNUP: {
-      const responseAPI = {
-        username: 'username',
-        email: 'email',
-        jwt: 'monsupertoken',
-        id: 1,
-      };
+    /*case REQUEST_SIGNUP: {
+      const { dispatch } = store;
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/`, { method: 'POST', body: JSON.stringify({username, email, password})},);
 
-      store.dispatch(successSignUp(responseAPI.username, responseAPI.id, responseAPI.jwt));
-
+      const json = await response.json();
+      dispatch(successSignUp(user, json));
       break;
-    }
+    } */
 
     case REQUEST_LOGIN: {
       console.log('text');
