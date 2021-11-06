@@ -1,11 +1,23 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getUser } from '../../selectors/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-const useForm = (palette) => {
-  const [name, setName] = useState((palette && palette.name) || '');
+import { getUser } from '../../selectors/user';
+import { getMainPalette } from '../../selectors/palette';
+import { closeModal } from '../../actions/modals';
+
+import { formatColorToDatabase } from '../../utils/colors';
+
+const useForm = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState('');
   const [themes, setThemes] = useState([]); // Themes name array.
   const [isPublic, setIsPublic] = useState(true);
+  const [loading, setLoading] = useState('idle');
+
+  const palette = useSelector(getMainPalette);
 
   const addTheme = (themeToAdd) => {
     setThemes((prev) => [...prev, themeToAdd]);
@@ -29,22 +41,37 @@ const useForm = (palette) => {
 
   const user = useSelector(getUser);
 
+  const onSuccess = (paletteId) => {
+    setLoading('fulfilled');
+    history.push(`/palettes/${paletteId}`);
+    dispatch(closeModal('createPalette'));
+  };
+
   const handleSubmit = async () => {
+    setLoading('pending');
+
+    const body = JSON.stringify({
+      colors: palette.colors.map((color) => formatColorToDatabase(color)),
+      name,
+      themes: themes.map((theme) => ({ name: theme })),
+      public: isPublic,
+    });
+
     const response = await fetch(
       `${process.env.REACT_APP_SERVER}/palettes/${user.id}`,
       {
         method: 'POST',
-        body: JSON.stringify({
-          ...palette,
-          name,
-          themes,
-          public: isPublic,
-        }),
+        body,
       },
     );
 
     const json = await response.json();
-    console.log(json);
+
+    if (json.id) {
+      onSuccess(json.id);
+    } else {
+      setLoading('rejected');
+    }
   };
 
   return ({
@@ -53,6 +80,7 @@ const useForm = (palette) => {
     themes,
     toggleTheme,
     isPublic,
+    loading,
     togglePublic,
     handleSubmit,
   });

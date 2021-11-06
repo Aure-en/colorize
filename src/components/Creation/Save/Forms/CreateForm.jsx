@@ -8,7 +8,7 @@ import useForm from '../../../../hooks/palette/useForm';
 
 import check from '../../../../assets/icons/check.svg';
 
-const SaveForm = () => {
+const CreateForm = () => {
   const {
     name,
     setName,
@@ -16,12 +16,17 @@ const SaveForm = () => {
     toggleTheme,
     isPublic,
     togglePublic,
+    loading,
     handleSubmit,
   } = useForm();
   const allThemes = useSelector(getThemes);
 
   return (
-    <Form>
+    <Form onSubmit={(event) => {
+      event.preventDefault();
+      handleSubmit();
+    }}
+    >
       <Field>
         <Label htmlFor="name">
           Name
@@ -85,7 +90,13 @@ const SaveForm = () => {
         </CheckboxPublic>
       </Field>
 
-      <Submit type="submit">Create</Submit>
+      <Submit>
+        <Message>
+          {loading === 'pending' && 'Saving palette...'}
+          {loading === 'fulfilled' && 'Palette successfully saved.'}
+        </Message>
+        <Button type="submit">Create</Button>
+      </Submit>
     </Form>
   );
 };
@@ -152,6 +163,7 @@ const CheckboxLabel = styled.label`
 
 const CheckboxPublic = styled(CheckboxLabel)`
   display: flex;
+  margin-top: 0.5rem;
 
   &:after {
     top: -5px;
@@ -172,7 +184,13 @@ const Message = styled.small`
   opacity: 0.7;
 `;
 
-const Submit = styled.button`
+const Submit = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+`;
+
+const Button = styled.button`
   color: ${(props) => props.theme.background};
   background: ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
@@ -180,7 +198,6 @@ const Submit = styled.button`
   font-size: 0.925rem;
   border: none;
   transition: background-color 0.2s ease-out;
-  align-self: flex-end;
 
   &:hover {
     background: ${(props) => props.theme.primaryText};
@@ -200,8 +217,4 @@ const List = styled.div`
   }
 `;
 
-const Visibility = styled.div`
-  display: flex;
-`;
-
-export default SaveForm;
+export default CreateForm;

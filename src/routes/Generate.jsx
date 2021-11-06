@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import ColorThief from 'colorthief';
-import { getColorFromRgb, formatColorToDB } from '../utils/colors';
+import { getColorFromRgb, formatColorToDatabase } from '../utils/colors';
 
 const Generate = () => {
   const ref = useRef();
@@ -17,7 +17,7 @@ const Generate = () => {
     let palette = colorThief.getPalette(img, 5);
     palette = palette.map((rgb) => {
       const colorAllFormats = getColorFromRgb(rgb);
-      const color = formatColorToDB(colorAllFormats);
+      const color = formatColorToDatabase(colorAllFormats);
       return color;
     });
     return palette;
