@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from '../Shared/Modal';
 
-const CreateModal = () => {
+const SaveModal = () => {
   return (
     <div>
       
@@ -10,4 +10,4 @@ const CreateModal = () => {
   )
 }
 
-export default CreateModal
+export default SaveModal

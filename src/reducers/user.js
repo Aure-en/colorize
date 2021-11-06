@@ -1,10 +1,10 @@
 import { SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT } from '../actions/user';
 
 export const initialState = {
-  username: '',
-  id: null,
-  jwt: '',
-  email: '',
+  username: 'admin',
+  id: 1,
+  jwt: 'montoken',
+  email: 'admin@colorize.com',
 };
 
 const user = (state = initialState, action = {}) => {
