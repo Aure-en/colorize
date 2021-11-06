@@ -10,8 +10,7 @@ const RightNav = ({ open }) => (
       <NavLink to="/creation" exact className="navlink">Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
-      <NavLink to="/signup" exact className="navlink">Sign Up</NavLink>
-      <NavLink to="/signin" exact className="navlink">Sign In</NavLink>
+      <NavLink to="/Login" exact className="navlink">Login</NavLink>
     </NavLinkBetween>
   </Ul>
 );
