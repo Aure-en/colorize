@@ -22,7 +22,7 @@ const FavoriteButton = ({ paletteId }) => {
 };
 
 FavoriteButton.propTypes = {
-  paletteId: PropTypes.string.isRequired,
+  paletteId: PropTypes.number.isRequired,
 };
 
 const Button = styled.button`

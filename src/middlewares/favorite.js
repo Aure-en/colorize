@@ -10,13 +10,13 @@ const favoriteMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
     case REQUEST_SAVE_PALETTE: {
       // API request
-      store.dispatch(savePalette(palettes[0], 0));
+      // Dispatch savePalette action.
       break;
     }
 
     case REQUEST_UNSAVE_PALETTE: {
       // API request
-      store.dispatch(unsavePalette(0));
+      // Dispatch unsavePalette action.
       break;
     }
 

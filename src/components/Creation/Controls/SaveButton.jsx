@@ -55,14 +55,14 @@ const SaveButton = () => {
 
   if (mainPalette.id && mainPalette.owner?.id === user.id) {
     if (!didPaletteChange) {
-      return <FavoriteButton />;
+      return <FavoriteButton paletteId={mainPalette.id} />;
     }
     return <UpdateButton />;
   }
 
   if (mainPalette.id && mainPalette.owner?.id !== user.id) {
     if (!didPaletteChange) {
-      return <FavoriteButton />;
+      return <FavoriteButton paletteId={mainPalette.id} />;
     }
     return <CreateButton />;
   }

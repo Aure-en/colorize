@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { getThemes } from '../../../../selectors/themes';
 
-import useForm from '../../../../hooks/palette/useForm';
+import useCreate from '../../../../hooks/palette/useCreate';
 
 import check from '../../../../assets/icons/check.svg';
 
@@ -18,7 +18,7 @@ const CreateForm = () => {
     togglePublic,
     loading,
     handleSubmit,
-  } = useForm();
+  } = useCreate();
   const allThemes = useSelector(getThemes);
 
   return (

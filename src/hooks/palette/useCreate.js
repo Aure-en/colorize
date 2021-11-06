@@ -8,7 +8,7 @@ import { closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
 
-const useForm = () => {
+const useCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -86,4 +86,4 @@ const useForm = () => {
   });
 };
 
-export default useForm;
+export default useCreate;

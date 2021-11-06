@@ -4,24 +4,29 @@ import { useSelector } from 'react-redux';
 
 import { getThemes } from '../../../../selectors/themes';
 
-import useForm from '../../../../hooks/palette/useForm';
+import useUpdate from '../../../../hooks/palette/useUpdate';
 
 import check from '../../../../assets/icons/check.svg';
 
-const UpdateForm = () => {
+const updateForm = () => {
   const {
     name,
     setName,
     themes,
-    setThemes,
+    toggleTheme,
     isPublic,
-    setIsPublic,
+    togglePublic,
+    loading,
     handleSubmit,
-  } = useForm();
+  } = useUpdate();
   const allThemes = useSelector(getThemes);
 
   return (
-    <Form>
+    <Form onSubmit={(event) => {
+      event.preventDefault();
+      handleSubmit();
+    }}
+    >
       <Field>
         <Label htmlFor="name">
           Name
@@ -47,27 +52,51 @@ const UpdateForm = () => {
             results.
           </Message>
         </Label>
-        {allThemes.map((theme) => (
-          <CheckboxLabel
-            key={theme.id}
-            htmlFor={theme.name}
-            $checked={themes.includes(theme.name)}
-          >
-            {theme.name}
-            <CheckboxInput type="checkbox" id={theme.name} name={theme.name} value={theme.name} />
-          </CheckboxLabel>
-        ))}
+        <List>
+          {allThemes.map((theme) => (
+            <CheckboxLabel
+              key={theme.id}
+              htmlFor={theme.name}
+              $checked={themes.includes(theme.name)}
+            >
+              {theme.name}
+              <CheckboxInput
+                type="checkbox"
+                id={theme.name}
+                name={theme.name}
+                value={theme.name}
+                onChange={() => toggleTheme(theme.name)}
+              />
+            </CheckboxLabel>
+          ))}
+        </List>
       </Field>
 
       <Field>
-        <Label htmlFor="visibility">
-          Visibility
+        <Label htmlFor="visibility">Visibility</Label>
+
+        <CheckboxPublic htmlFor="public" $checked={isPublic}>
+          <CheckboxInput
+            type="checkbox"
+            id="public"
+            name="public"
+            value={isPublic}
+            onChange={togglePublic}
+          />
           <Message>
             Check the box to allow other users to see, save and be inspired by
             your palette.
           </Message>
-        </Label>
+        </CheckboxPublic>
       </Field>
+
+      <Submit>
+        <Message>
+          {loading === 'pending' && 'Saving palette...'}
+          {loading === 'fulfilled' && 'Palette successfully saved.'}
+        </Message>
+        <Button type="submit">Create</Button>
+      </Submit>
     </Form>
   );
 };
@@ -111,20 +140,33 @@ const Label = styled.label`
 const CheckboxLabel = styled.label`
   position: relative;
   cursor: pointer;
+  text-transform: capitalize;
+
   &:before {
     content: "";
     display: inline-block;
+    min-width: 10px;
     width: 10px;
     height: 10px;
-    border: 1px solid ${(props) => props.theme.text_textSecondary};
+    border: 1px solid ${(props) => props.theme.textSecondary};
     border-radius: 50%;
     margin: 0 0.75rem 0 1.25rem;
   }
+
   &:after {
     position: absolute;
     left: 1rem;
     top: -2px;
     content: ${(props) => props.$checked && `url(${check})`};
+  }
+`;
+
+const CheckboxPublic = styled(CheckboxLabel)`
+  display: flex;
+  margin-top: 0.5rem;
+
+  &:after {
+    top: -5px;
   }
 `;
 
@@ -137,13 +179,42 @@ const CheckboxInput = styled.input`
 const Message = styled.small`
   font-size: 0.825rem;
   color: ${(props) => props.theme.primaryText};
+  text-transform: initial;
+  letter-spacing: initial;
+  opacity: 0.7;
 `;
 
-const Submit = styled.button`
-  text-transform: uppercase;
-  border: 1px solid ${(props) => props.theme.textPrimary};
+const Submit = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+`;
+
+const Button = styled.button`
+  color: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
-  color: ${(props) => props.theme.textPrimary};
+  text-transform: uppercase;
+  font-size: 0.925rem;
+  border: none;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    background: ${(props) => props.theme.primaryText};
+  }
 `;
 
-export default UpdateForm;
+const List = styled.div`
+  display: grid;
+  margin-top: 1rem;
+
+  @media all and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media all and (min-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+export default updateForm;
