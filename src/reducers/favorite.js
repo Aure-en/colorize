@@ -5,28 +5,7 @@ import {
 } from '../actions/favorite';
 
 export const initialState = {
-  collections: [
-    {
-      name: 'Default',
-      palettes: [],
-      id: 0,
-    },
-    {
-      name: 'Pastel',
-      palettes: [],
-      id: 12,
-    },
-    {
-      name: 'Renovation',
-      palettes: [],
-      id: 45,
-    },
-    {
-      name: 'Modern',
-      palettes: [],
-      id: 52,
-    },
-  ],
+  collections: [],
   currentCollection: 0,
 };
 
