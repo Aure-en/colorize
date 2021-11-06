@@ -4,8 +4,28 @@ import { getUser } from '../../selectors/user';
 
 const useForm = (palette) => {
   const [name, setName] = useState((palette && palette.name) || '');
-  const [themes, setThemes] = useState([]);
+  const [themes, setThemes] = useState([]); // Themes name array.
   const [isPublic, setIsPublic] = useState(true);
+
+  const addTheme = (themeToAdd) => {
+    setThemes((prev) => [...prev, themeToAdd]);
+  };
+
+  const removeTheme = (themeToRemove) => {
+    setThemes((prev) => [...prev].filter((theme) => theme !== themeToRemove));
+  };
+
+  const toggleTheme = (theme) => {
+    if (themes.includes(theme)) {
+      removeTheme(theme);
+    } else {
+      addTheme(theme);
+    }
+  };
+
+  const togglePublic = () => {
+    setIsPublic(!isPublic);
+  };
 
   const user = useSelector(getUser);
 
@@ -31,9 +51,9 @@ const useForm = (palette) => {
     name,
     setName,
     themes,
-    setThemes,
+    toggleTheme,
     isPublic,
-    setIsPublic,
+    togglePublic,
     handleSubmit,
   });
 };

@@ -18,7 +18,7 @@ import Settings from './routes/Settings';
 import NotFound from './routes/NotFound';
 
 import Copies from './components/Copy/Copies';
-import Modals from './components/Shared/Modal/Modals';
+import Modals from './components/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import Theme from './components/Settings/Theme';

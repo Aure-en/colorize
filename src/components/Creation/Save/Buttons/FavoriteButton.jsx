@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { requestSavePalette } from '../../../../actions/favorite';
+import { getCurrentCollection } from '../../../../selectors/favorite';
 
 const FavoriteButton = ({ paletteId }) => {
   const dispatch = useDispatch();
+  const currentCollection = useSelector(getCurrentCollection);
 
   const handleClick = () => {
-    dispatch(requestSavePalette(paletteId));
+    dispatch(requestSavePalette(paletteId, currentCollection));
   };
 
   return (

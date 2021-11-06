@@ -17,7 +17,13 @@ const Palette = ({
       $direction={direction}
       list={palette.colors}
       setList={(reorderedPalette) => {
-        dispatch(setMainPalette({ id: palette.id, colors: reorderedPalette }));
+        dispatch(setMainPalette({
+          colors: reorderedPalette.map((color) => {
+            // Remove extra property to keep comparison easy between main and origina palettes.
+            delete color.chosen;
+            return color;
+          }),
+        }));
         dispatch(setShades(reorderedPalette));
       }}
     >

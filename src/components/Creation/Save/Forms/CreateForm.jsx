@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { getThemes } from '../../../selectors/themes';
+import { getThemes } from '../../../../selectors/themes';
 
-import useForm from '../../../hooks/palette/useForm';
+import useForm from '../../../../hooks/palette/useForm';
 
-import check from '../../../assets/icons/check.svg';
+import check from '../../../../assets/icons/check.svg';
 
 const SaveForm = () => {
   const {
     name,
     setName,
     themes,
-    setThemes,
+    toggleTheme,
     isPublic,
-    setIsPublic,
+    togglePublic,
     handleSubmit,
   } = useForm();
   const allThemes = useSelector(getThemes);
@@ -47,34 +47,52 @@ const SaveForm = () => {
             results.
           </Message>
         </Label>
-        {allThemes.map((theme) => (
-          <CheckboxLabel
-            key={theme.id}
-            htmlFor={theme.name}
-            $checked={themes.includes(theme.name)}
-          >
-            {theme.name}
-            <CheckboxInput type="checkbox" id={theme.name} name={theme.name} value={theme.name} />
-          </CheckboxLabel>
-        ))}
+        <List>
+          {allThemes.map((theme) => (
+            <CheckboxLabel
+              key={theme.id}
+              htmlFor={theme.name}
+              $checked={themes.includes(theme.name)}
+            >
+              {theme.name}
+              <CheckboxInput
+                type="checkbox"
+                id={theme.name}
+                name={theme.name}
+                value={theme.name}
+                onChange={() => toggleTheme(theme.name)}
+              />
+            </CheckboxLabel>
+          ))}
+        </List>
       </Field>
 
       <Field>
-        <Label htmlFor="visibility">
-          Visibility
+        <Label htmlFor="visibility">Visibility</Label>
+
+        <CheckboxPublic htmlFor="public" $checked={isPublic}>
+          <CheckboxInput
+            type="checkbox"
+            id="public"
+            name="public"
+            value={isPublic}
+            onChange={togglePublic}
+          />
           <Message>
             Check the box to allow other users to see, save and be inspired by
             your palette.
           </Message>
-        </Label>
+        </CheckboxPublic>
       </Field>
+
+      <Submit type="submit">Create</Submit>
     </Form>
   );
 };
 
 const Form = styled.form`
   display: flex;
-  flex-direction;
+  flex-direction: column;
 `;
 
 const Field = styled.div`
@@ -111,20 +129,32 @@ const Label = styled.label`
 const CheckboxLabel = styled.label`
   position: relative;
   cursor: pointer;
+  text-transform: capitalize;
+
   &:before {
     content: "";
     display: inline-block;
+    min-width: 10px;
     width: 10px;
     height: 10px;
-    border: 1px solid ${(props) => props.theme.text_textSecondary};
+    border: 1px solid ${(props) => props.theme.textSecondary};
     border-radius: 50%;
     margin: 0 0.75rem 0 1.25rem;
   }
+
   &:after {
     position: absolute;
     left: 1rem;
     top: -2px;
     content: ${(props) => props.$checked && `url(${check})`};
+  }
+`;
+
+const CheckboxPublic = styled(CheckboxLabel)`
+  display: flex;
+
+  &:after {
+    top: -5px;
   }
 `;
 
@@ -137,13 +167,41 @@ const CheckboxInput = styled.input`
 const Message = styled.small`
   font-size: 0.825rem;
   color: ${(props) => props.theme.primaryText};
+  text-transform: initial;
+  letter-spacing: initial;
+  opacity: 0.7;
 `;
 
 const Submit = styled.button`
-  text-transform: uppercase;
-  border: 1px solid ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
-  color: ${(props) => props.theme.textPrimary};
+  text-transform: uppercase;
+  font-size: 0.925rem;
+  border: none;
+  transition: background-color 0.2s ease-out;
+  align-self: flex-end;
+
+  &:hover {
+    background: ${(props) => props.theme.primaryText};
+  }
+`;
+
+const List = styled.div`
+  display: grid;
+  margin-top: 1rem;
+
+  @media all and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media all and (min-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const Visibility = styled.div`
+  display: flex;
 `;
 
 export default SaveForm;

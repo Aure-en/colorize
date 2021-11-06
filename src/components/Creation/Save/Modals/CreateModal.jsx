@@ -1,12 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import SaveForm from './CreateForm';
-import Modal from '../../../Shared/Modal/Modal';
+import CreateForm from '../Forms/CreateForm';
+import Modal from '../../../Modal/Modal';
 
-const SaveModal = ({ isModalOpen, closeModal }) => (
+const CreateModal = ({ isModalOpen, closeModal }) => (
   <Modal isModalOpen={isModalOpen} closeModal={closeModal}>
-    <SaveForm />
+    <Heading>Create a palette</Heading>
+    <CreateForm />
   </Modal>
 );
 
-export default SaveModal;
+CreateModal.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
+
+const Heading = styled.h2`
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+`;
+
+export default CreateModal;

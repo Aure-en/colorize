@@ -1,43 +1,73 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getIsLoggedIn } from '../../../selectors/user';
-import { openModal } from '../../../actions/modals';
+import { getIsLoggedIn, getUser } from '../../../selectors/user';
+import { getMainPalette, getDidPaletteChange } from '../../../selectors/palette';
+
+import AuthButton from '../Save/Buttons/AuthButton';
+import CreateButton from '../Save/Buttons/CreateButton';
+import FavoriteButton from '../Save/Buttons/FavoriteButton';
+import UpdateButton from '../Save/Buttons/UpdateButton';
 
 const SaveButton = () => {
-  const dispatch = useDispatch();
+  /*
+   * If the user is not logged in:
+   * ➝ Display the AuthButton, which opens the authentification
+   *   modal onClick.
+   *
+   * If the user is logged in :
+   *    - If the palette has no id
+   *      ➝ Display the CreateButton, which opens the form to save
+   *        a newly created palette onClick.
+   *
+   *    - If the palette has an id :
+   *        * If the palette was created by the current user and
+   *          they modified it
+   *          ➝ Displays the UpdateButton that allows him to update
+   *            the palette.
+   *
+   *        * If the palette was created by the current user and
+   *          they did not modify it
+   *          ➝ Display a button to save as favorite.
+   *
+   *        * If the palette was created by another user and not
+   *          modified.
+   *          ➝ Display a button to save as favorite.
+   *
+   *        * If the palette was created by another user and
+   *          modified by the current user
+   *          ➝ Display the CreateButton to save the newly modified
+   *            palette by the current user.
+   */
+
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const user = useSelector(getUser);
+  const mainPalette = useSelector(getMainPalette);
+  const didPaletteChange = useSelector(getDidPaletteChange);
 
-  const handleClick = () => {
-    if (!isLoggedIn) {
-      dispatch(openModal('auth'));
-    } else {
-      // If there is no paletlte id
-    }
-  };
-
-  return (
-    <Button type="button" onClick={handleClick}>
-      Save
-    </Button>
-  );
-};
-
-const Button = styled.button`
-  color: ${(props) => props.theme.background};
-  background: ${(props) => props.theme.textPrimary};
-  padding: 0.5rem 1rem;
-  text-transform: uppercase;
-  font-size: 0.925rem;
-  border: none;
-  transition: background-color 0.2s ease-out;
-  margin-left: 1rem;
-  justify-self: end;
-
-  &:hover {
-    background: ${(props) => props.theme.primaryText};
+  if (!isLoggedIn) {
+    return <AuthButton />;
   }
-`;
+
+  if (!mainPalette.id) {
+    return <CreateButton />;
+  }
+
+  if (mainPalette.id && mainPalette.owner?.id === user.id) {
+    if (!didPaletteChange) {
+      return <FavoriteButton />;
+    }
+    return <UpdateButton />;
+  }
+
+  if (mainPalette.id && mainPalette.owner?.id !== user.id) {
+    if (!didPaletteChange) {
+      return <FavoriteButton />;
+    }
+    return <CreateButton />;
+  }
+
+  return (<></>);
+};
 
 export default SaveButton;

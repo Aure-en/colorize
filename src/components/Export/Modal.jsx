@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Modal from '../Shared/Modal/Modal';
+import Modal from '../Modal/Modal';
 import CodeFormat from './Format/CodeFormat';
 import ColorFormat from './Format/ColorFormat';
 import Code from './Code';
