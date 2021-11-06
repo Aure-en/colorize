@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/palette';
+
+import {
+  fetchRandomImage, createImageElem, extractFromImage, removeImageElem,
+} from '../../../utils/extractColors';
+
 import { ReactComponent as IconGenerate } from '../../../assets/icons/palette/generate.svg';
-import { fetchPalette } from '../../../actions/palettes';
-import { getPaletteLoading } from '../../../selectors/palette';
 
 const Generate = () => {
   const dispatch = useDispatch();
-  const paletteLoading = useSelector(getPaletteLoading);
+  const [loading, setLoading] = useState(false);
+
+  const generateRandomPalette = async () => {
+    setLoading(true);
+    const src = await fetchRandomImage();
+    const imageElem = createImageElem(src);
+    const afterExtraction = (palette) => {
+      dispatch(setMainPalette({ id: null, colors: palette }));
+      dispatch(setOriginalPalette({ id: null, colors: palette }));
+      dispatch(setShades(palette));
+      removeImageElem(imageElem);
+      setLoading(false);
+    };
+    extractFromImage(imageElem, afterExtraction);
+  };
 
   return (
     <Wrapper>
       <Button
         type="button"
-        onClick={() => {
-          dispatch(fetchPalette());
-        }}
-        $rotate={paletteLoading === 'pending'}
-        disabled={paletteLoading === 'pending'}
+        onClick={generateRandomPalette}
+        $rotate={loading}
+        disabled={loading}
         title="Generate palette"
       >
         <IconGenerate />
