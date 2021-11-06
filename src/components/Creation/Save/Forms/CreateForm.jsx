@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import { getThemes } from "../../../selectors/themes";
+import { getThemes } from '../../../selectors/themes';
 
-import useForm from "../../../hooks/palette/useForm";
+import useForm from '../../../hooks/palette/useForm';
 
-import check from "../../../assets/icons/check.svg";
+import check from '../../../assets/icons/check.svg';
 
 const SaveForm = () => {
   const {
@@ -32,7 +32,7 @@ const SaveForm = () => {
             type="text"
             id="name"
             name="name"
-            placeholder="Enter the collection name"
+            placeholder="Enter the palette name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -54,7 +54,7 @@ const SaveForm = () => {
             $checked={themes.includes(theme.name)}
           >
             {theme.name}
-            <CheckboxInput type="checkbox" id={theme.name} name={theme.name} value={theme.name} onChange={} />
+            <CheckboxInput type="checkbox" id={theme.name} name={theme.name} value={theme.name} />
           </CheckboxLabel>
         ))}
       </Field>
