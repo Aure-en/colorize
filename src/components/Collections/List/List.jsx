@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getCollections } from '../../../selectors/favorite';
 import Collection from './Preview/Collection';
-import Add from './Add';
+import CreateButton from './CreateButton';
 
 const List = () => {
   const collections = useSelector(getCollections);
@@ -11,7 +11,7 @@ const List = () => {
   return (
     <Wrapper>
       {collections.map((collection) => <Collection collection={collection} />)}
-      <Add />
+      <CreateButton />
     </Wrapper>
   );
 };

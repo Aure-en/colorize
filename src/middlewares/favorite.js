@@ -13,6 +13,8 @@ import {
   saveCollections,
 } from '../actions/favorite';
 
+import { closeModal } from '../actions/modals';
+
 const favoriteMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_SAVE_PALETTE: {
@@ -29,6 +31,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
     case REQUEST_CREATE_COLLECTION: {
       const { user } = store.getState();
+      const { dispatch } = store;
 
       const response = await fetch(
         `${process.env.REACT_APP_SERVER}/files/user/${user.id}`,
@@ -44,7 +47,8 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const json = await response.json();
 
       if (json.id) {
-        store.dispatch(createCollection({ name: action.name, collectionId: json.id }));
+        dispatch(createCollection({ name: action.name, collectionId: json.id }));
+        dispatch(closeModal('createCollection'));
       }
 
       break;

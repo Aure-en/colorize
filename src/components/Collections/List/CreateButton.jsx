@@ -1,17 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { openModal } from '../../../actions/modals';
+
 import { ReactComponent as IconCreate } from '../../../assets/icons/collections/create.svg';
 
-const AddButton = ({ openModal }) => (
-  <Button type="button" onClick={openModal}>
-    <IconCreate />
-    Create a new collection
-  </Button>
-);
+const CreateButton = () => {
+  const dispatch = useDispatch();
 
-AddButton.propTypes = {
-  openModal: PropTypes.func.isRequired,
+  return (
+    <Button type="button" onClick={() => dispatch(openModal('createCollection'))}>
+      <IconCreate />
+      Create a new collection
+    </Button>
+  );
 };
 
 const Button = styled.button`
@@ -26,4 +29,4 @@ const Button = styled.button`
   color: ${(props) => props.theme.textPrimary}
 `;
 
-export default AddButton;
+export default CreateButton;

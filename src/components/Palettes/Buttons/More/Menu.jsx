@@ -51,6 +51,6 @@ const Wrapper = styled.div`
     line-height: inherit;
     color: ${(props) => props.theme.textPrimary};
   }
-  `;
+`;
 
 export default Menu;
