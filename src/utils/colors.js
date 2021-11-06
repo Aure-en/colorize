@@ -22,7 +22,7 @@ export const getColorData = (color) => ({
   name: getColorName(color.hex()).name,
 })
 
-export const formatColorToDB = (color) => {
+export const formatColorToDatabase = (color) => {
   return {
     hex: color.hex,
     name: color.name

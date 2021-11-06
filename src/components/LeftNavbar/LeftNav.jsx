@@ -33,6 +33,7 @@ const LeftNav = () => {
             type="button"
             onClick={() => dispatch(updateSortBy(sort))}
             $selected={sortBy === sort}
+            key={sort}
           >
             {sort}
           </Button>
@@ -43,13 +44,14 @@ const LeftNav = () => {
             type="button"
             onClick={() => dispatch(updateFilterBy(filter))}
             $selected={filterBy === filter}
+            key={filter}
           >
             {filter}
           </Button>
         ))}
         <Line />
         {themes.map((theme) => (
-          <NavLink to={`/themes/${theme.id}`}>{theme.name}</NavLink>
+          <NavLink to={`/themes/${theme.id}`} key={theme.id}>{theme.name}</NavLink>
         ))}
       </NavMenu>
     </Nav>

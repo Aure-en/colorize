@@ -1,20 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../../actions/modals';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { getIsLoggedIn } from '../../../selectors/user';
-import { openModal } from '../../../actions/modals';
-
-const SaveButton = () => {
+const CreateButton = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(getIsLoggedIn);
 
   const handleClick = () => {
-    if (!isLoggedIn) {
-      dispatch(openModal('auth'));
-    } else {
-      // If there is no paletlte id
-    }
+    dispatch(openModal('createPalette'));
   };
 
   return (
@@ -40,4 +33,4 @@ const Button = styled.button`
   }
 `;
 
-export default SaveButton;
+export default CreateButton;

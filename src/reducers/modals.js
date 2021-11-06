@@ -13,6 +13,10 @@ export const initialState = [
     name: 'createPalette',
     isOpen: false,
   },
+  {
+    name: 'updatePalette',
+    isOpen: false,
+  },
 ];
 
 const modals = (state = initialState, action = {}) => {
