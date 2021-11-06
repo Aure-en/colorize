@@ -9,6 +9,8 @@ import {
   createCollection,
   updateCollection,
   deleteCollection,
+  FETCH_COLLECTIONS,
+  saveCollections,
 } from '../actions/favorite';
 
 const favoriteMiddleware = (store) => (next) => async (action) => {
@@ -45,6 +47,39 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         store.dispatch(createCollection({ name: action.name, collectionId: json.id }));
       }
 
+      break;
+    }
+
+    case FETCH_COLLECTIONS: {
+      const { user } = store.getState();
+
+      // List all of the users collections
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/files/`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+
+      const collections = await response.json();
+
+      // For each collection, fetch its palettes.
+      const collectionsWithPalettes = await Promise.all(collections.map(async (collection) => {
+        const res = await fetch(
+          `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.jwt}`,
+            },
+          },
+        );
+        const palette = await res.json();
+        return palette;
+      }));
+
+      store.dispatch(saveCollections(collectionsWithPalettes));
       break;
     }
 

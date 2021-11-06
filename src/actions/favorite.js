@@ -10,6 +10,9 @@ export const CREATE_COLLECTION = 'CREATE_COLLECTION';
 export const UPDATE_COLLECTION = 'UPDATE_COLLECTION';
 export const DELETE_COLLECTION = 'DELETE_COLLECTION';
 
+export const FETCH_COLLECTIONS = 'FETCH_COLLECTIONS';
+export const SAVE_COLLECTIONS = 'SAVE_COLLECTIONS';
+
 export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
 export const savePalette = (palette, collectionId) => ({
@@ -70,4 +73,13 @@ export const requestDeleteCollection = (collectionId) => ({
 export const updateCurrentCollection = (collectionId) => ({
   type: UPDATE_CURRENT_COLLECTION,
   collectionId,
+});
+
+export const fetchCollections = () => ({
+  type: FETCH_COLLECTIONS,
+});
+
+export const saveCollections = (collections) => ({
+  type: SAVE_COLLECTIONS,
+  collections,
 });

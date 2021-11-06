@@ -4,6 +4,7 @@ import {
   CREATE_COLLECTION,
   UPDATE_COLLECTION,
   DELETE_COLLECTION,
+  SAVE_COLLECTIONS,
   UPDATE_CURRENT_COLLECTION,
 } from '../actions/favorite';
 
@@ -14,6 +15,12 @@ export const initialState = {
 
 const favorite = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SAVE_COLLECTIONS:
+      return {
+        ...state,
+        collections: action.collections,
+      };
+
     case SAVE_PALETTE: {
       let collections = [...{ ...state }.collections];
 
