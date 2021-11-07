@@ -117,7 +117,7 @@ const Label = styled.label`
 `;
 
 const Error = styled.div`
-  color: ${(props) => props.theme.error};
+  color: ${(props) => props.theme.primaryText};
   font-size: 0.825rem;
 `;
 

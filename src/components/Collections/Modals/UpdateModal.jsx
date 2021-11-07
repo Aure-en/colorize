@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useCreateCollection from '../../../hooks/collections/useCreateCollection';
+import useUpdateCollection from '../../../hooks/collections/useUpdateCollection';
 
 import Modal from '../../Modal/Modal';
 import BackButton from '../../Modal/BackButton';
 
-const UpdateModal = ({ isModalOpen, closeModal }) => {
+const UpdateModal = ({ collection, isModalOpen, closeModal }) => {
   const {
     name, setName, error, handleSubmit,
-  } = useCreateCollection(closeModal);
+  } = useUpdateCollection(collection);
 
   return (
     <Modal
@@ -55,6 +55,14 @@ const UpdateModal = ({ isModalOpen, closeModal }) => {
 UpdateModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
+  collection: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+};
+
+UpdateModal.defaultProps = {
+  collection: null,
 };
 
 const Wrapper = styled.div`
@@ -117,7 +125,7 @@ const Label = styled.label`
 `;
 
 const Error = styled.div`
-  color: ${(props) => props.theme.error};
+  color: ${(props) => props.theme.primaryText};
   font-size: 0.825rem;
 `;
 

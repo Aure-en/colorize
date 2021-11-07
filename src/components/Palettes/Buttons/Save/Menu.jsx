@@ -8,7 +8,12 @@ import {
   getCurrentCollection,
   getFavoriteCollection,
 } from '../../../../selectors/favorite';
-import { requestSavePalette, requestUnsavePalette, updateCurrentCollection } from '../../../../actions/favorite';
+import {
+  requestSavePalette,
+  requestUnsavePalette,
+  updateCurrentCollection,
+} from '../../../../actions/favorite';
+import { openModal } from '../../../../actions/modals';
 
 const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
@@ -30,13 +35,15 @@ const Menu = ({ paletteId, close, position }) => {
     <Wrapper $position={position === 'left'}>
       <div>
         <Category>Default</Category>
-        <Button onClick={() => handleClick(currentCollection)}>
-          {
-            collections.find(
-              (collection) => collection.id === currentCollection,
-            ).name
-          }
-        </Button>
+        {currentCollection && (
+          <Button onClick={() => handleClick(currentCollection)}>
+            {
+              collections.find(
+                (collection) => collection.id === currentCollection,
+              )?.name
+            }
+          </Button>
+        )}
       </div>
 
       <div>
@@ -51,6 +58,17 @@ const Menu = ({ paletteId, close, position }) => {
           </Button>
         ))}
       </div>
+
+      <Category
+        as="button"
+        type="button"
+        onClick={() => {
+          dispatch(openModal('createCollection'));
+          close();
+        }}
+      >
+        Create a new collection
+      </Category>
     </Wrapper>
   );
 };
@@ -93,6 +111,7 @@ const Category = styled.div`
   text-transform: uppercase;
   font-size: 0.825rem;
   color: ${(props) => props.theme.primaryText};
+  text-align: start;
 `;
 
 const Button = styled.button`

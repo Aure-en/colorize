@@ -14,6 +14,8 @@ export const FETCH_COLLECTIONS = 'FETCH_COLLECTIONS';
 export const SAVE_COLLECTIONS = 'SAVE_COLLECTIONS';
 export const CLEAR_COLLECTIONS = 'CLEAR_COLLECTIONS';
 
+export const SET_MODAL_COLLECTION = 'SET_MODAL_COLLECTION';
+
 export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
 export const savePalette = (palette, collectionId) => ({
@@ -38,13 +40,13 @@ export const requestUnsavePalette = (paletteId) => ({
   paletteId,
 });
 
-export const createCollection = ({ name, collectionId }) => ({
+export const createCollection = (name, collectionId) => ({
   type: CREATE_COLLECTION,
   name,
   collectionId,
 });
 
-export const updateCollection = ({ name, collectionId }) => ({
+export const updateCollection = (name, collectionId) => ({
   type: UPDATE_COLLECTION,
   name,
   collectionId,
@@ -61,7 +63,7 @@ export const requestCreateCollection = (name) => ({
 });
 
 export const requestUpdateCollection = (name, collectionId) => ({
-  type: UPDATE_COLLECTION,
+  type: REQUEST_UPDATE_COLLECTION,
   name,
   collectionId,
 });
@@ -87,4 +89,9 @@ export const saveCollections = (collections) => ({
 
 export const clearCollections = () => ({
   type: CLEAR_COLLECTIONS,
+});
+
+export const setModalCollection = (collection) => ({
+  type: SET_MODAL_COLLECTION,
+  collection,
 });

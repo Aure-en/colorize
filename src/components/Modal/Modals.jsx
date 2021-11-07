@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../actions/modals';
 import { getModalPalette } from '../../selectors/export';
 import { getIsModalOpen } from '../../selectors/modals';
+import { getModalCollection } from '../../selectors/favorite';
 
 import ExportModal from '../Export/Modal';
 import AuthModal from '../Auth/AuthModal';
 import CreatePaletteModal from '../Creation/Save/Modals/CreateModal';
 import UpdatePaletteModal from '../Creation/Save/Modals/UpdateModal';
 import CreateCollectionModal from '../Collections/Modals/CreateModal';
+import UpdateCollectionModal from '../Collections/Modals/UpdateModal';
 
 const Modals = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const Modals = () => {
   const isDeleteCollectionPaletteModalOpen = useSelector((state) => getIsModalOpen(state, 'deleteCollection'));
 
   const modalPalette = useSelector(getModalPalette);
+  const modalCollection = useSelector(getModalCollection);
 
   return (
     <>
@@ -50,6 +53,12 @@ const Modals = () => {
       <CreateCollectionModal
         isModalOpen={isCreateCollectionPaletteModalOpen}
         closeModal={() => dispatch(closeModal('createCollection'))}
+      />
+
+      <UpdateCollectionModal
+        collection={modalCollection}
+        isModalOpen={isUpdateCollectionPaletteModalOpen}
+        closeModal={() => dispatch(closeModal('updateCollection'))}
       />
     </>
   );

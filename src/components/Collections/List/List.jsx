@@ -10,7 +10,7 @@ const List = () => {
 
   return (
     <Wrapper>
-      {collections.map((collection) => <Collection collection={collection} />)}
+      {collections.map((collection) => <Collection collection={collection} key={collection.id} />)}
       <CreateButton />
     </Wrapper>
   );

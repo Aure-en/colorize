@@ -13,6 +13,8 @@ Name.propTypes = {
 };
 
 const Wrapper = styled.div`
+  word-break: break-all;
+
   &:after {
     content: "";
     position: absolute;

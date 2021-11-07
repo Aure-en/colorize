@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import { ReactComponent as IconDots } from '../../../../assets/icons/card/dots.svg';
 
 const Button = ({ toggleMenu }) => (
-  <ButtonDots type="button" onClick={toggleMenu}>
+  <ButtonDots
+    type="button"
+    onClick={(event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleMenu();
+    }}
+  >
     <IconDots />
   </ButtonDots>
 );

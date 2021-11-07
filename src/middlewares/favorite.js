@@ -44,13 +44,24 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const json = await response.json();
+      const collection = await response.json();
 
-      if (json.id) {
-        dispatch(createCollection({ name: action.name, collectionId: json.id }));
+      if (collection.id) {
+        dispatch(createCollection(action.name, collection.id));
         dispatch(closeModal('createCollection'));
       }
 
+      break;
+    }
+
+    case REQUEST_UPDATE_COLLECTION: {
+      const { user } = store.getState();
+      const { dispatch } = store;
+
+      // TO-DO: Request to API to update the collection.
+
+      dispatch(updateCollection(action.name, action.collectionId));
+      dispatch(closeModal('updateCollection'));
       break;
     }
 

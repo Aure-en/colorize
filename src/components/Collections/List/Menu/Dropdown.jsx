@@ -4,16 +4,47 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import { openModal } from '../../../../actions/modals';
+import { setModalCollection } from '../../../../actions/favorite';
 
 const Dropdown = ({ collection, close }) => {
   const dispatch = useDispatch();
 
   return (
     <Wrapper>
-      <Button type="button" onClick={() => {}}>Edit Collection</Button>
-      <Button type="button" onClick={() => {}}>Delete Collection</Button>
+      <Button
+        type="button"
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dispatch(openModal('updateCollection'));
+          dispatch(setModalCollection(collection));
+          close();
+        }}
+      >
+        Edit Collection
+
+      </Button>
+      <Button
+        type="button"
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dispatch(openModal('deleteCollection'));
+          close();
+        }}
+      >
+        Delete Collection
+      </Button>
     </Wrapper>
   );
+};
+
+Dropdown.propTypes = {
+  close: PropTypes.func.isRequired,
+  collection: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 const Wrapper = styled.div`
@@ -21,7 +52,7 @@ const Wrapper = styled.div`
   right: 0;
   border: 1px solid ${(props) => props.theme.textPrimary};
   background: ${(props) => props.theme.background};
-  min-width: 7rem;
+  padding: 0.25rem 0;
 
   & > * {
     display: inline-block;
@@ -38,6 +69,7 @@ const Wrapper = styled.div`
     text-align: start;
     line-height: inherit;
     color: ${(props) => props.theme.textPrimary};
+    white-space: nowrap;
   }
 `;
 

@@ -7,11 +7,13 @@ import {
   SAVE_COLLECTIONS,
   CLEAR_COLLECTIONS,
   UPDATE_CURRENT_COLLECTION,
+  SET_MODAL_COLLECTION,
 } from '../actions/favorite';
 
 export const initialState = {
   collections: [], // Array of { name, palettes: [], id}
   currentCollection: null,
+  modalCollection: null,
 };
 
 const favorite = (state = initialState, action = {}) => {
@@ -100,6 +102,12 @@ const favorite = (state = initialState, action = {}) => {
 
     case CLEAR_COLLECTIONS:
       return initialState;
+
+    case SET_MODAL_COLLECTION:
+      return {
+        ...state,
+        modalCollection: action.collection,
+      };
 
     default:
       return state;
