@@ -6,9 +6,9 @@ import useCreateCollection from '../../../hooks/collections/useCreateCollection'
 import Modal from '../../Modal/Modal';
 import BackButton from '../../Modal/BackButton';
 
-const AddModal = ({ isModalOpen, closeModal }) => {
+const CreateModal = ({ isModalOpen, closeModal }) => {
   const {
-    name, setName, error, loading, handleSubmit,
+    name, setName, error, handleSubmit,
   } = useCreateCollection(closeModal);
 
   return (
@@ -52,7 +52,7 @@ const AddModal = ({ isModalOpen, closeModal }) => {
   );
 };
 
-AddModal.propTypes = {
+CreateModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
@@ -117,7 +117,7 @@ const Label = styled.label`
 `;
 
 const Error = styled.div`
-  color: ${(props) => props.theme.error};
+  color: ${(props) => props.theme.primaryText};
   font-size: 0.825rem;
 `;
 
@@ -133,4 +133,4 @@ const Submit = styled.button`
   color: ${(props) => props.theme.textPrimary};
 `;
 
-export default AddModal;
+export default CreateModal;

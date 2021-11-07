@@ -1,19 +1,33 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-const useCreateCollection = (onSubmit) => {
+import { requestCreateCollection } from '../../actions/favorite';
+
+const useCreateCollection = () => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
-  const [loading, setLoading] = useState('');
   const [error, setError] = useState('');
 
+  const checkErrors = () => {
+    if (!name) {
+      setError('Name is required.');
+      return true;
+    }
+    return false;
+  };
+
   const handleSubmit = () => {
-    console.log('Form submitted');
-    onSubmit();
+    const hasErrors = checkErrors();
+    if (hasErrors) return;
+
+    // Dispatch request
+    dispatch(requestCreateCollection(name));
   };
 
   return {
     name,
     error,
-    loading,
     setName,
     setError,
     handleSubmit,

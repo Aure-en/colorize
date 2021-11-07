@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/user';
+import { clearCollections } from '../../actions/favorite';
 
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
@@ -28,7 +29,17 @@ const RightNavAfterSignIn = ({ open }) => {
         <Username>Username</Username>
         <NavLink to="/profile" exact className="navlink">Profile</NavLink>
         <NavLink to="/settings" exact className="navlink">Settings</NavLink>
-        <button type="button" onClick={() => dispatch(logout())} className="navlink">Log Out</button>
+        <button
+          type="button"
+          onClick={() => {
+            dispatch(logout());
+            dispatch(clearCollections());
+          }}
+          className="navlink"
+        >
+          Log Out
+
+        </button>
       </NavLinkBetween>
     </Ul>
   );

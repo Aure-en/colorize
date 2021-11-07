@@ -1,45 +1,34 @@
 import {
   SAVE_PALETTE,
   UNSAVE_PALETTE,
+  CREATE_COLLECTION,
+  UPDATE_COLLECTION,
+  DELETE_COLLECTION,
+  SAVE_COLLECTIONS,
+  CLEAR_COLLECTIONS,
   UPDATE_CURRENT_COLLECTION,
+  SET_MODAL_COLLECTION,
 } from '../actions/favorite';
 
 export const initialState = {
-  collections: [
-    {
-      name: 'Default',
-      palettes: [],
-      id: 0,
-    },
-    {
-      name: 'Pastel',
-      palettes: [],
-      id: 12,
-    },
-    {
-      name: 'Renovation',
-      palettes: [],
-      id: 45,
-    },
-    {
-      name: 'Modern',
-      palettes: [],
-      id: 52,
-    },
-  ],
-  currentCollection: 0,
+  collections: [], // Array of { name, palettes: [], id}
+  currentCollection: null,
+  modalCollection: null,
 };
 
 const favorite = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SAVE_COLLECTIONS:
+      return {
+        ...state,
+        collections: action.collections,
+      };
+
     case SAVE_PALETTE: {
       let collections = [...{ ...state }.collections];
 
       // Remove palette from collection if it is already saved.
-      const collectionWithPaletteId = collections.findIndex(
-        (collection) =>
-          collection.palettes.find((palette) => palette.id === action.paletteId),
-      );
+      const collectionWithPaletteId = collections.findIndex((collection) => collection.palettes.find((palette) => palette.id === action.paletteId));
 
       if (collectionWithPaletteId !== -1) {
         collections[collectionWithPaletteId] = collections[
@@ -48,14 +37,12 @@ const favorite = (state = initialState, action = {}) => {
       }
 
       // Add palette to the selected collection
-      collections = collections.map((collection) =>
-        collection.id === action.collectionId
-          ? {
-              ...collection,
-              palettes: [...collection.palettes, action.palette],
-            }
-          : collection
-      );
+      collections = collections.map((collection) => (collection.id === action.collectionId
+        ? {
+          ...collection,
+          palettes: [...collection.palettes, action.palette],
+        }
+        : collection));
 
       return {
         ...state,
@@ -65,22 +52,18 @@ const favorite = (state = initialState, action = {}) => {
 
     case UNSAVE_PALETTE: {
       const prevState = { ...state };
-      const collectionWithPalette = prevState.collections.find((collection) =>
-        collection.palettes.find((palette) => palette.id === action.paletteId)
-      );
+      const collectionWithPalette = prevState.collections.find((collection) => collection.palettes.find((palette) => palette.id === action.paletteId));
       const collectionWithoutPalette = {
         ...collectionWithPalette,
         palettes: collectionWithPalette.palettes.filter(
-          (palette) => palette.id !== action.paletteId
+          (palette) => palette.id !== action.paletteId,
         ),
       };
       const stateWithoutPalette = {
         ...state,
-        collections: prevState.collections.map((collection) =>
-          collection.id === collectionWithoutPalette.id
-            ? collectionWithoutPalette
-            : collection
-        ),
+        collections: prevState.collections.map((collection) => (collection.id === collectionWithoutPalette.id
+          ? collectionWithoutPalette
+          : collection)),
       };
       return stateWithoutPalette;
     }
@@ -89,6 +72,41 @@ const favorite = (state = initialState, action = {}) => {
       return {
         ...state,
         currentCollection: action.collectionId,
+      };
+
+    case CREATE_COLLECTION:
+      return {
+        ...state,
+        collections: [
+          ...state.collections,
+          { name: action.name, id: action.collectionId, palettes: [] },
+        ],
+      };
+
+    case UPDATE_COLLECTION:
+      return {
+        ...state,
+        collections: [
+          ...state.collections,
+        ].map((collection) => (collection.id === action.collectionId
+          ? { ...collection, name: action.name } : collection)),
+      };
+
+    case DELETE_COLLECTION:
+      return {
+        ...state,
+        collections: [
+          ...state.collections,
+        ].filter((collection) => collection.id !== action.collectionId),
+      };
+
+    case CLEAR_COLLECTIONS:
+      return initialState;
+
+    case SET_MODAL_COLLECTION:
+      return {
+        ...state,
+        modalCollection: action.collection,
       };
 
     default:
