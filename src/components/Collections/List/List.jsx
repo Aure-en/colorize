@@ -18,7 +18,7 @@ const List = () => {
 
 const Wrapper = styled.main`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 15rem);
+  grid-template-columns: repeat(auto-fill, 15rem);
   justify-content: center;
   grid-gap: 4rem;
 `;

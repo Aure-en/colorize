@@ -6,6 +6,7 @@ export const REQUEST_UNSAVE_PALETTE = 'REQUEST_UNSAVE_PALETTE';
 export const REQUEST_CREATE_COLLECTION = 'REQUEST_CREATE_COLLECTION';
 export const REQUEST_UPDATE_COLLECTION = 'REQUEST_UPDATE_COLLECTION';
 export const REQUEST_DELETE_COLLECTION = 'REQUEST_DELETE_COLLECTION';
+
 export const CREATE_COLLECTION = 'CREATE_COLLECTION';
 export const UPDATE_COLLECTION = 'UPDATE_COLLECTION';
 export const DELETE_COLLECTION = 'DELETE_COLLECTION';
@@ -69,7 +70,7 @@ export const requestUpdateCollection = (name, collectionId) => ({
 });
 
 export const requestDeleteCollection = (collectionId) => ({
-  type: DELETE_COLLECTION,
+  type: REQUEST_DELETE_COLLECTION,
   collectionId,
 });
 

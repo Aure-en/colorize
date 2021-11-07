@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Preview from './Preview';
 import Name from './Name';
 import Number from './Number';
-import Menu from '../Menu/Menu';
+import Menu from '../../Menu/Menu';
 
 const Collection = ({ collection }) => (
   <Wrapper to={`/collections/${collection.id}`}>

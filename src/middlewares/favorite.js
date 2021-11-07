@@ -11,6 +11,7 @@ import {
   deleteCollection,
   FETCH_COLLECTIONS,
   saveCollections,
+  setModalCollection,
 } from '../actions/favorite';
 
 import { closeModal } from '../actions/modals';
@@ -62,6 +63,30 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       dispatch(updateCollection(action.name, action.collectionId));
       dispatch(closeModal('updateCollection'));
+      break;
+    }
+
+    case REQUEST_DELETE_COLLECTION: {
+      const { user } = store.getState();
+      const { dispatch } = store;
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+
+      const collection = await response.json();
+
+      if (collection.id) {
+        dispatch(deleteCollection(action.collectionId));
+        dispatch(closeModal('deleteCollection'));
+        dispatch(setModalCollection(null));
+      }
       break;
     }
 

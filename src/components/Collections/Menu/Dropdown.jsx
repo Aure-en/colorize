@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { openModal } from '../../../../actions/modals';
-import { setModalCollection } from '../../../../actions/favorite';
+import { openModal } from '../../../actions/modals';
+import { setModalCollection } from '../../../actions/favorite';
 
 const Dropdown = ({ collection, close }) => {
   const dispatch = useDispatch();
 
   return (
     <Wrapper>
-      <Button
+      <button
         type="button"
         onClick={(event) => {
           event.preventDefault();
@@ -22,19 +22,19 @@ const Dropdown = ({ collection, close }) => {
         }}
       >
         Edit Collection
-
-      </Button>
-      <Button
+      </button>
+      <button
         type="button"
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
           dispatch(openModal('deleteCollection'));
+          dispatch(setModalCollection(collection));
           close();
         }}
       >
         Delete Collection
-      </Button>
+      </button>
     </Wrapper>
   );
 };
@@ -72,7 +72,5 @@ const Wrapper = styled.div`
     white-space: nowrap;
   }
 `;
-
-const Button = styled.button``;
 
 export default Dropdown;
