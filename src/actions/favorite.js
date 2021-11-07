@@ -12,6 +12,7 @@ export const DELETE_COLLECTION = 'DELETE_COLLECTION';
 
 export const FETCH_COLLECTIONS = 'FETCH_COLLECTIONS';
 export const SAVE_COLLECTIONS = 'SAVE_COLLECTIONS';
+export const CLEAR_COLLECTIONS = 'CLEAR_COLLECTIONS';
 
 export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
@@ -82,4 +83,8 @@ export const fetchCollections = () => ({
 export const saveCollections = (collections) => ({
   type: SAVE_COLLECTIONS,
   collections,
+});
+
+export const clearCollections = () => ({
+  type: CLEAR_COLLECTIONS,
 });

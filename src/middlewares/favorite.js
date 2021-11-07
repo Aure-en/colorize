@@ -69,21 +69,24 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       const collections = await response.json();
 
+      if (Array.isArray(collections)) {
       // For each collection, fetch its palettes.
-      const collectionsWithPalettes = await Promise.all(collections.map(async (collection) => {
-        const res = await fetch(
-          `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.jwt}`,
+        const collectionsWithPalettes = await Promise.all(collections.map(async (collection) => {
+          const res = await fetch(
+            `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
+            {
+              headers: {
+                Authorization: `Bearer ${user.jwt}`,
+              },
             },
-          },
-        );
-        const palette = await res.json();
-        return palette;
-      }));
+          );
+          const palette = await res.json();
+          return palette;
+        }));
 
-      store.dispatch(saveCollections(collectionsWithPalettes));
+        store.dispatch(saveCollections(collectionsWithPalettes));
+      }
+
       break;
     }
 

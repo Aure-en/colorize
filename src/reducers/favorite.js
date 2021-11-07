@@ -5,12 +5,13 @@ import {
   UPDATE_COLLECTION,
   DELETE_COLLECTION,
   SAVE_COLLECTIONS,
+  CLEAR_COLLECTIONS,
   UPDATE_CURRENT_COLLECTION,
 } from '../actions/favorite';
 
 export const initialState = {
   collections: [], // Array of { name, palettes: [], id}
-  currentCollection: 0,
+  currentCollection: null,
 };
 
 const favorite = (state = initialState, action = {}) => {
@@ -96,6 +97,9 @@ const favorite = (state = initialState, action = {}) => {
           ...state.collections,
         ].filter((collection) => collection.id !== action.collectionId),
       };
+
+    case CLEAR_COLLECTIONS:
+      return initialState;
 
     default:
       return state;
