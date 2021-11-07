@@ -18,7 +18,6 @@ const userMiddleware = (store) => (next) => async (action) => {
     }
 
     case REQUEST_LOGIN: {
-      console.log('text');
       const responseAPI = {
         username: 'username',
         email: 'email',

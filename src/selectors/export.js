@@ -1,4 +1,4 @@
-export const getModalPalette = (state) => state.export.palette;
+export const getExportPalette = (state) => state.export.palette;
 
 export const getColorFormat = (state) => state.export.colorFormat;
 

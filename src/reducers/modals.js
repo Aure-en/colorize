@@ -18,6 +18,10 @@ export const initialState = [
     isOpen: false,
   },
   {
+    name: 'deletePalete',
+    isOpen: false,
+  },
+  {
     name: 'deletePalette',
     isOpen: false,
   },

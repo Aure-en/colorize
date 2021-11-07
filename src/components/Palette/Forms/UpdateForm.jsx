@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { getThemes } from '../../../../selectors/themes';
+import { getThemes } from '../../../selectors/themes';
 
-import useUpdate from '../../../../hooks/palette/useUpdate';
+import useUpdate from '../../../hooks/palette/useUpdate';
 
-import check from '../../../../assets/icons/check.svg';
+import check from '../../../assets/icons/check.svg';
 
 const updateForm = () => {
   const {

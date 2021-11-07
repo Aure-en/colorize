@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { requestSavePalette } from '../../../../actions/favorite';
-import { getCurrentCollection } from '../../../../selectors/favorite';
+import { requestSavePalette } from '../../../actions/favorite';
+import { getCurrentCollection } from '../../../selectors/favorite';
 
 const FavoriteButton = ({ paletteId }) => {
   const dispatch = useDispatch();
