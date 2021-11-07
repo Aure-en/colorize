@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import UpdateForm from '../Forms/UpdateForm';
-import Modal from '../../../Modal/Modal';
+import Modal from '../../Modal/Modal';
 
 const UpdateModal = ({ isModalOpen, closeModal }) => (
   <Modal isModalOpen={isModalOpen} closeModal={closeModal}>

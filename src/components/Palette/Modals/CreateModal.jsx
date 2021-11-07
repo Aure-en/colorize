@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import CreateForm from '../Forms/CreateForm';
-import Modal from '../../../Modal/Modal';
+import Modal from '../../Modal/Modal';
 
 const CreateModal = ({ isModalOpen, closeModal }) => (
   <Modal isModalOpen={isModalOpen} closeModal={closeModal}>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { openModal } from '../../../../actions/modals';
+import { openModal } from '../../../actions/modals';
 
 const AuthButton = () => {
   const dispatch = useDispatch();

@@ -19,6 +19,8 @@ export const SET_MODAL_COLLECTION = 'SET_MODAL_COLLECTION';
 
 export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
+export const DELETE_PALETTE_FROM_COLLECTIONS = 'DELETE_PALETTE_FROM_COLLECTIONS';
+
 export const savePalette = (palette, collectionId) => ({
   type: SAVE_PALETTE,
   palette,
@@ -95,4 +97,9 @@ export const clearCollections = () => ({
 export const setModalCollection = (collection) => ({
   type: SET_MODAL_COLLECTION,
   collection,
+});
+
+export const deletePaletteFromCollections = (paletteId) => ({
+  type: DELETE_PALETTE_FROM_COLLECTIONS,
+  paletteId,
 });

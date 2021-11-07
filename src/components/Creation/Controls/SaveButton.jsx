@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { getIsLoggedIn, getUser } from '../../../selectors/user';
 import { getMainPalette, getDidPaletteChange } from '../../../selectors/palette';
 
-import AuthButton from '../Save/Buttons/AuthButton';
-import CreateButton from '../Save/Buttons/CreateButton';
-import FavoriteButton from '../Save/Buttons/FavoriteButton';
-import UpdateButton from '../Save/Buttons/UpdateButton';
+import AuthButton from '../Save/AuthButton';
+import CreateButton from '../Save/CreateButton';
+import FavoriteButton from '../Save/FavoriteButton';
+import UpdateButton from '../Save/UpdateButton';
 
 const SaveButton = () => {
   /*
