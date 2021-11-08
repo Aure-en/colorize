@@ -16,6 +16,8 @@ import {
 
 import { closeModal } from '../actions/modals';
 
+import { getColorFromHex } from '../utils/colors';
+
 const favoriteMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_SAVE_PALETTE: {
@@ -155,8 +157,17 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
           }),
         );
 
+        // Format to get all color formats per palette
+        const collectionsWithAllColorFormats = collectionsWithPalettes.map((collection) => ({
+          ...collection,
+          palettes: collection.palettes.map((palette) => ({
+            ...palette,
+            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+          })),
+        }));
+
         store.dispatch(
-          saveCollections(collectionsWithPalettes),
+          saveCollections(collectionsWithAllColorFormats),
         );
       }
 

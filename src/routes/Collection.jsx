@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import { getCollection } from '../selectors/favorite';
 
 import Nav from '../components/Collections/Nav/Nav';
-import CardsList from '../components/Palettes/CardsList';
 import Menu from '../components/Collections/Menu/Menu';
+import CardsList from '../components/Palettes/CardsList';
+import NoPalettes from '../components/Palettes/NoPalettes';
 
 const Collection = ({ match }) => {
   const { collectionId } = match.params;
@@ -22,7 +23,14 @@ const Collection = ({ match }) => {
             <Heading>{collection.name}</Heading>
             <Menu collection={collection} />
           </Header>
-          <CardsList palettes={collection.palettes} />
+
+          {collection.palettes.length > 0 ? (
+            <CardsList palettes={collection.palettes} />
+          ) : (
+            <Content>
+              <NoPalettes />
+            </Content>
+          )}
         </Main>
       )}
     </Wrapper>
@@ -54,8 +62,15 @@ const Wrapper = styled.div`
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
+  height: 100%;
+`;
+
+const Content = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `;
 
 const Header = styled.header`
