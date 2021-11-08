@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Palettes from '../components/Palettes/CardsList';
+import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
@@ -49,7 +49,7 @@ const Theme = ({ match }) => {
 
       if (theme) {
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort${sort}`,
+          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort=${sort}`,
         );
 
         if (response.status === 200) {
@@ -66,7 +66,7 @@ const Theme = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, [theme]);
+  }, [theme, filter, sort]);
 
   if (!theme) {
     return <NotFound />;
@@ -86,11 +86,16 @@ const Theme = ({ match }) => {
           <Heading>{theme?.name}</Heading>
           {error && <Error>{error}</Error>}
           {palettes?.length > 0
-            ? <Palettes palettes={palettes} />
+            ? (
+              <Content>
+                <Palettes palettes={palettes} />
+                <Pagination />
+              </Content>
+            )
             : <NoPalettes />}
         </Main>
       </Wrapper>
-      <Pagination />
+
     </>
   );
 };
@@ -119,6 +124,11 @@ const Wrapper = styled.div`
 const Main = styled.main`
   display: grid;
   grid-template-rows: auto 1fr;
+`;
+
+const Content = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
 `;
 
 const Heading = styled.h1`

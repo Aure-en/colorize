@@ -3,24 +3,16 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-const CardsList = ({ palettes }) => (
+const Palettes = ({ palettes }) => (
   <List>
-    {palettes.map((palette, index) => <Card palette={palette} key={index} />)}
+    {palettes.map((palette) => <Card palette={palette} key={palette.id} />)}
   </List>
 );
 
-CardsList.propTypes = {
+Palettes.propTypes = {
   palettes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      colors: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          hex: PropTypes.string.isRequired,
-          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        }).isRequired,
-      ).isRequired,
     }).isRequired,
   ).isRequired,
 };
@@ -28,6 +20,7 @@ CardsList.propTypes = {
 const List = styled.ul`
   display: grid;
   width: 100%;
+  height: 100%;
   flex: 1;
   grid-gap: 2rem;
   align-content: start;
@@ -45,4 +38,4 @@ const List = styled.ul`
   }
 `;
 
-export default CardsList;
+export default Palettes;

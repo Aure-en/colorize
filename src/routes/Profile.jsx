@@ -9,7 +9,7 @@ import { getUserProfile } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
 import ProfilePage from '../components/Profile/ProfilePage';
-import PalettesList from '../components/Palettes/CardsList';
+import PalettesList from '../components/Palettes/Palettes';
 import Pagination from '../components/Shared/Pagination';
 import NoPalettes from '../components/Profile/NoPalettes';
 import Loading from '../components/Shared/Loading';
@@ -87,7 +87,7 @@ const Profile = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, [userId]);
+  }, [userId, page]);
 
   if (loading) {
     return <Loading />;

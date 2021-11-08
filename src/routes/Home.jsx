@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CardsList from '../components/Palettes/CardsList';
+import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
@@ -38,7 +38,7 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
@@ -49,34 +49,34 @@ const Home = () => {
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes.slice(0, 20));
-        dispatch(savePalettes(key, palettes));
+        dispatch(savePalettes(key, palettes.slice(0, 20)));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
     }
     )();
-  }, []);
+  }, [filter, sort]);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <>
-      <Wrapper>
-        <LeftNav />
-        <Filter />
-        <Carousel />
-        <Main>
-          {error && <Error>{error}</Error>}
-          {palettes?.length > 0
-            ? <CardsList palettes={palettes} />
-            : <NoPalettes />}
-        </Main>
-      </Wrapper>
-      <Pagination />
-    </>
+    <Wrapper>
+      <LeftNav />
+      <Filter />
+      <Carousel />
+      {error && <Error>{error}</Error>}
+      {palettes?.length > 0
+        ? (
+          <Main>
+            <Palettes palettes={palettes} />
+            <Pagination />
+          </Main>
+        )
+        : <NoPalettes />}
+    </Wrapper>
   );
 };
 
@@ -95,7 +95,8 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
 `;
 
 const Error = styled.div`

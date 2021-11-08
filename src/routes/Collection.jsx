@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { getCollection } from '../selectors/favorite';
 
 import Nav from '../components/Collections/Nav/Nav';
 import Menu from '../components/Collections/Menu/Menu';
-import CardsList from '../components/Palettes/CardsList';
+import Palettes from '../components/Palettes/Palettes';
 import NoPalettes from '../components/Palettes/NoPalettes';
+import Pagination from '../components/Shared/Pagination';
 
 const Collection = ({ match }) => {
   const { collectionId } = match.params;
   const collection = useSelector((state) => getCollection(state, collectionId));
+
+  const query = new URLSearchParams(useLocation().search);
+  const page = query.get('page') || 1;
 
   return (
     <Wrapper>
@@ -25,11 +30,14 @@ const Collection = ({ match }) => {
           </Header>
 
           {collection.palettes.length > 0 ? (
-            <CardsList palettes={collection.palettes} />
-          ) : (
             <Content>
-              <NoPalettes />
+              <Palettes palettes={collection.palettes.slice((page - 1) * 20, page * 20)} />
+              <Pagination />
             </Content>
+          ) : (
+            <Center>
+              <NoPalettes />
+            </Center>
           )}
         </Main>
       )}
@@ -67,6 +75,12 @@ const Main = styled.main`
 `;
 
 const Content = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+`;
+
+const Center = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
