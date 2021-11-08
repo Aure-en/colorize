@@ -18,6 +18,8 @@ export const REQUEST_DELETE_PALETTE = 'REQUEST_DELETE_PALETTE';
 export const UPDATE_PALETTE = 'UPDATE_PALETTE';
 export const DELETE_PALETTE = 'DELETE_PALETTE';
 
+export const SET_PALETTE_LOADING = 'SET_PALETTE_LOADING';
+
 export const setMainPalette = (palette) => ({
   type: SET_MAIN_PALETTE,
   palette,
@@ -96,4 +98,11 @@ export const deletePalette = (paletteId) => ({
 export const updatePalette = (palette) => ({
   type: UPDATE_PALETTE,
   palette,
+});
+
+export const setPaletteLoading = (action, status, paletteId) => ({
+  type: SET_PALETTE_LOADING,
+  action,
+  status,
+  paletteId,
 });

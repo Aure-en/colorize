@@ -10,6 +10,7 @@ import {
   UPDATE_COLOR,
   LOCK_COLOR,
   UNLOCK_COLOR,
+  SET_PALETTE_LOADING,
 } from '../actions/palette';
 import palettesData from '../data/palettes';
 import {
@@ -43,7 +44,11 @@ export const initialState = {
     dark: [],
   },
   modalPalette: null,
-  loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
+  loading: {
+    action: null, // 'create', 'read', 'update', 'delete'
+    id: null, // Identify the palette that has just been created / read / updated / deleted
+    status: 'idle', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
+  },
 };
 
 const palette = (state = initialState, action = {}) => {
@@ -164,6 +169,16 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         modalPalette: action.palette,
+      };
+
+    case SET_PALETTE_LOADING:
+      return {
+        ...state,
+        loading: {
+          action: action.action,
+          status: action.status,
+          id: action.paletteId,
+        },
       };
 
     default:

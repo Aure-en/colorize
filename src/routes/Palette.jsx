@@ -1,46 +1,60 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Shades from '../components/Creation/Shades/Shades';
-import Preview from '../components/Creation/Preview/Preview';
+
 import { getCreationPage } from '../selectors/settings';
 import { getPalette } from '../selectors/palettes';
-import { setOriginalPalette, setMainPalette, setShades } from '../actions/palette';
+import {
+  setOriginalPalette,
+  setMainPalette,
+  setShades,
+} from '../actions/palette';
 import { fetchPalette } from '../actions/palettes';
+import { getPaletteLoading } from '../selectors/palette';
+
+import Shades from '../components/Creation/Shades/Shades';
+import Preview from '../components/Creation/Preview/Preview';
 
 const Palette = ({ match }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const page = useSelector(getCreationPage);
 
   // Compose key to save palette
-  const { paletteId } = match.params;
+  const paletteId = Number(match.params.paletteId);
   const category = 'palettes';
   const key = `/${category}/${paletteId}`;
 
   const paletteFromStore = useSelector((state) => getPalette(state, paletteId));
+  const paletteLoading = useSelector(getPaletteLoading);
+  const wasPaletteDeleted = paletteLoading.action === 'delete'
+    && paletteLoading.status === 'fulfilled'
+    && paletteLoading.id === paletteId;
 
   useEffect(() => {
-    if (paletteFromStore) {
-      const { palette } = paletteFromStore;
-      dispatch(setMainPalette(palette));
-      dispatch(setOriginalPalette(palette));
-      dispatch(setShades(palette.colors));
-    } else {
-      dispatch(fetchPalette(key, paletteId));
+    if (!wasPaletteDeleted) {
+      if (paletteFromStore) {
+        const { palette } = paletteFromStore;
+        dispatch(setMainPalette(palette));
+        dispatch(setOriginalPalette(palette));
+        dispatch(setShades(palette.colors));
+      } else {
+        dispatch(fetchPalette(key, paletteId));
+      }
     }
-  }, [paletteFromStore, paletteId]);
+  }, [paletteLoading, paletteFromStore, paletteId]);
 
-  return (
-    <Wrapper>
-      {page === 'preview'
-        ? (
-          <Preview />
-        ) : (
-          <Shades />
-        )}
-    </Wrapper>
-  );
+  // If the user deleted this palette, redirects them to '/'.
+  useEffect(() => {
+    if (wasPaletteDeleted) {
+      history.push('/');
+    }
+  }, [paletteLoading]);
+
+  return <Wrapper>{page === 'preview' ? <Preview /> : <Shades />}</Wrapper>;
 };
 
 Palette.propTypes = {
