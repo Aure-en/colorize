@@ -45,7 +45,6 @@ const Theme = ({ match }) => {
       if (themePage) {
         setPalettes(themePage.palettes);
         setLoading(false);
-        return;
       }
 
       if (theme) {
@@ -53,10 +52,9 @@ const Theme = ({ match }) => {
           `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort${sort}`,
         );
 
-        const json = await response.json();
-
         if (response.status === 200) {
-          const palettes = json.palettes.map((palette) => ({
+          const themePalettes = await response.json();
+          const palettes = themePalettes.palettes.map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));

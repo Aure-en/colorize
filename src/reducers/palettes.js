@@ -45,7 +45,7 @@ const palettes = (state = initialState, action = {}) => {
       if (state.palettes.find((page) => page.key === action.key)) {
         return {
           ...state,
-          palettes: palettes.map((page) => (page.key === action.key
+          palettes: state.palettes.map((page) => (page.key === action.key
             ? { key: action.key, palettes: action.palettes }
             : page)),
         };

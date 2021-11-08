@@ -18,7 +18,6 @@ const SignUp = () => {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
-    console.log('onSignUp');
 
     if (username === '') {
       errorObj.username = 'Username is Required';

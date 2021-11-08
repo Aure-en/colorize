@@ -35,7 +35,6 @@ const Home = () => {
       if (palettesPage) {
         setPalettes(palettesPage.palettes);
         setLoading(false);
-        return;
       }
 
       const response = await fetch(
