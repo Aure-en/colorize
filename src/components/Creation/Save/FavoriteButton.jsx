@@ -16,7 +16,7 @@ const FavoriteButton = ({ paletteId }) => {
 
   return (
     <Button type="button" onClick={handleClick}>
-      Save
+      Save as favorite
     </Button>
   );
 };

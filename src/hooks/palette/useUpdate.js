@@ -15,7 +15,9 @@ const useUpdate = () => {
   const palette = useSelector(getMainPalette);
 
   const [name, setName] = useState(palette.name || '');
-  const [themes, setThemes] = useState(palette.themes || []); // Themes name array.
+  const [themes, setThemes] = useState(
+    palette.themes.map((theme) => theme.name) || [],
+  ); // Themes name array.
   const [isPublic, setIsPublic] = useState(palette.public || true);
   const [loading, setLoading] = useState('idle');
 
@@ -58,10 +60,12 @@ const useUpdate = () => {
     });
 
     const response = await fetch(
-      // TO-DO: Replace with future API endpoint.
-      `${process.env.REACT_APP_SERVER}/palettes/${user.id}`,
+      `${process.env.REACT_APP_SERVER}/palettes/${user.id}/${palette.id}`,
       {
-        method: 'PUT',
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
+        },
         body,
       },
     );
@@ -75,7 +79,7 @@ const useUpdate = () => {
     }
   };
 
-  return ({
+  return {
     name,
     setName,
     themes,
@@ -84,7 +88,7 @@ const useUpdate = () => {
     loading,
     togglePublic,
     handleSubmit,
-  });
+  };
 };
 
 export default useUpdate;

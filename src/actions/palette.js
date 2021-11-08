@@ -13,11 +13,6 @@ export const SET_SHADES = 'SET_SHADES';
 export const INCREMENT_SHADES = 'INCREMENT_SHADES';
 export const DECREMENT_SHADES = 'DECREMENT_SHADES';
 
-export const REQUEST_UPDATE_PALETTE = 'REQUEST_UPDATE_PALETTE';
-export const REQUEST_DELETE_PALETTE = 'REQUEST_DELETE_PALETTE';
-export const UPDATE_PALETTE = 'UPDATE_PALETTE';
-export const DELETE_PALETTE = 'DELETE_PALETTE';
-
 export const SET_PALETTE_LOADING = 'SET_PALETTE_LOADING';
 
 export const setMainPalette = (palette) => ({
@@ -77,26 +72,6 @@ export const unlockColor = (index) => ({
 
 export const setModalPalette = (palette) => ({
   type: SET_MODAL_PALETTE,
-  palette,
-});
-
-export const requestDeletePalette = (paletteId) => ({
-  type: REQUEST_DELETE_PALETTE,
-  paletteId,
-});
-
-export const requestUpdatePalette = (palette) => ({
-  type: REQUEST_UPDATE_PALETTE,
-  palette,
-});
-
-export const deletePalette = (paletteId) => ({
-  type: DELETE_PALETTE,
-  paletteId,
-});
-
-export const updatePalette = (palette) => ({
-  type: UPDATE_PALETTE,
   palette,
 });
 
