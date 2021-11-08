@@ -8,6 +8,7 @@ import {
   CLEAR_COLLECTIONS,
   UPDATE_CURRENT_COLLECTION,
   SET_MODAL_COLLECTION,
+  DELETE_PALETTE_FROM_COLLECTIONS,
 } from '../actions/favorite';
 
 export const initialState = {
@@ -107,6 +108,15 @@ const favorite = (state = initialState, action = {}) => {
       return {
         ...state,
         modalCollection: action.collection,
+      };
+
+    case DELETE_PALETTE_FROM_COLLECTIONS:
+      return {
+        ...state,
+        collections: [...state.collections].map((collection) => ({
+          ...collection,
+          palettes: collection.palettes.filter((palette) => palette.id !== action.paletteId),
+        })),
       };
 
     default:

@@ -16,18 +16,22 @@ const palettesMiddleware = (store) => (next) => async (action) => {
       );
       const palette = await paletteResponse.json();
 
-      const ownerResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/user`,
-      );
-      const owner = await ownerResponse.json();
+      if (palette.id) {
+        const ownerResponse = await fetch(
+          `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/user`,
+        );
+        const owner = await ownerResponse.json();
 
-      dispatch(
-        savePalette(action.key, {
-          ...palette,
-          owner: { username: owner.owner.username, id: owner.owner.id },
-        }),
-      );
-      dispatch(updateLoading('fulfilled'));
+        dispatch(
+          savePalette(action.key, {
+            ...palette,
+            owner: { username: owner.owner.username, id: owner.owner.id },
+          }),
+        );
+        dispatch(updateLoading('fulfilled'));
+      } else {
+        dispatch(updateLoading('rejected'));
+      }
 
       break;
     }

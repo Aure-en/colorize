@@ -3,6 +3,7 @@ import {
   REQUEST_DELETE_PALETTE,
   setMainPalette,
   setOriginalPalette,
+  setPaletteLoading,
 } from '../actions/palette';
 import { deletePaletteFromCollections } from '../actions/favorite';
 import { deletePaletteFromPalettes } from '../actions/palettes';
@@ -54,6 +55,9 @@ const paletteMiddleware = (store) => (next) => async (action) => {
 
         // Close modal
         dispatch(closeModal('deletePalette'));
+
+        // Set the loading as fulfilled to redirect if needed.
+        dispatch(setPaletteLoading('delete', 'fulfilled', deletedPalette.id));
       }
 
       break;

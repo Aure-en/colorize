@@ -17,7 +17,6 @@ const SignIn = () => {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
-    console.log('onSignIn');
 
     if (password === '') {
       errorObj.email = 'Password is Required';
