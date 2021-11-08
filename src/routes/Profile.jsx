@@ -48,7 +48,7 @@ const Profile = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [userId]);
 
   // Fetch user palettes of the current page
   useEffect(() => {

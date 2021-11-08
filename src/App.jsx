@@ -15,6 +15,7 @@ import Collections from './routes/Collections';
 import Creation from './routes/Creation';
 import Generate from './routes/Generate';
 import Home from './routes/Home';
+import Theme from './routes/Theme';
 import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
@@ -24,7 +25,7 @@ import Copies from './components/Copy/Copies';
 import Modals from './components/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
-import Theme from './components/Settings/Theme';
+import ThemeProvider from './components/Settings/Theme';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,11 +46,12 @@ function App() {
   return (
     <Router>
       <GlobalStyles />
-      <Theme>
+      <ThemeProvider>
         <Wrapper>
           <Navbar />
           <Switch>
-            <Route exact path={['/', '/palettes', '/themes/:themeId']} component={Home} />
+            <Route exact path={['/', '/palettes']} component={Home} />
+            <Route exact path="/themes/:themeId" component={Theme} />
             <Route exact path="/collections" component={Collections} />
             <Route exact path="/collections/:collectionId" component={Collection} />
             <Route exact path="/creation" component={Creation} />
@@ -63,7 +65,7 @@ function App() {
           <Copies />
           <Modals />
         </Wrapper>
-      </Theme>
+      </ThemeProvider>
     </Router>
   );
 }
