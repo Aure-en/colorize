@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CardsList from '../components/Palettes/CardsList';
+import PalettesList from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
@@ -13,9 +13,9 @@ import Loading from '../components/Shared/Loading';
 
 import { getSortBy, getFilterBy } from '../selectors/settings';
 import { getPalettesPage } from '../selectors/palettes';
+import { savePalettes } from '../actions/palettes';
 
 import { getColorFromHex } from '../utils/colors';
-import { savePalettes } from '../actions/palettes';
 
 const Palettes = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Palettes = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
@@ -53,34 +53,34 @@ const Palettes = () => {
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes.slice((page - 1) * 20, page * 20));
-        dispatch(savePalettes(key, palettes));
+        dispatch(savePalettes(key, palettes.slice((page - 1) * 20, page * 20)));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
     }
     )();
-  }, [page]);
+  }, [page, filter, sort]);
 
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <>
-      <Wrapper>
-        <LeftNav />
-        <Filter />
-        <Carousel />
-        <Main>
-          {error && <Error>{error}</Error>}
-          {palettes?.length > 0
-            ? <CardsList palettes={palettes} />
-            : <NoPalettes />}
-        </Main>
-      </Wrapper>
-      <Pagination />
-    </>
+    <Wrapper>
+      <LeftNav />
+      <Filter />
+      <Carousel />
+      {error && <Error>{error}</Error>}
+      {palettes?.length > 0
+        ? (
+          <Main>
+            <PalettesList palettes={palettes} />
+            <Pagination />
+          </Main>
+        )
+        : <NoPalettes />}
+    </Wrapper>
   );
 };
 
@@ -99,7 +99,8 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
 `;
 
 const Error = styled.div`

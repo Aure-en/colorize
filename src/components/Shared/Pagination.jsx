@@ -5,23 +5,24 @@ import { NavLink, useLocation } from 'react-router-dom';
 export default function BasicPagination() {
   const location = useLocation();
   const { pathname } = location;
+  const path = pathname === '/' ? '/palettes' : pathname;
 
   return (
     <Pagination>
       <Container>
-        <Link to={`${pathname}?page=1`} exact className="navlink">1</Link>
-        <Link to={`${pathname}?page=2`} exact className="navlink">2</Link>
-        <Link to={`${pathname}?page=3`} exact className="navlink">3</Link>
-        <Link to={`${pathname}?page=4`} exact className="navlink">4</Link>
-        <Link to={`${pathname}?page=5`} exact className="navlink">5</Link>
-        <Link to={`${pathname}?page=6`} exact className="navlink">6</Link>
-        <Link to={`${pathname}?page=7`} exact className="navlink">7</Link>
-        <Link to={`${pathname}?page=8`} exact className="navlink">8</Link>
-        <Link to={`${pathname}?page=9`} exact className="navlink">9</Link>
-        <Link to={`${pathname}?page=10`} exact className="navlink">10</Link>
-        <Link to={`${pathname}?page=11`} exact className="navlink">11</Link>
-        <Link to={`${pathname}?page=12`} exact className="navlink">12</Link>
-        <Link to={`${pathname}?page=13`} exact className="navlink">13</Link>
+        <Link to={`${path}?page=1`} exact className="navlink">1</Link>
+        <Link to={`${path}?page=2`} exact className="navlink">2</Link>
+        <Link to={`${path}?page=3`} exact className="navlink">3</Link>
+        <Link to={`${path}?page=4`} exact className="navlink">4</Link>
+        <Link to={`${path}?page=5`} exact className="navlink">5</Link>
+        <Link to={`${path}?page=6`} exact className="navlink">6</Link>
+        <Link to={`${path}?page=7`} exact className="navlink">7</Link>
+        <Link to={`${path}?page=8`} exact className="navlink">8</Link>
+        <Link to={`${path}?page=9`} exact className="navlink">9</Link>
+        <Link to={`${path}?page=10`} exact className="navlink">10</Link>
+        <Link to={`${path}?page=11`} exact className="navlink">11</Link>
+        <Link to={`${path}?page=12`} exact className="navlink">12</Link>
+        <Link to={`${path}?page=13`} exact className="navlink">13</Link>
       </Container>
     </Pagination>
   );
