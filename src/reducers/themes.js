@@ -1,11 +1,38 @@
-import { SAVE_THEMES } from '../actions/themes';
+import { SAVE_THEMES, SAVE_THEME_PALETTES } from '../actions/themes';
 
-export const initialState = [];
+export const initialState = {
+  list: [],
+  palettes: [],
+};
 
 const themes = (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_THEMES:
-      return action.themes;
+      return {
+        ...state,
+        list: action.themes,
+      };
+
+    case SAVE_THEME_PALETTES: {
+      // If the key is already present, replace the palettes.
+      if (state.palettes.find((page) => page.key === action.key)) {
+        return {
+          ...state,
+          palettes: state.palettes.map((page) => (page.key === action.key
+            ? { key: action.key, palettes: action.palettes }
+            : page)),
+        };
+      }
+
+      // If the key was not present, add the object key + palettes.
+      return {
+        ...state,
+        palettes: [
+          ...state.palettes,
+          { key: action.key, palettes: action.palettes },
+        ],
+      };
+    }
 
     default:
       return state;

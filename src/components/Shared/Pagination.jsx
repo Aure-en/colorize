@@ -5,6 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 export default function BasicPagination() {
   const location = useLocation();
   const { pathname } = location;
+
   return (
     <Pagination>
       <Container>

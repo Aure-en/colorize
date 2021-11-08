@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  BrowserRouter as Router, Switch, Route, useLocation,
+  BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -21,13 +21,13 @@ import Theme from './routes/Theme';
 import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
-import NotFound from './routes/NotFound';
 import Palettes from './routes/Palettes';
 
 import Copies from './components/Copy/Copies';
 import Modals from './components/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
+import NotFound from './components/Error/NotFound';
 import ThemeProvider from './components/Settings/Theme';
 
 function App() {

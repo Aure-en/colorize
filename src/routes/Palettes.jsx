@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CardsList from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
@@ -10,12 +11,17 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
+import { getSortBy, getFilterBy } from '../selectors/palettes';
+
 import { getColorFromHex } from '../utils/colors';
 
 const Palettes = () => {
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const sort = useSelector(getSortBy);
+  const filter = useSelector(getFilterBy);
 
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
@@ -24,7 +30,7 @@ const Palettes = () => {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort${sort}`,
       );
 
       const json = await response.json();

@@ -20,19 +20,21 @@ import {
   getColorSteps,
 } from '../utils/colors';
 
+const firstPalette = Math.floor(Math.random() * 20);
+
 export const initialState = {
   // JSON.parse + JSON.stringify to recreate a new object
   // with nested arrays and objects with different references from originalPalette.
   palette: JSON.parse(JSON.stringify({
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
+    id: palettesData[firstPalette].id,
+    colors: palettesData[firstPalette].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
   })),
   originalPalette: JSON.parse(JSON.stringify({
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
+    id: palettesData[firstPalette].id,
+    colors: palettesData[firstPalette].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
