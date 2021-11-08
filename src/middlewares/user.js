@@ -1,31 +1,39 @@
 import {
-  REQUEST_SIGNUP, successSignUp, REQUEST_LOGIN, successLogin,
+  REQUEST_SIGNUP, successSignUp, REQUEST_LOGIN, successLogin, requestLogin,
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_SIGNUP: {
-      const responseAPI = {
-        username: 'username',
-        email: 'email',
-        jwt: 'monsupertoken',
-        id: 1,
-      };
+      const { dispatch } = store;
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/`, { method: 'POST', body: JSON.stringify({ username: action.username, email: action.email, password: action.password }) },
+      );
 
-      store.dispatch(successSignUp(responseAPI.username, responseAPI.id, responseAPI.jwt));
-
-      break;
-    }
+      const json = await response.json();
+      dispatch(requestLogin(action.username,
+        json.id,
+        'token'));
+      break; }
 
     case REQUEST_LOGIN: {
-      const responseAPI = {
-        username: 'username',
-        email: 'email',
-        jwt: 'monsupertoken',
-        id: 1,
-      };
+      const { dispatch } = store;
+      const response = await fetch(
+        'http://ec2-3-92-209-62.compute-1.amazonaws.com/projet-o-en-couleurs/public/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: action.identifier, password: action.password }),
+        },
+      );
 
-      store.dispatch(successLogin(responseAPI.username, responseAPI.id, responseAPI.jwt));
+      const loginsuccess = await response.json();
+      dispatch(successLogin(loginsuccess.username,
+        loginsuccess.email,
+        loginsuccess.jwt,
+        loginsuccess.id));
       break;
     }
     default:
