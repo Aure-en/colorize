@@ -9,6 +9,7 @@ import palette from './palette';
 import palettes from './palettes';
 import settings from './settings';
 import user from './user';
+import users from './users';
 import themes from './themes';
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   palettes,
   settings,
   user,
+  users,
   themes,
 });
 

@@ -21,12 +21,12 @@ const palettes = (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_PALETTE: {
       // If the key is already present, replace the palettes.
-      if (state.palettes.find((group) => group.key === action.key)) {
+      if (state.palettes.find((page) => page.key === action.key)) {
         return {
           ...state,
-          palette: state.palette.map((group) => (group.key === action.key
+          palette: state.palette.map((page) => (page.key === action.key
             ? { key: action.key, palette: action.palette }
-            : group)),
+            : page)),
         };
       }
 
@@ -42,12 +42,12 @@ const palettes = (state = initialState, action = {}) => {
 
     case SAVE_PALETTES: {
       // If the key is already present, replace the palettes.
-      if (state.palettes.find((group) => group.key === action.key)) {
+      if (state.palettes.find((page) => page.key === action.key)) {
         return {
           ...state,
-          palettes: palettes.map((group) => (group.key === action.key
+          palettes: palettes.map((page) => (page.key === action.key
             ? { key: action.key, palettes: action.palettes }
-            : group)),
+            : page)),
         };
       }
 
@@ -67,19 +67,19 @@ const palettes = (state = initialState, action = {}) => {
 
         // Delete the single page of this palette if it had been loaded.
         palette: [...state.palette].filter(
-          (group) => group.key !== `/palettes/${action.paletteId}`,
+          (page) => page.key !== `/palettes/${action.paletteId}`,
         ),
         // Delete the palette from the palettes list
-        palettes: [...state.palettes].map((group) => {
-          if (group.palettes) {
+        palettes: [...state.palettes].map((page) => {
+          if (page.palettes) {
             return {
-              ...group,
-              palettes: group.palettes.filter(
+              ...page,
+              palettes: page.palettes.filter(
                 (palette) => palette.id !== action.paletteId,
               ),
             };
           }
-          return group;
+          return page;
         }),
       };
     }
