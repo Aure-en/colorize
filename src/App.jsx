@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { fetchThemes } from './actions/themes';
+
 import GlobalStyles from './styles/globalStyles';
 
 import Collection from './routes/Collection';
@@ -14,13 +18,19 @@ import Settings from './routes/Settings';
 import NotFound from './routes/NotFound';
 
 import Copies from './components/Copy/Copies';
-import Modals from './components/Shared/Modal/Modals';
+import Modals from './components/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Theme from './components/Settings/Theme';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchThemes());
+  }, []);
+
   return (
     <Router>
       <GlobalStyles />

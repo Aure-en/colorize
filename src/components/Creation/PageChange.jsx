@@ -45,7 +45,6 @@ const Dropdown = styled.div`
   padding: 0.5rem 0;
   font-weight: 300;
   text-align: center;
-  min-width: 6rem;
   justify-self: end;
 `;
 
@@ -81,6 +80,7 @@ const Button = styled.button`
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
   color: ${(props) => props.theme.textPrimary};
+  white-space: nowrap;
 
   &:hover {
     background: ${(props) => props.theme.secondaryBackground};

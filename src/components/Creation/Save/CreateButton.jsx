@@ -1,11 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../../actions/modals';
 
-const SaveButton = () => (
-  <Button type="button">
-    Save
-  </Button>
-);
+const CreateButton = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(openModal('createPalette'));
+  };
+
+  return (
+    <Button type="button" onClick={handleClick}>
+      Save
+    </Button>
+  );
+};
 
 const Button = styled.button`
   color: ${(props) => props.theme.background};
@@ -23,4 +33,4 @@ const Button = styled.button`
   }
 `;
 
-export default SaveButton;
+export default CreateButton;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Add from './Add';
+import CreateButton from './CreateButton';
 import CollectionsList from './CollectionsList';
 import SearchBar from './SearchBar';
 import useWindowSize from '../../../hooks/shared/useWindowSize';
@@ -13,7 +13,7 @@ const Nav = () => {
       <SearchBar />
       {windowSize.width > 768 && (
         <>
-          <Add />
+          <CreateButton />
           <CollectionsList />
         </>
       )}

@@ -10,12 +10,25 @@ const palettesMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case FETCH_PALETTE: {
       const { dispatch } = store;
-      const response = await fetch(
+
+      const paletteResponse = await fetch(
         `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/colors`,
       );
-      const json = await response.json();
-      dispatch(savePalette(action.key, json));
+      const palette = await paletteResponse.json();
+
+      const ownerResponse = await fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/user`,
+      );
+      const owner = await ownerResponse.json();
+
+      dispatch(
+        savePalette(action.key, {
+          ...palette,
+          owner: { username: owner.owner.username, id: owner.owner.id },
+        }),
+      );
       dispatch(updateLoading('fulfilled'));
+
       break;
     }
 

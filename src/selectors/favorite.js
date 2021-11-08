@@ -19,3 +19,5 @@ export const getFavoriteCollection = (state, paletteId) => {
   }
   return undefined;
 };
+
+export const getModalCollection = (state) => state.favorite.modalCollection;

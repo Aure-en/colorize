@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 
 import Palette from '../../Palette/Palette';
 import PageChange from '../PageChange';
-import GenerateButton from '../../Palette/Buttons/GenerateButton';
-import ResetButton from '../../Palette/Buttons/ResetButton';
-import SaveButton from '../../Palette/Buttons/SaveButton';
+import GenerateButton from '../Controls/GenerateButton';
+import ResetButton from '../Controls/ResetButton';
+import SaveButton from '../Controls/SaveButton';
 import More from '../More/More';
 import ExtractInput from '../Extract/ExtractInput';
 

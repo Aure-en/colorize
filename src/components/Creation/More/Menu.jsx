@@ -2,29 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn, getUser } from '../../../selectors/user';
+
 import Save from './Save';
 import Export from '../../Export/Button';
 import Copy from '../../Palettes/Buttons/More/Copy';
+import Delete from './Delete';
 
-const Menu = ({ palette, closeMenu }) => (
-  <Wrapper>
-    <Save paletteId={palette.id} closeMenu={closeMenu} />
-    <Export palette={palette} closeMenu={closeMenu} />
-    <Copy paletteId={palette.id} closeMenu={closeMenu} />
-  </Wrapper>
-);
+const Menu = ({ palette, closeMenu }) => {
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const user = useSelector(getUser);
+
+  return (
+    <Wrapper>
+      {isLoggedIn && <Save paletteId={palette.id} closeMenu={closeMenu} />}
+      <Export palette={palette} closeMenu={closeMenu} />
+      <Copy paletteId={palette.id} closeMenu={closeMenu} />
+      {user?.id === palette.owner?.id && <Delete palette={palette} />}
+    </Wrapper>
+  );
+};
 
 Menu.propTypes = {
   palette: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    colors: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-      }).isRequired,
-    ).isRequired,
+    owner: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }),
   }).isRequired,
   closeMenu: PropTypes.func.isRequired,
 };

@@ -1,4 +1,5 @@
 import {
+  SET_MODAL_PALETTE,
   SET_MAIN_PALETTE,
   SET_ORIGINAL_PALETTE,
   RESET_PALETTE,
@@ -41,6 +42,7 @@ export const initialState = {
     light: [],
     dark: [],
   },
+  modalPalette: null,
   loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
 };
 
@@ -50,7 +52,8 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         palette: JSON.parse(JSON.stringify({
-          id: action.palette.id,
+          ...state.palette,
+          ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,
@@ -64,7 +67,8 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         originalPalette: JSON.parse(JSON.stringify({
-          id: action.palette.id,
+          ...state.palette,
+          ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
             id: index,
@@ -155,6 +159,12 @@ const palette = (state = initialState, action = {}) => {
         locked: newLocked,
       };
     }
+
+    case SET_MODAL_PALETTE:
+      return {
+        ...state,
+        modalPalette: action.palette,
+      };
 
     default:
       return state;

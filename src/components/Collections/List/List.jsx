@@ -3,22 +3,22 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { getCollections } from '../../../selectors/favorite';
 import Collection from './Preview/Collection';
-import Add from './Add';
+import CreateButton from './CreateButton';
 
 const List = () => {
   const collections = useSelector(getCollections);
 
   return (
     <Wrapper>
-      {collections.map((collection) => <Collection collection={collection} />)}
-      <Add />
+      {collections.map((collection) => <Collection collection={collection} key={collection.id} />)}
+      <CreateButton />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.main`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 15rem);
+  grid-template-columns: repeat(auto-fill, 15rem);
   justify-content: center;
   grid-gap: 4rem;
 `;

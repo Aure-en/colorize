@@ -10,7 +10,7 @@ const CollectionsList = () => {
   return (
     <Ul>
       {collections.map((collection) => (
-        <li>
+        <li key={collection.id}>
           <CollectionLink to={`/collections/${collection.id}`}>
             {collection.name}
           </CollectionLink>

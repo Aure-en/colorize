@@ -33,7 +33,6 @@ const Wrapper = styled.div`
   right: 0;
   border: 1px solid ${(props) => props.theme.textPrimary};
   background: ${(props) => props.theme.background};
-  min-width: 7rem;
 
   & > * {
     display: inline-block;
@@ -50,7 +49,8 @@ const Wrapper = styled.div`
     text-align: start;
     line-height: inherit;
     color: ${(props) => props.theme.textPrimary};
+    white-space: nowrap;
   }
-  `;
+`;
 
 export default Menu;

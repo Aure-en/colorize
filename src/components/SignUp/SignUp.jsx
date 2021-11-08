@@ -140,6 +140,27 @@ const Title = styled.h1`
   }
 `;
 
+const Username = styled.input`
+  background: ${(props) => props.theme.background};
+  height: 8%;
+  width: 88%;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    background-color: ${(props) => props.theme.textPrimary};
+    height: 4rem;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+`;
+
+const Email = styled.input`
+  background: ${(props) => props.theme.background};
+  height: 8%;
+  width: 88%;
+  `;
+
 const LoginPut = styled.input`
 background: ${(props) => props.theme.background};
 height: 8%;
@@ -151,7 +172,7 @@ margin: 2% 1rem;
   background-color: ${(props) => props.theme.textPrimary};
   height: 4rem;
   padding: 1rem;
-  margin: 2% 1rem;
+  margin-bottom: 0.5rem;
 
   @media (max-width: 768px) {
     background-color: ${(props) => props.theme.textPrimary};
@@ -164,9 +185,9 @@ margin: 2% 1rem;
 const Password = styled.input`
   background: ${(props) => props.theme.background};
   height: 8%;
-  width: 41%;
+  width: 42%;
   padding: 1rem;
-  margin: 2% 1rem;
+  margin-right: 1rem;
 
   @media (max-width: 768px) {
     background-color: ${(props) => props.theme.textPrimary};
@@ -179,9 +200,8 @@ const Password = styled.input`
 const Repeat = styled.input`
   background: ${(props) => props.theme.background};
   height: 8%;
-  width: 41%;
+  width: 42%;
   padding: 1rem;
-  margin: 1% 0;
 
   @media (max-width: 768px) {
     background-color: ${(props) => props.theme.textPrimary};

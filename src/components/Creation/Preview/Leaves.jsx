@@ -56,6 +56,7 @@ const Wrapper = styled.div`
 const Text = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
+  height: 100%;
 
   @media all and (min-width: 900px) {
     padding: 3rem;

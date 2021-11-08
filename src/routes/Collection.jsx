@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+
 import { getCollection } from '../selectors/favorite';
+
 import Nav from '../components/Collections/Nav/Nav';
 import CardsList from '../components/Palettes/CardsList';
+import Menu from '../components/Collections/Menu/Menu';
 
 const Collection = ({ match }) => {
   const { collectionId } = match.params;
@@ -15,7 +18,10 @@ const Collection = ({ match }) => {
       <Nav />
       {collection && (
         <Main>
-          <Heading>{collection.name}</Heading>
+          <Header>
+            <Heading>{collection.name}</Heading>
+            <Menu collection={collection} />
+          </Header>
           <CardsList palettes={collection.palettes} />
         </Main>
       )}
@@ -52,9 +58,15 @@ const Main = styled.main`
   width: 100%;
 `;
 
+const Header = styled.header`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  width: 100%;
+`;
+
 const Heading = styled.h1`
   font-size: 2rem;
-  margin-bottom: 2rem;
 
   @media all and (min-width: 768px) {
     align-self: start;

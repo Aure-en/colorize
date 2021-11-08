@@ -33,3 +33,9 @@ export const extractFromImage = (imgElem, callback) => {
 export const removeImageElem = (imgElem) => {
   document.body.removeChild(imgElem);
 };
+
+export const fetchRandomImage = async () => {
+  const response = await fetch(`https://api.unsplash.com/photos/random?client_id=${process.env.REACT_APP_UNSPLASH_API}`);
+  const json = await response.json();
+  return json.urls.regular;
+};
