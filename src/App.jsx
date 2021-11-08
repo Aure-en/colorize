@@ -56,7 +56,6 @@ function App() {
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
-            <Route exact path="/profile" component={Profile} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
             <Route component={NotFound} />
