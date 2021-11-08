@@ -9,6 +9,9 @@ import { getUser } from '../selectors/user';
 import ProfilePage from '../components/Profile/ProfilePage';
 import PalettesList from '../components/Palettes/CardsList';
 import Pagination from '../components/Shared/Pagination';
+import NoPalettes from '../components/Profile/NoPalettes';
+
+import Loading from '../components/Shared/Loading';
 
 const Profile = ({ match }) => {
   const currentUser = useSelector(getUser);
@@ -17,6 +20,7 @@ const Profile = ({ match }) => {
   const [user, setUser] = useState();
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
@@ -36,6 +40,12 @@ const Profile = ({ match }) => {
       if (response.status === 200) {
         const json = await response.json();
         setUser(json);
+      } else if (response.status === 422) {
+        setError('This user does not exist.');
+        setLoading(false);
+      } else {
+        setError('Sorry, something went wrong.');
+        setLoading(false);
       }
     })();
   }, []);
@@ -59,18 +69,29 @@ const Profile = ({ match }) => {
 
         if (response.status === 200) {
           setPalettes(json.palettesCreated);
+        } else {
+          setError('Sorry, something went wrong.');
         }
-
         setLoading(false);
       }
     })();
   }, [user]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error>{error}</Error>;
+  }
+
   return (
     <Wrapper>
       {user && <ProfilePage username={user.username} />}
       <PalettesWrapper>
-        <PalettesList palettes={palettes} />
+        {palettes.length > 0
+          ? <PalettesList palettes={palettes} />
+          : <NoPalettes />}
       </PalettesWrapper>
       <Pagination />
     </Wrapper>
@@ -98,6 +119,12 @@ const Wrapper = styled.div`
 
 const PalettesWrapper = styled.div`
   padding-bottom: 2em;
+`;
+
+const Error = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Profile;
