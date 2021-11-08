@@ -7,3 +7,9 @@ export const getPalette = (state, paletteId) =>
   state.palettes.palettes.find((group) => group.key === `/palettes/${paletteId}`);
 
 export const getLoading = (state) => state.palettes.loading;
+
+export const getPalettesPage = (state, key) =>
+  state.palettes.palettes.find((page) => page.key === key);
+
+export const getPalettePage = (state, key) =>
+  state.palettes.palette.key((page) => page.key === key);

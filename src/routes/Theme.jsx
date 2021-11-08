@@ -39,7 +39,7 @@ const Theme = ({ match }) => {
   const key = `/themes/${themeId}/${filter}/${sort}/${page}`;
   const themePage = useSelector((state) => getThemePage(state, key));
 
-  // Fetch theme palettes of the current page
+  // Get theme palettes of the current page
   useEffect(() => {
     (async () => {
       if (themePage) {

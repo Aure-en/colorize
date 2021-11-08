@@ -1,4 +1,3 @@
-export const FETCH_PALETTES = 'FETCH_PALETTES';
 export const FETCH_PALETTE = 'FETCH_PALETTE';
 export const SAVE_PALETTE = 'SAVE_PALETTE';
 export const SAVE_PALETTES = 'SAVE_PALETTES';
