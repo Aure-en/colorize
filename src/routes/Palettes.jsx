@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
-import Palettes from '../components/Palettes/CardsList';
+import CardsList from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
@@ -13,10 +12,7 @@ import Loading from '../components/Shared/Loading';
 
 import { getColorFromHex } from '../utils/colors';
 
-const Theme = ({ match }) => {
-  const { themeId } = match.params;
-
-  const [theme, setTheme] = useState();
+const Palettes = () => {
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -24,49 +20,28 @@ const Theme = ({ match }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
 
-  // Fetch theme
+  // Fetch palettes of the current page
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/themes/${themeId}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}`,
       );
 
+      const json = await response.json();
+
       if (response.status === 200) {
-        const json = await response.json();
-        setTheme(json);
-      } else if (response.status === 422) {
-        setError('This theme does not exist.');
-        setLoading(false);
+        const palettes = json.map((palette) => ({
+          ...palette,
+          colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+        }));
+        setPalettes(palettes.slice((page - 1) * 20, page * 20));
       } else {
         setError('Sorry, something went wrong.');
-        setLoading(false);
       }
-    })();
-  }, [themeId]);
-
-  // Fetch theme palettes of the current page
-  useEffect(() => {
-    (async () => {
-      if (theme?.id) {
-        const response = await fetch(
-          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}`,
-        );
-
-        const json = await response.json();
-
-        if (response.status === 200) {
-          const palettes = json.palettes.map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-          }));
-          setPalettes(palettes.slice((page - 1) * 20, page * 20));
-        } else {
-          setError('Sorry, something went wrong.');
-        }
-        setLoading(false);
-      }
-    })();
-  }, [theme]);
+      setLoading(false);
+    }
+    )();
+  }, [page]);
 
   if (loading) {
     return <Loading />;
@@ -79,24 +54,15 @@ const Theme = ({ match }) => {
         <Filter />
         <Carousel />
         <Main>
-          <Heading>{theme?.name}</Heading>
           {error && <Error>{error}</Error>}
           {palettes?.length > 0
-            ? <Palettes palettes={palettes} />
+            ? <CardsList palettes={palettes} />
             : <NoPalettes />}
         </Main>
       </Wrapper>
       <Pagination />
     </>
   );
-};
-
-Theme.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      themeId: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
 };
 
 const Wrapper = styled.div`
@@ -117,16 +83,10 @@ const Main = styled.main`
   grid-template-rows: auto 1fr;
 `;
 
-const Heading = styled.h1`
-  font-size: 2rem;
-  text-transform: capitalize;
-  margin-bottom: 2rem;
-`;
-
 const Error = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export default Theme;
+export default Palettes;

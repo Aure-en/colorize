@@ -20,6 +20,7 @@ import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
 import NotFound from './routes/NotFound';
+import Palettes from './routes/Palettes';
 
 import Copies from './components/Copy/Copies';
 import Modals from './components/Modal/Modals';
@@ -50,7 +51,8 @@ function App() {
         <Wrapper>
           <Navbar />
           <Switch>
-            <Route exact path={['/', '/palettes']} component={Home} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/palettes" component={Palettes} />
             <Route exact path="/themes/:themeId" component={Theme} />
             <Route exact path="/collections" component={Collections} />
             <Route exact path="/collections/:collectionId" component={Collection} />

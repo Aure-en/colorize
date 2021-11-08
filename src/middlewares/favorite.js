@@ -156,9 +156,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         );
 
         store.dispatch(
-          saveCollections(
-            collections.map((collection) => ({ ...collection, palettes: [] })),
-          ),
+          saveCollections(collectionsWithPalettes),
         );
       }
 

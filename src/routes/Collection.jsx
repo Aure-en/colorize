@@ -63,6 +63,7 @@ const Header = styled.header`
   grid-template-columns: 1fr auto;
   align-items: center;
   width: 100%;
+  margin-bottom: 2rem;
 `;
 
 const Heading = styled.h1`

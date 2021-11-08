@@ -10,8 +10,9 @@ import ProfilePage from '../components/Profile/ProfilePage';
 import PalettesList from '../components/Palettes/CardsList';
 import Pagination from '../components/Shared/Pagination';
 import NoPalettes from '../components/Profile/NoPalettes';
-
 import Loading from '../components/Shared/Loading';
+
+import { getColorFromHex } from '../utils/colors';
 
 const Profile = ({ match }) => {
   const currentUser = useSelector(getUser);
@@ -68,7 +69,11 @@ const Profile = ({ match }) => {
         const json = await response.json();
 
         if (response.status === 200) {
-          setPalettes(json.palettesCreated);
+          const palettes = json.palettesCreated.map((palette) => ({
+            ...palette,
+            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+          }));
+          setPalettes(palettes.slice((page - 1) * 20, page * 20));
         } else {
           setError('Sorry, something went wrong.');
         }
