@@ -13,7 +13,7 @@ import {
 
 export const initialState = {
   collections: [], // Array of { name, palettes: [], id}
-  currentCollection: null,
+  currentCollection: 3,
   modalCollection: null,
 };
 
