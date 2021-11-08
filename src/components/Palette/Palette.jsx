@@ -19,7 +19,7 @@ const Palette = ({
       setList={(reorderedPalette) => {
         dispatch(setMainPalette({
           colors: reorderedPalette.map((color) => {
-            // Remove extra property to keep comparison easy between main and origina palettes.
+            // Remove extra property to keep comparison easy between main and original palettes.
             delete color.chosen;
             return color;
           }),

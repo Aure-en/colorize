@@ -41,7 +41,6 @@ const palettesMiddleware = (store) => (next) => async (action) => {
       const response = await fetch(
         `${process.env.REACT_APP_SERVER}/palettes/colors?page=${action.page}&sort=${action.sort}&filter=${action.filter}`,
       );
-
       const json = await response.json();
       dispatch(savePalettes(action.key, json));
       dispatch(updateLoading('fulfilled'));

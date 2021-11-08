@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getPage, getLoading, getSortBy, getFilterBy } from '../../selectors/palettes';
+import {
+  getPage,
+  getLoading,
+  getSortBy,
+  getFilterBy,
+} from '../../selectors/palettes';
 import { updateLoading, fetchPalettes } from '../../actions/palettes';
 
 import CardsList from './CardsList';
@@ -30,13 +35,15 @@ const Palettes = () => {
       if (pageFromStore) {
         setPalettes(pageFromStore.palettes.slice((page - 1) * 20, page * 20));
       } else {
-        dispatch(fetchPalettes({
-          key,
-          category,
-          filter,
-          sort,
-          page,
-        }));
+        dispatch(
+          fetchPalettes({
+            key,
+            category,
+            filter,
+            sort,
+            page,
+          }),
+        );
         dispatch(updateLoading('pending'));
       }
     })();
@@ -46,9 +53,7 @@ const Palettes = () => {
     return <Loading />;
   }
 
-  return (
-    <CardsList palettes={palettes} />
-  );
+  return <CardsList palettes={palettes} />;
 };
 
 export default Palettes;
