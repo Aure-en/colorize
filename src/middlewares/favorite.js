@@ -19,8 +19,43 @@ import { closeModal } from '../actions/modals';
 const favoriteMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_SAVE_PALETTE: {
-      // API request
-      // Dispatch savePalette action.
+      const { user } = store.getState();
+      const { collections } = store.getState().favorite;
+      const { dispatch } = store;
+
+      // Get collection name for the API request
+      const collectionName = collections.find(
+        (collection) => collection.id === action.collectionId,
+      );
+
+      const favoriteRes = await fetch(
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${action.paletteId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+          body: JSON.stringify({
+            name: collectionName,
+          }),
+        },
+      );
+
+      const favorite = await favoriteRes.json();
+
+      if (favorite.id) {
+        // Get the palette data to save it
+        // in the appropriate collection.
+        const paletteRes = await fetch(
+          `${process.env.REACT_APP_SERVER}/palettes/${favorite.id}/colors`,
+        );
+
+        const palette = await paletteRes.json();
+
+        if (palette.id) {
+          dispatch(savePalette());
+        }
+      }
       break;
     }
 
@@ -94,33 +129,37 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const { user } = store.getState();
 
       // List all of the users collections
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/files/`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.jwt}`,
-          },
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/files/`, {
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
         },
-      );
+      });
 
       const collections = await response.json();
 
       if (Array.isArray(collections)) {
-      // For each collection, fetch its palettes.
-        const collectionsWithPalettes = await Promise.all(collections.map(async (collection) => {
-          const res = await fetch(
-            `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
-            {
-              headers: {
-                Authorization: `Bearer ${user.jwt}`,
+        // For each collection, fetch its palettes.
+        // TO-DO: Fetch palettes of collections and add them when they contain associated colors.
+        const collectionsWithPalettes = await Promise.all(
+          collections.map(async (collection) => {
+            const res = await fetch(
+              `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
+              {
+                headers: {
+                  Authorization: `Bearer ${user.jwt}`,
+                },
               },
-            },
-          );
-          const palette = await res.json();
-          return palette;
-        }));
+            );
+            const palette = await res.json();
+            return palette;
+          }),
+        );
 
-        store.dispatch(saveCollections(collectionsWithPalettes));
+        store.dispatch(
+          saveCollections(
+            collections.map((collection) => ({ ...collection, palettes: [] })),
+          ),
+        );
       }
 
       break;

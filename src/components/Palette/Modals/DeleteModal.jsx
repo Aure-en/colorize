@@ -14,9 +14,13 @@ DeleteModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   palette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     name: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+DeleteModal.defaultProps = {
+  palette: null,
 };
 
 export default DeleteModal;
