@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
+import { getIsLoggedIn, getUser } from './selectors/user';
 import { fetchThemes } from './actions/themes';
 
 import GlobalStyles from './styles/globalStyles';
+
+import { fetchCollections } from './actions/favorite';
 
 import Collection from './routes/Collection';
 import Collections from './routes/Collections';
@@ -20,16 +23,24 @@ import NotFound from './routes/NotFound';
 import Copies from './components/Copy/Copies';
 import Modals from './components/Modal/Modals';
 import Navbar from './components/Navbar/Navbar';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
+import Login from './components/Login/Login';
 import Theme from './components/Settings/Theme';
 
 function App() {
   const dispatch = useDispatch();
 
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const user = useSelector(getUser);
+
   useEffect(() => {
     dispatch(fetchThemes());
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(fetchCollections());
+    }
+  }, [isLoggedIn, user]);
 
   return (
     <Router>
@@ -46,8 +57,7 @@ function App() {
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/profile" component={Profile} />
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
             <Route component={NotFound} />
           </Switch>
