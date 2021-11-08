@@ -39,7 +39,7 @@ const DeleteForm = ({ palette }) => {
 
 DeleteForm.propTypes = {
   palette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     name: PropTypes.string,
   }),
 };

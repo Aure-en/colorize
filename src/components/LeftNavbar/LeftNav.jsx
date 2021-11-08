@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink as Link } from 'react-router-dom';
+import { NavLink as Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,8 +11,9 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
 const LeftNav = () => {
   const dispatch = useDispatch();
-  const themes = useSelector(getThemes);
+  const { pathname } = useLocation();
 
+  const themes = useSelector(getThemes);
   const sortBy = useSelector(getSortBy);
   const filterBy = useSelector(getFilterBy);
 
@@ -50,8 +51,17 @@ const LeftNav = () => {
           </Button>
         ))}
         <Line />
+        <NavLink to="/" $selected={pathname === '/'}>
+          Any
+        </NavLink>
         {themes.map((theme) => (
-          <NavLink to={`/themes/${theme.id}`} key={theme.id}>{theme.name}</NavLink>
+          <NavLink
+            to={`/themes/${theme.id}`}
+            key={theme.id}
+            $selected={pathname === `/themes/${theme.id}`}
+          >
+            {theme.name}
+          </NavLink>
         ))}
       </NavMenu>
     </Nav>
@@ -72,6 +82,9 @@ const NavLink = styled(Link)`
   text-decoration: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  background: ${(props) => props.$selected && props.theme.primaryBackground};
+  border-radius: 5px;
+  width: 100%;
 
   &:hover {
     color: ${(props) => props.theme.primaryText};
