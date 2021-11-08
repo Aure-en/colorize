@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions/user';
 import { clearCollections } from '../../actions/favorite';
+import { getUser } from '../../selectors/user';
 
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
 const RightNavAfterSignIn = ({ open }) => {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
   return (
     <Ul open={open}>
@@ -27,7 +29,7 @@ const RightNavAfterSignIn = ({ open }) => {
       </NavLinkBetween>
       <NavLinkBetween>
         <Username>Username</Username>
-        <NavLink to="/profile" exact className="navlink">Profile</NavLink>
+        <NavLink to={`/users/${user.id}`} exact className="navlink">Profile</NavLink>
         <NavLink to="/settings" exact className="navlink">Settings</NavLink>
         <button
           type="button"

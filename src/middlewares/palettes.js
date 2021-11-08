@@ -37,12 +37,46 @@ const palettesMiddleware = (store) => (next) => async (action) => {
     }
 
     case FETCH_PALETTES: {
+      const { user } = store.getState();
       const { dispatch } = store;
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${action.page}&sort=${action.sort}&filter=${action.filter}`,
-      );
+
+      // Determine API Endpoint depending on the palettes we want to fetch.
+      const PALETTES_REGEXP = /^palettes$/i;
+      const THEMES_REGEXP = /^themes/i;
+      const USERS_REGEXP = /^users/i;
+
+      const PALETTES_ENDPOINT = `${process.env.REACT_APP_SERVER}/${action.category}/colors?page=${action.page}&sort=${action.sort}&filter=${action.filter}`;
+      const THEMES_ENDPOINT = `${process.env.REACT_APP_SERVER}/${action.category}/palettes?page=${action.page}&sort=${action.sort}&filter=${action.filter}`;
+      const USERS_ENDPOINT = `${process.env.REACT_APP_SERVER}/${action.category.replace('users', 'user')}/palettes/created?page=${action.page}`;
+
+      let endpoint;
+      if (PALETTES_REGEXP.test(action.category)) {
+        endpoint = PALETTES_ENDPOINT;
+      } else if (THEMES_REGEXP.test(action.category)) {
+        endpoint = THEMES_ENDPOINT;
+      } else if (USERS_REGEXP.test(action.category)) {
+        endpoint = USERS_ENDPOINT;
+      }
+
+      const response = await fetch(endpoint,
+        {
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        });
+
       const json = await response.json();
-      dispatch(savePalettes(action.key, json));
+
+      let palettes;
+      if (PALETTES_REGEXP.test(action.category)) {
+        palettes = json;
+      } else if (THEMES_REGEXP.test(action.category)) {
+        palettes = json.palettes;
+      } else if (USERS_REGEXP.test(action.category)) {
+        palettes = json.palettesCreated;
+      }
+
+      dispatch(savePalettes(action.key, palettes));
       dispatch(updateLoading('fulfilled'));
       break;
     }

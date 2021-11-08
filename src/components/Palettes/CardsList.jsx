@@ -30,6 +30,7 @@ const List = styled.ul`
   width: 100%;
   flex: 1;
   grid-gap: 2rem;
+  align-content: start;
 
   @media all and (min-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
