@@ -17,6 +17,7 @@ export const CLEAR_COLLECTIONS = 'CLEAR_COLLECTIONS';
 
 export const SET_MODAL_COLLECTION = 'SET_MODAL_COLLECTION';
 
+export const SET_DEFAULT_CURRENT_COLLECTION = 'SET_DEFAULT_CURRENT_COLLECTION';
 export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
 
 export const DELETE_PALETTE_FROM_COLLECTIONS = 'DELETE_PALETTE_FROM_COLLECTIONS';
@@ -74,6 +75,10 @@ export const requestUpdateCollection = (name, collectionId) => ({
 export const requestDeleteCollection = (collectionId) => ({
   type: REQUEST_DELETE_COLLECTION,
   collectionId,
+});
+
+export const setDefaultCurrentCollection = () => ({
+  type: SET_DEFAULT_CURRENT_COLLECTION,
 });
 
 export const updateCurrentCollection = (collectionId) => ({
