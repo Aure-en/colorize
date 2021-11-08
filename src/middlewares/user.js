@@ -1,20 +1,44 @@
 import {
-  REQUEST_SIGNUP, successSignUp, REQUEST_LOGIN, successLogin, requestLogin,
+  REQUEST_SIGNUP,
+  successSignUp,
+  REQUEST_LOGIN,
+  successLogin,
+  requestLogin,
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_SIGNUP: {
       const { dispatch } = store;
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/`, { method: 'POST', body: JSON.stringify({ username: action.username, email: action.email, password: action.password }) },
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/user/`, {
+        method: 'POST',
+        body: JSON.stringify({
+          username: action.username,
+          email: action.email,
+          password: action.password,
+        }),
+      });
+
+      const user = await response.json();
+
+      const responseToken = await fetch(
+        'http://ec2-3-92-209-62.compute-1.amazonaws.com/projet-o-en-couleurs/public/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: action.email,
+            password: action.password,
+          }),
+        },
       );
 
-      const json = await response.json();
-      dispatch(requestLogin(action.username,
-        json.id,
-        'token'));
-      break; }
+      const token = await responseToken.json();
+      dispatch(successLogin(action.username, user.id, token, action.email));
+      break;
+    }
 
     case REQUEST_LOGIN: {
       const { dispatch } = store;
@@ -25,15 +49,15 @@ const userMiddleware = (store) => (next) => async (action) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email: action.identifier, password: action.password }),
+          body: JSON.stringify({
+            email: action.identifier,
+            password: action.password,
+          }),
         },
       );
 
-      const loginsuccess = await response.json();
-      dispatch(successLogin(loginsuccess.username,
-        loginsuccess.email,
-        loginsuccess.jwt,
-        loginsuccess.id));
+      const loginSuccess = await response.json();
+      dispatch(successLogin('admin', 1, loginSuccess.token, 'admin@colorize'));
       break;
     }
     default:
