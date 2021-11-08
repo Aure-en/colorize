@@ -1,9 +1,6 @@
 import {
-  UPDATE_SORT_BY,
-  UPDATE_FILTER_BY,
   SAVE_PALETTE,
   SAVE_PALETTES,
-  UPDATE_LOADING,
   DELETE_PALETTE_FROM_PALETTES,
 } from '../actions/palettes';
 
@@ -18,18 +15,10 @@ export const initialState = {
    */
   palettes: [],
   loading: 'idle',
-  sortBy: 'popular',
-  filterBy: 'all',
 };
 
 const palettes = (state = initialState, action = {}) => {
   switch (action.type) {
-    case UPDATE_SORT_BY:
-      return { ...state, sortBy: action.sortBy };
-
-    case UPDATE_FILTER_BY:
-      return { ...state, filterBy: action.filterBy };
-
     case SAVE_PALETTE: {
       // Add all format to the palette
       const paletteWithAllFormats = {
@@ -77,12 +66,6 @@ const palettes = (state = initialState, action = {}) => {
         ],
       };
     }
-
-    case UPDATE_LOADING:
-      return {
-        ...state,
-        loading: action.loading,
-      };
 
     case DELETE_PALETTE_FROM_PALETTES: {
       return {

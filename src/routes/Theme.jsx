@@ -13,11 +13,11 @@ import Loading from '../components/Shared/Loading';
 import NotFound from '../components/Error/NotFound';
 import NoPalettes from '../components/Palettes/NoPalettes';
 
-import { getSortBy, getFilterBy } from '../selectors/palettes';
+import { saveThemePalettes } from '../actions/themes';
+import { getSortBy, getFilterBy } from '../selectors/settings';
 import { getThemes, getThemePage } from '../selectors/themes';
 
 import { getColorFromHex } from '../utils/colors';
-import { saveThemePalettes } from '../actions/themes';
 
 const Theme = ({ match }) => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Palettes from '../components/Palettes/Palettes';
+import Palettes from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
@@ -12,7 +12,7 @@ const Home = () => (
       <LeftNav />
       <Filter />
       <Carousel />
-      <Palettes />
+      <Palettes palettes={[]} />
     </Wrapper>
     <Pagination />
   </>

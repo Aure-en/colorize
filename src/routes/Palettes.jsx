@@ -11,11 +11,13 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
-import { getSortBy, getFilterBy } from '../selectors/palettes';
+import { getSortBy, getFilterBy } from '../selectors/settings';
 
 import { getColorFromHex } from '../utils/colors';
 
 const Palettes = () => {
+  const dispatch = useDispatch();
+
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
