@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-import Palette from '../../Palette/Palette';
-import PageChange from '../PageChange';
-import GenerateButton from '../Controls/GenerateButton';
-import ResetButton from '../Controls/ResetButton';
-import SaveButton from '../Controls/SaveButton';
-import More from '../More/More';
-import ExtractInput from '../Extract/ExtractInput';
+import Palette from "../../Palette/Palette";
+import Informations from "../../Palette/Informations";
+import PageChange from "../PageChange";
+import GenerateButton from "../Controls/GenerateButton";
+import ResetButton from "../Controls/ResetButton";
+import SaveButton from "../Controls/SaveButton";
+import More from "../More/More";
+import ExtractInput from "../Extract/ExtractInput";
 
-import Center from './Center';
-import Cover from './Cover';
-import Triangles from './Triangles';
-import Leaves from './Leaves';
-import Corner from './Corner';
-import Buttons from './Buttons';
+import Center from "./Center";
+import Cover from "./Cover";
+import Triangles from "./Triangles";
+import Leaves from "./Leaves";
+import Corner from "./Corner";
+import Buttons from "./Buttons";
 
-import { getMainPalette } from '../../../selectors/palette';
+import { getMainPalette } from "../../../selectors/palette";
 
 const preview = (number) => {
   switch (number) {
@@ -57,9 +58,11 @@ const Preview = () => {
         <PageChange />
       </PageChangeWrapper>
 
-      <Previews>
-        {preview(currentPreview)}
-      </Previews>
+      <Previews>{preview(currentPreview)}</Previews>
+
+      {palette.id !== null && (
+        <Informations name={palette.name} author={palette.owner} />
+      )}
 
       <Save>
         {palette.id !== null && <More palette={palette} />}
@@ -83,7 +86,7 @@ const Wrapper = styled.div`
   min-height: 100%;
   padding: 1rem;
   grid-gap: 1rem;
-  grid-template-rows: repeat(2, auto) 1fr auto;
+  grid-template-rows: repeat(2, auto) 1fr auto auto;
   grid-template-columns: 1fr 
   flex: 1;
 
@@ -98,7 +101,7 @@ const Wrapper = styled.div`
 
 const PaletteWrapper = styled.div`
   grid-row: 2;
-  grid-column: 1 / span 2; 
+  grid-column: 1 / span 2;
 
   @media all and (min-width: 900px) {
     grid-row: 1 / span 2;
@@ -123,7 +126,7 @@ const PageChangeWrapper = styled.div`
 const Save = styled.div`
   display: flex;
   align-items: center;
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 2;
   position: absolute;
   right: 1rem;
@@ -139,10 +142,13 @@ const Save = styled.div`
 `;
 
 const SlidesButtons = styled.div`
-  grid-row: 4;
+  grid-row: 5;
   grid-column: 1 / span 2;
   display: flex;
-  justify-content: center;
+
+  @media all and (min-width: 500px) {
+    justify-content: center;
+  }
 
   @media all and (min-width: 900px) {
     grid-column: -1;
