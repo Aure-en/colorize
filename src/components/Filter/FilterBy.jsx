@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/shared/useDropdown';
-import { getFilterBy } from '../../selectors/palettes';
-import { updateFilterBy } from '../../actions/palettes';
+import { getFilterBy } from '../../selectors/settings';
+import { updateFilterBy } from '../../actions/settings';
 
 const FilterBy = () => {
   const ref = useRef();

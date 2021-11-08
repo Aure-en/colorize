@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useSelector } from 'react-redux';
 import { getUser } from '../selectors/user';
+import { getUserProfile } from '../selectors/users';
+import { saveUser } from '../actions/users';
 
 import ProfilePage from '../components/Profile/ProfilePage';
 import PalettesList from '../components/Palettes/CardsList';
@@ -15,7 +17,7 @@ import Loading from '../components/Shared/Loading';
 import { getColorFromHex } from '../utils/colors';
 
 const Profile = ({ match }) => {
-  const currentUser = useSelector(getUser);
+  const dispatch = useDispatch();
   const { userId } = match.params;
 
   const [user, setUser] = useState();
@@ -26,10 +28,21 @@ const Profile = ({ match }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
 
-  // Fetch user
+  const key = `/users/${userId}`;
+  const currentUser = useSelector(getUser);
+  const userProfile = useSelector((state) => getUserProfile(state, key));
+
+  // Fetch user and palettes
   useEffect(() => {
     (async () => {
-      const response = await fetch(
+      if (userProfile) {
+        setUser(userProfile.user);
+        setPalettes(userProfile.palettes);
+        setLoading(false);
+        return;
+      }
+
+      const userResponse = await fetch(
         `${process.env.REACT_APP_SERVER}/user/${userId}`,
         {
           headers: {
@@ -38,24 +51,11 @@ const Profile = ({ match }) => {
         },
       );
 
-      if (response.status === 200) {
-        const json = await response.json();
-        setUser(json);
-      } else if (response.status === 422) {
-        setError('This user does not exist.');
-        setLoading(false);
-      } else {
-        setError('Sorry, something went wrong.');
-        setLoading(false);
-      }
-    })();
-  }, [userId]);
+      if (userResponse.status === 200) {
+        const user = await userResponse.json();
+        setUser(user);
 
-  // Fetch user palettes of the current page
-  useEffect(() => {
-    (async () => {
-      if (user?.id) {
-        const response = await fetch(
+        const userPalettesResponse = await fetch(
           `
           ${process.env.REACT_APP_SERVER}/user/${user.id}/palettes/created?page=${page}
         `,
@@ -66,21 +66,28 @@ const Profile = ({ match }) => {
           },
         );
 
-        const json = await response.json();
+        const userPalettes = await userPalettesResponse.json();
 
-        if (response.status === 200) {
-          const palettes = json.palettesCreated.map((palette) => ({
+        if (userPalettesResponse.status === 200) {
+          const palettes = userPalettes.palettesCreated.map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
           setPalettes(palettes.slice((page - 1) * 20, page * 20));
+          dispatch(saveUser(key, user, palettes.slice((page - 1) * 20, page * 20)));
         } else {
           setError('Sorry, something went wrong.');
         }
         setLoading(false);
+      } else if (userResponse.status === 422) {
+        setError('This user does not exist.');
+        setLoading(false);
+      } else {
+        setError('Sorry, something went wrong.');
+        setLoading(false);
       }
     })();
-  }, [user]);
+  }, [userId]);
 
   if (loading) {
     return <Loading />;

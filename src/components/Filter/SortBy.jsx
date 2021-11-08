@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/shared/useDropdown';
-import { getSortBy } from '../../selectors/palettes';
-import { updateSortBy } from '../../actions/palettes';
+import { getSortBy } from '../../selectors/settings';
+import { updateSortBy } from '../../actions/settings';
 
 const SortBy = () => {
   const ref = useRef();

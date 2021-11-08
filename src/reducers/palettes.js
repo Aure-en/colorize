@@ -1,71 +1,54 @@
 import {
-  UPDATE_SORT_BY,
-  UPDATE_FILTER_BY,
   SAVE_PALETTE,
   SAVE_PALETTES,
-  UPDATE_LOADING,
   DELETE_PALETTE_FROM_PALETTES,
 } from '../actions/palettes';
 
-import { getColorFromHex } from '../utils/colors';
-
 export const initialState = {
   /*
-   * Array of { key: '', palettes: [] } or { key: '', palette: {}}
+   * Arrays of { key: '', palette: [] }
    * Keys:
    * palettes | themeId / filter / sort / page
    * Ex: palettes/all/popular/1 gets the 20 most popular paletts.
    */
+  palette: [],
+  // Array of { key: '', palettes: []}
   palettes: [],
   loading: 'idle',
-  sortBy: 'popular',
-  filterBy: 'all',
 };
 
 const palettes = (state = initialState, action = {}) => {
   switch (action.type) {
-    case UPDATE_SORT_BY:
-      return { ...state, sortBy: action.sortBy };
-
-    case UPDATE_FILTER_BY:
-      return { ...state, filterBy: action.filterBy };
-
     case SAVE_PALETTE: {
-      // Add all format to the palette
-      const paletteWithAllFormats = {
-        ...action.palette,
-        colors: action.palette.colors.map((color) => getColorFromHex(color.hex)),
-      };
-
       // If the key is already present, replace the palettes.
-      if (state.palettes.find((group) => group.key === action.key)) {
-        return palettes.map((group) => (group.key === action.key
-          ? { key: action.key, palette: paletteWithAllFormats }
-          : group));
+      if (state.palettes.find((page) => page.key === action.key)) {
+        return {
+          ...state,
+          palette: state.palette.map((page) => (page.key === action.key
+            ? { key: action.key, palette: action.palette }
+            : page)),
+        };
       }
 
       // If the key was not present, add the object key + palettes.
       return {
         ...state,
-        palettes: [
-          ...state.palettes,
-          { key: action.key, palette: paletteWithAllFormats },
+        palette: [
+          ...state.palette,
+          { key: action.key, palette: action.palette },
         ],
       };
     }
 
     case SAVE_PALETTES: {
-      // Add all formats to palettes
-      const paletteWithAllFormats = action.palettes.map((palette) => ({
-        ...palette,
-        colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-      }));
-
       // If the key is already present, replace the palettes.
-      if (state.palettes.find((group) => group.key === action.key)) {
-        return palettes.map((group) => (group.key === action.key
-          ? { key: action.key, palettes: paletteWithAllFormats }
-          : group));
+      if (state.palettes.find((page) => page.key === action.key)) {
+        return {
+          ...state,
+          palettes: state.palettes.map((page) => (page.key === action.key
+            ? { key: action.key, palettes: action.palettes }
+            : page)),
+        };
       }
 
       // If the key was not present, add the object key + palettes.
@@ -73,34 +56,31 @@ const palettes = (state = initialState, action = {}) => {
         ...state,
         palettes: [
           ...state.palettes,
-          { key: action.key, palettes: paletteWithAllFormats },
+          { key: action.key, palettes: action.palettes },
         ],
       };
     }
 
-    case UPDATE_LOADING:
-      return {
-        ...state,
-        loading: action.loading,
-      };
-
     case DELETE_PALETTE_FROM_PALETTES: {
       return {
         ...state,
-        palettes: [...state.palettes]
-          // Delete the single page of this palette if it had been loaded.
-          .filter((group) => group.key !== `/palettes/${action.paletteId}`)
 
-          // Delete the palette from the palettes list
-          .map((group) => {
-            if (group.palettes) {
-              return {
-                ...group,
-                palettes: group.palettes.filter((palette) => palette.id !== action.paletteId),
-              };
-            }
-            return group;
-          }),
+        // Delete the single page of this palette if it had been loaded.
+        palette: [...state.palette].filter(
+          (page) => page.key !== `/palettes/${action.paletteId}`,
+        ),
+        // Delete the palette from the palettes list
+        palettes: [...state.palettes].map((page) => {
+          if (page.palettes) {
+            return {
+              ...page,
+              palettes: page.palettes.filter(
+                (palette) => palette.id !== action.paletteId,
+              ),
+            };
+          }
+          return page;
+        }),
       };
     }
 

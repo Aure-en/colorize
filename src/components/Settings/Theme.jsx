@@ -36,7 +36,7 @@ const Theme = ({ children }) => {
       'quaternary',
       'quinary',
     ];
-    const [primary, secondary] = palette.colors;
+    const [primary, secondary, tertiary] = palette.colors;
 
     // Set the main palette in the theme
     themeKeys.forEach((key, index) => {
@@ -49,6 +49,10 @@ const Theme = ({ children }) => {
 
     // Text color depending on how bright the primary color is.
     newTheme.textOnPrimary = isColorLight(primary.hex)
+      ? DARK_DEFAULT
+      : LIGHT_DEFAULT;
+
+    newTheme.textOnTertiary = isColorLight(tertiary.hex)
       ? DARK_DEFAULT
       : LIGHT_DEFAULT;
 

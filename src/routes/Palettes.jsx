@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CardsList from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
@@ -10,21 +11,38 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
+import { getSortBy, getFilterBy } from '../selectors/settings';
+import { getPalettesPage } from '../selectors/palettes';
+
 import { getColorFromHex } from '../utils/colors';
+import { savePalettes } from '../actions/palettes';
 
 const Palettes = () => {
+  const dispatch = useDispatch();
+
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const sort = useSelector(getSortBy);
+  const filter = useSelector(getFilterBy);
+
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
 
-  // Fetch palettes of the current page
+  const key = `/palettes/${filter}/${sort}/${page}`;
+  const palettesPage = useSelector((state) => getPalettesPage(state, key));
+
+  // Get palettes of the current page
   useEffect(() => {
     (async () => {
+      if (palettesPage) {
+        setPalettes(palettesPage.palettes);
+        setLoading(false);
+      }
+
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort${sort}`,
       );
 
       const json = await response.json();
@@ -35,6 +53,7 @@ const Palettes = () => {
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes.slice((page - 1) * 20, page * 20));
+        dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }

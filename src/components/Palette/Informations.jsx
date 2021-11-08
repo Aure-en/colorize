@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 
 const Informations = ({ name, author }) => (
   <Wrapper>
-    {name && `${name} — `}
+    {name && (
+    <span>
+      <Name>{name}</Name>
+      {' '}
+      —
+      {' '}
+    </span>
+    )}
     {author && author.id !== 1 && (
       <span>
         Made with &#x2764; by
@@ -46,6 +53,10 @@ const Wrapper = styled.div`
     grid-row: 3;
     grid-column: 2;
   }
+`;
+
+const Name = styled.span`
+  color: ${(props) => props.theme.primaryText};
 `;
 
 const link = `

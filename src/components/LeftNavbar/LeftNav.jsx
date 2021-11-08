@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getThemes } from '../../selectors/themes';
-import { updateSortBy, updateFilterBy } from '../../actions/palettes';
-import { getSortBy, getFilterBy } from '../../selectors/palettes';
+import { updateSortBy, updateFilterBy } from '../../actions/settings';
+import { getSortBy, getFilterBy } from '../../selectors/settings';
 
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 

@@ -1,22 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Palettes from '../components/Palettes/Palettes';
+import { useSelector, useDispatch } from 'react-redux';
+
+import CardsList from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
+import NoPalettes from '../components/Palettes/NoPalettes';
+import Loading from '../components/Shared/Loading';
 
-const Home = () => (
-  <>
-    <Wrapper>
-      <LeftNav />
-      <Filter />
-      <Carousel />
-      <Palettes />
-    </Wrapper>
-    <Pagination />
-  </>
-);
+import { getSortBy, getFilterBy } from '../selectors/settings';
+import { getPalettesPage } from '../selectors/palettes';
+import { savePalettes } from '../actions/palettes';
+
+import { getColorFromHex } from '../utils/colors';
+
+const Home = () => {
+  const dispatch = useDispatch();
+
+  const [palettes, setPalettes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const sort = useSelector(getSortBy);
+  const filter = useSelector(getFilterBy);
+
+  const key = `/palettes/${filter}/${sort}/1`;
+  const palettesPage = useSelector((state) => getPalettesPage(state, key));
+
+  // Get palettes of the current page
+  useEffect(() => {
+    (async () => {
+      if (palettesPage) {
+        setPalettes(palettesPage.palettes);
+        setLoading(false);
+      }
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort${sort}`,
+      );
+
+      const json = await response.json();
+
+      if (response.status === 200) {
+        const palettes = json.map((palette) => ({
+          ...palette,
+          colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+        }));
+        setPalettes(palettes.slice(0, 20));
+        dispatch(savePalettes(key, palettes));
+      } else {
+        setError('Sorry, something went wrong.');
+      }
+      setLoading(false);
+    }
+    )();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <Wrapper>
+        <LeftNav />
+        <Filter />
+        <Carousel />
+        <Main>
+          {error && <Error>{error}</Error>}
+          {palettes?.length > 0
+            ? <CardsList palettes={palettes} />
+            : <NoPalettes />}
+        </Main>
+      </Wrapper>
+      <Pagination />
+    </>
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,6 +91,17 @@ const Wrapper = styled.div`
     grid-column-gap: 3rem;
     padding: 3rem;
   }
+`;
+
+const Main = styled.main`
+  display: grid;
+  grid-template-rows: auto 1fr;
+`;
+
+const Error = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Home;

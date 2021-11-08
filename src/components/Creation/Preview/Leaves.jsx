@@ -139,13 +139,14 @@ const Button = styled.div`
   display: inline-block;
   padding: 0.75rem 1rem;
   background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.textOnPrimary};
   border-radius: 3px;
   cursor: pointer;
   justify-self: start;
-  transition: background 0.2s linear;
+  transition: all 0.2s linear;
 
   &:hover {
     background: ${(props) => props.theme.tertiary};
+    color: ${(props) => props.theme.textOnTertiary};
   }
 `;

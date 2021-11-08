@@ -28,7 +28,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       // Get collection name for the API request
       const collectionName = collections.find(
         (collection) => collection.id === action.collectionId,
-      );
+      ).name;
 
       const favoriteRes = await fetch(
         `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${action.paletteId}`,
@@ -46,8 +46,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const favorite = await favoriteRes.json();
 
       if (favorite.id) {
-        // Get the palette data to save it
-        // in the appropriate collection.
+        // Get the palette data to save it in the selected collection.
         const paletteRes = await fetch(
           `${process.env.REACT_APP_SERVER}/palettes/${favorite.id}/colors`,
         );
@@ -55,7 +54,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         const palette = await paletteRes.json();
 
         if (palette.id) {
-          dispatch(savePalette());
+          dispatch(savePalette(palette));
         }
       }
       break;

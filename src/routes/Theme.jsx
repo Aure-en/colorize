@@ -2,21 +2,33 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Palettes from '../components/Palettes/CardsList';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
-import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
+import NotFound from '../components/Error/NotFound';
+import NoPalettes from '../components/Palettes/NoPalettes';
+
+import { saveThemePalettes } from '../actions/themes';
+import { getSortBy, getFilterBy } from '../selectors/settings';
+import { getThemes, getThemePage } from '../selectors/themes';
 
 import { getColorFromHex } from '../utils/colors';
 
 const Theme = ({ match }) => {
-  const { themeId } = match.params;
+  const dispatch = useDispatch();
 
-  const [theme, setTheme] = useState();
+  const themeId = Number(match.params.themeId);
+
+  const themes = useSelector(getThemes);
+  const sort = useSelector(getSortBy);
+  const filter = useSelector(getFilterBy);
+  const theme = themes.find((theme) => theme.id === themeId);
+
   const [palettes, setPalettes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -24,42 +36,30 @@ const Theme = ({ match }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
 
-  // Fetch theme
+  const key = `/themes/${themeId}/${filter}/${sort}/${page}`;
+  const themePage = useSelector((state) => getThemePage(state, key));
+
+  // Get theme palettes of the current page
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/themes/${themeId}`,
-      );
-
-      if (response.status === 200) {
-        const json = await response.json();
-        setTheme(json);
-      } else if (response.status === 422) {
-        setError('This theme does not exist.');
-        setLoading(false);
-      } else {
-        setError('Sorry, something went wrong.');
+      if (themePage) {
+        setPalettes(themePage.palettes);
         setLoading(false);
       }
-    })();
-  }, [themeId]);
 
-  // Fetch theme palettes of the current page
-  useEffect(() => {
-    (async () => {
-      if (theme?.id) {
+      if (theme) {
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}`,
+          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort${sort}`,
         );
 
-        const json = await response.json();
-
         if (response.status === 200) {
-          const palettes = json.palettes.map((palette) => ({
+          const themePalettes = await response.json();
+          const palettes = themePalettes.palettes.map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
           setPalettes(palettes.slice((page - 1) * 20, page * 20));
+          dispatch(saveThemePalettes(key, palettes));
         } else {
           setError('Sorry, something went wrong.');
         }
@@ -67,6 +67,10 @@ const Theme = ({ match }) => {
       }
     })();
   }, [theme]);
+
+  if (!theme) {
+    return <NotFound />;
+  }
 
   if (loading) {
     return <Loading />;
