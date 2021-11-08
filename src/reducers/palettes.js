@@ -56,7 +56,7 @@ const palettes = (state = initialState, action = {}) => {
 
     case SAVE_PALETTES: {
       // Add all formats to palettes
-      const paletteWithAllFormats = action.palettes.slice(1).map((palette) => ({
+      const paletteWithAllFormats = action.palettes.map((palette) => ({
         ...palette,
         colors: palette.colors.map((color) => getColorFromHex(color.hex)),
       }));

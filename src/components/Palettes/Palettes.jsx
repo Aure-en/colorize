@@ -19,7 +19,6 @@ const Palettes = () => {
   const sort = useSelector(getSortBy);
   const filter = useSelector(getFilterBy);
   const key = `/${category}/${filter}/${sort}/${page}`;
-
   const pageFromStore = useSelector((state) => getPage(state, key));
   const loading = useSelector(getLoading);
 
