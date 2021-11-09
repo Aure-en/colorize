@@ -70,7 +70,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
       const { user } = store.getState();
       const response = await fetch(
-        `http://apicolorize.me/projet-o-en-couleurs/public/api/v1/user/${user.id}`,
+        `http://apicolorize.me/api/v1/user/${user.id}`,
         {
           method: 'PATCH',
           headers: {
