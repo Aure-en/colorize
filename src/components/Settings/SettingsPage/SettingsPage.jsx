@@ -39,7 +39,7 @@ background-color: ${(props) => props.theme.backgroundColorSettings};
 
 const ModalContainer = styled.div`
 display: flex;
-justify-content: center;
+justify-content: space-evenly;
 @media screen and (max-width: 768px) {
   justify-content: space-between;
  }

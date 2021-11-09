@@ -2,30 +2,54 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/button-has-type */
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { edit } from '../../../actions/user';
 
-const customStyles = {
-  content: {
-    background: '#4B5C6B',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100vw',
-    height: '100vh',
-    maxWidth: '20rem',
-    maxHeight: '15rem',
-  },
-};
-
-Modal.setAppElement('#root');
-
-function ModalPassword() {
+const ModalPassword = () => {
   let subtitle;
+  const errorsObj = { password: '' };
+  const dispatch = useDispatch();
+
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState(errorsObj);
+  const [confirmPassword, setConfirm] = useState('');
+
+  const customStyles = {
+    content: {
+      background: '#4B5C6B',
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: '100vw',
+      height: '100vh',
+      maxWidth: '20rem',
+      maxHeight: '15rem',
+    },
+  };
+
+  function edit(e) {
+    e.preventDefault();
+    let error = false;
+    const errorObj = { ...errorsObj };
+
+    if (password === '') {
+      errorObj.password = 'password is Required';
+      error = true;
+    }
+
+    setErrors(errorObj);
+
+    if (error) return;
+
+    dispatch(edit(password));
+  }
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -54,16 +78,16 @@ function ModalPassword() {
       >
         <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
-        <FormContainer>
-          <ModalInput type="password" placeholder="Current Password" minLength="8" required />
-          <ModalInput type="password" placeholder="Confirm Password" minLength="8" required />
+        <FormContainer onSubmit={edit}>
+          <ModalInput type="password" placeholder="Current Password" minLength="8" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <ModalInput type="password" placeholder="Confirm Password" minLength="8" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
           <ModalInput type="password" placeholder="New Password" minLength="8" required />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>
     </ModalContainer>
   );
-}
+};
 const ModalContainer = styled.div`
 display: flex;
 `;
@@ -77,8 +101,8 @@ padding: 0.2em;
 `;
 
 const EditButtonContainer = styled.div`
-display: flex;
-margin-left: 2em;
+display: flex;  
+width: 100%;
 `;
 
 const EditButton = styled.button`

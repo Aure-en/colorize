@@ -4,6 +4,7 @@ import {
   REQUEST_LOGIN,
   successLogin,
   requestLogin,
+  EDIT,
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
@@ -62,6 +63,29 @@ const userMiddleware = (store) => (next) => async (action) => {
           loginSuccess.data.email,
         ),
       );
+      break;
+    }
+
+    case EDIT: {
+      const { dispatch } = store;
+      const { user } = store.getState();
+      const response = await fetch(
+        `http://apicolorize.me/projet-o-en-couleurs/public/api/v1/user/${user.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: action.username,
+            email: action.email,
+            password: action.password,
+          }),
+        },
+      );
+
+      const edit = await response.json();
+      dispatch(edit(action.username, action.email, action.password));
       break;
     }
     default:
