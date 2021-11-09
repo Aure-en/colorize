@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import useSearch from '../../../hooks/shared/useSearch';
-import { ReactComponent as IconSearch } from '../../../assets/icons/search.svg';
+import useSearch from '../../hooks/shared/useSearch';
+import { ReactComponent as IconSearch } from '../../assets/icons/search.svg';
 
 const SearchBar = () => {
   const { search, setSearch, handleSubmit } = useSearch();
@@ -31,8 +31,8 @@ const SearchBar = () => {
 
 const Form = styled.form`
   display: flex;
-  margin: 0.5rem 0;
-  border: 1px solid ${(props) => props.theme.text_secondary};
+  margin: 0.5rem 0 1rem 0;
+  border-bottom: 1px solid ${(props) => props.theme.primaryText};
   border-radius: 2px;
 `;
 
@@ -53,11 +53,9 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  padding: 0.15rem 0.25rem;
+  padding: 0;
   border: 2px solid transparent;
-  .search-icon {
-    stroke: ${(props) => props.theme.textPrimary};
-  }
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export default SearchBar;
