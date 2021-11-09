@@ -15,6 +15,8 @@ import {
 } from '../../../../actions/favorite';
 import { openModal } from '../../../../actions/modals';
 
+import { toastify } from '../../../Shared/Toast';
+
 const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
@@ -27,6 +29,7 @@ const Menu = ({ paletteId, close, position }) => {
     } else {
       dispatch(requestAddPaletteToCollection(paletteId, collectionId));
       dispatch(setCurrentCollection(collectionId));
+      toastify('Palette successfully saved.');
     }
     close();
   };

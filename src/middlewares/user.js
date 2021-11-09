@@ -23,7 +23,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       const user = await response.json();
 
       const responseToken = await fetch(
-        'http://apicolorize.me/projet-o-en-couleurs/public/api/login_check',
+        'https://apicolorize.me/api/login_check',
         {
           method: 'POST',
           headers: {
@@ -43,22 +43,26 @@ const userMiddleware = (store) => (next) => async (action) => {
 
     case REQUEST_LOGIN: {
       const { dispatch } = store;
-      const response = await fetch(
-        'http://apicolorize.me/projet-o-en-couleurs/public/api/login_check',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: action.identifier,
-            password: action.password,
-          }),
+      const response = await fetch('https://apicolorize.me/api/login_check', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+        body: JSON.stringify({
+          email: action.identifier,
+          password: action.password,
+        }),
+      });
 
       const loginSuccess = await response.json();
-      dispatch(successLogin('admin', 1, loginSuccess.token, 'admin@colorize'));
+      dispatch(
+        successLogin(
+          loginSuccess.data.username,
+          loginSuccess.data.id,
+          loginSuccess.token,
+          loginSuccess.data.email,
+        ),
+      );
       break;
     }
 
