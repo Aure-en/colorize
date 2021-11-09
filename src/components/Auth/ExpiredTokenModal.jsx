@@ -31,6 +31,7 @@ ExpiredTokenModal.propTypes = {
 
 const Content = styled.div`
   text-align: center;
+  line-height: 1.5rem;
 `;
 
 const Heading = styled.h2`

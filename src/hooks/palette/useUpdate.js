@@ -10,11 +10,12 @@ import {
   setOriginalPalette,
 } from '../../actions/palette';
 import { updatePaletteInCollection } from '../../actions/favorite';
-import { closeModal } from '../../actions/modals';
+import { openModal, closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
 
 import { toastify } from '../../components/Shared/Toast';
+import { logout } from '../../actions/user';
 
 const useUpdate = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,14 @@ const useUpdate = () => {
 
     const json = await response.json();
 
+    // Expired JWT.
+    if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+      dispatch(closeModal('updatePalette'));
+      dispatch(openModal('expiredToken'));
+      dispatch(logout());
+    }
+
+    // Everything went well
     if (json.id) {
       onSuccess(json.id);
     } else {
