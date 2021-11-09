@@ -150,13 +150,14 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
 
       // List all of the users collections
-      const response = await fetch(`${process.env.REACT_APP_SERVER}/files/`, {
+      const response = await fetch(`${process.env.REACT_APP_SERVER}/user/${user.id}/files`, {
         headers: {
           Authorization: `Bearer ${user.jwt}`,
         },
       });
 
-      const collections = await response.json();
+      const json = await response.json();
+      const collections = json.filesPersonnel;
 
       if (Array.isArray(collections)) {
         // For each collection, fetch its palettes.
