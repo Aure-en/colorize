@@ -74,7 +74,7 @@ const Home = () => {
           ? (
             <Content>
               <Palettes palettes={palettes} />
-              <Pagination numberOfPages={numberOfPages} />
+              <Pagination numberOfPages={numberOfPages} currentPage={1} />
             </Content>
           )
           : <NoPalettes />}
