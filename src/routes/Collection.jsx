@@ -33,7 +33,7 @@ const Collection = ({ match }) => {
           {collection.palettes.length > 0 ? (
             <Content>
               <Palettes palettes={collection.palettes.slice((page - 1) * 20, page * 20)} />
-              <Pagination currentPage={page} />
+              <Pagination currentPage={Number(page)} />
             </Content>
           ) : (
             <Center>

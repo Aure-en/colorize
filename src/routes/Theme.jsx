@@ -88,7 +88,7 @@ const Theme = ({ match }) => {
             {palettes?.length > 0 ? (
               <Content>
                 <Palettes palettes={palettes} />
-                <Pagination currentPage={page} />
+                <Pagination currentPage={Number(page)} />
               </Content>
             ) : (
               <NoPalettes />

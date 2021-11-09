@@ -80,7 +80,7 @@ const Palettes = () => {
             {palettes?.length > 0 ? (
               <Content>
                 <PalettesList palettes={palettes} />
-                <Pagination numberOfPages={numberOfPages} currentPage={page} />
+                <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
               </Content>
             ) : (
               <NoPalettes />

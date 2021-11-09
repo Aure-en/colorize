@@ -18,7 +18,7 @@ const Pagination = ({ numberOfPages, currentPage }) => {
   return (
     <Wrapper>
 
-      {currentPage > 1 && <ButtonLink to={`${path}?page=${+currentPage - 1}`}>&#9668;</ButtonLink>}
+      {currentPage > 1 && <ButtonLink to={`${path}?page=${currentPage - 1}`}>&#9668;</ButtonLink>}
       {/* ◄ = &#9668; */}
 
       <Dropdown ref={ref}>
@@ -35,7 +35,7 @@ const Pagination = ({ numberOfPages, currentPage }) => {
         )}
       </Dropdown>
 
-      {currentPage < numberOfPages && <ButtonLink to={`${path}?page=${+currentPage + 1}`}>&#9658;</ButtonLink>}
+      {currentPage < numberOfPages && <ButtonLink to={`${path}?page=${currentPage + 1}`}>&#9658;</ButtonLink>}
       {/* ► = &#9658; */}
 
     </Wrapper>
