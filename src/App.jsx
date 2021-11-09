@@ -29,6 +29,7 @@ import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import NotFound from './components/Error/NotFound';
 import ThemeProvider from './components/Settings/Theme';
+import Toast from './components/Shared/Toast';
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
           </Switch>
           <Copies />
           <Modals />
+          <Toast />
         </Wrapper>
       </ThemeProvider>
     </Router>

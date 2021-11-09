@@ -8,6 +8,8 @@ import { closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useCreate = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -45,6 +47,7 @@ const useCreate = () => {
     setLoading('fulfilled');
     history.push(`/palettes/${paletteId}`);
     dispatch(closeModal('createPalette'));
+    toastify('Palette successfully created.');
   };
 
   const handleSubmit = async () => {

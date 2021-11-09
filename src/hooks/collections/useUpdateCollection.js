@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { requestUpdateCollection } from '../../actions/favorite';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useUpdateCollection = (collection) => {
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const useUpdateCollection = (collection) => {
 
     // Dispatch request
     dispatch(requestUpdateCollection(name, collection?.id));
+    toastify('Collection successfully updated.');
   };
 
   return {
