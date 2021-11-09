@@ -42,7 +42,7 @@ const Palettes = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/themes?page=${page}&filter=${filter}&sort=${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
