@@ -59,15 +59,15 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/creation" component={Creation} />
             <Route exact path="/palettes" component={Palettes} />
             <Route exact path="/themes/:themeId" component={Theme} />
-            <Route exact path="/collections" component={Collections} />
-            <Route exact path="/collections/:collectionId" component={Collection} />
-            <Route exact path="/creation" component={Creation} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/search" component={Search} />
+            <PrivateRoute exact path="/collections" component={Collections} />
+            <PrivateRoute exact path="/collections/:collectionId" component={Collection} />
             <PrivateRoute exact path="/settings" component={Settings} />
             <EntryRoute exact path="/login" component={Login} />
             <Route component={NotFound} />
