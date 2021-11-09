@@ -75,7 +75,7 @@ const Palettes = () => {
         {palettes?.length > 0
           ? (
             <Content>
-              <Palettes palettes={palettes} />
+              <PalettesList palettes={palettes} />
               <Pagination />
             </Content>
           )
