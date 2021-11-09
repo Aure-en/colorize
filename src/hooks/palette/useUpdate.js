@@ -8,6 +8,8 @@ import { closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useUpdate = () => {
   const dispatch = useDispatch();
 
@@ -46,6 +48,7 @@ const useUpdate = () => {
     setLoading('fulfilled');
     dispatch(closeModal('updatePalette'));
     dispatch(updatePaletteInCollection(palette));
+    toastify('Palette successfully updated.');
   };
 
   const handleSubmit = async () => {

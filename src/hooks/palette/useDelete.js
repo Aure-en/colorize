@@ -7,6 +7,8 @@ import { setMainPalette, setOriginalPalette } from '../../actions/palette';
 import { deletePaletteFromCollection } from '../../actions/favorite';
 import { closeModal } from '../../actions/modals';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useDelete = (palette) => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
@@ -43,6 +45,8 @@ const useDelete = (palette) => {
 
       // Close modal
       dispatch(closeModal('deletePalette'));
+
+      toastify('Palette successfully deleted.');
 
       // Redirects if needed
       if (location.pathname === `/palettes/${palette.id}`) {

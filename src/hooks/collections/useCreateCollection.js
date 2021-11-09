@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import { requestCreateCollection } from '../../actions/favorite';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useCreateCollection = () => {
   const dispatch = useDispatch();
 
@@ -23,6 +25,7 @@ const useCreateCollection = () => {
 
     // Dispatch request
     dispatch(requestCreateCollection(name));
+    toastify('Collection successfully created.');
   };
 
   return {
