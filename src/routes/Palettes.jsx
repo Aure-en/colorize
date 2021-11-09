@@ -49,23 +49,20 @@ const Palettes = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.slice((page - 1) * 20, page * 20).map((palette) => ({
-          ...palette,
-          colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-        }));
+        const palettes = json
+          .slice((page - 1) * 20, page * 20)
+          .map((palette) => ({
+            ...palette,
+            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+          }));
         setPalettes(palettes);
         dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
-    }
-    )();
+    })();
   }, [page, filter, sort]);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <Wrapper>
@@ -73,15 +70,21 @@ const Palettes = () => {
       <Filter />
       <Main>
         <Heading>Explore</Heading>
-        {error && <Error>{error}</Error>}
-        {palettes?.length > 0
-          ? (
-            <Content>
-              <PalettesList palettes={palettes} />
-              <Pagination />
-            </Content>
-          )
-          : <NoPalettes />}
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {error && <Error>{error}</Error>}
+            {palettes?.length > 0 ? (
+              <Content>
+                <PalettesList palettes={palettes} />
+                <Pagination />
+              </Content>
+            ) : (
+              <NoPalettes />
+            )}
+          </>
+        )}
       </Main>
     </Wrapper>
   );

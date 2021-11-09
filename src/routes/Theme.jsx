@@ -74,29 +74,29 @@ const Theme = ({ match }) => {
     return <NotFound />;
   }
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
-    <>
-      <Wrapper>
-        <LeftNav />
-        <Filter />
-        <Main>
-          <Heading>{theme?.name}</Heading>
-          {error && <Error>{error}</Error>}
-          {palettes?.length > 0 ? (
-            <Content>
-              <Palettes palettes={palettes} />
-              <Pagination />
-            </Content>
-          ) : (
-            <NoPalettes />
-          )}
-        </Main>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <LeftNav />
+      <Filter />
+      <Main>
+        <Heading>{theme?.name}</Heading>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {error && <Error>{error}</Error>}
+            {palettes?.length > 0 ? (
+              <Content>
+                <Palettes palettes={palettes} />
+                <Pagination />
+              </Content>
+            ) : (
+              <NoPalettes />
+            )}
+          </>
+        )}
+      </Main>
+    </Wrapper>
   );
 };
 
