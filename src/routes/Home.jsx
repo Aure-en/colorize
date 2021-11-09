@@ -43,12 +43,12 @@ const Home = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.map((palette) => ({
+        const palettes = json.slice(0, 20).map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
-        setPalettes(palettes.slice(0, 20));
-        dispatch(savePalettes(key, palettes.slice(0, 20)));
+        setPalettes(palettes);
+        dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }
