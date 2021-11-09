@@ -68,7 +68,7 @@ const Theme = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, [theme, filter, sort]);
+  }, [theme, page, filter, sort]);
 
   if (!theme) {
     return <NotFound />;
@@ -88,7 +88,7 @@ const Theme = ({ match }) => {
             {palettes?.length > 0 ? (
               <Content>
                 <Palettes palettes={palettes} />
-                <Pagination />
+                <Pagination currentPage={page} />
               </Content>
             ) : (
               <NoPalettes />
