@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
 
 export default function Pagination({ numberOfPages }) {
+  console.log(numberOfPages);
   // Get links path
   const location = useLocation();
   const { pathname } = location;
