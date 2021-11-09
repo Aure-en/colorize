@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { getCollection } from '../selectors/favorite';
+import { getCollection, getDefaultCollection } from '../selectors/favorite';
 
 import Nav from '../components/Collections/Nav/Nav';
 import Menu from '../components/Collections/Menu/Menu';
@@ -15,6 +15,7 @@ import Pagination from '../components/Shared/Pagination';
 const Collection = ({ match }) => {
   const { collectionId } = match.params;
   const collection = useSelector((state) => getCollection(state, collectionId));
+  const defaultCollection = useSelector(getDefaultCollection);
 
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
@@ -26,7 +27,7 @@ const Collection = ({ match }) => {
         <Main>
           <Header>
             <Heading>{collection.name}</Heading>
-            <Menu collection={collection} />
+            {collection.id !== defaultCollection && <Menu collection={collection} />}
           </Header>
 
           {collection.palettes.length > 0 ? (

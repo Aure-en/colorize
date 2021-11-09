@@ -5,6 +5,8 @@ export const getAllFavorites = (state) => Object.values(state.favorite.collectio
 
 export const getCurrentCollection = (state) => state.favorite.currentCollection;
 
+export const getDefaultCollection = (state) => state.favorite.defaultCollection;
+
 export const getCollections = (state) => state.favorite.collections;
 
 export const getCollection = (state, id) => state.favorite.collections.find((collection) => collection.id === +id);

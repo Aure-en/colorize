@@ -2,24 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { getDefaultCollection } from '../../../../selectors/favorite';
 
 import Preview from './Preview';
 import Name from './Name';
 import Number from './Number';
 import Menu from '../../Menu/Menu';
 
-const Collection = ({ collection }) => (
-  <Wrapper to={`/collections/${collection.id}`}>
-    <Preview palettes={collection.palettes} />
-    <Informations>
-      <div>
-        <Name name={collection.name} />
-        <Number number={collection.palettes.length} />
-      </div>
-      <Menu collection={collection} />
-    </Informations>
-  </Wrapper>
-);
+const Collection = ({ collection }) => {
+  const defaultCollection = useSelector(getDefaultCollection);
+
+  return (
+    <Wrapper to={`/collections/${collection.id}`}>
+      <Preview palettes={collection.palettes} />
+      <Informations>
+        <div>
+          <Name name={collection.name} />
+          <Number number={collection.palettes.length} />
+        </div>
+        {collection.id !== defaultCollection && <Menu collection={collection} />}
+      </Informations>
+    </Wrapper>
+  );
+};
 
 Collection.propTypes = {
   collection: PropTypes.shape({
