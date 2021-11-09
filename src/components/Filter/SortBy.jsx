@@ -71,7 +71,7 @@ const DropdownList = styled.div`
   border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 5;
   width: 100%;
-  background: ${(props) => props.theme.textPrimary};
+  background: ${(props) => props.theme.background};
   padding: 0.25rem 0;
 `;
 
@@ -82,7 +82,7 @@ const Button = styled.button`
   padding: 0.1rem 0.5rem;
 
   &:hover {
-    background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.primaryBackground}; // (color with 0.15 opacity)
   }
 `;
 

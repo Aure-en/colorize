@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import useSearch from '../../../hooks/collections/useSearch';
+import useSearch from '../../../hooks/shared/useSearch';
 import { ReactComponent as IconSearch } from '../../../assets/icons/search.svg';
 
 const SearchBar = () => {

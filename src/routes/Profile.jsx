@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUser } from '../selectors/user';
 import { getUserProfile } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
 import ProfilePage from '../components/Profile/ProfilePage';
-import PalettesList from '../components/Palettes/Palettes';
+import Palettes from '../components/Palettes/Palettes';
 import Pagination from '../components/Shared/Pagination';
 import NoPalettes from '../components/Profile/NoPalettes';
 import Loading from '../components/Shared/Loading';
@@ -29,7 +28,6 @@ const Profile = ({ match }) => {
   const page = query.get('page') || 1;
 
   const key = `/users/${userId}`;
-  const currentUser = useSelector(getUser);
   const userProfile = useSelector((state) => getUserProfile(state, key));
 
   // Fetch user and palettes
@@ -84,12 +82,17 @@ const Profile = ({ match }) => {
   return (
     <Wrapper>
       {user && <ProfilePage username={user.username} />}
-      <PalettesWrapper>
+      <div>
         {palettes.length > 0
-          ? <PalettesList palettes={palettes} />
+          ? (
+            <Content>
+              <Palettes palettes={palettes} />
+              <Pagination />
+            </Content>
+          )
           : <NoPalettes />}
-      </PalettesWrapper>
-      <Pagination />
+      </div>
+
     </Wrapper>
   );
 };
@@ -113,8 +116,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const PalettesWrapper = styled.div`
-  padding-bottom: 2em;
+const Content = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
 `;
 
 const Error = styled.div`
