@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CreateButton from './CreateButton';
 import CollectionsList from './CollectionsList';
-import SearchBar from './SearchBar';
+import SearchBar from '../../Shared/SearchBar';
 import useWindowSize from '../../../hooks/shared/useWindowSize';
 
 const Nav = () => {

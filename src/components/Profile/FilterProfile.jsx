@@ -16,7 +16,7 @@ display: flex;
   justify-content: center;
   padding-top: 2em;
   margin-left: 4em;
- }
+}
 `;
 
 export default Filter;

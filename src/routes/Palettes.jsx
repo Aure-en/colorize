@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import PalettesList from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
-import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
@@ -70,14 +69,13 @@ const Palettes = () => {
     <Wrapper>
       <LeftNav />
       <Filter />
-      <Carousel />
       <Main>
         <Heading>Explore</Heading>
         {error && <Error>{error}</Error>}
         {palettes?.length > 0
           ? (
             <Content>
-              <Palettes palettes={palettes} />
+              <PalettesList palettes={palettes} />
               <Pagination />
             </Content>
           )

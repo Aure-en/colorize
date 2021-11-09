@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
-import { requestDeleteCollection } from '../../../actions/favorite';
-
-import { toastify } from '../../Shared/Toast';
+import useDeleteCollection from '../../../hooks/collections/useDeleteCollection';
 
 import Modal from '../../Modal/Modal';
 import BackButton from '../../Modal/BackButton';
 
 const DeleteModal = ({ collection, isModalOpen, closeModal }) => {
-  const dispatch = useDispatch();
+  const { handleSubmit } = useDeleteCollection(collection?.id);
 
   return (
     <Modal
@@ -34,8 +31,7 @@ const DeleteModal = ({ collection, isModalOpen, closeModal }) => {
 
         <Form onSubmit={(e) => {
           e.preventDefault();
-          dispatch(requestDeleteCollection(collection.id));
-          toastify('Collection successfully deleted.');
+          handleSubmit();
         }}
         >
           <Buttons>

@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
-import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
 import Loading from '../components/Shared/Loading';
 import NotFound from '../components/Error/NotFound';
@@ -81,7 +80,6 @@ const Theme = ({ match }) => {
       <Wrapper>
         <LeftNav />
         <Filter />
-        <Carousel />
         <Main>
           <Heading>{theme?.name}</Heading>
           {error && <Error>{error}</Error>}
