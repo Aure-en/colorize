@@ -9,7 +9,7 @@ import { getCollection, getDefaultCollection } from '../selectors/favorite';
 import Nav from '../components/Collections/Nav/Nav';
 import Menu from '../components/Collections/Menu/Menu';
 import Palettes from '../components/Palettes/Palettes';
-import NoPalettes from '../components/Palettes/NoPalettes';
+import NoPalettesInCollection from '../components/Error/NoPalettesInCollection';
 import Pagination from '../components/Shared/Pagination';
 
 const Collection = ({ match }) => {
@@ -37,7 +37,7 @@ const Collection = ({ match }) => {
             </Content>
           ) : (
             <Center>
-              <NoPalettes />
+              <NoPalettesInCollection />
             </Center>
           )}
         </Main>
