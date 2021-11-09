@@ -1,36 +1,34 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import useDropdown from '../../hooks/shared/useDropdown';
-import { getFilterBy } from '../../selectors/settings';
-import { updateFilterBy } from '../../actions/settings';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const FilterBy = () => {
+import useDropdown from '../../hooks/shared/useDropdown';
+
+import { getThemes } from '../../selectors/themes';
+
+const Themes = () => {
   const ref = useRef();
-  const dispatch = useDispatch();
+  const themes = useSelector(getThemes);
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const filters = ['all', 'generated', 'user submissions'];
-  const currentFilter = useSelector(getFilterBy);
-  const filterWithoutCurrent = (() => filters.filter((filter) => filter !== currentFilter))();
 
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentFilter}
-        {' '}
+        Themes
         &#9660; {/* Caret down */}
       </DropdownHeader>
 
       {isDropdownOpen && (
         <DropdownList>
-          {filterWithoutCurrent.map((filter) => (
-            <Button
+          {themes.map((theme) => (
+            <ThemeLink
               type="button"
-              onClick={() => { dispatch(updateFilterBy(filter)); }}
-              key={filter}
+              key={theme.id}
+              to={`/themes/${theme.id}`}
             >
-              {filter}
-            </Button>
+              {theme.name}
+            </ThemeLink>
           ))}
         </DropdownList>
       )}
@@ -74,11 +72,12 @@ const DropdownList = styled.div`
   padding: 0.25rem 0;
 `;
 
-const Button = styled.button`
+const ThemeLink = styled(Link)`
+  display: inline-block;
   text-align: start;
   font-weight: 300;
   text-transform: capitalize;
-  padding: 0.1rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   color: ${(props) => props.theme.textPrimary};
 
   &:hover {
@@ -86,4 +85,4 @@ const Button = styled.button`
   }
 `;
 
-export default FilterBy;
+export default Themes;

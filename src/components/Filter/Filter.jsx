@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import SortBy from './SortBy';
 import FilterBy from './FilterBy';
+import Themes from './Themes';
 
 const Filter = () => (
   <FilterContainer>
     <SortBy />
     <FilterBy />
+    <Themes />
   </FilterContainer>
 );
 

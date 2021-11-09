@@ -45,7 +45,6 @@ const Dropdown = styled.div`
   padding: 0.5rem 0;
   font-weight: 300;
   text-align: center;
-  min-width: 6rem;
   justify-self: end;
 `;
 
@@ -70,7 +69,7 @@ const DropdownList = styled.div`
   flex-direction: column;
   border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 5;
-  width: 100%;
+  min-width: 100%;
   background: ${(props) => props.theme.background};
   padding: 0.25rem 0;
 `;
@@ -80,6 +79,7 @@ const Button = styled.button`
   font-weight: 300;
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
     background: ${(props) => props.theme.primaryBackground}; // (color with 0.15 opacity)
