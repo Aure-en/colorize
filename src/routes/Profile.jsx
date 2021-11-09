@@ -42,29 +42,13 @@ const Profile = ({ match }) => {
         return;
       }
 
-      const userResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser.jwt}`,
-          },
-        },
-      );
+      const userResponse = await fetch(`${process.env.REACT_APP_SERVER}/user/${userId}`);
 
       if (userResponse.status === 200) {
         const user = await userResponse.json();
         setUser(user);
 
-        const userPalettesResponse = await fetch(
-          `
-          ${process.env.REACT_APP_SERVER}/user/${user.id}/palettes/created?page=${page}
-        `,
-          {
-            headers: {
-              Authorization: `Bearer ${currentUser.jwt}`,
-            },
-          },
-        );
+        const userPalettesResponse = await fetch(`${process.env.REACT_APP_SERVER}/user/${user.id}/palettes/created?page=${page}`);
 
         const userPalettes = await userPalettesResponse.json();
 
