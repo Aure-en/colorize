@@ -6,12 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestAddPaletteToCollection } from '../../../actions/favorite';
 import { getCurrentCollection } from '../../../selectors/favorite';
 
+import { toastify } from '../../Shared/Toast';
+
 const FavoriteButton = ({ paletteId }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
 
   const handleClick = () => {
     dispatch(requestAddPaletteToCollection(paletteId, currentCollection));
+    toastify('Palette successfully saved.');
   };
 
   return (
