@@ -21,6 +21,7 @@ import Theme from './routes/Theme';
 import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
+import Search from './routes/Search';
 import Palettes from './routes/Palettes';
 
 import Copies from './components/Copy/Copies';
@@ -63,6 +64,7 @@ function App() {
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
             <Route component={NotFound} />

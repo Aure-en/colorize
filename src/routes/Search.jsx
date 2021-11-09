@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import PalettesList from '../components/Palettes/Palettes';
+import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
 import Filter from '../components/Filter/Filter';
@@ -16,7 +15,7 @@ import { savePalettes } from '../actions/palettes';
 
 import { getColorFromHex } from '../utils/colors';
 
-const Palettes = () => {
+const Search = () => {
   const dispatch = useDispatch();
 
   const [palettes, setPalettes] = useState([]);
@@ -26,10 +25,7 @@ const Palettes = () => {
   const sort = useSelector(getSortBy);
   const filter = useSelector(getFilterBy);
 
-  const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
-
-  const key = `/palettes/${filter}/${sort}/${page}`;
+  const key = `/palettes/${filter}/${sort}/1`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
 
   // Get palettes of the current page
@@ -40,28 +36,27 @@ const Palettes = () => {
         setLoading(false);
       }
 
-      if (!palettesPage) setLoading(true);
-
+      // API request to make a research
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=${page}&filter=${filter}&sort=${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.slice((page - 1) * 20, page * 20).map((palette) => ({
+        const palettes = json.map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
-        setPalettes(palettes);
-        dispatch(savePalettes(key, palettes));
+        setPalettes(palettes.slice(0, 20));
+        dispatch(savePalettes(key, palettes.slice(0, 20)));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
     }
     )();
-  }, [page, filter, sort]);
+  }, [filter, sort]);
 
   if (loading) {
     return <Loading />;
@@ -77,7 +72,7 @@ const Palettes = () => {
         {palettes?.length > 0
           ? (
             <Content>
-              <PalettesList palettes={palettes} />
+              <Palettes palettes={palettes} />
               <Pagination />
             </Content>
           )
@@ -122,4 +117,4 @@ const Error = styled.div`
   justify-content: center;
 `;
 
-export default Palettes;
+export default Search;

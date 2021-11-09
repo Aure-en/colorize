@@ -47,18 +47,21 @@ const Theme = ({ match }) => {
       }
 
       if (theme) {
+        if (!themePage) setLoading(true);
         const response = await fetch(
           `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort=${sort}`,
         );
 
         if (response.status === 200) {
           const themePalettes = await response.json();
-          const palettes = themePalettes.palettes.map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-          }));
-          setPalettes(palettes.slice((page - 1) * 20, page * 20));
-          dispatch(saveThemePalettes(key, palettes.slice((page - 1) * 20, page * 20)));
+          const palettes = themePalettes.palettes
+            .slice((page - 1) * 20, page * 20)
+            .map((palette) => ({
+              ...palette,
+              colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+            }));
+          setPalettes(palettes);
+          dispatch(saveThemePalettes(key, palettes));
         } else {
           setError('Sorry, something went wrong.');
         }
@@ -83,17 +86,16 @@ const Theme = ({ match }) => {
         <Main>
           <Heading>{theme?.name}</Heading>
           {error && <Error>{error}</Error>}
-          {palettes?.length > 0
-            ? (
-              <Content>
-                <Palettes palettes={palettes} />
-                <Pagination />
-              </Content>
-            )
-            : <NoPalettes />}
+          {palettes?.length > 0 ? (
+            <Content>
+              <Palettes palettes={palettes} />
+              <Pagination />
+            </Content>
+          ) : (
+            <NoPalettes />
+          )}
         </Main>
       </Wrapper>
-
     </>
   );
 };
