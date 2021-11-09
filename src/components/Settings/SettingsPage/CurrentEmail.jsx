@@ -12,6 +12,7 @@ const CurrentEmail = () => {
 };
 
 const CurrentEmailContainer = styled.div`
+display: flex;
 font-size: 1.8em;
 padding-right: 2em;
 `;

@@ -3,6 +3,7 @@ export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
 export const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
 export const SUCCESS_SIGNUP = 'SUCCESS_SIGNUP';
 export const LOGOUT = 'LOGOUT';
+export const EDIT = 'EDIT';
 
 export const requestLogin = (identifier, password) => ({
   type: REQUEST_LOGIN,
@@ -34,4 +35,11 @@ export const successSignUp = (username, userId, jwt) => ({
 
 export const logout = () => ({
   type: LOGOUT,
+});
+
+export const edit = (username, email, password) => ({
+  type: EDIT,
+  username,
+  email,
+  password,
 });
