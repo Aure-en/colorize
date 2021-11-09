@@ -71,15 +71,18 @@ const Palettes = () => {
       <LeftNav />
       <Filter />
       <Carousel />
-      {error && <Error>{error}</Error>}
-      {palettes?.length > 0
-        ? (
-          <Main>
-            <PalettesList palettes={palettes} />
-            <Pagination />
-          </Main>
-        )
-        : <NoPalettes />}
+      <Main>
+        <Heading>Explore</Heading>
+        {error && <Error>{error}</Error>}
+        {palettes?.length > 0
+          ? (
+            <Content>
+              <Palettes palettes={palettes} />
+              <Pagination />
+            </Content>
+          )
+          : <NoPalettes />}
+      </Main>
     </Wrapper>
   );
 };
@@ -99,8 +102,18 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   display: grid;
+  grid-template-rows: auto 1fr;
+`;
+
+const Content = styled.div`
+  display: grid;
   grid-template-rows: 1fr auto;
-  height: 100%;
+`;
+
+const Heading = styled.h1`
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
 `;
 
 const Error = styled.div`
