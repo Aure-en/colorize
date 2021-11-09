@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../selectors/user';
 import { getMainPalette, getOriginalPalette } from '../../selectors/palette';
 import { setMainPalette, setOriginalPalette } from '../../actions/palette';
-import { deletePaletteFromCollections } from '../../actions/favorite';
+import { deletePaletteFromCollection } from '../../actions/favorite';
 import { closeModal } from '../../actions/modals';
 
 const useDelete = (palette) => {
@@ -38,8 +38,8 @@ const useDelete = (palette) => {
         dispatch(setOriginalPalette({ ...originalPalette, id: null }));
       }
 
-      // Remove palette from collections and fetched palettes.
-      dispatch(deletePaletteFromCollections(deletedPalette.id));
+      // Remove palette from collection and fetched palettes.
+      dispatch(deletePaletteFromCollection(deletedPalette.id));
 
       // Close modal
       dispatch(closeModal('deletePalette'));

@@ -1,6 +1,7 @@
 import {
   ADD_PALETTE_TO_COLLECTION,
   DELETE_PALETTE_FROM_COLLECTION,
+  UPDATE_PALETTE_IN_COLLECTION,
   CREATE_COLLECTION,
   UPDATE_COLLECTION,
   DELETE_COLLECTION,
@@ -52,6 +53,15 @@ const favorite = (state = initialState, action = {}) => {
       };
     }
 
+    case UPDATE_PALETTE_IN_COLLECTION:
+      return {
+        ...state,
+        collections: state.collections.map((collection) => ({
+          ...collection,
+          palettes: collection.palettes.map((palette) => (palette.id === action.palette.id ? action.palette : palette)),
+        })),
+      };
+
     case SET_CURRENT_COLLECTION:
       return {
         ...state,
@@ -63,7 +73,9 @@ const favorite = (state = initialState, action = {}) => {
         ...state,
         collections: [...state.collections].map((collection) => ({
           ...collection,
-          palettes: collection.palettes.filter((palette) => palette.id !== action.paletteId),
+          palettes: collection.palettes.filter(
+            (palette) => palette.id !== action.paletteId,
+          ),
         })),
       };
 
@@ -79,18 +91,17 @@ const favorite = (state = initialState, action = {}) => {
     case UPDATE_COLLECTION:
       return {
         ...state,
-        collections: [
-          ...state.collections,
-        ].map((collection) => (collection.id === action.collectionId
-          ? { ...collection, name: action.name } : collection)),
+        collections: [...state.collections].map((collection) => (collection.id === action.collectionId
+          ? { ...collection, name: action.name }
+          : collection)),
       };
 
     case DELETE_COLLECTION:
       return {
         ...state,
-        collections: [
-          ...state.collections,
-        ].filter((collection) => collection.id !== action.collectionId),
+        collections: [...state.collections].filter(
+          (collection) => collection.id !== action.collectionId,
+        ),
       };
 
     case CLEAR_COLLECTIONS:

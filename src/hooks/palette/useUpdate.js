@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getUser } from '../../selectors/user';
 import { getMainPalette } from '../../selectors/palette';
+import { updatePaletteInCollection } from '../../actions/favorite';
 import { closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
@@ -44,6 +45,7 @@ const useUpdate = () => {
   const onSuccess = () => {
     setLoading('fulfilled');
     dispatch(closeModal('updatePalette'));
+    dispatch(updatePaletteInCollection(palette));
   };
 
   const handleSubmit = async () => {
