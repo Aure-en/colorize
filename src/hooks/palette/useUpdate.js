@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { getUser } from '../../selectors/user';
 import { getMainPalette } from '../../selectors/palette';
@@ -9,7 +8,6 @@ import { closeModal } from '../../actions/modals';
 import { formatColorToDatabase } from '../../utils/colors';
 
 const useUpdate = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const palette = useSelector(getMainPalette);
@@ -45,8 +43,7 @@ const useUpdate = () => {
 
   const onSuccess = () => {
     setLoading('fulfilled');
-    history.push('/creation');
-    dispatch(closeModal('createPalette'));
+    dispatch(closeModal('updatePalette'));
   };
 
   const handleSubmit = async () => {

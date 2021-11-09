@@ -96,6 +96,23 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
 
       // TO-DO: Request to API to update the collection.
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({ name: action.name }),
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+
+      const json = await response.json();
+
+      if (json.id) {
+        dispatch(updateCollection(action.name, action.collectionId));
+        dispatch(closeModal('updateCollection'));
+      }
 
       dispatch(updateCollection(action.name, action.collectionId));
       dispatch(closeModal('updateCollection'));
