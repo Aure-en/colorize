@@ -1,4 +1,6 @@
-import { SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT } from '../actions/user';
+import {
+  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT,
+} from '../actions/user';
 
 export const initialState = {
   username: 'admin',
@@ -33,6 +35,14 @@ const user = (state = initialState, action = {}) => {
         username: action.username,
         id: action.userId,
         jwt: action.jwt,
+      };
+
+    case EDIT:
+      return {
+        ...state,
+        username: action.username,
+        email: action.email,
+        password: action.password,
       };
 
     default:
