@@ -130,7 +130,7 @@ const Button = styled.div`
   display: inline-block;
   padding: 0.75rem 1rem;
   background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.textOnPrimary};
   border-radius: 3px;
   cursor: pointer;
   margin: 1rem 0;
@@ -139,6 +139,7 @@ const Button = styled.div`
 
   &:hover {
     background: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.textOnSecondary}
   }
 
   @media all and (min-width: 1000px) {

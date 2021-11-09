@@ -17,7 +17,7 @@ const CreateButton = () => {
 };
 
 const Button = styled.button`
-  padding: 0.5rem 0 1rem 0;
+  padding: 0.5rem 1rem;
   color: ${(props) => props.theme.textPrimary};
 
   &:hover {

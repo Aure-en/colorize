@@ -80,14 +80,14 @@ const Login = () => {
           <BlueBg>
             <SignIn>
               <BlueBgTitles className="titleSignin">Already Have an Account ?</BlueBgTitles>
-              <SignInBtn to="/Login" onClick={toggleClass}>
+              <SignInBtn to="/login" onClick={toggleClass}>
                 <Svg><Rect /></Svg>
                 Sign In
               </SignInBtn>
             </SignIn>
             <SignUp>
               <BlueBgTitles className="titleSignup">Don't Have an Account ?</BlueBgTitles>
-              <SignUpBtn to="/Login" onClick={toggleClass}>
+              <SignUpBtn to="/login" onClick={toggleClass}>
                 <Svg><Rect /></Svg>
                 Sign Up
               </SignUpBtn>

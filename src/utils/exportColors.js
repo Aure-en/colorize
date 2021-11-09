@@ -1,15 +1,15 @@
 const colorKeys = ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary'];
 
 /* Color Formats */
-const getColorHex = (color) => color.hex;
-const getColorRgb = (color) => `rgb(${color.rgb.join(', ')})`;
-const getColorHsl = (color) => `hsl(${color.hsl
+export const getColorHex = (color) => color.hex;
+export const getColorRgb = (color) => `rgb(${color.rgb.join(', ')})`;
+export const getColorHsl = (color) => `hsl(${color.hsl
   .map((value, index) => (index > 0 ? `${value}%` : value))
   .join(', ')})`;
-const getColorHsv = (color) => `hsv(${color.hsv
+export const getColorHsv = (color) => `hsv(${color.hsv
   .map((value, index) => (index > 0 ? `${value}%` : value))
   .join(', ')})`;
-const getColorCmyk = (color) => `cmyk(${color.cmyk.map((value) => `${value}%`).join(', ')})`;
+export const getColorCmyk = (color) => `cmyk(${color.cmyk.map((value) => `${value}%`).join(', ')})`;
 const getColorFormatArray = (color, format) => `${Array.isArray(color[format]) ? `[${color[format].join(', ')}]` : `"${color[format]}"`},`;
 
 const getColorInFormat = (color, format) => {
