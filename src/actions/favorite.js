@@ -1,7 +1,9 @@
-export const SAVE_PALETTE = 'SAVE_PALETTE';
-export const UNSAVE_PALETTE = 'UNSAVE_PALETTE';
-export const REQUEST_SAVE_PALETTE = 'REQUEST_SAVE_PALETTE';
-export const REQUEST_UNSAVE_PALETTE = 'REQUEST_UNSAVE_PALETTE';
+export const ADD_PALETTE_TO_COLLECTION = 'ADD_PALETTE_TO_COLLECTION';
+export const DELETE_PALETTE_FROM_COLLECTION = 'DELETE_PALETTE_FROM_COLLECTION';
+export const UPDATE_PALETTE_IN_COLLECTION = 'UPDATE_PALETTE_IN_COLLECTION';
+
+export const REQUEST_ADD_PALETTE_TO_COLLECTION = 'REQUEST_ADD_PALETTE_TO_COLLECTION';
+export const REQUEST_DELETE_PALETTE_FROM_COLLECTION = 'REQUEST_DELETE_PALETTE_FROM_COLLECTION';
 
 export const REQUEST_CREATE_COLLECTION = 'REQUEST_CREATE_COLLECTION';
 export const REQUEST_UPDATE_COLLECTION = 'REQUEST_UPDATE_COLLECTION';
@@ -16,31 +18,33 @@ export const SAVE_COLLECTIONS = 'SAVE_COLLECTIONS';
 export const CLEAR_COLLECTIONS = 'CLEAR_COLLECTIONS';
 
 export const SET_MODAL_COLLECTION = 'SET_MODAL_COLLECTION';
+export const SET_CURRENT_COLLECTION = 'SET_CURRENT_COLLECTION';
+export const SET_DEFAULT_COLLECTION = 'SET_DEFAULT_COLLECTION';
 
-export const SET_DEFAULT_CURRENT_COLLECTION = 'SET_DEFAULT_CURRENT_COLLECTION';
-export const UPDATE_CURRENT_COLLECTION = 'UPDATE_CURRENT_COLLECTION';
-
-export const DELETE_PALETTE_FROM_COLLECTIONS = 'DELETE_PALETTE_FROM_COLLECTIONS';
-
-export const savePalette = (palette, collectionId) => ({
-  type: SAVE_PALETTE,
+export const addPaletteToCollection = (palette, collectionId) => ({
+  type: ADD_PALETTE_TO_COLLECTION,
   palette,
   collectionId,
 });
 
-export const unsavePalette = (paletteId) => ({
-  type: UNSAVE_PALETTE,
+export const deletePaletteFromCollection = (paletteId) => ({
+  type: DELETE_PALETTE_FROM_COLLECTION,
   paletteId,
 });
 
-export const requestSavePalette = (paletteId, collectionId) => ({
-  type: REQUEST_SAVE_PALETTE,
+export const updatePaletteInCollection = (palette) => ({
+  type: UPDATE_PALETTE_IN_COLLECTION,
+  palette,
+});
+
+export const requestAddPaletteToCollection = (paletteId, collectionId) => ({
+  type: REQUEST_ADD_PALETTE_TO_COLLECTION,
   paletteId,
   collectionId,
 });
 
-export const requestUnsavePalette = (paletteId) => ({
-  type: REQUEST_UNSAVE_PALETTE,
+export const requestDeletePaletteFromCollection = (paletteId) => ({
+  type: REQUEST_DELETE_PALETTE_FROM_COLLECTION,
   paletteId,
 });
 
@@ -77,15 +81,6 @@ export const requestDeleteCollection = (collectionId) => ({
   collectionId,
 });
 
-export const setDefaultCurrentCollection = () => ({
-  type: SET_DEFAULT_CURRENT_COLLECTION,
-});
-
-export const updateCurrentCollection = (collectionId) => ({
-  type: UPDATE_CURRENT_COLLECTION,
-  collectionId,
-});
-
 export const fetchCollections = () => ({
   type: FETCH_COLLECTIONS,
 });
@@ -104,7 +99,12 @@ export const setModalCollection = (collection) => ({
   collection,
 });
 
-export const deletePaletteFromCollections = (paletteId) => ({
-  type: DELETE_PALETTE_FROM_COLLECTIONS,
-  paletteId,
+export const setDefaultCollection = (collectionId) => ({
+  type: SET_DEFAULT_COLLECTION,
+  collectionId,
+});
+
+export const setCurrentCollection = (collectionId) => ({
+  type: SET_CURRENT_COLLECTION,
+  collectionId,
 });

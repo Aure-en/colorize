@@ -11,7 +11,7 @@ const Preview = ({ palettes }) => {
     <Wrapper>
       <Palettes $number={number}>
         {palettes.slice(0, Math.min(number, 3)).map((palette, index) => (
-          <Palette $isFirst={index === 0} $palette={palette.colors} />
+          <Palette $isFirst={index === 0} $palette={palette.colors} key={palette.id} />
         ))}
       </Palettes>
     </Wrapper>

@@ -7,7 +7,7 @@ import { getThemes } from '../../selectors/themes';
 import { updateSortBy, updateFilterBy } from '../../actions/settings';
 import { getSortBy, getFilterBy } from '../../selectors/settings';
 
-import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
+import SearchBar from '../Shared/SearchBar';
 
 const LeftNav = () => {
   const dispatch = useDispatch();
@@ -22,12 +22,7 @@ const LeftNav = () => {
 
   return (
     <Nav>
-      <Searchbar to="/">
-        <Input type="Search" placeholder="Search" />
-        <Btn>
-          <SearchIcon className="search-icon" />
-        </Btn>
-      </Searchbar>
+      <SearchBar />
       <NavMenu>
         {sorts.map((sort) => (
           <Button
@@ -72,7 +67,7 @@ const Nav = styled.nav`
   background: ${(props) => props.theme.background};
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   justify-content: start;
 `;
 

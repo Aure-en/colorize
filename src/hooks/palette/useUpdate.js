@@ -1,21 +1,24 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { getUser } from '../../selectors/user';
 import { getMainPalette } from '../../selectors/palette';
+import { updatePaletteInCollection } from '../../actions/favorite';
 import { closeModal } from '../../actions/modals';
 
 import { formatColorToDatabase } from '../../utils/colors';
 
+import { toastify } from '../../components/Shared/Toast';
+
 const useUpdate = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const palette = useSelector(getMainPalette);
 
   const [name, setName] = useState(palette.name || '');
-  const [themes, setThemes] = useState(palette.themes || []); // Themes name array.
+  const [themes, setThemes] = useState(
+    palette.themes.map((theme) => theme.name) || [],
+  ); // Themes name array.
   const [isPublic, setIsPublic] = useState(palette.public || true);
   const [loading, setLoading] = useState('idle');
 
@@ -43,8 +46,9 @@ const useUpdate = () => {
 
   const onSuccess = () => {
     setLoading('fulfilled');
-    history.push('/creation');
-    dispatch(closeModal('createPalette'));
+    dispatch(closeModal('updatePalette'));
+    dispatch(updatePaletteInCollection(palette));
+    toastify('Palette successfully updated.');
   };
 
   const handleSubmit = async () => {
@@ -58,10 +62,12 @@ const useUpdate = () => {
     });
 
     const response = await fetch(
-      // TO-DO: Replace with future API endpoint.
-      `${process.env.REACT_APP_SERVER}/palettes/${user.id}`,
+      `${process.env.REACT_APP_SERVER}/palettes/${user.id}/${palette.id}`,
       {
-        method: 'PUT',
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
+        },
         body,
       },
     );
@@ -75,7 +81,7 @@ const useUpdate = () => {
     }
   };
 
-  return ({
+  return {
     name,
     setName,
     themes,
@@ -84,7 +90,7 @@ const useUpdate = () => {
     loading,
     togglePublic,
     handleSubmit,
-  });
+  };
 };
 
 export default useUpdate;

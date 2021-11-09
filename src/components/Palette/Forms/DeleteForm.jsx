@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
-import { requestDeletePalette, setPaletteLoading } from '../../../actions/palette';
+import useDelete from '../../../hooks/palette/useDelete';
 
 const DeleteForm = ({ palette }) => {
-  const dispatch = useDispatch();
+  const { handleDelete } = useDelete(palette);
 
   return (
     <Wrapper>
@@ -25,8 +24,7 @@ const DeleteForm = ({ palette }) => {
 
       <Form onSubmit={(e) => {
         e.preventDefault();
-        dispatch(requestDeletePalette(palette.id));
-        dispatch(setPaletteLoading('delete', 'pending', palette.id));
+        handleDelete();
       }}
       >
         <Buttons>

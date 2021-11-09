@@ -1,19 +1,21 @@
 import {
-  SAVE_PALETTE,
-  UNSAVE_PALETTE,
+  ADD_PALETTE_TO_COLLECTION,
+  DELETE_PALETTE_FROM_COLLECTION,
+  UPDATE_PALETTE_IN_COLLECTION,
   CREATE_COLLECTION,
   UPDATE_COLLECTION,
   DELETE_COLLECTION,
   SAVE_COLLECTIONS,
   CLEAR_COLLECTIONS,
-  UPDATE_CURRENT_COLLECTION,
+  SET_CURRENT_COLLECTION,
   SET_MODAL_COLLECTION,
-  DELETE_PALETTE_FROM_COLLECTIONS,
+  SET_DEFAULT_COLLECTION,
 } from '../actions/favorite';
 
 export const initialState = {
   collections: [], // Array of { name, palettes: [], id}
-  currentCollection: 3,
+  currentCollection: null, // Selected collection
+  defaultCollection: null, // Collection by default, user cannot remove it.
   modalCollection: null,
 };
 
@@ -25,7 +27,7 @@ const favorite = (state = initialState, action = {}) => {
         collections: action.collections,
       };
 
-    case SAVE_PALETTE: {
+    case ADD_PALETTE_TO_COLLECTION: {
       let collections = [...{ ...state }.collections];
 
       // Remove palette from collection if it is already saved.
@@ -51,28 +53,30 @@ const favorite = (state = initialState, action = {}) => {
       };
     }
 
-    case UNSAVE_PALETTE: {
-      const prevState = { ...state };
-      const collectionWithPalette = prevState.collections.find((collection) => collection.palettes.find((palette) => palette.id === action.paletteId));
-      const collectionWithoutPalette = {
-        ...collectionWithPalette,
-        palettes: collectionWithPalette.palettes.filter(
-          (palette) => palette.id !== action.paletteId,
-        ),
-      };
-      const stateWithoutPalette = {
+    case UPDATE_PALETTE_IN_COLLECTION:
+      return {
         ...state,
-        collections: prevState.collections.map((collection) => (collection.id === collectionWithoutPalette.id
-          ? collectionWithoutPalette
-          : collection)),
+        collections: state.collections.map((collection) => ({
+          ...collection,
+          palettes: collection.palettes.map((palette) => (palette.id === action.palette.id ? action.palette : palette)),
+        })),
       };
-      return stateWithoutPalette;
-    }
 
-    case UPDATE_CURRENT_COLLECTION:
+    case SET_CURRENT_COLLECTION:
       return {
         ...state,
         currentCollection: action.collectionId,
+      };
+
+    case DELETE_PALETTE_FROM_COLLECTION:
+      return {
+        ...state,
+        collections: [...state.collections].map((collection) => ({
+          ...collection,
+          palettes: collection.palettes.filter(
+            (palette) => palette.id !== action.paletteId,
+          ),
+        })),
       };
 
     case CREATE_COLLECTION:
@@ -87,18 +91,17 @@ const favorite = (state = initialState, action = {}) => {
     case UPDATE_COLLECTION:
       return {
         ...state,
-        collections: [
-          ...state.collections,
-        ].map((collection) => (collection.id === action.collectionId
-          ? { ...collection, name: action.name } : collection)),
+        collections: [...state.collections].map((collection) => (collection.id === action.collectionId
+          ? { ...collection, name: action.name }
+          : collection)),
       };
 
     case DELETE_COLLECTION:
       return {
         ...state,
-        collections: [
-          ...state.collections,
-        ].filter((collection) => collection.id !== action.collectionId),
+        collections: [...state.collections].filter(
+          (collection) => collection.id !== action.collectionId,
+        ),
       };
 
     case CLEAR_COLLECTIONS:
@@ -110,13 +113,10 @@ const favorite = (state = initialState, action = {}) => {
         modalCollection: action.collection,
       };
 
-    case DELETE_PALETTE_FROM_COLLECTIONS:
+    case SET_DEFAULT_COLLECTION:
       return {
         ...state,
-        collections: [...state.collections].map((collection) => ({
-          ...collection,
-          palettes: collection.palettes.filter((palette) => palette.id !== action.paletteId),
-        })),
+        defaultCollection: action.collectionId,
       };
 
     default:

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
 import Pagination from '../components/Shared/Pagination';
-import Carousel from '../components/Carousel/Carousel';
 import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
@@ -44,12 +43,12 @@ const Home = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.map((palette) => ({
+        const palettes = json.slice(0, 20).map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
-        setPalettes(palettes.slice(0, 20));
-        dispatch(savePalettes(key, palettes.slice(0, 20)));
+        setPalettes(palettes);
+        dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }
@@ -66,16 +65,18 @@ const Home = () => {
     <Wrapper>
       <LeftNav />
       <Filter />
-      <Carousel />
-      {error && <Error>{error}</Error>}
-      {palettes?.length > 0
-        ? (
-          <Main>
-            <Palettes palettes={palettes} />
-            <Pagination />
-          </Main>
-        )
-        : <NoPalettes />}
+      <Main>
+        <Heading>Explore</Heading>
+        {error && <Error>{error}</Error>}
+        {palettes?.length > 0
+          ? (
+            <Content>
+              <Palettes palettes={palettes} />
+              <Pagination />
+            </Content>
+          )
+          : <NoPalettes />}
+      </Main>
     </Wrapper>
   );
 };
@@ -95,8 +96,18 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   display: grid;
+  grid-template-rows: auto 1fr;
+`;
+
+const Content = styled.div`
+  display: grid;
   grid-template-rows: 1fr auto;
-  height: 100%;
+`;
+
+const Heading = styled.h1`
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
 `;
 
 const Error = styled.div`

@@ -9,9 +9,9 @@ import {
   getFavoriteCollection,
 } from '../../../../selectors/favorite';
 import {
-  requestSavePalette,
-  requestUnsavePalette,
-  updateCurrentCollection,
+  requestAddPaletteToCollection,
+  requestDeletePaletteFromCollection,
+  setCurrentCollection,
 } from '../../../../actions/favorite';
 import { openModal } from '../../../../actions/modals';
 
@@ -23,10 +23,10 @@ const Menu = ({ paletteId, close, position }) => {
 
   const handleClick = (collectionId) => {
     if (favoriteCollection === collectionId) {
-      dispatch(requestUnsavePalette(paletteId));
+      dispatch(requestDeletePaletteFromCollection(paletteId));
     } else {
-      dispatch(requestSavePalette(paletteId, collectionId));
-      dispatch(updateCurrentCollection(collectionId));
+      dispatch(requestAddPaletteToCollection(paletteId, collectionId));
+      dispatch(setCurrentCollection(collectionId));
     }
     close();
   };

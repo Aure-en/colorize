@@ -21,6 +21,7 @@ import Theme from './routes/Theme';
 import Palette from './routes/Palette';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
+import Search from './routes/Search';
 import Palettes from './routes/Palettes';
 
 import Copies from './components/Copy/Copies';
@@ -29,6 +30,7 @@ import Navbar from './components/Navbar/Navbar';
 import Login from './components/Login/Login';
 import NotFound from './components/Error/NotFound';
 import ThemeProvider from './components/Settings/Theme';
+import Toast from './components/Shared/Toast';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,12 +64,14 @@ function App() {
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
+            <Route exact path="/search" component={Search} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
             <Route component={NotFound} />
           </Switch>
           <Copies />
           <Modals />
+          <Toast />
         </Wrapper>
       </ThemeProvider>
     </Router>

@@ -21,14 +21,9 @@ const SaveButton = () => {
    *        a newly created palette onClick.
    *
    *    - If the palette has an id :
-   *        * If the palette was created by the current user and
-   *          they modified it
+   *        * If the palette was created by the current user
    *          ➝ Displays the UpdateButton that allows him to update
    *            the palette.
-   *
-   *        * If the palette was created by the current user and
-   *          they did not modify it
-   *          ➝ Display a button to save as favorite.
    *
    *        * If the palette was created by another user and not
    *          modified.
@@ -54,9 +49,6 @@ const SaveButton = () => {
   }
 
   if (mainPalette.id && mainPalette.owner?.id === user.id) {
-    if (!didPaletteChange) {
-      return <FavoriteButton paletteId={mainPalette.id} />;
-    }
     return <UpdateButton />;
   }
 

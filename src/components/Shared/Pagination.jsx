@@ -1,45 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { NavLink, useLocation } from 'react-router-dom';
 
-export default function BasicPagination() {
+export default function Pagination({ numberOfPages }) {
+  // Get links path
   const location = useLocation();
   const { pathname } = location;
   const path = pathname === '/' ? '/palettes' : pathname;
 
   return (
-    <Pagination>
+    <Wrapper>
       <Container>
-        <Link to={`${path}?page=1`} exact className="navlink">1</Link>
-        <Link to={`${path}?page=2`} exact className="navlink">2</Link>
-        <Link to={`${path}?page=3`} exact className="navlink">3</Link>
-        <Link to={`${path}?page=4`} exact className="navlink">4</Link>
-        <Link to={`${path}?page=5`} exact className="navlink">5</Link>
-        <Link to={`${path}?page=6`} exact className="navlink">6</Link>
-        <Link to={`${path}?page=7`} exact className="navlink">7</Link>
-        <Link to={`${path}?page=8`} exact className="navlink">8</Link>
-        <Link to={`${path}?page=9`} exact className="navlink">9</Link>
-        <Link to={`${path}?page=10`} exact className="navlink">10</Link>
-        <Link to={`${path}?page=11`} exact className="navlink">11</Link>
-        <Link to={`${path}?page=12`} exact className="navlink">12</Link>
-        <Link to={`${path}?page=13`} exact className="navlink">13</Link>
+        {[...Array(numberOfPages).keys()].map((page) => page + 1).map((page) => (
+          <Link to={`${path}?page=${page}`} exact className="navlink">{page}</Link>
+        ))}
       </Container>
-    </Pagination>
+    </Wrapper>
   );
 }
 
-const Pagination = styled.div`
+Pagination.propTypes = {
+  numberOfPages: PropTypes.number,
+};
+
+Pagination.defaultProps = {
+  numberOfPages: 3,
+};
+
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
 `;
 const Container = styled.div`
- display: flex;
- justify-content: space-between;
- width: 20%;
- font-size: 1em;
- 
- `;
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  max-width: 5rem;
+  font-size: 1em;
+`;
 
 const Link = styled(NavLink)`
 color: ${(props) => props.theme.textPrimary};
