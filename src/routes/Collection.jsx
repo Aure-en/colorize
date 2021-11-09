@@ -27,13 +27,20 @@ const Collection = ({ match }) => {
         <Main>
           <Header>
             <Heading>{collection.name}</Heading>
-            {collection.id !== defaultCollection && <Menu collection={collection} />}
+            {collection.id !== defaultCollection && (
+              <Menu collection={collection} />
+            )}
           </Header>
 
           {collection.palettes.length > 0 ? (
             <Content>
-              <Palettes palettes={collection.palettes.slice((page - 1) * 20, page * 20)} />
-              <Pagination currentPage={Number(page)} />
+              <Palettes
+                palettes={collection.palettes.slice((page - 1) * 20, page * 20)}
+              />
+              <Pagination
+                numberOfPages={Math.ceil(collection.palettes.length / 20)}
+                currentPage={Number(page)}
+              />
             </Content>
           ) : (
             <Center>
