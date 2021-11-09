@@ -12,6 +12,8 @@ import GlobalStyles from './styles/globalStyles';
 
 import { fetchCollections } from './actions/favorite';
 
+import EntryRoute from './routes/types/EntryRoute';
+
 import Collection from './routes/Collection';
 import Collections from './routes/Collections';
 import Creation from './routes/Creation';
@@ -65,8 +67,8 @@ function App() {
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/login" component={Login} />
             <Route exact path="/settings" component={Settings} />
+            <EntryRoute exact path="/login" component={Login} />
             <Route component={NotFound} />
           </Switch>
           <Copies />
