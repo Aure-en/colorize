@@ -12,7 +12,7 @@ const UpdateButton = () => {
 
   return (
     <Button type="button" onClick={handleClick}>
-      Save
+      Edit
     </Button>
   );
 };

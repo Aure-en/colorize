@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { requestSavePalette } from '../../../actions/favorite';
+import { requestAddPaletteToCollection } from '../../../actions/favorite';
 import { getCurrentCollection } from '../../../selectors/favorite';
 
 const FavoriteButton = ({ paletteId }) => {
@@ -11,12 +11,12 @@ const FavoriteButton = ({ paletteId }) => {
   const currentCollection = useSelector(getCurrentCollection);
 
   const handleClick = () => {
-    dispatch(requestSavePalette(paletteId, currentCollection));
+    dispatch(requestAddPaletteToCollection(paletteId, currentCollection));
   };
 
   return (
     <Button type="button" onClick={handleClick}>
-      Save
+      Save as favorite
     </Button>
   );
 };

@@ -95,7 +95,7 @@ const updateForm = () => {
           {loading === 'pending' && 'Saving palette...'}
           {loading === 'fulfilled' && 'Palette successfully saved.'}
         </Message>
-        <Button type="submit">Create</Button>
+        <Button type="submit">Update</Button>
       </Submit>
     </Form>
   );

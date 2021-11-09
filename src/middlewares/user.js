@@ -22,7 +22,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       const user = await response.json();
 
       const responseToken = await fetch(
-        'http://ec2-3-92-209-62.compute-1.amazonaws.com/projet-o-en-couleurs/public/api/login_check',
+        'https://apicolorize.me/projet-o-en-couleurs/public/api/login_check',
         {
           method: 'POST',
           headers: {
@@ -43,7 +43,7 @@ const userMiddleware = (store) => (next) => async (action) => {
     case REQUEST_LOGIN: {
       const { dispatch } = store;
       const response = await fetch(
-        'http://ec2-3-92-209-62.compute-1.amazonaws.com/projet-o-en-couleurs/public/api/login_check',
+        'https://apicolorize.me/projet-o-en-couleurs/public/api/login_check',
         {
           method: 'POST',
           headers: {

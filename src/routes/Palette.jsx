@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getCreationPage } from '../selectors/settings';
 import { getPalettePage } from '../selectors/palettes';
-import { getPaletteLoading } from '../selectors/palette';
 import {
   setOriginalPalette,
   setMainPalette,
@@ -16,27 +14,23 @@ import { savePalette } from '../actions/palettes';
 
 import Shades from '../components/Creation/Shades/Shades';
 import Preview from '../components/Creation/Preview/Preview';
+import NotFound from '../components/Error/NotFound';
 import Loading from '../components/Shared/Loading';
 
 import { getColorFromHex } from '../utils/colors';
 
 const Palette = ({ match }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const paletteId = Number(match.params.paletteId);
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const page = useSelector(getCreationPage);
 
   const key = `/palettes/${paletteId}`;
   const palettePage = useSelector((state) => getPalettePage(state, key));
-
-  const paletteLoading = useSelector(getPaletteLoading);
-  const wasPaletteDeleted = paletteLoading.action === 'delete'
-    && paletteLoading.status === 'fulfilled'
-    && paletteLoading.id === paletteId;
 
   useEffect(() => {
     (async () => {
@@ -49,7 +43,7 @@ const Palette = ({ match }) => {
 
       // Fetch palette
       const paletteResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/${paletteId}/colors`,
+        `${process.env.REACT_APP_SERVER}/palettes/${paletteId}/themes`,
       );
 
       // Fetch owner
@@ -70,19 +64,22 @@ const Palette = ({ match }) => {
         dispatch(setOriginalPalette(palette));
         dispatch(setShades(palette));
         setLoading(false);
+      } else if (paletteResponse.status === 422 || ownerResponse.status === 422) {
+        setError('Palette not found.');
+        setLoading(false);
+      } else {
+        setError('Something went wrong.');
+        setLoading(false);
       }
     })();
   }, [palettePage, paletteId]);
 
-  // If the user deleted this palette, redirects them to '/'.
-  useEffect(() => {
-    if (wasPaletteDeleted) {
-      history.push('/');
-    }
-  }, [paletteLoading]);
-
   if (loading) {
     return <Loading />;
+  }
+
+  if (error) {
+    return <NotFound />;
   }
 
   return (

@@ -59,7 +59,7 @@ const Theme = ({ match }) => {
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
           setPalettes(palettes.slice((page - 1) * 20, page * 20));
-          dispatch(saveThemePalettes(key, palettes));
+          dispatch(saveThemePalettes(key, palettes.slice((page - 1) * 20, page * 20)));
         } else {
           setError('Sorry, something went wrong.');
         }

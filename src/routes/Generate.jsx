@@ -109,9 +109,7 @@ const Generate = () => {
     generateManyFromUrl(THEME_URL, 3);
   };
 
-  const sendPalettesToDB = () => {
-    console.log(process.env.REACT_APP_SERVER);
-    console.log(palettes);
+  const sendPalettesToDB = (theme) => {
     palettes.forEach((palette) => {
       fetch(
         `${process.env.REACT_APP_SERVER}/palettes/1`,
@@ -119,6 +117,8 @@ const Generate = () => {
           method: 'POST',
           body: JSON.stringify({
             colors: palette,
+            public: true,
+            themes: [{ name: theme }],
           }),
         },
       );
@@ -163,14 +163,33 @@ const Generate = () => {
     );
   };
 
+  const setAllPalettesToVisible = async () => {
+    const indexes = [...Array(260).keys()];
+    await Promise.all((indexes).map((index) => {
+      fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/1/${index}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MzY0NTAwMDcsImV4cCI6MTYzNjQ2MDAwNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiYWRtaW5AY29sb3JpemUuY29tIn0.v95dGuqf1SBDn925XZWgPQER5NGQMiwpY-s8f2Xlh8DHSvo-zKckNDCKj1EdoqMgzkM0P7U1IoUuUdgu0M-lZYTI7O83Gvz8PSpsoIU-jYholographicEawymE0vcEv1AtP5tb2N2rjwbsVydUYBMROJA8RTWbZYl24unh7Z-JTQevz0756Gl70_9BC14ji6XjQ1t9TeBp1U-9QRfoGWXhZRMoATZTYO957UM5cQXu7YDqAbYp0KEyfn7xe1URScxK3WCzqjYsV7KZJG8TKmGyE8HHxB2Xi_AXixifvjs32R2-PyfZaRoj93Nr227Y1ksQKQJom3ViS6tt1YvZuhwprs_Zr7w',
+          },
+          body: JSON.stringify({
+            public: true,
+          }),
+        },
+      );
+    }));
+  };
+
   return (
     <Wrapper>
       <button type="button" onClick={getPaletteFromImage}>Generate One</button>
       <button type="button" onClick={generateManyFromPopular}>Generate Popular</button>
-      <button type="button" onClick={() => generateManyFromTheme('pastel')}>Generate from theme</button>
+      <button type="button" onClick={() => generateManyFromTheme('artsy')}>Generate from theme</button>
       <button type="button" onClick={removeDuplicateFromPalettes}>Remove Duplicate</button>
-      <button type="button" onClick={sendPalettesToDB}>Send Palettes</button>
+      <button type="button" onClick={() => sendPalettesToDB('artsy')}>Send Palettes</button>
       <button type="button" onClick={sendOneToDB}>Send one</button>
+      <button type="button" onClick={setAllPalettesToVisible}>Visibility</button>
       <Wrapper>
         <Image id="image" crossOrigin="anonymous" ref={ref} />
         <Palette>{palette.map((color) => <ColorSquare $color={color.hex} />)}</Palette>
