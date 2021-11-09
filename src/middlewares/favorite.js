@@ -1,17 +1,19 @@
 import {
-  REQUEST_SAVE_PALETTE,
-  REQUEST_UNSAVE_PALETTE,
+  REQUEST_ADD_PALETTE_TO_COLLECTION,
+  REQUEST_DELETE_PALETTE_FROM_COLLECTION,
   REQUEST_CREATE_COLLECTION,
   REQUEST_UPDATE_COLLECTION,
   REQUEST_DELETE_COLLECTION,
-  savePalette,
-  unsavePalette,
+  addPaletteToCollection,
+  deletePaletteFromCollection,
   createCollection,
   updateCollection,
   deleteCollection,
   FETCH_COLLECTIONS,
   saveCollections,
   setModalCollection,
+  setDefaultCollection,
+  setCurrentCollection,
 } from '../actions/favorite';
 
 import { closeModal } from '../actions/modals';
@@ -20,7 +22,7 @@ import { getColorFromHex } from '../utils/colors';
 
 const favoriteMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
-    case REQUEST_SAVE_PALETTE: {
+    case REQUEST_ADD_PALETTE_TO_COLLECTION: {
       const { user } = store.getState();
       const { collections } = store.getState().favorite;
       const { dispatch } = store;
@@ -48,19 +50,19 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       if (favorite.id) {
         // Get the palette data to save it in the selected collection.
         const paletteRes = await fetch(
-          `${process.env.REACT_APP_SERVER}/palettes/${favorite.id}/colors`,
+          `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/colors`,
         );
 
         const palette = await paletteRes.json();
 
         if (palette.id) {
-          dispatch(savePalette(palette));
+          dispatch(addPaletteToCollection(palette, action.collectionId));
         }
       }
       break;
     }
 
-    case REQUEST_UNSAVE_PALETTE: {
+    case REQUEST_DELETE_PALETTE_FROM_COLLECTION: {
       // API request
       // Dispatch unsavePalette action.
       break;
@@ -145,6 +147,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
     case FETCH_COLLECTIONS: {
       const { user } = store.getState();
+      const { dispatch } = store;
 
       // List all of the users collections
       const response = await fetch(`${process.env.REACT_APP_SERVER}/files/`, {
@@ -157,7 +160,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       if (Array.isArray(collections)) {
         // For each collection, fetch its palettes.
-        // TO-DO: Fetch palettes of collections and add them when they contain associated colors.
+        // Fetch palettes of collections and add them when they contain associated colors.
         const collectionsWithPalettes = await Promise.all(
           collections.map(async (collection) => {
             const res = await fetch(
@@ -174,17 +177,25 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         );
 
         // Format to get all color formats per palette
-        const collectionsWithAllColorFormats = collectionsWithPalettes.map((collection) => ({
-          ...collection,
-          palettes: collection.palettes.map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-          })),
-        }));
-
-        store.dispatch(
-          saveCollections(collectionsWithAllColorFormats),
+        const collectionsWithAllColorFormats = collectionsWithPalettes.map(
+          (collection) => ({
+            ...collection,
+            palettes: collection.palettes.map((palette) => ({
+              ...palette,
+              colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+            })),
+          }),
         );
+
+        dispatch(saveCollections(collectionsWithAllColorFormats));
+
+        // Collection with the lowest id is the default one.
+        const defaultCollection = collectionsWithAllColorFormats.sort(
+          (a, b) => a.id - b.id,
+        )[0].id;
+        dispatch(setDefaultCollection(defaultCollection));
+
+        dispatch(setCurrentCollection(defaultCollection));
       }
 
       break;
