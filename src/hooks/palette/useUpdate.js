@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUser } from '../../selectors/user';
-import { getMainPalette } from '../../selectors/palette';
+import {
+  getMainPalette,
+} from '../../selectors/palette';
+import {
+  setMainPalette,
+  setOriginalPalette,
+} from '../../actions/palette';
 import { updatePaletteInCollection } from '../../actions/favorite';
 import { closeModal } from '../../actions/modals';
 
@@ -47,7 +53,17 @@ const useUpdate = () => {
   const onSuccess = () => {
     setLoading('fulfilled');
     dispatch(closeModal('updatePalette'));
+
+    const updatedPalette = {
+      ...palette,
+      name,
+      themes: themes.map((theme) => ({ name: theme })),
+      public: isPublic,
+    };
+
     dispatch(updatePaletteInCollection(palette));
+    dispatch(setMainPalette(updatedPalette));
+    dispatch(setOriginalPalette(updatedPalette));
     toastify('Palette successfully updated.');
   };
 
