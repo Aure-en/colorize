@@ -21,6 +21,7 @@ const Palette = ({
           colors: reorderedPalette.map((color) => {
             // Remove extra property to keep comparison easy between main and original palettes.
             delete color.chosen;
+            delete color.selected;
             return color;
           }),
         }));

@@ -19,6 +19,7 @@ const List = () => {
 const Wrapper = styled.main`
   display: grid;
   grid-template-columns: repeat(auto-fill, 15rem);
+  align-items: start;
   justify-content: center;
   grid-gap: 4rem;
 `;

@@ -13,6 +13,7 @@ import GlobalStyles from './styles/globalStyles';
 import { fetchCollections } from './actions/favorite';
 
 import EntryRoute from './routes/types/EntryRoute';
+import PrivateRoute from './routes/types/PrivateRoute';
 
 import Collection from './routes/Collection';
 import Collections from './routes/Collections';
@@ -58,16 +59,16 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/creation" component={Creation} />
             <Route exact path="/palettes" component={Palettes} />
             <Route exact path="/themes/:themeId" component={Theme} />
-            <Route exact path="/collections" component={Collections} />
-            <Route exact path="/collections/:collectionId" component={Collection} />
-            <Route exact path="/creation" component={Creation} />
             <Route exact path="/generate" component={Generate} />
             <Route exact path="/palettes/:paletteId" component={Palette} />
             <Route exact path="/users/:userId" component={Profile} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/settings" component={Settings} />
+            <PrivateRoute exact path="/collections" component={Collections} />
+            <PrivateRoute exact path="/collections/:collectionId" component={Collection} />
+            <PrivateRoute exact path="/settings" component={Settings} />
             <EntryRoute exact path="/login" component={Login} />
             <Route component={NotFound} />
           </Switch>

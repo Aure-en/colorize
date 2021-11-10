@@ -44,7 +44,7 @@ const UpdateModal = ({ collection, isModalOpen, closeModal }) => {
 
           <Buttons>
             <BackButton onClick={closeModal} />
-            <Submit>Update</Submit>
+            <Button>Update</Button>
           </Buttons>
         </Form>
       </Wrapper>
@@ -134,11 +134,20 @@ const Buttons = styled.div`
   justify-content: space-between;
 `;
 
-const Submit = styled.button`
-  text-transform: uppercase;
-  border: 1px solid ${(props) => props.theme.textPrimary};
+const Button = styled.button`
+  color: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   padding: 0.5rem 1rem;
-  color: ${(props) => props.theme.textPrimary};
+  text-transform: uppercase;
+  font-size: 0.925rem;
+  border: none;
+  transition: background-color 0.2s ease-out;
+  margin-left: 1rem;
+  justify-self: end;
+
+  &:hover {
+    background: ${(props) => props.theme.primaryText};
+  }
 `;
 
 export default UpdateModal;

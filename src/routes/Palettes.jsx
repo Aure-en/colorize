@@ -20,6 +20,7 @@ const Palettes = () => {
   const dispatch = useDispatch();
 
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -27,7 +28,7 @@ const Palettes = () => {
   const filter = useSelector(getFilterBy);
 
   const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
+  const page = Number(query.get('page')) || 1;
 
   const key = `/palettes/${filter}/${sort}/${page}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
@@ -49,13 +50,14 @@ const Palettes = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json
+        const palettes = json.list
           .slice((page - 1) * 20, page * 20)
           .map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
         setPalettes(palettes);
+        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
@@ -78,7 +80,7 @@ const Palettes = () => {
             {palettes?.length > 0 ? (
               <Content>
                 <PalettesList palettes={palettes} />
-                <Pagination />
+                <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
               </Content>
             ) : (
               <NoPalettes />

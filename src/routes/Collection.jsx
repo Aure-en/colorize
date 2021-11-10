@@ -4,17 +4,18 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { getCollection } from '../selectors/favorite';
+import { getCollection, getDefaultCollection } from '../selectors/favorite';
 
 import Nav from '../components/Collections/Nav/Nav';
 import Menu from '../components/Collections/Menu/Menu';
 import Palettes from '../components/Palettes/Palettes';
-import NoPalettes from '../components/Palettes/NoPalettes';
+import NoPalettesInCollection from '../components/Error/NoPalettesInCollection';
 import Pagination from '../components/Shared/Pagination';
 
 const Collection = ({ match }) => {
   const { collectionId } = match.params;
   const collection = useSelector((state) => getCollection(state, collectionId));
+  const defaultCollection = useSelector(getDefaultCollection);
 
   const query = new URLSearchParams(useLocation().search);
   const page = query.get('page') || 1;
@@ -26,17 +27,24 @@ const Collection = ({ match }) => {
         <Main>
           <Header>
             <Heading>{collection.name}</Heading>
-            <Menu collection={collection} />
+            {collection.id !== defaultCollection && (
+              <Menu collection={collection} />
+            )}
           </Header>
 
           {collection.palettes.length > 0 ? (
             <Content>
-              <Palettes palettes={collection.palettes.slice((page - 1) * 20, page * 20)} />
-              <Pagination />
+              <Palettes
+                palettes={collection.palettes.slice((page - 1) * 20, page * 20)}
+              />
+              <Pagination
+                numberOfPages={Math.ceil(collection.palettes.length / 20)}
+                currentPage={Number(page)}
+              />
             </Content>
           ) : (
             <Center>
-              <NoPalettes />
+              <NoPalettesInCollection />
             </Center>
           )}
         </Main>

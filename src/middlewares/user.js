@@ -54,15 +54,29 @@ const userMiddleware = (store) => (next) => async (action) => {
         }),
       });
 
-      const loginSuccess = await response.json();
-      dispatch(
-        successLogin(
-          loginSuccess.data.username,
-          loginSuccess.data.id,
-          loginSuccess.token,
-          loginSuccess.data.email,
-        ),
-      );
+      if (response.status === 200) {
+        const loginSuccess = await response.json();
+
+        dispatch(
+          successLogin(
+            loginSuccess.data.username,
+            loginSuccess.data.id,
+            loginSuccess.token,
+            loginSuccess.data.email,
+          ),
+        );
+
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            username: loginSuccess.data.username,
+            email: loginSuccess.data.email,
+            id: loginSuccess.data.id,
+            token: loginSuccess.token,
+          }),
+        );
+      }
+
       break;
     }
 

@@ -23,12 +23,12 @@ Preview.propTypes = {
     PropTypes.shape({
       colors: PropTypes.arrayOf(
         PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          hex: PropTypes.string.isRequired,
-          rgb: PropTypes.arrayOf(PropTypes.number).isRequired,
-          hsl: PropTypes.arrayOf(PropTypes.number).isRequired,
-          hsv: PropTypes.arrayOf(PropTypes.number).isRequired,
-          cmyk: PropTypes.arrayOf(PropTypes.number).isRequired,
+          name: PropTypes.string,
+          hex: PropTypes.string,
+          rgb: PropTypes.arrayOf(PropTypes.number),
+          hsl: PropTypes.arrayOf(PropTypes.number),
+          hsv: PropTypes.arrayOf(PropTypes.number),
+          cmyk: PropTypes.arrayOf(PropTypes.number),
         }),
       ),
       id: PropTypes.number.isRequired,

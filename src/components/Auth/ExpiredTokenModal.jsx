@@ -5,33 +5,33 @@ import { Link } from 'react-router-dom';
 
 import Modal from '../Modal/Modal';
 
-const AuthModal = ({ isModalOpen, closeModal }) => (
+const ExpiredTokenModal = ({ isModalOpen, closeModal }) => (
   <Modal isModalOpen={isModalOpen} closeModal={closeModal}>
     <Content>
-      <Heading>Welcome</Heading>
+      <Heading>Expired Session</Heading>
       <Text>
-        <p>You must be authenticated to create, save or like palettes.</p>
         <p>
-          <EntryLink to="/login" onClick={closeModal}>Create an account</EntryLink>
+          Your session has expired. Please
           {' '}
-          or
+          <EntryLink to="/login" onClick={closeModal}>
+            sign in
+          </EntryLink>
           {' '}
-          <EntryLink to="/login" onClick={closeModal}>sign in</EntryLink>
-          {' '}
-          to collect palettes and find inspiration.
+          again to collect palettes and find inspiration.
         </p>
       </Text>
     </Content>
   </Modal>
 );
 
-AuthModal.propTypes = {
+ExpiredTokenModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 
 const Content = styled.div`
   text-align: center;
+  line-height: 1.5rem;
 `;
 
 const Heading = styled.h2`
@@ -39,7 +39,6 @@ const Heading = styled.h2`
 `;
 
 const Text = styled.div`
-
   & > p {
     margin: 1rem 0;
   }
@@ -67,4 +66,4 @@ const EntryLink = styled(Link)`
   }
 `;
 
-export default AuthModal;
+export default ExpiredTokenModal;

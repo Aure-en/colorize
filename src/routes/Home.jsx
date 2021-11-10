@@ -19,6 +19,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -43,11 +44,12 @@ const Home = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.slice(0, 20).map((palette) => ({
+        const palettes = json.list.slice(0, 20).map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
+        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
@@ -72,7 +74,7 @@ const Home = () => {
           ? (
             <Content>
               <Palettes palettes={palettes} />
-              <Pagination />
+              <Pagination numberOfPages={numberOfPages} currentPage={1} />
             </Content>
           )
           : <NoPalettes />}

@@ -19,8 +19,6 @@ const Theme = ({ children }) => {
     textPrimary: DARK_DEFAULT,
     textSecondary: '#9a9a9a',
     background: LIGHT_DEFAULT,
-    backgroundColorNav: '#0D2538',
-    backgroundColorSettings: '#C3CFD9',
   };
 
   const [theme, setTheme] = useState(initial);
@@ -97,18 +95,6 @@ Theme.propTypes = {
 
 Theme.defaultProps = {
   children: <div />,
-};
-
-export const LIGHT_MODE = {
-  textPrimary: '#262626',
-  textSecondary: '#9a9a9a',
-  background: '#FFFFFF',
-};
-
-export const DARK_MODE = {
-  textPrimary: '#fff',
-  textSecondary: '#9a9a9a',
-  background: '#292929',
 };
 
 export default Theme;

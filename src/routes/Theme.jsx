@@ -29,11 +29,12 @@ const Theme = ({ match }) => {
   const theme = themes.find((theme) => theme.id === themeId);
 
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
+  const page = Number(query.get('page')) || 1;
 
   const key = `/themes/${themeId}/${filter}/${sort}/${page}`;
   const themePage = useSelector((state) => getThemePage(state, key));
@@ -53,8 +54,8 @@ const Theme = ({ match }) => {
         );
 
         if (response.status === 200) {
-          const themePalettes = await response.json();
-          const palettes = themePalettes.palettes
+          const json = await response.json();
+          const palettes = json.list.palettes
             .slice((page - 1) * 20, page * 20)
             .map((palette) => ({
               ...palette,
@@ -62,13 +63,14 @@ const Theme = ({ match }) => {
             }));
           setPalettes(palettes);
           dispatch(saveThemePalettes(key, palettes));
+          setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         } else {
           setError('Sorry, something went wrong.');
         }
         setLoading(false);
       }
     })();
-  }, [theme, filter, sort]);
+  }, [theme, page, filter, sort]);
 
   if (!theme) {
     return <NotFound />;
@@ -88,7 +90,7 @@ const Theme = ({ match }) => {
             {palettes?.length > 0 ? (
               <Content>
                 <Palettes palettes={palettes} />
-                <Pagination />
+                <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
               </Content>
             ) : (
               <NoPalettes />

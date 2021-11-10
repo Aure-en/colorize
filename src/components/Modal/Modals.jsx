@@ -8,7 +8,9 @@ import { getModalCollection } from '../../selectors/favorite';
 import { getModalPalette } from '../../selectors/palette';
 
 import ExportModal from '../Export/Modal';
+
 import AuthModal from '../Auth/AuthModal';
+import ExpiredTokenModal from '../Auth/ExpiredTokenModal';
 
 import CreatePaletteModal from '../Palette/Modals/CreateModal';
 import UpdatePaletteModal from '../Palette/Modals/UpdateModal';
@@ -23,6 +25,7 @@ const Modals = () => {
 
   const isExportModalOpen = useSelector((state) => getIsModalOpen(state, 'export'));
   const isAuthModalOpen = useSelector((state) => getIsModalOpen(state, 'auth'));
+  const isExpiredTokenModalOpen = useSelector((state) => getIsModalOpen(state, 'expiredToken'));
 
   const isCreatePaletteModalOpen = useSelector((state) => getIsModalOpen(state, 'createPalette'));
   const isUpdatePaletteModalOpen = useSelector((state) => getIsModalOpen(state, 'updatePalette'));
@@ -47,6 +50,11 @@ const Modals = () => {
       <AuthModal
         isModalOpen={isAuthModalOpen}
         closeModal={() => dispatch(closeModal('auth'))}
+      />
+
+      <ExpiredTokenModal
+        isModalOpen={isExpiredTokenModalOpen}
+        closeModal={() => dispatch(closeModal('expiredToken'))}
       />
 
       {/* CUD Palette */}
