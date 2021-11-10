@@ -28,7 +28,7 @@ const Palettes = () => {
   const filter = useSelector(getFilterBy);
 
   const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
+  const page = Number(query.get('page')) || 1;
 
   const key = `/palettes/${filter}/${sort}/${page}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));

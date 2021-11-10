@@ -21,13 +21,14 @@ const Profile = ({ match }) => {
 
   const [user, setUser] = useState();
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
+  const page = Number(query.get('page')) || 1;
 
-  const key = `/users/${userId}`;
+  const key = `/users/${userId}/${page}`;
   const userProfile = useSelector((state) => getUserProfile(state, key));
 
   // Fetch user and palettes
@@ -40,26 +41,32 @@ const Profile = ({ match }) => {
         return;
       }
 
-      const userResponse = await fetch(`${process.env.REACT_APP_SERVER}/user/${userId}`);
+      if (!userProfile) setLoading(true);
+
+      const userResponse = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+      );
 
       if (userResponse.status === 200) {
-        const user = await userResponse.json();
+        const json = await userResponse.json();
+
+        const user = {
+          username: json.list.username,
+          id: json.list.id,
+        };
+
         setUser(user);
 
-        const userPalettesResponse = await fetch(`${process.env.REACT_APP_SERVER}/user/${user.id}/palettes/created?page=${page}`);
-
-        const userPalettes = await userPalettesResponse.json();
-
-        if (userPalettesResponse.status === 200) {
-          const palettes = userPalettes.palettesCreated.map((palette) => ({
+        const palettes = json.list.palettesCreated
+          .slice((page - 1) * 20, page * 20)
+          .map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
-          setPalettes(palettes.slice((page - 1) * 20, page * 20));
-          dispatch(saveUser(key, user, palettes.slice((page - 1) * 20, page * 20)));
-        } else {
-          setError('Sorry, something went wrong.');
-        }
+
+        setPalettes(palettes);
+        dispatch(saveUser(key, user, palettes));
+        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         setLoading(false);
       } else if (userResponse.status === 422) {
         setError('This user does not exist.');
@@ -71,28 +78,25 @@ const Profile = ({ match }) => {
     })();
   }, [userId, page]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <Error>{error}</Error>;
-  }
-
   return (
     <Wrapper>
       {user && <ProfilePage username={user.username} />}
       <div>
-        {palettes.length > 0
-          ? (
-            <Content>
-              <Palettes palettes={palettes} />
-              <Pagination />
-            </Content>
-          )
-          : <NoPalettes />}
-      </div>
+        {loading ? (<Loading />) : (
+          <>
+            {error && <Error>{error}</Error>}
+            {palettes.length > 0 ? (
+              <Content>
+                <Palettes palettes={palettes} />
+                <Pagination numberOfPages={numberOfPages} currentPage={page} />
+              </Content>
+            ) : (
+              <NoPalettes />
+            )}
+          </>
+        )}
 
+      </div>
     </Wrapper>
   );
 };
