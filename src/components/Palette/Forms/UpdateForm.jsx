@@ -6,7 +6,7 @@ import { getThemes } from '../../../selectors/themes';
 
 import useUpdate from '../../../hooks/palette/useUpdate';
 
-import { ReactComponent as IconCheck } from '../../../assets/Icons/check.svg';
+import { ReactComponent as IconCheck } from '../../../assets/icons/check.svg';
 
 const updateForm = () => {
   const {

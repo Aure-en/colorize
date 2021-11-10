@@ -5,7 +5,7 @@ import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/
 import {
   createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
-import { ReactComponent as IconExtract } from '../../../assets/Icons/palette/extract.svg';
+import { ReactComponent as IconExtract } from '../../../assets/icons/palette/extract.svg';
 
 const ExtractInput = () => {
   const dispatch = useDispatch();

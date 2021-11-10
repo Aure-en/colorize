@@ -6,7 +6,7 @@ import { getThemes } from '../../../selectors/themes';
 
 import useCreate from '../../../hooks/palette/useCreate';
 
-import { ReactComponent as IconCheck } from '../../../assets/Icons/check.svg';
+import { ReactComponent as IconCheck } from '../../../assets/icons/check.svg';
 
 const CreateForm = () => {
   const {

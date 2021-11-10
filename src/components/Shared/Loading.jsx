@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as IconLoad } from '../../assets/Icons/loading.svg';
+import { ReactComponent as IconLoad } from '../../assets/icons/loading.svg';
 
 const Loading = () => (
   <Wrapper>

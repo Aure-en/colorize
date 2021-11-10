@@ -8,7 +8,7 @@ import {
   fetchRandomImage, createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
 
-import { ReactComponent as IconGenerate } from '../../../assets/Icons/palette/generate.svg';
+import { ReactComponent as IconGenerate } from '../../../assets/icons/palette/generate.svg';
 
 const Generate = () => {
   const dispatch = useDispatch();

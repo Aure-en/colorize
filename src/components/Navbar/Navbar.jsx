@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Burger from './Burger';
 import LeftNav from './LeftNav';
-import Logo from '../../assets/Icons/Logo';
+import Logo from '../../assets/icons/Logo';
 import Switch from './Switch';
 import DropboxNav from './DropboxNav';
 import useWindowSize from '../../hooks/shared/useWindowSize';
