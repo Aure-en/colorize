@@ -80,27 +80,36 @@ const Login = () => {
           <BlueBg>
             <SignIn>
               <BlueBgTitles className="titleSignin">Already Have an Account ?</BlueBgTitles>
-              <SignInBtn to="/login" onClick={toggleClass}>
-                <Svg><Rect /></Svg>
-                Sign In
-              </SignInBtn>
+              <LoginBtn to="/Login" onClick={toggleClass}>
+                <Href to="/Login">
+                  <Span>Sign In</Span>
+                  <Span>Sign In</Span>
+                </Href>
+              </LoginBtn>
             </SignIn>
             <SignUp>
               <BlueBgTitles className="titleSignup">Don't Have an Account ?</BlueBgTitles>
-              <SignUpBtn to="/login" onClick={toggleClass}>
-                <Svg><Rect /></Svg>
-                Sign Up
-              </SignUpBtn>
+              <LoginBtn to="/Login" onClick={toggleClass}>
+                <Href to="/Login">
+                  <Span>Sign Up</Span>
+                  <Span>Sign Up</Span>
+                </Href>
+              </LoginBtn>
             </SignUp>
           </BlueBg>
           <FormBx className={isActive ? 'active' : null}>
             <SignInForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignIn}>
-                <FormBxTitlesIn>Sign In</FormBxTitlesIn>
+                <FormBxTitles>Sign In</FormBxTitles>
                 <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
                 <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <LogPass>
-                  <Input to="/home" className="submit" type="submit" value="Login" />
+                  <ButtonPush>
+                    <HrefPush to="/">
+                      <SpanPush>Login</SpanPush>
+                      <SpanPush>Login</SpanPush>
+                    </HrefPush>
+                  </ButtonPush>
                   <Forgot to="/forgetPass">Forgot Password</Forgot>
                 </LogPass>
               </Form>
@@ -108,12 +117,17 @@ const Login = () => {
 
             <SignUpForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignUp}>
-                <FormBxTitlesUp>Sign Up</FormBxTitlesUp>
+                <FormBxTitles>Sign Up</FormBxTitles>
                 <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
-                <Input className="submit" type="submit" value="Register" />
+                <ButtonPush>
+                  <HrefPush to="/home">
+                    <SpanPush>Register</SpanPush>
+                    <SpanPush>Register</SpanPush>
+                  </HrefPush>
+                </ButtonPush>
               </Form>
             </SignUpForm>
           </FormBx>
@@ -123,8 +137,6 @@ const Login = () => {
 
   );
 };
-
-/* ******************************************** Container - fenetre principale **************************************** */
 
 const Wrapper = styled.div`
   margin: 0;
@@ -138,7 +150,7 @@ const Body = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100%;                             /* taille de la fenetre minimum */
+  min-height: 100%;
   background: ${(props) => props.theme.primaryText};
   transition: 0.5s;
 
@@ -154,8 +166,8 @@ const Brand = styled.div`
   align-items: center;
   margin-bottom: 4.5rem;
 
-  @media (max-width: 1024px) {
-    display: none;
+  @media (max-width: 768px) {
+    margin-bottom: 2rem;
   }
 `;
 
@@ -164,43 +176,43 @@ const BrandTitle = styled.p`
   color: ${(props) => props.theme.background};
 
 
-  @media (max-width: 1024px) {
-    font-size: 2.5rem;
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
 const Container = styled.div`
   position: relative;
   width: 1200px;
-  height: 700px;                                  /* hauteur de la fenetre transparente bureau */
-  margin: 40px;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @media all and (max-width: 1024px) {
-    max-width: 450px;                             /* largeur de la fenetre transparente mobile */
-    height: 800px;                                /* hauteur de la fenetre transparente mobile */
+  @media all and (max-width: 768px) {
+    max-width: 450px;                            
+    height: 800px;                              
     display: flex;
     justify-content: center;
     align-items: center;
   }
 `;
 
-/* ******************************************** BlueBg - fenetre transparente **************************************** */
-
 const BlueBg = styled.div`
   position: absolute;
   top: 40px;
-  width: 90%;                                      /* largeur de la fenetre transparente bureau */
-  height: 620px;                                   /* hauteur de la fenetre transparente bureau */
+  width: 88%;                                     
+  height: 620px;                                  
   display: flex;
   justify-content: center;
   align-items: center;    
   background: rgba(255,255,255,0.2);
   box-shadow: 0 5px 45px rgba(0,0,0,0.15);
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     top: 0;
-    height: 720px;                                  /* hauteur de la fenetre transparente mobile */
-    width: 120%;                                     /* Largeur de la fenetre transparente mobile */
+    height: 740px;                                
+    width: 95%;                                   
   }
 `;
 
@@ -213,7 +225,7 @@ const box = `
   align-items: center;
   flex-direction: column;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -222,7 +234,7 @@ const box = `
 
 const SignIn = styled.div`
   ${box};
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
   top: 0;
   height: 140px;
 }
@@ -231,7 +243,7 @@ const SignIn = styled.div`
 
 const SignUp = styled.div`
   ${box};
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     padding: 30px;
     height: 190px;
   }
@@ -241,89 +253,84 @@ const BlueBgTitles = styled.h2`
   color: ${(props) => props.theme.background};
   font-size: 1.8em;
   font-weight: 400;
-  margin-bottom: 135px;
+  margin-bottom: 75px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     font-size: 1.3em;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
   }
 
   &.titleSignup {
-    padding-left: 45px;
+    padding-top: 30px;
   }
 
   &.titleSignin {
-    padding-right: 25px;
+    padding-top: 30px;
   }
 `;
 
-const link = `
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140px;                                           /* Largeur du bouton SignUp / Signin : version bureau */
-  height: 48px;                                           /* Hauteur du bouton SignUp / Signin : version bureau */
+const LoginBtn = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  `;
+
+const Href = styled(Link)`
+  position: relative;
+  width: 150px;
+  height: 55px;
   text-align: center;
-  line-height: 65px;
-  font-family: sans-serif;
-  font-size: 27px;                                        /* augmente la taille du texte signup */
-  letter-spacing: 2px;
+  line-height: 55px;
+  margin: 10px;
+  text-transform: uppercase;
+  background: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.textPrimary};
+  font-size: 18px;
+  font-weight: 500;
   text-decoration: none;
-`;
-
-const SignInBtn = styled(Link)`
-  ${link};
-  margin-top: 40px;
-  color: ${(props) => props.theme.background}
-`;
-
-const SignUpBtn = styled(Link)`
-  ${link};
-  margin-top: 40px;
-  color: ${(props) => props.theme.background}
-`;
-
-const commonSvgRect = `
-  position: absolute;
-  top: 0.5rem;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  fill: transparent;
-`;
-
-const Svg = styled.svg`
-  ${commonSvgRect};
-`;
-
-const Rect = styled.rect`
-  ${commonSvgRect};
-
-  stroke: ${(props) => props.theme.background};
-  stroke-width: 4;
-  transition: 1s;
-  stroke-dasharray: 500,300;
-  stroke-dashoffset: 0;
+  letter-spacing: 2px;
+  overflow: hidden;
 
   &:hover {
-    stroke-dasharray: 100,330;                      /* Hover (trait) du bouton SignUp / Signin */
-    stroke-dashoffset: 220;
-    stroke: ${(props) => props.theme.background};
+    transition: 0.4s ease-in;
+    color: ${(props) => props.theme.background}
+  }
+  &:before
+  {
+    content: " ";
+    position: absolute;
+    bottom: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+    background: ${(props) => props.theme.textPrimary};
+    border-radius: 50%;
+    transition: 0.4s ease-in;
+  }
+
+  &:hover:before {
+    bottom: -150px;
   }
 `;
 
-/* ******************************************** FormBx - fenetre Blanche **************************************** */
+const Span = styled.span`
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: 0s ease-in;
+`;
 
 const FormBx = styled.div`
   position: absolute;
-  top: 0;
   left: 0;
   width: 50%;
-  height: 100%;
+  height: 95%;
   background: ${(props) => props.theme.background};
 
-  z-index: 15;
+  z-index: 14;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,26 +339,19 @@ const FormBx = styled.div`
   overflow: hidden;
 
   &.active {
-    left: 43%;                                             /* décaler la fenetre blanche bureau */
+    left: 50%;                                           
   }
 
-  @media all and (max-width: 1024px) {
-    width: 130%;
-    height: 575px;                                        /* hauteur de la fenetre blanche mobile */
+  @media all and (max-width: 768px) {
+    width: 100%;
+    height: 575px;                                        
     top: 0;
-    left: -15%;
     box-shadow: none;
 
     &.active {
-      left: -15%;
+      left: 0;
       top: 170px;
     }
-  }
-
-  @media all and (max-width: 630px) {
-    width: 130%;
-    height: 550px;                                        /* hauteur de la fenetre blanche mobile */
-
   }
 `;
 
@@ -391,31 +391,30 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const FormBxTitlesIn = styled.h3`
+const FormBxTitles = styled.h3`
   font-size: 1.8em;
-  color: ${(props) => props.theme.secondaryText};
+  color: ${(props) => props.theme.textPrimary};
   margin-bottom: 80px;
   font-weight: 500;
   display: flex;
   justify-content: center;
   text-align: center;
-`;
 
-const FormBxTitlesUp = styled.h3`
-  font-size: 1.8em;
-  color: ${(props) => props.theme.secondaryText};
-  margin-bottom: 40px;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  @media all and (max-width: 768px) {
+    top: 10px;
+  }
 `;
 
 const inputSubmit = `
   background: ${(props) => props.theme.primaryText} !important;
   border: none;
+  // color: ${(props) => props.theme.background};
   max-width: 100px;
   cursor: pointer;
+
+  &.active {
+    // background: ${(props) => props.theme.primaryText};
+  }
 `;
 
 const Input = styled.input`
@@ -433,15 +432,72 @@ const Input = styled.input`
 `;
 
 const LogPass = styled.div`
+  display: flex;
+`;
+
+const ButtonPush = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  `;
+
+const HrefPush = styled(Link)`
+  position: relative;
+  width: 120px;
+  height: 55px;
+  text-align: center;
+  line-height: 55px;;
+  text-transform: uppercase;
+  background: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.background};
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 2px;
+  overflow: hidden;
+
+  &:hover {
+    transition: 0.4s ease-in;
+    color: ${(props) => props.theme.textPrimary}
+  }
+
+  &:before
+  {
+    content: " ";
+    position: absolute;
+    bottom: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+    background: ${(props) => props.theme.primaryText};
+    border-radius: 50%;
+    transition: 0.4s ease-in;
+  }
+
+  &:hover:before {
+    bottom: -150px;
+  }
+`;
+
+const SpanPush = styled.span`
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: 0s ease-in;
 `;
 
 const Forgot = styled(Link)`
-color: ${(props) => props.theme.secondaryText};
-margin-left: 49%;
+  color: ${(props) => props.theme.textPrimary};
+  margin-left: 45%;
   font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @media (max-width: 1024px) {
-    margin-left: 85px;
+  @media (max-width: 768px) {
+    margin-left: 79px;
   }
 `;
 
