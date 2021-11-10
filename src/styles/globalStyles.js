@@ -84,6 +84,12 @@ input {
   font-family: 'Assistant', sans-serif;
   font-size: 1rem;
 }
+
+@media all and (min-width: 500px) {
+  .ReactModal__Content {
+    min-width: 30rem;  
+  }
+}
 `;
 
 export default GlobalStyles;
