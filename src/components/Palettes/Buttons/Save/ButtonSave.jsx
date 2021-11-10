@@ -8,7 +8,7 @@ import { openModal } from '../../../../actions/modals';
 import { getCurrentCollection, getAllFavorites } from '../../../../selectors/favorite';
 import { getIsLoggedIn } from '../../../../selectors/user';
 
-import IconBookmark from '../../../../assets/Icons/card/IconBookmark';
+import IconBookmark from '../../../../assets/icons/card/IconBookmark';
 
 const ButtonSave = ({ paletteId }) => {
   const dispatch = useDispatch();

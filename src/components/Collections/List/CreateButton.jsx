@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { openModal } from '../../../actions/modals';
 
-import { ReactComponent as IconCreate } from '../../../assets/Icons/collections/create.svg';
+import { ReactComponent as IconCreate } from '../../../assets/icons/collections/create.svg';
 
 const CreateButton = () => {
   const dispatch = useDispatch();

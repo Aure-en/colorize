@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { incrementShades } from '../../../../actions/palette';
-import { ReactComponent as IconPlus } from '../../../../assets/Icons/shades/plus.svg';
+import { ReactComponent as IconPlus } from '../../../../assets/icons/shades/plus.svg';
 
 const IncrementShadesNumber = () => {
   const dispatch = useDispatch();

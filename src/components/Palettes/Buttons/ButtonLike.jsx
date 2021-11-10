@@ -11,7 +11,7 @@ import { openModal } from '../../../actions/modals';
 import { getLikes } from '../../../selectors/like';
 import { getIsLoggedIn } from '../../../selectors/user';
 
-import IconHeart from '../../../assets/Icons/card/IconHeart';
+import IconHeart from '../../../assets/icons/card/IconHeart';
 
 const ButtonLike = ({ palette }) => {
   const dispatch = useDispatch();

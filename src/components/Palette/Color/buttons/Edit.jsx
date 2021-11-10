@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateColor, unlockColor, setShade } from '../../../../actions/palette';
 import { getLocked } from '../../../../selectors/palette';
-import { ReactComponent as IconEdit } from '../../../../assets/Icons/color/edit.svg';
+import { ReactComponent as IconEdit } from '../../../../assets/icons/color/edit.svg';
 
 const Edit = ({ color }) => {
   const dispatch = useDispatch();
