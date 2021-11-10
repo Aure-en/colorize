@@ -98,7 +98,6 @@ const userMiddleware = (store) => (next) => async (action) => {
         {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.jwt}`,
           },
           body,

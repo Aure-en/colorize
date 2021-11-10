@@ -47,6 +47,15 @@ const user = (state = initialState, action = {}) => {
         password: action.password,
       };
 
+    case SUCCESS_EDIT:
+      return {
+        ...state,
+        username: action.username,
+        email: action.email,
+        password: action.password,
+        jwt: action.jwt,
+      };
+
     default:
       return state;
   }

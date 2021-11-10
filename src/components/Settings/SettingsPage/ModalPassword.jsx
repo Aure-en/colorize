@@ -79,9 +79,9 @@ const ModalPassword = () => {
         <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer onSubmit={edit}>
-          <ModalInput type="password" placeholder="Current Password" minLength="8" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          <ModalInput type="password" placeholder="Confirm Password" minLength="8" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
-          <ModalInput type="password" placeholder="New Password" minLength="8" required />
+          <ModalInput type="password" placeholder="Current Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
+          <ModalInput type="password" placeholder="New Password" />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>

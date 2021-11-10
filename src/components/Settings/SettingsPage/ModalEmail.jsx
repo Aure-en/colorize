@@ -79,7 +79,7 @@ const ModalEmail = () => {
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer onSubmit={edit}>
           <ModalInput type="email@" placeholder="New Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          <ModalInput type="password" placeholder="Confirm Password" minLength="8" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
+          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>

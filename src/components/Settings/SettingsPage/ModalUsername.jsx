@@ -77,7 +77,7 @@ const ModalItem = () => {
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
         <FormContainer onSubmit={submit}>
           <ModalInput placeholder="New Username" required value={username} onChange={(e) => setUsername(e.target.value)} />
-          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
+          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>
