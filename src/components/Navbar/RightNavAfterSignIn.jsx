@@ -36,7 +36,7 @@ const RightNavAfterSignIn = ({ open }) => {
           onClick={() => {
             dispatch(logout());
             dispatch(clearCollections());
-            localStorage.removeItem('user');
+            localStorage.clear();
           }}
           className="navlink"
         >
