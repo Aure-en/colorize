@@ -1,6 +1,5 @@
 export default [
   {
-    id: 0,
     colors: [
       {
         hex: '#F1EDE9',
@@ -130,7 +129,6 @@ export default [
     ],
   },
   {
-    id: 1,
     colors: [
       {
         hex: '#F2EEF0',
@@ -260,7 +258,6 @@ export default [
     ],
   },
   {
-    id: 2,
     colors: [
       {
         hex: '#131926',
@@ -390,7 +387,6 @@ export default [
     ],
   },
   {
-    id: 3,
     colors: [
       {
         hex: '#F3EEEA',
@@ -520,7 +516,6 @@ export default [
     ],
   },
   {
-    id: 4,
     colors: [
       {
         hex: '#432721',
@@ -650,7 +645,6 @@ export default [
     ],
   },
   {
-    id: 5,
     colors: [
       {
         hex: '#F3F3F5',
@@ -780,7 +774,6 @@ export default [
     ],
   },
   {
-    id: 6,
     colors: [
       {
         hex: '#443C42',
@@ -910,7 +903,6 @@ export default [
     ],
   },
   {
-    id: 7,
     colors: [
       {
         hex: '#1D1222',
@@ -1040,7 +1032,6 @@ export default [
     ],
   },
   {
-    id: 8,
     colors: [
       {
         hex: '#2A4241',
@@ -1170,7 +1161,6 @@ export default [
     ],
   },
   {
-    id: 9,
     colors: [
       {
         hex: '#633734',
@@ -1300,7 +1290,6 @@ export default [
     ],
   },
   {
-    id: 10,
     colors: [
       {
         hex: '#2B5028',
@@ -1430,7 +1419,6 @@ export default [
     ],
   },
   {
-    id: 11,
     colors: [
       {
         hex: '#283335',
@@ -1560,7 +1548,6 @@ export default [
     ],
   },
   {
-    id: 12,
     colors: [
       {
         hex: '#191F36',
@@ -1690,7 +1677,6 @@ export default [
     ],
   },
   {
-    id: 13,
     colors: [
       {
         hex: '#3E2B29',
@@ -1820,7 +1806,6 @@ export default [
     ],
   },
   {
-    id: 14,
     colors: [
       {
         hex: '#352729',
@@ -1950,7 +1935,6 @@ export default [
     ],
   },
   {
-    id: 15,
     colors: [
       {
         hex: '#F1E1D4',
@@ -2080,7 +2064,6 @@ export default [
     ],
   },
   {
-    id: 16,
     colors: [
       {
         hex: '#43354E',
@@ -2210,7 +2193,6 @@ export default [
     ],
   },
   {
-    id: 17,
     colors: [
       {
         hex: '#F1EDE0',
@@ -2340,7 +2322,6 @@ export default [
     ],
   },
   {
-    id: 18,
     colors: [
       {
         hex: '#2D3D5E',
@@ -2470,7 +2451,6 @@ export default [
     ],
   },
   {
-    id: 19,
     colors: [
       {
         hex: '#452830',
@@ -2600,7 +2580,6 @@ export default [
     ],
   },
   {
-    id: 20,
     colors: [
       {
         hex: '#043E5C',
@@ -2730,7 +2709,6 @@ export default [
     ],
   },
   {
-    id: 21,
     colors: [
       {
         hex: '#F1E1D4',
@@ -2860,7 +2838,6 @@ export default [
     ],
   },
   {
-    id: 22,
     colors: [
       {
         hex: '#54373C',
