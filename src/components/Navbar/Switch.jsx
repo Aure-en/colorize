@@ -1,16 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsDarkMode } from '../../selectors/settings';
 import { toggleSwitcher } from '../../actions/settings';
 
-const Switch = (isDarkMode) => {
+const Switch = () => {
   const dispatch = useDispatch();
-  return (
+  const isDarkMode = useSelector(getIsDarkMode);
 
+  return (
     <Toggle
       checked={isDarkMode}
-      onChange={() => dispatch(toggleSwitcher())}
+      onChange={() => {
+        dispatch(toggleSwitcher());
+        localStorage.setItem('isDarkMode', !isDarkMode);
+      }}
     >
       <input
         className="react-switch-checkbox"

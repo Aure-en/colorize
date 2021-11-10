@@ -11,7 +11,7 @@ export const initialState = {
   format: 'hex',
   sortBy: 'popular',
   filterBy: 'all',
-  isDarkMode: false,
+  isDarkMode: JSON.parse(localStorage.getItem('isDarkMode')) || false,
 };
 
 const settings = (state = initialState, action = {}) => {
