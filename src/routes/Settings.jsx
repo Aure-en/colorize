@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import SettingsPage from '../components/Settings/SettingsPage/SettingsPage';
 
 const Settings = () => (
-
   <Wrapper>
-    <BackgroundSettings />
+    <SettingsPage />
   </Wrapper>
-
 );
 
 const Wrapper = styled.div`
@@ -15,19 +14,11 @@ const Wrapper = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
+
   @media screen and (max-width: 768px) {
     display: flex;
     flex-direction: column;
-     }
-`;
-
-const BackgroundSettings = styled.div`
-display: flex;
-align-self: center;
-width: 90%;
-height: 90%;
-background-color: #C3CFD9;
-
+  }
 `;
 
 export default Settings;

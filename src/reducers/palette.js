@@ -1,4 +1,7 @@
 import {
+  SET_MODAL_PALETTE,
+  SET_MAIN_PALETTE,
+  SET_ORIGINAL_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
   INCREMENT_SHADES,
@@ -7,6 +10,7 @@ import {
   UPDATE_COLOR,
   LOCK_COLOR,
   UNLOCK_COLOR,
+  SET_PALETTE_LOADING,
 } from '../actions/palette';
 import palettesData from '../data/palettes';
 import {
@@ -16,32 +20,70 @@ import {
   getColorSteps,
 } from '../utils/colors';
 
+const firstPalette = Math.floor(Math.random() * 20);
+
 export const initialState = {
-  palette: {
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
+  // JSON.parse + JSON.stringify to recreate a new object
+  // with nested arrays and objects with different references from originalPalette.
+  palette: JSON.parse(JSON.stringify({
+    id: palettesData[firstPalette].id,
+    colors: palettesData[firstPalette].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
-  },
-  originalPalette: {
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
+  })),
+  originalPalette: JSON.parse(JSON.stringify({
+    id: palettesData[firstPalette].id,
+    colors: palettesData[firstPalette].colors.map((color, index) => ({
       ...color,
       id: index,
     })),
-  },
+  })),
   locked: [null, null, null, null, null],
   shadesNumber: 2,
   shades: {
     light: [],
     dark: [],
   },
-  loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
+  modalPalette: null,
+  loading: {
+    action: null, // 'create', 'read', 'update', 'delete'
+    id: null, // Identify the palette that has just been created / read / updated / deleted
+    status: 'idle', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
+  },
 };
 
 const palette = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_MAIN_PALETTE: {
+      return {
+        ...state,
+        palette: JSON.parse(JSON.stringify({
+          ...state.palette,
+          ...action.palette,
+          colors: action.palette.colors.map((color, index) => ({
+            ...color,
+            id: index,
+          })),
+        })),
+
+      };
+    }
+
+    case SET_ORIGINAL_PALETTE: {
+      return {
+        ...state,
+        originalPalette: JSON.parse(JSON.stringify({
+          ...state.palette,
+          ...action.palette,
+          colors: action.palette.colors.map((color, index) => ({
+            ...color,
+            id: index,
+          })),
+        })),
+      };
+    }
+
     // Shades
     case SET_SHADES: {
       const lighterShades = getLighterShades(state.palette, state.shadesNumber);
@@ -61,8 +103,10 @@ const palette = (state = initialState, action = {}) => {
       const newShades = JSON.parse(JSON.stringify({ ...state.shades }));
 
       for (let step = 0; step < state.shadesNumber; step += 1) {
-        newShades.light[step][action.index] = shades.light[step];
-        newShades.dark[step][action.index] = shades.dark[step];
+        if (newShades.light[step] && newShades.dark[step]) {
+          newShades.light[step][action.index] = shades.light[step];
+          newShades.dark[step][action.index] = shades.dark[step];
+        }
       }
 
       return {
@@ -101,7 +145,7 @@ const palette = (state = initialState, action = {}) => {
     case RESET_PALETTE:
       return {
         ...state,
-        palette: { ...state.originalPalette },
+        palette: JSON.parse(JSON.stringify({ ...state.originalPalette })),
       };
 
     // Lock color
@@ -123,19 +167,25 @@ const palette = (state = initialState, action = {}) => {
       };
     }
 
+    case SET_MODAL_PALETTE:
+      return {
+        ...state,
+        modalPalette: action.palette,
+      };
+
+    case SET_PALETTE_LOADING:
+      return {
+        ...state,
+        loading: {
+          action: action.action,
+          status: action.status,
+          id: action.paletteId,
+        },
+      };
+
     default:
       return state;
   }
 };
-
-export const getPalette = (state) => state.palette.palette;
-
-export const getPaletteLoading = (state) => state.palette.loading;
-
-export const getShades = (state) => state.palette.shades;
-
-export const getShadesNumber = (state) => state.palette.shadesNumber;
-
-export const getLocked = (state) => state.palette.locked;
 
 export default palette;

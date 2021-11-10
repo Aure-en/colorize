@@ -1,9 +1,14 @@
-import { SUCCESS_LOGIN, LOGOUT } from '../actions/user';
+import {
+  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT,
+} from '../actions/user';
+
+const localStorageUser = JSON.parse(localStorage.getItem('user'));
 
 export const initialState = {
-  username: '',
-  id: '',
-  jwt: '',
+  username: localStorageUser?.username || '',
+  id: localStorageUser?.id || null,
+  jwt: localStorageUser?.token || '',
+  email: localStorageUser?.email || '',
 };
 
 const user = (state = initialState, action = {}) => {
@@ -14,14 +19,32 @@ const user = (state = initialState, action = {}) => {
         username: action.username,
         id: action.userId,
         jwt: action.jwt,
+        email: action.email,
       };
 
     case LOGOUT:
       return {
         ...state,
         username: '',
-        id: '',
+        id: null,
         jwt: '',
+        email: '',
+      };
+
+    case SUCCESS_SIGNUP:
+      return {
+        ...state,
+        username: action.username,
+        id: action.userId,
+        jwt: action.jwt,
+      };
+
+    case EDIT:
+      return {
+        ...state,
+        username: action.username,
+        email: action.email,
+        password: action.password,
       };
 
     default:

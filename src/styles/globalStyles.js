@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -58,6 +57,9 @@ button {
   border: none;
   cursor: pointer;
   background: transparent;
+  padding: 0;
+
+
   &:focus {
     outline: 2px solid transparent;
   }
@@ -71,6 +73,16 @@ strong {
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+input {
+  font-family: 'Assistant', sans-serif;
+  font-size: 1rem;
 }
 `;
 
