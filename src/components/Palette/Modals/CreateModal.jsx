@@ -21,6 +21,7 @@ const Heading = styled.h2`
   text-align: center;
   font-size: 1.75rem;
   margin-bottom: 1rem;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export default CreateModal;

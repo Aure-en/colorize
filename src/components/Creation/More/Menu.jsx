@@ -47,6 +47,7 @@ const Wrapper = styled.div`
     display: inline-block;
     padding: 0.25rem 0rem 0.25rem 1.75rem;
     width: 100%;
+    color: ${(props) => props.theme.textPrimary};
 
     &:hover {
       background: ${(props) => props.theme.secondaryBackground};

@@ -96,9 +96,10 @@ const Input = styled.input`
   border-bottom: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 0 0.25rem 0;
   background: transparent;
+  color: ${(props) => props.theme.textPrimary};
 
   &::placeholder {
-    color: ${(props) => props.theme.text_silent};
+    color: ${(props) => props.theme.textSecondary};
   }
 
   &:focus {

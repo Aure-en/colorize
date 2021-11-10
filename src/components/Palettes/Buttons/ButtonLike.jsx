@@ -38,7 +38,7 @@ const ButtonLike = ({ palette }) => {
     <BtnLike
       type="button"
       onClick={handleClick}
-      title={palette.nbrLikes > 0 && palette.nbrLikes}
+      title={palette.nbrLikes > 0 ? palette.nbrLikes : undefined}
       aria-label={`like palette ${palette.id}`}
     >
       <IconHeart isLiked={isLiked} />
