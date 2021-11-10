@@ -4,6 +4,7 @@ import {
   REQUEST_LOGIN,
   successLogin,
   requestLogin,
+  successEdit,
   EDIT,
 } from '../actions/user';
 
@@ -83,23 +84,31 @@ const userMiddleware = (store) => (next) => async (action) => {
     case EDIT: {
       const { dispatch } = store;
       const { user } = store.getState();
+
+      const body = JSON.stringify({
+        username: action.username,
+        email: action.email,
+        password: action.password,
+      });
+
+      console.log(body);
+
       const response = await fetch(
         `http://apicolorize.me/api/v1/user/${user.id}`,
         {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.jwt}`,
           },
-          body: JSON.stringify({
-            username: action.username,
-            email: action.email,
-            password: action.password,
-          }),
+          body,
         },
       );
 
-      const edit = await response.json();
-      dispatch(edit(action.username, action.email, action.password));
+      const json = await response.json();
+
+      console.log(json);
+      // dispatch(successEdit(action.username, action.email, action.password));
       break;
     }
     default:

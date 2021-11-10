@@ -34,19 +34,19 @@ const ModalItem = () => {
     },
   };
 
-  function edit(e) {
+  function submit(e) {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
 
-    if (username === '') {
-      errorObj.username = 'username is Required';
-      error = true;
-    }
+    // if (username === '') {
+    //   errorObj.username = 'username is Required';
+    //   error = true;
+    // }
 
     setErrors(errorObj);
     if (error) return;
-    dispatch(edit(username));
+    dispatch(edit({ username }));
   }
 
   function openModal() {
@@ -75,9 +75,9 @@ const ModalItem = () => {
       >
         <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Username</ChangeUsernameTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <ModalInput placeholder="New Username" required value={username} onChange={(e) => setUsername(e.target.value)} />
-          <ModalInput type="password" placeholder="Confirm Password" minLength="8" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
+          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} required />
           <SubmitButton type="submit">Valider</SubmitButton>
         </FormContainer>
       </Modal>

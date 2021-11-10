@@ -1,5 +1,5 @@
 import {
-  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT,
+  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT, SUCCESS_EDIT,
 } from '../actions/user';
 
 const localStorageUser = JSON.parse(localStorage.getItem('user'));
