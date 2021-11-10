@@ -5,9 +5,10 @@ import { getUser } from '../../selectors/user';
 import { getMainPalette, getOriginalPalette } from '../../selectors/palette';
 import { setMainPalette, setOriginalPalette } from '../../actions/palette';
 import { deletePaletteFromCollection } from '../../actions/favorite';
-import { closeModal } from '../../actions/modals';
+import { openModal, closeModal } from '../../actions/modals';
 
 import { toastify } from '../../components/Shared/Toast';
+import { logout } from '../../actions/user';
 
 const useDelete = (palette) => {
   const dispatch = useDispatch();
@@ -28,20 +29,29 @@ const useDelete = (palette) => {
       },
     );
 
-    const deletedPalette = await response.json();
+    const json = await response.json();
 
-    if (deletedPalette.id) {
-    // Remove id from mainPalette and original if it was the same.
-      if (mainPalette.id === deletedPalette.id) {
+    // Expired JWT.
+    if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+      dispatch(closeModal('deletePalette'));
+      dispatch(openModal('expiredToken'));
+      dispatch(logout());
+      localStorage.removeItem('user');
+    }
+
+    // Everything went well.
+    if (json.id) {
+      // Remove id from mainPalette and original if it was the same.
+      if (mainPalette.id === json.id) {
         dispatch(setMainPalette({ ...mainPalette, id: null }));
       }
 
-      if (originalPalette.id === deletedPalette.id) {
+      if (originalPalette.id === json.id) {
         dispatch(setOriginalPalette({ ...originalPalette, id: null }));
       }
 
       // Remove palette from collection and fetched palettes.
-      dispatch(deletePaletteFromCollection(deletedPalette.id));
+      dispatch(deletePaletteFromCollection(json.id));
 
       // Close modal
       dispatch(closeModal('deletePalette'));

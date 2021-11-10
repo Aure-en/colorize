@@ -2,11 +2,13 @@ import {
   SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT,
 } from '../actions/user';
 
+const localStorageUser = JSON.parse(localStorage.getItem('user'));
+
 export const initialState = {
-  username: '',
-  id: null,
-  jwt: '',
-  email: '',
+  username: localStorageUser?.username || '',
+  id: localStorageUser?.id || null,
+  jwt: localStorageUser?.token || '',
+  email: localStorageUser?.email || '',
 };
 
 const user = (state = initialState, action = {}) => {

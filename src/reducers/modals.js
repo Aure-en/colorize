@@ -10,6 +10,10 @@ export const initialState = [
     isOpen: false,
   },
   {
+    name: 'expiredToken',
+    isOpen: false,
+  },
+  {
     name: 'createPalette',
     isOpen: false,
   },

@@ -16,7 +16,8 @@ import {
   setCurrentCollection,
 } from '../actions/favorite';
 
-import { closeModal } from '../actions/modals';
+import { openModal, closeModal } from '../actions/modals';
+import { logout } from '../actions/user';
 
 import { getColorFromHex } from '../utils/colors';
 
@@ -45,9 +46,17 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const favorite = await favoriteRes.json();
+      const json = await favoriteRes.json();
 
-      if (favorite.id) {
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
+      if (json.id) {
         // Get the palette data to save it in the selected collection.
         const paletteRes = await fetch(
           `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/colors`,
@@ -83,10 +92,19 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const collection = await response.json();
+      const json = await response.json();
 
-      if (collection.id) {
-        dispatch(createCollection(action.name, collection.id));
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(closeModal('createCollection'));
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
+      if (json.id) {
+        dispatch(createCollection(action.name, json.id));
         dispatch(closeModal('createCollection'));
       }
 
@@ -111,13 +129,19 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       const json = await response.json();
 
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(closeModal('updateCollection'));
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
       if (json.id) {
         dispatch(updateCollection(action.name, action.collectionId));
         dispatch(closeModal('updateCollection'));
       }
-
-      dispatch(updateCollection(action.name, action.collectionId));
-      dispatch(closeModal('updateCollection'));
       break;
     }
 
@@ -135,9 +159,18 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const collection = await response.json();
+      const json = await response.json();
 
-      if (collection.id) {
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(closeModal('deleteCollection'));
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
+      if (json.id) {
         dispatch(deleteCollection(action.collectionId));
         dispatch(closeModal('deleteCollection'));
         dispatch(setModalCollection(null));
@@ -157,6 +190,15 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       });
 
       const json = await response.json();
+
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well
       const collections = json.filesPersonnel;
 
       if (Array.isArray(collections)) {
@@ -194,8 +236,8 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         const defaultCollection = collectionsWithAllColorFormats.sort(
           (a, b) => a.id - b.id,
         )[0].id;
-        dispatch(setDefaultCollection(defaultCollection));
 
+        dispatch(setDefaultCollection(defaultCollection));
         dispatch(setCurrentCollection(defaultCollection));
       }
 
