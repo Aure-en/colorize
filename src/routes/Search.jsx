@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Palettes from '../components/Palettes/Palettes';
@@ -9,7 +10,6 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
-import { getSortBy, getFilterBy } from '../selectors/settings';
 import { getPalettesPage } from '../selectors/palettes';
 import { savePalettes } from '../actions/palettes';
 
@@ -22,15 +22,17 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const sort = useSelector(getSortBy);
-  const filter = useSelector(getFilterBy);
+  const query = new URLSearchParams(useLocation().search);
+  const search = query.get('search');
 
-  const key = `/palettes/${filter}/${sort}/1`;
+  const key = `/search/${search}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
 
   // Get palettes of the current page
   useEffect(() => {
     (async () => {
+      if (!search) return;
+
       if (palettesPage) {
         setPalettes(palettesPage.palettes);
         setLoading(false);
@@ -38,25 +40,27 @@ const Search = () => {
 
       // API request to make a research
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort=${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/paletteoruser/${search}`,
       );
 
       const json = await response.json();
+
+      console.log(json);
 
       if (response.status === 200) {
         const palettes = json.map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
-        setPalettes(palettes.slice(0, 20));
-        dispatch(savePalettes(key, palettes.slice(0, 20)));
+        setPalettes(palettes);
+        dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
     }
     )();
-  }, [filter, sort]);
+  }, [search]);
 
   if (loading) {
     return <Loading />;

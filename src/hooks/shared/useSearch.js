@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const useSearch = () => {
+  const history = useHistory();
   const [search, setSearch] = useState('');
 
   const handleSubmit = () => {
-    console.log('searching');
+    if (!search) return;
+    history.push(`/search?search=${search}`);
   };
 
   return {
