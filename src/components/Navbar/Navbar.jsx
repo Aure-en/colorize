@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <Nav>
       {windowSize.width > 768 && <Logo />}
-      <Burger className="burger" />
+      <Burger />
       <LeftNav />
       <Switch />
       <DropboxNav />
