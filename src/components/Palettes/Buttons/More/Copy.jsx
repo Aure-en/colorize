@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import { toastify } from '../../../Shared/Toast';
 
 const Copy = ({ paletteId, closeMenu }) => {
   const location = useLocation();
@@ -17,6 +18,7 @@ const Copy = ({ paletteId, closeMenu }) => {
       type="button"
       onClick={() => {
         copyURL();
+        toastify('Successfully copied palette URL.');
         closeMenu();
       }}
     >
