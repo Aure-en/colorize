@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as IconDots } from '../../../assets/icons/card/dots.svg';
+import { ReactComponent as IconDots } from '../../../assets/Icons/card/dots.svg';
 
 const Button = ({ toggleMenu }) => (
   <ButtonDots
