@@ -15,9 +15,12 @@ const Pagination = ({ numberOfPages, currentPage }) => {
   const ref = useRef();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
 
+  if (numberOfPages < 2) {
+    return <></>;
+  }
+
   return (
     <Wrapper>
-
       {currentPage > 1 && <ButtonLink to={`${path}?page=${currentPage - 1}`}>&#9668;</ButtonLink>}
       {/* ◄ = &#9668; */}
 
@@ -29,7 +32,7 @@ const Pagination = ({ numberOfPages, currentPage }) => {
         {isDropdownOpen && (
         <DropdownList>
           {[...Array(numberOfPages).keys()].map((page) => page + 1).map((page) => (
-            <PageLink to={`${path}?page=${page}`}>{page}</PageLink>
+            <PageLink to={`${path}?page=${page}`} key={page}>{page}</PageLink>
           ))}
         </DropdownList>
         )}
@@ -37,7 +40,6 @@ const Pagination = ({ numberOfPages, currentPage }) => {
 
       {currentPage < numberOfPages && <ButtonLink to={`${path}?page=${currentPage + 1}`}>&#9658;</ButtonLink>}
       {/* ► = &#9658; */}
-
     </Wrapper>
   );
 };
