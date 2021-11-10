@@ -7,15 +7,20 @@ const CurrentUser = () => {
   const currentUsername = useSelector(getUser)?.username;
 
   return (
-    <CurrentText>{currentUsername}</CurrentText>
+    <Wrapper>
+      <strong>Username</strong>
+      <div>{currentUsername}</div>
+    </Wrapper>
   );
 };
 
-const CurrentText = styled.div`
-display: flex;
-justify-content: center;
-font-size: 1.8em;
-padding-right: 2em;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > strong {
+    font-weight: 500;
+  }
 `;
 
 export default CurrentUser;

@@ -20,6 +20,7 @@ const Modal = ({ isModalOpen, closeModal, children }) => {
     },
     overlay: {
       backgroundColor: `${theme.primaryText}50`,
+      zIndex: '50',
     },
   };
 
