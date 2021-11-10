@@ -12,7 +12,7 @@ import {
 } from '../../utils/colors';
 
 const Theme = ({ children }) => {
-  const DARK_DEFAULT = '#292929';
+  const DARK_DEFAULT = '#2E3136';
   const LIGHT_DEFAULT = '#FFFFFF';
 
   const initial = {
