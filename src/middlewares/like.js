@@ -4,19 +4,27 @@ import {
   likePalette,
   unlikePalette,
 } from '../actions/like';
-import palettes from '../data/palettes';
 
-const likeMiddleware = (store) => (next) => (action) => {
+const likeMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_LIKE_PALETTE: {
-      // API request
-      store.dispatch(likePalette(palettes[0]));
+      const { user } = store.getState();
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/like`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+      store.dispatch(likePalette(action.paletteId));
       break;
     }
 
     case REQUEST_UNLIKE_PALETTE: {
       // API request
-      store.dispatch(unlikePalette(palettes[0].id));
+      store.dispatch(unlikePalette(action.paletteId));
       break;
     }
 
