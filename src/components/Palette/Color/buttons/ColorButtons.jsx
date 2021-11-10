@@ -1,24 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { getLocked } from '../../../../selectors/palette';
 import Edit from './Edit';
-import Lock from './Lock';
 
-const ColorButtons = ({ color }) => {
-  const locked = useSelector(getLocked);
-
-  return (
-    <Buttons>
-      <Edit color={color} />
-      <Lock
-        color={color}
-        isLocked={locked[color.id] !== null}
-      />
-    </Buttons>
-  );
-};
+const ColorButtons = ({ color }) => (
+  <Buttons>
+    <Edit color={color} />
+  </Buttons>
+);
 
 ColorButtons.propTypes = {
   color: PropTypes.shape({

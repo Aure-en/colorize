@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import Palette from "../../Palette/Palette";
-import Informations from "../../Palette/Informations";
-import PageChange from "../PageChange";
-import GenerateButton from "../Controls/GenerateButton";
-import ResetButton from "../Controls/ResetButton";
-import SaveButton from "../Controls/SaveButton";
-import More from "../More/More";
-import ExtractInput from "../Extract/ExtractInput";
+import Palette from '../../Palette/Palette';
+import Informations from '../../Palette/Informations';
+import PageChange from '../PageChange';
+import GenerateButton from '../Controls/GenerateButton';
+import ResetButton from '../Controls/ResetButton';
+import SaveButton from '../Controls/SaveButton';
+import More from '../More/More';
+import ExtractInput from '../Extract/ExtractInput';
 
-import Center from "./Center";
-import Cover from "./Cover";
-import Triangles from "./Triangles";
-import Leaves from "./Leaves";
-import Corner from "./Corner";
-import Buttons from "./Buttons";
+import Center from './Center';
+import Cover from './Cover';
+import Triangles from './Triangles';
+import Leaves from './Leaves';
+import Corner from './Corner';
+import Buttons from './Buttons';
 
-import { getMainPalette } from "../../../selectors/palette";
+import { getMainPalette } from '../../../selectors/palette';
 
 const preview = (number) => {
   switch (number) {
