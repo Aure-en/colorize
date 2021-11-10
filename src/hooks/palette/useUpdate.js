@@ -96,6 +96,7 @@ const useUpdate = () => {
       dispatch(closeModal('updatePalette'));
       dispatch(openModal('expiredToken'));
       dispatch(logout());
+      localStorage.removeItem('user');
     }
 
     // Everything went well

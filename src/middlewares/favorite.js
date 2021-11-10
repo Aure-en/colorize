@@ -52,6 +52,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       if (json.code === 401 && /expired jwt token/i.test(json.message)) {
         dispatch(openModal('expiredToken'));
         dispatch(logout());
+        localStorage.removeItem('user');
       }
 
       // Everything went well.
@@ -98,6 +99,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         dispatch(closeModal('createCollection'));
         dispatch(openModal('expiredToken'));
         dispatch(logout());
+        localStorage.removeItem('user');
       }
 
       // Everything went well.
@@ -132,6 +134,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         dispatch(closeModal('updateCollection'));
         dispatch(openModal('expiredToken'));
         dispatch(logout());
+        localStorage.removeItem('user');
       }
 
       // Everything went well.
@@ -163,6 +166,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
         dispatch(closeModal('deleteCollection'));
         dispatch(openModal('expiredToken'));
         dispatch(logout());
+        localStorage.removeItem('user');
       }
 
       // Everything went well.
@@ -191,6 +195,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       if (json.code === 401 && /expired jwt token/i.test(json.message)) {
         dispatch(openModal('expiredToken'));
         dispatch(logout());
+        localStorage.removeItem('user');
       }
 
       // Everything went well

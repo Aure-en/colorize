@@ -36,6 +36,7 @@ const useDelete = (palette) => {
       dispatch(closeModal('deletePalette'));
       dispatch(openModal('expiredToken'));
       dispatch(logout());
+      localStorage.removeItem('user');
     }
 
     // Everything went well.
