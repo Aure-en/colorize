@@ -17,7 +17,7 @@ const LeftNav = () => {
   const sortBy = useSelector(getSortBy);
   const filterBy = useSelector(getFilterBy);
 
-  const sorts = ['popular', 'liked', 'new'];
+  const sorts = ['popular', 'new'];
   const filters = ['all', 'generated', 'creations'];
 
   return (
