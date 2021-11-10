@@ -33,7 +33,7 @@ const ModalPassword = () => {
     },
   };
 
-  function edit(e) {
+  function submit(e) {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
@@ -78,7 +78,7 @@ const ModalPassword = () => {
       >
         <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <ModalInput type="password" placeholder="Current Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
           <ModalInput type="password" placeholder="New Password" />

@@ -34,7 +34,7 @@ const ModalEmail = () => {
     },
   };
 
-  function edit(e) {
+  function submit(e) {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
@@ -77,7 +77,7 @@ const ModalEmail = () => {
       >
         <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Email</ChangeUsernameTitle>
         <CloseButton onClick={closeModal}>&#10005;</CloseButton>
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <ModalInput type="email@" placeholder="New Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
           <SubmitButton type="submit">Valider</SubmitButton>

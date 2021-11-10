@@ -94,7 +94,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       console.log(body);
 
       const response = await fetch(
-        `http://apicolorize.me/api/v1/user/${user.id}`,
+        `https://apicolorize.me/api/v1/user/${user.id}`,
         {
           method: 'PATCH',
           headers: {
