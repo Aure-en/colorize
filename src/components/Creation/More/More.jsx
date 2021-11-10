@@ -23,14 +23,9 @@ const More = ({ palette }) => {
 
 More.propTypes = {
   palette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     colors: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-      }).isRequired,
+      PropTypes.shape({}).isRequired,
     ).isRequired,
   }).isRequired,
 };

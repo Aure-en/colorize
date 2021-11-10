@@ -47,6 +47,7 @@ const Input = styled.input`
   height: 100%;
   max-width: 100%;
   background: transparent;
+  color: ${(props) => props.theme.textPrimary};
 
   &:focus {
     outline: 2px solid transparent;

@@ -29,6 +29,7 @@ const Palettes = () => {
 
   const query = new URLSearchParams(useLocation().search);
   const page = Number(query.get('page')) || 1;
+  console.log(page);
 
   const key = `/palettes/${filter}/${sort}/${page}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));

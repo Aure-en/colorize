@@ -9,7 +9,7 @@ const FilterBy = () => {
   const ref = useRef();
   const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const filters = ['all', 'generated', 'user submissions'];
+  const filters = ['all', 'generated', 'creations'];
   const currentFilter = useSelector(getFilterBy);
   const filterWithoutCurrent = (() => filters.filter((filter) => filter !== currentFilter))();
 

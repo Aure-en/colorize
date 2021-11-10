@@ -69,6 +69,8 @@ const Dropdown = styled.div`
 `;
 
 const DropdownHeader = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+
   &:hover {
     color: ${(props) => props.theme.primaryText};
   }

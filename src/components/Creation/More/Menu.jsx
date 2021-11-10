@@ -16,7 +16,7 @@ const Menu = ({ palette, closeMenu }) => {
 
   return (
     <Wrapper>
-      {isLoggedIn && <Save paletteId={palette.id} closeMenu={closeMenu} />}
+      {isLoggedIn && palette.id && <Save paletteId={palette.id} closeMenu={closeMenu} />}
       <Export palette={palette} closeMenu={closeMenu} />
       <Copy paletteId={palette.id} closeMenu={closeMenu} />
       {user?.id === palette.owner?.id && <Delete palette={palette} />}
@@ -47,6 +47,7 @@ const Wrapper = styled.div`
     display: inline-block;
     padding: 0.25rem 0rem 0.25rem 1.75rem;
     width: 100%;
+    color: ${(props) => props.theme.textPrimary};
 
     &:hover {
       background: ${(props) => props.theme.secondaryBackground};
