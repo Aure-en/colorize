@@ -34,7 +34,7 @@ const Theme = ({ match }) => {
   const [error, setError] = useState('');
 
   const query = new URLSearchParams(useLocation().search);
-  const page = query.get('page') || 1;
+  const page = Number(query.get('page')) || 1;
 
   const key = `/themes/${themeId}/${filter}/${sort}/${page}`;
   const themePage = useSelector((state) => getThemePage(state, key));
