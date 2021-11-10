@@ -46,8 +46,9 @@ const Dropdown = styled.div`
   font-weight: 600;
   text-align: center;
   justify-self: end;
+  right: 10px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `;

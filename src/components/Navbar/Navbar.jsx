@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <Nav>
-      {windowSize.width > 768 && <Logo />}
+      {windowSize.width > 1024 && <Logo />}
       <Burger />
       <LeftNav />
       <Switch />
@@ -29,7 +29,6 @@ const Nav = styled.nav`
   align-items: center;
   justify-content: space-between;
   background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.textOnPrimary};
 `;
 
 export default Navbar;

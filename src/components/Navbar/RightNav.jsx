@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const RightNav = ({ open }) => (
+const RightNav = ({ open, setOpen }) => (
   <Ul open={open}>
     <NavLinkBetween>
-      <NavLink to="/" exact className="navlink">Home</NavLink>
-      <NavLink to="/creation" exact className="navlink">Creation</NavLink>
+      <NavLink to="/" exact className="navlink" onClick={() => setOpen(false)}>Home</NavLink>
+      <NavLink to="/creation" exact className="navlink" onClick={() => setOpen(false)}>Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
-      <NavLink to="/Login" exact className="navlink">Login</NavLink>
+      <NavLink to="/Login" exact className="navlink" onClick={() => setOpen(false)}>Login</NavLink>
     </NavLinkBetween>
   </Ul>
 );
@@ -37,15 +37,15 @@ const Ul = styled.ul`
       font-weight: 700;
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.primaryText};
+    background: ${(props) => props.theme.secondary};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
-    top: 0;
+    top: 60px;
     right: 0;
-    height: 100vh;
+    height: calc(100vh - 60px);
     width: 100%;
     padding-top: 3.5rem;
     z-index: 20;
@@ -65,7 +65,7 @@ const NavLinkBetween = styled.div`
   z-index: 20;
   color: ${(props) => props.theme.textOnPrimary};
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     flex-direction: row;
   }
 `;
