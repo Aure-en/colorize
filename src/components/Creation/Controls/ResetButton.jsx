@@ -29,7 +29,7 @@ const Button = styled.button`
   padding: 0.5rem;
   text-transform: uppercase;
   font-size: 0.925rem;
-  transition: all 0.2s ease-out;
+  transition: color 0.2s ease-out;
 
   &:hover {
     color: ${(props) => props.theme.primaryText};

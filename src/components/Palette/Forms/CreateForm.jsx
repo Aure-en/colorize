@@ -6,7 +6,7 @@ import { getThemes } from '../../../selectors/themes';
 
 import useCreate from '../../../hooks/palette/useCreate';
 
-import check from '../../../assets/icons/check.svg';
+import { ReactComponent as IconCheck } from '../../../assets/icons/check.svg';
 
 const CreateForm = () => {
   const {
@@ -46,7 +46,7 @@ const CreateForm = () => {
 
       <Field>
         <Label htmlFor="theme">
-          Theme
+          Themes
           <Message>
             Themes are optional and will help user narrow palette search
             results.
@@ -59,6 +59,7 @@ const CreateForm = () => {
               htmlFor={theme.name}
               $checked={themes.includes(theme.name)}
             >
+              <Check>{themes.includes(theme.name) && <IconCheck />}</Check>
               {theme.name}
               <CheckboxInput
                 type="checkbox"
@@ -76,6 +77,7 @@ const CreateForm = () => {
         <Label htmlFor="visibility">Visibility</Label>
 
         <CheckboxPublic htmlFor="public" $checked={isPublic}>
+          <Check>{isPublic && <IconCheck />}</Check>
           <CheckboxInput
             type="checkbox"
             id="public"
@@ -117,9 +119,10 @@ const Input = styled.input`
   border-bottom: 1px solid ${(props) => props.theme.textPrimary};
   padding: 0.5rem 0 0.25rem 0;
   background: transparent;
+  color: ${(props) => props.theme.textPrimary};
 
   &::placeholder {
-    color: ${(props) => props.theme.text_silent};
+    color: ${(props) => props.theme.textSecondary};
   }
 
   &:focus {
@@ -141,6 +144,7 @@ const CheckboxLabel = styled.label`
   position: relative;
   cursor: pointer;
   text-transform: capitalize;
+  color: ${(props) => props.theme.textPrimary};
 
   &:before {
     content: "";
@@ -152,22 +156,18 @@ const CheckboxLabel = styled.label`
     border-radius: 50%;
     margin: 0 0.75rem 0 1.25rem;
   }
+`;
 
-  &:after {
-    position: absolute;
-    left: 1rem;
-    top: -2px;
-    content: ${(props) => props.$checked && `url(${check})`};
-  }
+const Check = styled.span`
+  position: absolute;
+  left: 0.97rem;
+  top: -4px;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const CheckboxPublic = styled(CheckboxLabel)`
   display: flex;
   margin-top: 0.5rem;
-
-  &:after {
-    top: -5px;
-  }
 `;
 
 const CheckboxInput = styled.input`

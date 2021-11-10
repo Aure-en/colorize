@@ -112,10 +112,10 @@ export const getLightShade = (colorData) => {
 
   if (color.lightness() > 80) {
     lightColor = color.lightness(80);
-  } else if (color.lightness() > 60) {
-    lightColor = color.lightness(color.lightness() + 15);
-  } else {
+  } else if (color.lightness() > 50) {
     lightColor = color.lightness(color.lightness() + 25);
+  } else {
+    lightColor = color.lightness(color.lightness() + 35);
   }
   return lightColor.hex();
 }

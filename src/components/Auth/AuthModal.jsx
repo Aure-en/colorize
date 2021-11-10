@@ -31,6 +31,7 @@ AuthModal.propTypes = {
 };
 
 const Content = styled.div`
+  color: ${(props) => props.theme.textPrimary};
   text-align: center;
 `;
 
