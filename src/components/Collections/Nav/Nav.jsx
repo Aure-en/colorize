@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import CreateButton from './CreateButton';
 import CollectionsList from './CollectionsList';
-import SearchBar from '../../Shared/SearchBar';
 import useWindowSize from '../../../hooks/shared/useWindowSize';
 
 const Nav = () => {
@@ -11,7 +10,6 @@ const Nav = () => {
 
   return (
     <Wrapper>
-      <SearchBar />
       {windowSize.width > 768 && (
         <>
           <CreateButton />
