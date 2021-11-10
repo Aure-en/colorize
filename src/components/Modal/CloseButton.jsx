@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ReactComponent as IconClose } from '../../assets/icons/modal/close.svg';
+import { ReactComponent as IconClose } from '../../assets/Icons/modal/close.svg';
 
 const CloseButton = ({ onClick }) => (
   <Button type="button" onClick={onClick}><IconClose /></Button>

@@ -8,8 +8,8 @@ import { getIsDarkMode } from '../../../../selectors/settings';
 
 import { getTextShade } from '../../../../utils/colors';
 
-import IconLock from '../../../../assets/icons/color/IconLock';
-import IconUnlock from '../../../../assets/icons/color/IconUnlock';
+import IconLock from '../../../../assets/Icons/color/IconLock';
+import IconUnlock from '../../../../assets/Icons/color/IconUnlock';
 
 const Lock = ({ color, isLocked }) => {
   const [textColor, setTextColor] = useState('');

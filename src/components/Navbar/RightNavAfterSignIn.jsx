@@ -8,7 +8,7 @@ import { logout } from '../../actions/user';
 import { clearCollections } from '../../actions/favorite';
 import { getUser } from '../../selectors/user';
 
-import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
+import { ReactComponent as SearchIcon } from '../../assets/Icons/search.svg';
 
 const RightNavAfterSignIn = ({ open, setOpen }) => {
   const dispatch = useDispatch();
@@ -50,6 +50,7 @@ const RightNavAfterSignIn = ({ open, setOpen }) => {
 
 RightNavAfterSignIn.propTypes = {
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.bool.isRequired,
 };
 
 const Ul = styled.ul`
