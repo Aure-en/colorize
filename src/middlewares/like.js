@@ -4,11 +4,15 @@ import {
   likePalette,
   unlikePalette,
 } from '../actions/like';
+import { openModal } from '../actions/modals';
+import { logout } from '../actions/user';
 
 const likeMiddleware = (store) => (next) => async (action) => {
   switch (action.type) {
     case REQUEST_LIKE_PALETTE: {
       const { user } = store.getState();
+      const dispatch = store;
+
       const response = await fetch(
         `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/like`,
         {
@@ -18,13 +22,51 @@ const likeMiddleware = (store) => (next) => async (action) => {
           },
         },
       );
-      store.dispatch(likePalette(action.paletteId));
+
+      const json = await response.json();
+
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
+      if (json.id) {
+        store.dispatch(likePalette(action.paletteId));
+      }
       break;
     }
 
     case REQUEST_UNLIKE_PALETTE: {
-      // API request
-      store.dispatch(unlikePalette(action.paletteId));
+      const { user } = store.getState();
+      const dispatch = store;
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/dislike`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+
+      const json = await response.json();
+
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(openModal('expiredToken'));
+        dispatch(logout());
+        localStorage.removeItem('user');
+      }
+
+      // Everything went well.
+      if (json.id) {
+        store.dispatch(unlikePalette(action.paletteId));
+      }
+
       break;
     }
 

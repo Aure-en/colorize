@@ -15,7 +15,7 @@ const ButtonLike = ({ paletteId }) => {
 
   const isLoggedIn = useSelector(getIsLoggedIn);
   const likes = useSelector(getLikes);
-  const isLiked = likes.find((palette) => palette.id === paletteId) !== undefined;
+  const isLiked = likes.find((liked) => liked === paletteId) !== undefined;
 
   /**
    * If the user is not logged in, open the sign up modal.
