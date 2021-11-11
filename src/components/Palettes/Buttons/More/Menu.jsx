@@ -39,11 +39,11 @@ Menu.propTypes = {
 const Wrapper = styled.div`
   position: absolute;
   right: 0;
-  border: 1px solid ${(props) => (props.$entered ? props.theme.textPrimary : 'transparent')};
+  border: 1px solid ${(props) => props.theme.textPrimary};
   background: ${(props) => props.theme.background};
-  max-height: ${(props) => (props.$entered ? '5rem' : 0)};
-  transition: all 0.5s ease;
-  overflow: hidden;
+  opacity: ${(props) => (props.$entered ? 1 : 0)};
+  transform: translateY(${(props) => (props.$entered ? '0' : '-15%')});
+  transition: transform 0.5s ease, opacity 0.25s ease;
 
   & > * {
     display: inline-block;

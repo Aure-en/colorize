@@ -34,7 +34,6 @@ const Menu = ({ palette, closeMenu, isOpen }) => {
         </Wrapper>
       )}
     </Transition>
-
   );
 };
 
@@ -46,6 +45,7 @@ Menu.propTypes = {
     }),
   }).isRequired,
   closeMenu: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 const Wrapper = styled.div`
