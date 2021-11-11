@@ -16,7 +16,7 @@ const Themes = () => {
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         Themes
-        &#9660; Caret down
+        &#9660; {/* Caret down */}
       </DropdownHeader>
 
       {isDropdownOpen && (
