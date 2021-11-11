@@ -22,22 +22,36 @@ const userMiddleware = (store) => (next) => async (action) => {
 
       const user = await response.json();
 
-      const responseToken = await fetch(
-        'https://apicolorize.me/api/login_check',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: action.email,
-            password: action.password,
-          }),
+      const login = await fetch('https://apicolorize.me/api/login_check', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          email: action.email,
+          password: action.password,
+        }),
+      });
+
+      const json = await login.json();
+      dispatch(
+        successLogin(
+          json.data.username,
+          json.data.id,
+          json.token,
+          json.data.email,
+        ),
       );
 
-      const token = await responseToken.json();
-      dispatch(successLogin(action.username, user.id, token, action.email));
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          username: json.data.username,
+          email: json.data.email,
+          id: json.data.id,
+          token: json.token,
+        }),
+      );
       break;
     }
 
@@ -55,24 +69,24 @@ const userMiddleware = (store) => (next) => async (action) => {
       });
 
       if (response.status === 200) {
-        const loginSuccess = await response.json();
+        const json = await response.json();
 
         dispatch(
           successLogin(
-            loginSuccess.data.username,
-            loginSuccess.data.id,
-            loginSuccess.token,
-            loginSuccess.data.email,
+            json.data.username,
+            json.data.id,
+            json.token,
+            json.data.email,
           ),
         );
 
         localStorage.setItem(
           'user',
           JSON.stringify({
-            username: loginSuccess.data.username,
-            email: loginSuccess.data.email,
-            id: loginSuccess.data.id,
-            token: loginSuccess.token,
+            username: json.data.username,
+            email: json.data.email,
+            id: json.data.id,
+            token: json.token,
           }),
         );
       }
