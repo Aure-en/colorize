@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getCollections,
   getCurrentCollection,
-  getFavoriteCollection,
+  getFavoriteCollections,
 } from '../../../../selectors/favorite';
 import {
   requestAddPaletteToCollection,
@@ -17,17 +17,25 @@ import { openModal } from '../../../../actions/modals';
 
 import { toastify } from '../../../Shared/Toast';
 
+import { ReactComponent as IconFavorite } from '../../../../assets/icons/collections/star.svg';
+
 const Menu = ({ paletteId, close, position }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
-  const favoriteCollection = useSelector((state) => getFavoriteCollection(state, paletteId));
+  const favoriteCollections = useSelector((state) => getFavoriteCollections(state, paletteId));
 
   const handleClick = (collectionId) => {
-    const collectionName = collections.find((collection) => collection.id === collectionId).name;
+    const collectionName = collections.find(
+      (collection) => collection.id === collectionId,
+    ).name;
 
-    if (favoriteCollection === collectionId) {
-      dispatch(requestDeletePaletteFromCollection(paletteId));
+    if (
+      favoriteCollections.find(
+        (collection) => collection.id === collectionId,
+      ) !== undefined
+    ) {
+      dispatch(requestDeletePaletteFromCollection(paletteId, collectionId));
       toastify(`Palette successfully removed from ${collectionName}.`);
     } else {
       dispatch(requestAddPaletteToCollection(paletteId, collectionId));
@@ -57,9 +65,11 @@ const Menu = ({ paletteId, close, position }) => {
         {collections.map((collection) => (
           <Button
             onClick={() => handleClick(collection.id)}
-            $selected={collection.id === favoriteCollection}
             key={collection.id}
           >
+            {favoriteCollections.find(
+              (favoriteCollection) => favoriteCollection.id === collection.id,
+            ) !== undefined && <Icon><IconFavorite /></Icon>}
             {collection.name}
           </Button>
         ))}
@@ -121,15 +131,24 @@ const Category = styled.div`
 `;
 
 const Button = styled.button`
+  position: relative;
   padding: 0.25rem 1rem 0.25rem 2rem;
   width: 100%;
   text-align: start;
-  background: ${(props) => props.$selected && props.theme.primaryBackgroundActive};
   color: ${(props) => props.theme.textPrimary};
+  
 
   &:hover {
     background: ${(props) => props.theme.primaryBackground};
   }
+`;
+
+const Icon = styled.span`
+  color: ${(props) => props.theme.primaryText};
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(calc(-50% + 2px));
 `;
 
 export default Menu;
