@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-import Palette from "../../Palette/Palette";
-import Informations from "../../Palette/Informations";
-import PageChange from "../PageChange";
-import GenerateButton from "../Controls/GenerateButton";
-import ResetButton from "../Controls/ResetButton";
-import SaveButton from "../Controls/SaveButton";
-import More from "../More/More";
-import ExtractInput from "../Extract/ExtractInput";
+import Palette from '../../Palette/Palette';
+import Informations from '../../Palette/Informations';
+import PageChange from '../PageChange';
+import GenerateButton from '../Controls/GenerateButton';
+import ResetButton from '../Controls/ResetButton';
+import SaveButton from '../Controls/SaveButton';
+import More from '../More/More';
+import ExtractInput from '../Extract/ExtractInput';
 
-import Buttons from "./Buttons";
-import Previews from "./Previews";
+import Buttons from './Buttons';
+import Previews from './Previews';
 
-import { getMainPalette } from "../../../selectors/palette";
+import { getMainPalette } from '../../../selectors/palette';
 
-import useWindowSize from "../../../hooks/shared/useWindowSize";
+import useWindowSize from '../../../hooks/shared/useWindowSize';
 
 const Preview = () => {
   const [slide, setSlide] = useState({
     number: 1,
-    direction: "next", // 'prev' | 'next'
+    direction: 'next', // 'prev' | 'next'
   });
 
   const palette = useSelector(getMainPalette);
@@ -35,14 +35,14 @@ const Preview = () => {
   const prevPreview = () => {
     setSlide((prev) => ({
       number: prev.number === 1 ? TOTAL_PREVIEWS : prev.number - 1,
-      direction: "prev",
+      direction: 'prev',
     }));
   };
 
   const nextPreview = () => {
     setSlide((prev) => ({
       number: prev.number === TOTAL_PREVIEWS ? 1 : prev.number + 1,
-      direction: "next",
+      direction: 'next',
     }));
   };
 
@@ -62,18 +62,18 @@ const Preview = () => {
   };
 
   const onKeyDown = (e) => {
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") prevPreview();
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") nextPreview();
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prevPreview();
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') nextPreview();
   };
 
   useEffect(() => {
     if (windowSize.width > 600) {
-      window.addEventListener("wheel", onMouseWheel);
-      window.addEventListener("keydown", onKeyDown);
+      window.addEventListener('wheel', onMouseWheel);
+      window.addEventListener('keydown', onKeyDown);
     }
     return () => {
-      window.removeEventListener("wheel", onMouseWheel);
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener('wheel', onMouseWheel);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, [windowSize.width]);
 
