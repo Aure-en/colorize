@@ -13,15 +13,14 @@ const DropdownSave = ({ paletteId, closeDropdown }) => {
       onMouseLeave={() => setIsDropdownOpen(false)}
     >
       <Button type="button">&#9660;</Button>
-      {isDropdownOpen && (
-        <Menu
-          paletteId={paletteId}
-          close={() => {
-            setIsDropdownOpen(false);
-            closeDropdown();
-          }}
-        />
-      )}
+      <Menu
+        paletteId={paletteId}
+        isOpen={isDropdownOpen}
+        close={() => {
+          setIsDropdownOpen(false);
+          closeDropdown();
+        }}
+      />
     </Wrapper>
   );
 };

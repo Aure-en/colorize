@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Transition } from 'react-transition-group';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -19,7 +20,9 @@ import { toastify } from '../../../Shared/Toast';
 
 import { ReactComponent as IconFavorite } from '../../../../assets/icons/collections/star.svg';
 
-const Menu = ({ paletteId, close, position }) => {
+const Menu = ({
+  paletteId, isOpen, close, position,
+}) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
@@ -46,52 +49,75 @@ const Menu = ({ paletteId, close, position }) => {
   };
 
   return (
-    <Wrapper $position={position === 'left'}>
-      <div>
-        <Category>Default</Category>
-        {currentCollection && (
-          <Button onClick={() => handleClick(currentCollection)}>
-            {
-              collections.find(
-                (collection) => collection.id === currentCollection,
-              )?.name
-            }
-          </Button>
-        )}
-      </div>
+    <Transition
+      in={isOpen}
+      timeout={{
+        enter: 0,
+        exit: 500,
+      }}
+      mountOnEnter={false}
+      unmountOnExit
+    >
+      {(state) => (
+        <Wrapper
+          $position={position === 'left'}
+          $entered={state === 'entered'}
+          onWheel={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div>
+            <Category>Default</Category>
+            {currentCollection && (
+              <Button onClick={() => handleClick(currentCollection)}>
+                {
+                  collections.find(
+                    (collection) => collection.id === currentCollection,
+                  )?.name
+                }
+              </Button>
+            )}
+          </div>
 
-      <div>
-        <Category>Collections</Category>
-        {collections.map((collection) => (
-          <Button
-            onClick={() => handleClick(collection.id)}
-            key={collection.id}
+          <div>
+            <Category>Collections</Category>
+            {collections.map((collection) => (
+              <Button
+                onClick={() => handleClick(collection.id)}
+                key={collection.id}
+              >
+                {favoriteCollections.find(
+                  (favoriteCollection) => favoriteCollection.id === collection.id,
+                ) !== undefined && (
+                  <Icon>
+                    <IconFavorite />
+                  </Icon>
+                )}
+                {collection.name}
+              </Button>
+            ))}
+          </div>
+
+          <Category
+            as="button"
+            type="button"
+            onClick={() => {
+              dispatch(openModal('createCollection'));
+              close();
+            }}
           >
-            {favoriteCollections.find(
-              (favoriteCollection) => favoriteCollection.id === collection.id,
-            ) !== undefined && <Icon><IconFavorite /></Icon>}
-            {collection.name}
-          </Button>
-        ))}
-      </div>
-
-      <Category
-        as="button"
-        type="button"
-        onClick={() => {
-          dispatch(openModal('createCollection'));
-          close();
-        }}
-      >
-        Create a new collection
-      </Category>
-    </Wrapper>
+            Create a new collection
+          </Category>
+        </Wrapper>
+      )}
+    </Transition>
   );
 };
 
 Menu.propTypes = {
   paletteId: PropTypes.number.isRequired,
   close: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   position: PropTypes.string,
 };
 
@@ -102,13 +128,21 @@ Menu.defaultProps = {
 const Wrapper = styled.div`
   position: absolute;
   bottom: ${(props) => props.$position && '0'};
-  right: ${(props) => props.$position && '8.75rem'};
-  padding: 0.5rem 0;
-  max-height: 10rem;
+  right: ${(props) => props.$position && '8.76rem'};
+  padding: ${(props) => (props.$entered || props.$position ? '0.5rem 0' : 0)};
+  max-height: ${(props) => (props.$entered || props.$position ? '10rem' : 0)};
   overflow-y: auto;
   background: ${(props) => props.theme.background};
-  border: 1px solid ${(props) => props.theme.textPrimary};
+  border: 1px solid
+    ${(props) => (props.$entered || props.$position
+    ? props.theme.textPrimary
+    : 'transparent')};
   z-index: 10;
+  opacity: ${(props) => (props.$entered ? 1 : props.$position ? 0 : 1)};
+  transform: translateX(
+    ${(props) => (props.$entered ? 0 : props.$position ? '15%' : 0)}
+  );
+  transition: all 0.5s ease, opacity 0.25s ease;
 
   &::-webkit-scrollbar {
     width: 0.4rem;
@@ -136,7 +170,6 @@ const Button = styled.button`
   width: 100%;
   text-align: start;
   color: ${(props) => props.theme.textPrimary};
-  
 
   &:hover {
     background: ${(props) => props.theme.primaryBackground};
