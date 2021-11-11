@@ -1,9 +1,11 @@
 export const ADD_PALETTE_TO_COLLECTION = 'ADD_PALETTE_TO_COLLECTION';
 export const DELETE_PALETTE_FROM_COLLECTION = 'DELETE_PALETTE_FROM_COLLECTION';
+export const DELETE_PALETTE_FROM_COLLECTIONS = 'DELETE_PALETTE_FROM_COLLECTIONS';
 export const UPDATE_PALETTE_IN_COLLECTION = 'UPDATE_PALETTE_IN_COLLECTION';
 
 export const REQUEST_ADD_PALETTE_TO_COLLECTION = 'REQUEST_ADD_PALETTE_TO_COLLECTION';
 export const REQUEST_DELETE_PALETTE_FROM_COLLECTION = 'REQUEST_DELETE_PALETTE_FROM_COLLECTION';
+export const REQUEST_DELETE_PALETTE_FROM_COLLECTIONS = 'REQUEST_DELETE_PALETTE_FROM_COLLECTIONS';
 
 export const REQUEST_CREATE_COLLECTION = 'REQUEST_CREATE_COLLECTION';
 export const REQUEST_UPDATE_COLLECTION = 'REQUEST_UPDATE_COLLECTION';
@@ -27,8 +29,14 @@ export const addPaletteToCollection = (palette, collectionId) => ({
   collectionId,
 });
 
-export const deletePaletteFromCollection = (paletteId) => ({
+export const deletePaletteFromCollection = (paletteId, collectionId) => ({
   type: DELETE_PALETTE_FROM_COLLECTION,
+  paletteId,
+  collectionId,
+});
+
+export const deletePaletteFromCollections = (paletteId) => ({
+  type: DELETE_PALETTE_FROM_COLLECTIONS,
   paletteId,
 });
 
@@ -43,8 +51,14 @@ export const requestAddPaletteToCollection = (paletteId, collectionId) => ({
   collectionId,
 });
 
-export const requestDeletePaletteFromCollection = (paletteId) => ({
+export const requestDeletePaletteFromCollection = (paletteId, collectionId) => ({
   type: REQUEST_DELETE_PALETTE_FROM_COLLECTION,
+  paletteId,
+  collectionId,
+});
+
+export const requestDeletePaletteFromCollections = (paletteId) => ({
+  type: REQUEST_DELETE_PALETTE_FROM_COLLECTIONS,
   paletteId,
 });
 

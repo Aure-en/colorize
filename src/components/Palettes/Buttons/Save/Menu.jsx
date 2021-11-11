@@ -24,12 +24,15 @@ const Menu = ({ paletteId, close, position }) => {
   const favoriteCollection = useSelector((state) => getFavoriteCollection(state, paletteId));
 
   const handleClick = (collectionId) => {
+    const collectionName = collections.find((collection) => collection.id === collectionId).name;
+
     if (favoriteCollection === collectionId) {
       dispatch(requestDeletePaletteFromCollection(paletteId));
+      toastify(`Palette successfully removed from ${collectionName}.`);
     } else {
       dispatch(requestAddPaletteToCollection(paletteId, collectionId));
       dispatch(setCurrentCollection(collectionId));
-      toastify('Palette successfully saved.');
+      toastify(`Palette successfully saved to ${collectionName}.`);
     }
     close();
   };
