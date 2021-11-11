@@ -4,9 +4,13 @@
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { edit } from '../../../actions/user';
+import { getUser } from '../../../selectors/user';
+
 import Modal from '../../Modal/Modal';
+import DisabledButton from './DisabledButton';
 
 const ModalItem = () => {
   const errorsObj = { username: '' };
@@ -17,13 +21,15 @@ const ModalItem = () => {
   const [errors, setErrors] = useState(errorsObj);
   const [confirmPassword, setConfirm] = useState('');
 
+  const user = useSelector(getUser);
+
   function edit(e) {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
 
     if (username === '') {
-      errorObj.username = 'username is Required';
+      errorObj.username = 'Username is required.';
       error = true;
     }
 
@@ -43,7 +49,11 @@ const ModalItem = () => {
   return (
     <ModalContainer>
       <EditButtonContainer>
-        <Button onClick={openModal}>Edit</Button>
+        {user.id === Number(process.env.REACT_APP_SAMPLE_ID) ? (
+          <DisabledButton />
+        ) : (
+          <Button onClick={openModal}>Edit</Button>
+        )}
       </EditButtonContainer>
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
         <ChangeUsernameTitle>Change Username</ChangeUsernameTitle>

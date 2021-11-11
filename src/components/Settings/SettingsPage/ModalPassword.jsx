@@ -4,9 +4,13 @@
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { edit } from '../../../actions/user';
+import { getUser } from '../../../selectors/user';
+
 import Modal from '../../Modal/Modal';
+import DisabledButton from './DisabledButton';
 
 const ModalPassword = () => {
   let subtitle;
@@ -17,6 +21,8 @@ const ModalPassword = () => {
   const [confirmPassword, setConfirm] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [errors, setErrors] = useState(errorsObj);
+
+  const user = useSelector(getUser);
 
   function edit(e) {
     e.preventDefault();
@@ -48,7 +54,11 @@ const ModalPassword = () => {
   return (
     <ModalContainer>
       <EditButtonContainer>
-        <Button onClick={openModal}>Edit</Button>
+        {user.id === Number(process.env.REACT_APP_SAMPLE_ID) ? (
+          <DisabledButton />
+        ) : (
+          <Button onClick={openModal}>Edit</Button>
+        )}
       </EditButtonContainer>
 
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
