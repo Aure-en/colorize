@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { requestAddPaletteToCollection } from '../../../actions/favorite';
-import { getCollections, getCurrentCollection } from '../../../selectors/favorite';
+import {
+  getCollections,
+  getCurrentCollection,
+} from '../../../selectors/favorite';
 
 import { toastify } from '../../Shared/Toast';
 
@@ -12,7 +15,9 @@ const FavoriteButton = ({ paletteId }) => {
   const dispatch = useDispatch();
   const currentCollection = useSelector(getCurrentCollection);
   const collections = useSelector(getCollections);
-  const collectionName = collections.find((collection) => collection.id === currentCollection).name;
+  const collectionName = collections.find(
+    (collection) => collection.id === currentCollection,
+  )?.name;
 
   const handleClick = () => {
     dispatch(requestAddPaletteToCollection(paletteId, currentCollection));
