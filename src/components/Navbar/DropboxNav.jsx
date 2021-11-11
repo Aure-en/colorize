@@ -17,7 +17,7 @@ const DropboxNav = () => {
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         {currentFormat}
-        &#9660;
+        {/* &#9660; */}
         {/* Caret down */}
       </DropdownHeader>
 
@@ -43,11 +43,12 @@ const Dropdown = styled.div`
   display: inline-block;
   z-index: 10;
   padding: 0.8rem 0.5rem 0.8rem 1rem;
-  font-weight: 300;
+  font-weight: 600;
   text-align: center;
   justify-self: end;
+  right: 10px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `;
@@ -57,7 +58,7 @@ const DropdownHeader = styled.button`
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
-  font-weight: 300;
+  font-weight: 600;
   text-transform: capitalize;
   color: ${(props) => props.theme.textOnPrimary};
 

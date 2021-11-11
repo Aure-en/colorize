@@ -10,7 +10,7 @@ import { getUser } from '../../selectors/user';
 
 import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
-const RightNavAfterSignIn = ({ open }) => {
+const RightNavAfterSignIn = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
 
@@ -23,14 +23,14 @@ const RightNavAfterSignIn = ({ open }) => {
         </Btn>
       </Searchbar>
       <NavLinkBetween>
-        <NavLink to="/" exact className="navlink">Home</NavLink>
-        <NavLink to="/creation" exact className="navlink">Creation</NavLink>
-        <NavLink to="/collections" exact className="navlink">Collections</NavLink>
+        <NavLink to="/" exact className="navlink" onClick={() => setOpen(false)}>Home</NavLink>
+        <NavLink to="/creation" exact className="navlink" onClick={() => setOpen(false)}>Creation</NavLink>
+        <NavLink to="/collections" exact className="navlink" onClick={() => setOpen(false)}>Collections</NavLink>
       </NavLinkBetween>
       <NavLinkBetween>
         <Username>Username</Username>
-        <NavLink to={`/users/${user.id}`} exact className="navlink">Profile</NavLink>
-        <NavLink to="/settings" exact className="navlink">Settings</NavLink>
+        <NavLink to={`/users/${user.id}`} exact className="navlink" onClick={() => setOpen(false)}>Profile</NavLink>
+        <NavLink to="/settings" exact className="navlink" onClick={() => setOpen(false)}>Settings</NavLink>
         <button
           type="button"
           onClick={() => {
@@ -50,6 +50,7 @@ const RightNavAfterSignIn = ({ open }) => {
 
 RightNavAfterSignIn.propTypes = {
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.bool.isRequired,
 };
 
 const Ul = styled.ul`
@@ -71,7 +72,7 @@ const Ul = styled.ul`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-flow: column nowrap;
     background: ${(props) => props.theme.textPrimary};
     
@@ -100,7 +101,7 @@ const NavLinkBetween = styled.div`
   flex-direction: column;
   padding-left: 10px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     flex-direction: row;
     align-items: center;
   }
@@ -109,7 +110,7 @@ const NavLinkBetween = styled.div`
 const Searchbar = styled.div`
   display: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
     padding: 2rem 0;
     width: 100%;
@@ -122,7 +123,7 @@ const Searchbar = styled.div`
 const Input = styled.input`
   display: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
     height: 60px;
     width: 70%;
@@ -139,7 +140,7 @@ const Btn = styled.button`
     stroke: ${(props) => props.theme.background}
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
   }
 `;
@@ -147,7 +148,7 @@ const Btn = styled.button`
 const Username = styled.p`
   display: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
     font-size: 3rem;
     margin: 1rem;
