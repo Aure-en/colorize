@@ -183,7 +183,10 @@ const palette = (state = initialState, action = {}) => {
 
     case ADD_COLOR: {
       const DEFAULT_COLOR = '#FFFFFF';
-      const newColors = [...state.palette.colors, getColorFromHex(DEFAULT_COLOR)];
+      const newColors = [...state.palette.colors, {
+        ...getColorFromHex(DEFAULT_COLOR),
+        position: state.palette.colors.length,
+      }];
 
       return {
         ...state,
