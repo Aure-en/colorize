@@ -35,8 +35,7 @@ const Ul = styled.ul`
     font-weight: 500;
 
     &.active {
-      text-decoration: underline;
-      font-weight: 700;
+      color: ${(props) => props.theme.secondary};
     }
   }
   @media (max-width: 1024px) {
