@@ -14,8 +14,8 @@ const Edit = ({ color }) => {
   const handleChange = useCallback(
     (e) => {
       if (!throttle) {
-        dispatch(updateColor(color.id, e.target.value));
-        dispatch(setShade(color.id, e.target.value));
+        dispatch(updateColor(color.position, e.target.value));
+        dispatch(setShade(color.position, e.target.value));
         throttle = true;
         setTimeout(() => {
           throttle = false;
@@ -26,18 +26,18 @@ const Edit = ({ color }) => {
   );
 
   const handleBlur = (e) => {
-    dispatch(updateColor(color.id, e.target.value));
-    dispatch(setShade(color.id, e.target.value));
+    dispatch(updateColor(color.position, e.target.value));
+    dispatch(setShade(color.position, e.target.value));
     if (locked[color.id]) dispatch(unlockColor(color.id));
   };
 
   return (
     <Label
-      htmlFor={`color-${color.id}`}
+      htmlFor={`color-${color.position}`}
       onClick={(e) => {
         e.stopPropagation();
       }}
-      $index={color.id}
+      $index={color.position}
       $color={color}
     >
       <IconEdit />
@@ -46,8 +46,8 @@ const Edit = ({ color }) => {
         onChange={handleChange}
         onBlur={handleBlur}
         type="color"
-        id={`color-${color.id}`}
-        name={`color-${color.id}`}
+        id={`color-${color.position}`}
+        name={`color-${color.position}`}
         aria-label="Edit color"
       />
     </Label>
@@ -60,12 +60,19 @@ Edit.propTypes = {
     hex: PropTypes.string.isRequired,
     rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
+    position: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 const Label = styled.label`
   cursor: pointer;
+  color: ${(props) => props.theme.textSecondary};
+
+  &:hover {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  
   & > input {
     border: none;
     width: 0;

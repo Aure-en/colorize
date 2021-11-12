@@ -4,6 +4,8 @@ export const SET_MODAL_PALETTE = 'SET_MODAL_PALETTE';
 export const RESET_PALETTE = 'RESET_PALETTE';
 export const REORDER_COLORS = 'REORDER_COLORS';
 export const UPDATE_COLOR = 'UPDATE_COLOR';
+export const REMOVE_COLOR = 'REMOVE_COLOR';
+export const ADD_COLOR = 'ADD_COLOR';
 
 export const LOCK_COLOR = 'LOCK_COLOR';
 export const UNLOCK_COLOR = 'UNLOCK_COLOR';
@@ -83,4 +85,13 @@ export const fetchFirstPalette = () => ({
 export const setPaletteLoading = (loading) => ({
   type: SET_PALETTE_LOADING,
   loading,
+});
+
+export const removeColor = (position) => ({
+  type: REMOVE_COLOR,
+  position,
+});
+
+export const addColor = () => ({
+  type: ADD_COLOR,
 });

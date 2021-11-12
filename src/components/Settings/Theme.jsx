@@ -36,7 +36,15 @@ const Theme = ({ children }) => {
       'quaternary',
       'quinary',
     ];
-    const [primary, secondary, tertiary] = palette.colors;
+    let [primary, secondary, tertiary] = palette.colors;
+
+    if (!secondary) {
+      secondary = JSON.parse(JSON.stringify(primary));
+    }
+
+    if (!tertiary) {
+      tertiary = JSON.parse(JSON.stringify(primary));
+    }
 
     // Set the main palette in the theme
     themeKeys.forEach((key, index) => {

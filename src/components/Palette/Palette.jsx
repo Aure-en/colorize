@@ -28,8 +28,8 @@ const Palette = ({
         dispatch(setShades(reorderedPalette));
       }}
     >
-      {palette.colors.map((color, index) => (
-        <Color key={index} color={color} />
+      {palette.colors.map((color) => (
+        <Color key={color.position} color={color} />
       ))}
     </Wrapper>
   );

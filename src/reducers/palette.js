@@ -11,6 +11,7 @@ import {
   LOCK_COLOR,
   UNLOCK_COLOR,
   SET_PALETTE_LOADING,
+  REMOVE_COLOR,
 } from '../actions/palette';
 import {
   getLighterShades,
@@ -50,7 +51,7 @@ const palette = (state = initialState, action = {}) => {
           ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
-            id: index,
+            position: index,
           })),
         })),
 
@@ -65,7 +66,7 @@ const palette = (state = initialState, action = {}) => {
           ...action.palette,
           colors: action.palette.colors.map((color, index) => ({
             ...color,
-            id: index,
+            position: index,
           })),
         })),
       };
@@ -169,6 +170,16 @@ const palette = (state = initialState, action = {}) => {
           id: action.paletteId,
         },
       };
+
+    case REMOVE_COLOR: {
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: state.palette.colors.filter((color) => color.position !== action.position),
+        },
+      };
+    }
 
     default:
       return state;
