@@ -13,6 +13,7 @@ export const SET_SHADES = 'SET_SHADES';
 export const INCREMENT_SHADES = 'INCREMENT_SHADES';
 export const DECREMENT_SHADES = 'DECREMENT_SHADES';
 
+export const FETCH_FIRST_PALETTE = 'FETCH_FIRST_PALETTE';
 export const SET_PALETTE_LOADING = 'SET_PALETTE_LOADING';
 
 export const setMainPalette = (palette) => ({
@@ -75,9 +76,11 @@ export const setModalPalette = (palette) => ({
   palette,
 });
 
-export const setPaletteLoading = (action, status, paletteId) => ({
+export const fetchFirstPalette = () => ({
+  type: FETCH_FIRST_PALETTE,
+});
+
+export const setPaletteLoading = (loading) => ({
   type: SET_PALETTE_LOADING,
-  action,
-  status,
-  paletteId,
+  loading,
 });
