@@ -7,7 +7,7 @@ import useDelete from '../../../../hooks/account/useDelete';
 import Modal from '../../../Modal/Modal';
 
 const DeleteModal = ({ isModalOpen, closeModal }) => {
-  const { deleteAccount, error, loading } = useDelete();
+  const { deleteAccount, loading } = useDelete();
 
   return (
     <Modal isModalOpen={isModalOpen} closeModal={closeModal}>

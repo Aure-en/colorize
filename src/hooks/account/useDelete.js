@@ -8,7 +8,6 @@ import { logout } from '../../actions/user';
 const useDelete = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState('idle');
-  const [error, setError] = useState('');
   const history = useHistory();
   const user = useSelector(getUser);
 
@@ -25,17 +24,19 @@ const useDelete = () => {
     );
 
     const json = response.json();
-    console.log(json);
 
     // Everything went well
-    dispatch(logout());
-    localStorage.removeItem('user');
-    history.push('/');
-    setLoading('fulfilled');
+    if (json.id) {
+      dispatch(logout());
+      localStorage.removeItem('user');
+      history.push('/');
+      setLoading('fulfilled');
+    } else {
+      setLoading('rejected');
+    }
   };
 
   return {
-    error,
     loading,
     deleteAccount,
   };

@@ -68,7 +68,7 @@ const Preview = () => {
   };
 
   useEffect(() => {
-    if (windowSize.width > 600) {
+    if (windowSize.width > 900) {
       window.addEventListener('wheel', onMouseWheel);
       window.addEventListener('keydown', onKeyDown);
     }
