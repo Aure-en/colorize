@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import Edit from './Edit';
+import Remove from './Remove';
 
 const ColorButtons = ({ color }) => (
   <Buttons>
     <Edit color={color} />
+    <Remove position={color.position} />
   </Buttons>
 );
 
@@ -15,7 +18,8 @@ ColorButtons.propTypes = {
     hex: PropTypes.string.isRequired,
     rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
     hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
+    position: PropTypes.number.isRequired,
   }).isRequired,
 };
 
