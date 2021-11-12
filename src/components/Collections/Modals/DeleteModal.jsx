@@ -76,6 +76,8 @@ const Heading = styled.h2`
 `;
 
 const Content = styled.div`
+  color: ${(props) => props.theme.textPrimary};
+
   & > strong {
     font-weight: 500;
   }

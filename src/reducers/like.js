@@ -5,10 +5,10 @@ export const initialState = [];
 const like = (state = initialState, action = {}) => {
   switch (action.type) {
     case LIKE_PALETTE:
-      return [...state, action.palette];
+      return [...state, action.paletteId];
 
     case UNLIKE_PALETTE:
-      return [...state].filter((palette) => palette.id !== action.paletteId);
+      return [...state].filter((paletteId) => paletteId !== action.paletteId);
 
     default:
       return state;

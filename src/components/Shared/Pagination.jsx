@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
 
 import useDropdown from '../../hooks/shared/useDropdown';
 
@@ -29,13 +30,23 @@ const Pagination = ({ numberOfPages, currentPage }) => {
           {currentPage}
         </DropdownHeader>
 
-        {isDropdownOpen && (
-        <DropdownList>
-          {[...Array(numberOfPages).keys()].map((page) => page + 1).map((page) => (
-            <PageLink to={`${path}?page=${page}`} key={page}>{page}</PageLink>
-          ))}
-        </DropdownList>
-        )}
+        <Transition
+          in={isDropdownOpen}
+          timeout={{
+            enter: 0,
+            exit: 500,
+          }}
+          mountOnEnter={false}
+          unmountOnExit
+        >
+          {(state) => (
+            <DropdownList $entered={state === 'entered'}>
+              {[...Array(numberOfPages).keys()].map((page) => page + 1).map((page) => (
+                <PageLink to={`${path}?page=${page}`} key={page}>{page}</PageLink>
+              ))}
+            </DropdownList>
+          )}
+        </Transition>
       </Dropdown>
 
       {currentPage < numberOfPages && <ButtonLink to={`${path}?page=${currentPage + 1}`}>&#9658;</ButtonLink>}
@@ -69,6 +80,8 @@ const Dropdown = styled.div`
 `;
 
 const DropdownHeader = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+
   &:hover {
     color: ${(props) => props.theme.primaryText};
   }
@@ -87,6 +100,9 @@ const DropdownList = styled.div`
   border: 1px solid ${(props) => props.theme.textPrimary};
   min-width: 100%;
   padding: 0.25rem 0;
+  opacity: ${(props) => (props.$entered ? 1 : 0)};
+  transform: translateY(${(props) => (props.$entered ? '0' : '15%')});
+  transition: transform 0.5s ease, opacity 0.25s ease;
 
   &::-webkit-scrollbar {
     width: 0.3rem;

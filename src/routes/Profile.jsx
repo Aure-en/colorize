@@ -38,7 +38,6 @@ const Profile = ({ match }) => {
         setUser(userProfile.user);
         setPalettes(userProfile.palettes);
         setLoading(false);
-        return;
       }
 
       if (!userProfile) setLoading(true);
@@ -81,8 +80,8 @@ const Profile = ({ match }) => {
   return (
     <Wrapper>
       {user && <ProfilePage username={user.username} />}
-      <div>
-        {loading ? (<Loading />) : (
+      <Main>
+        {loading ? (<Loader><Loading /></Loader>) : (
           <>
             {error && <Error>{error}</Error>}
             {palettes.length > 0 ? (
@@ -95,8 +94,7 @@ const Profile = ({ match }) => {
             )}
           </>
         )}
-
-      </div>
+      </Main>
     </Wrapper>
   );
 };
@@ -118,6 +116,18 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
   }
+`;
+
+const Main = styled.main`
+  flex: 1;
+`;
+
+const Loader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const Content = styled.div`

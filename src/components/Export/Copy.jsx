@@ -42,7 +42,7 @@ const Button = styled.button`
   margin-top: 1rem;
 
   &:hover {
-    background: ${(props) => props.theme.textSecondary};
+    background: ${(props) => (props.$copied ? props.theme.textSecondary : props.theme.primaryText)};
   }
 `;
 

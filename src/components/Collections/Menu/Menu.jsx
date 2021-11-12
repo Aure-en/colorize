@@ -14,12 +14,11 @@ const Menu = ({ collection }) => {
   return (
     <Wrapper ref={dropdownRef}>
       <Button toggleMenu={() => setIsDropdownOpen(!isDropdownOpen)} />
-      {isDropdownOpen && (
-        <Dropdown
-          close={() => setIsDropdownOpen(false)}
-          collection={collection}
-        />
-      )}
+      <Dropdown
+        isOpen={isDropdownOpen}
+        close={() => setIsDropdownOpen(false)}
+        collection={collection}
+      />
     </Wrapper>
   );
 };

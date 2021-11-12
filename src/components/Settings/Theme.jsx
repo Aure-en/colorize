@@ -12,7 +12,7 @@ import {
 } from '../../utils/colors';
 
 const Theme = ({ children }) => {
-  const DARK_DEFAULT = '#292929';
+  const DARK_DEFAULT = '#2E3136';
   const LIGHT_DEFAULT = '#FFFFFF';
 
   const initial = {
@@ -26,6 +26,8 @@ const Theme = ({ children }) => {
   const darkMode = useSelector(getIsDarkMode);
 
   useEffect(() => {
+    if (palette.colors.length === 0) return;
+
     const newTheme = { ...theme };
     const themeKeys = [
       'primary',

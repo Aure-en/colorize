@@ -4,6 +4,7 @@ import rootReducer from '../reducers/root';
 
 import likeMiddleware from '../middlewares/like';
 import favoriteMiddleware from '../middlewares/favorite';
+import paletteMiddleware from '../middlewares/palette';
 import themesMiddleware from '../middlewares/themes';
 import userMiddleware from '../middlewares/user';
 
@@ -13,6 +14,7 @@ const enhancers = composeEnhancers(
   applyMiddleware(
     likeMiddleware,
     favoriteMiddleware,
+    paletteMiddleware,
     themesMiddleware,
     userMiddleware,
   ),

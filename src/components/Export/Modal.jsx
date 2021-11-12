@@ -76,6 +76,7 @@ const Content = styled.div`
   width: calc(100vw - 6rem); // Modal padding
   max-width: 30rem;
   max-height: 30rem;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const Heading = styled.h2`

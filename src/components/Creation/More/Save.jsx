@@ -12,23 +12,22 @@ const Save = ({ paletteId, closeMenu }) => {
       onMouseEnter={() => setIsCollectionsOpen(true)}
       onMouseLeave={() => setIsCollectionsOpen(false)}
     >
-      <button type="button">
+      <Button type="button">
         {/* &#9664; is ◀ */}
         <Arrow>&#9664;</Arrow>
         {' '}
         Save Palette
-      </button>
+      </Button>
 
-      {isCollectionsOpen && (
       <Menu
         paletteId={paletteId}
+        isOpen={isCollectionsOpen}
         close={() => {
           setIsCollectionsOpen(false);
           closeMenu();
         }}
         position="left"
       />
-      )}
     </Wrapper>
   );
 };
@@ -41,6 +40,10 @@ Save.propTypes = {
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
+`;
+
+const Button = styled.button`
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const Arrow = styled.span`

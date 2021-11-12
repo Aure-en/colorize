@@ -3,9 +3,9 @@ export const UNLIKE_PALETTE = 'UNLIKE_PALETTE';
 export const REQUEST_LIKE_PALETTE = 'REQUEST_LIKE_PALETTE';
 export const REQUEST_UNLIKE_PALETTE = 'REQUEST_UNLIKE_PALETTE';
 
-export const likePalette = (palette) => ({
+export const likePalette = (paletteId) => ({
   type: LIKE_PALETTE,
-  palette,
+  paletteId,
 });
 
 export const unlikePalette = (paletteId) => ({

@@ -1,7 +1,10 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { Transition } from 'react-transition-group';
+
 import useDropdown from '../../hooks/shared/useDropdown';
+
 import { getFormat } from '../../selectors/settings';
 import { updateFormat } from '../../actions/settings';
 
@@ -17,23 +20,33 @@ const DropboxNav = () => {
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         {currentFormat}
-        &#9660;
+        {/* &#9660; */}
         {/* Caret down */}
       </DropdownHeader>
 
-      {isDropdownOpen && (
-        <DropdownList>
-          {formatWithoutCurrent.map((format) => (
-            <Button
-              type="button"
-              onClick={() => { dispatch(updateFormat(format)); }}
-              key={format}
-            >
-              {format}
-            </Button>
-          ))}
-        </DropdownList>
-      )}
+      <Transition
+        in={isDropdownOpen}
+        timeout={{
+          enter: 0,
+          exit: 500,
+        }}
+        mountOnEnter={false}
+        unmountOnExit
+      >
+        {(state) => (
+          <DropdownList $entered={state === 'entered'}>
+            {formatWithoutCurrent.map((format) => (
+              <Button
+                type="button"
+                onClick={() => { dispatch(updateFormat(format)); }}
+                key={format}
+              >
+                {format}
+              </Button>
+            ))}
+          </DropdownList>
+        )}
+      </Transition>
     </Dropdown>
   );
 };
@@ -43,11 +56,12 @@ const Dropdown = styled.div`
   display: inline-block;
   z-index: 10;
   padding: 0.8rem 0.5rem 0.8rem 1rem;
-  font-weight: 300;
+  font-weight: 600;
   text-align: center;
   justify-self: end;
+  right: 10px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `;
@@ -57,7 +71,7 @@ const DropdownHeader = styled.button`
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
-  font-weight: 300;
+  font-weight: 600;
   text-transform: capitalize;
   color: ${(props) => props.theme.textOnPrimary};
 
@@ -71,11 +85,14 @@ const DropdownList = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 10;
-  width: 100%;
+  width: 110%;
+  padding: ${(props) => (props.$entered ? '0.25rem 0' : 0)};
   background: ${(props) => props.theme.background};
-  padding: 0.25rem 0;
+  border: 1px solid ${(props) => (props.$entered ? props.theme.textPrimary : 'transparent')};
+  max-height: ${(props) => (props.$entered ? '10rem' : 0)};
+  transition: all 0.5s ease;
+  overflow: hidden;
 `;
 
 const Button = styled.button`

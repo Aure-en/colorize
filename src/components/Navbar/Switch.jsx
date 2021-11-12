@@ -36,6 +36,7 @@ const Toggle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 20;
 
   .react-switch-checkbox {
     height: 0;
@@ -48,8 +49,8 @@ const Toggle = styled.div`
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    width: 45px;
-    height: 25px;
+    width: 40px;
+    height: 20px;
     background: grey;
     border-radius: 100px;
     position: relative;
@@ -59,10 +60,10 @@ const Toggle = styled.div`
   .react-switch-label .react-switch-button {
     content: '';
     position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 20px;
-    height: 20px;
+    top: 1px;
+    left: 1px;
+    width: 17px;
+    height: 17px;
     border-radius: 45px;
     transition: 0.2s;
     background: ${(props) => props.theme.background};
@@ -75,7 +76,7 @@ const Toggle = styled.div`
   }
 
   .react-switch-label:active .react-switch-button {
-    width: 60px;
+    width: 20px;
   }
 `;
 

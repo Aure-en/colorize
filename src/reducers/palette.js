@@ -12,7 +12,6 @@ import {
   UNLOCK_COLOR,
   SET_PALETTE_LOADING,
 } from '../actions/palette';
-import palettesData from '../data/palettes';
 import {
   getLighterShades,
   getDarkerShades,
@@ -20,25 +19,17 @@ import {
   getColorSteps,
 } from '../utils/colors';
 
-const firstPalette = Math.floor(Math.random() * 20);
-
 export const initialState = {
   // JSON.parse + JSON.stringify to recreate a new object
   // with nested arrays and objects with different references from originalPalette.
-  palette: JSON.parse(JSON.stringify({
-    id: palettesData[firstPalette].id,
-    colors: palettesData[firstPalette].colors.map((color, index) => ({
-      ...color,
-      id: index,
-    })),
-  })),
-  originalPalette: JSON.parse(JSON.stringify({
-    id: palettesData[firstPalette].id,
-    colors: palettesData[firstPalette].colors.map((color, index) => ({
-      ...color,
-      id: index,
-    })),
-  })),
+  palette: {
+    id: null,
+    colors: [],
+  },
+  originalPalette: {
+    id: null,
+    colors: [],
+  },
   locked: [null, null, null, null, null],
   shadesNumber: 2,
   shades: {
@@ -46,11 +37,7 @@ export const initialState = {
     dark: [],
   },
   modalPalette: null,
-  loading: {
-    action: null, // 'create', 'read', 'update', 'delete'
-    id: null, // Identify the palette that has just been created / read / updated / deleted
-    status: 'idle', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
-  },
+  loading: 'pending',
 };
 
 const palette = (state = initialState, action = {}) => {
