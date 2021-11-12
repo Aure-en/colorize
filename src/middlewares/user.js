@@ -125,9 +125,8 @@ const userMiddleware = (store) => (next) => async (action) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: action.username,
-          email: action.email,
-          jwt: action.jwt,
+          email: user.email,
+          password: action.password,
         }),
       });
 
@@ -136,16 +135,12 @@ const userMiddleware = (store) => (next) => async (action) => {
 
       console.log(json);
       console.log(checklog);
-      console.log(json.data);
 
-      dispatch(
-        successEdit(action.username,
-          action.email,
-          action.jwt,
-          json.data.username,
-          json.data.email,
-          json.token),
-      );
+      // dispatch(
+      //   successEdit({
+      //     username: action.
+      //   }),
+      // );
 
       localStorage.setItem(
         'user',
