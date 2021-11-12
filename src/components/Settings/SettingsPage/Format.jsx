@@ -29,6 +29,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
+  margin-bottom: 1rem;
 `;
 
 const Button = styled.button`

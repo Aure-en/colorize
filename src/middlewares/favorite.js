@@ -243,7 +243,6 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       // Expired JWT.
       if (json.code === 401 && /expired jwt token/i.test(json.message)) {
-        dispatch(openModal('expiredToken'));
         dispatch(logout());
         localStorage.removeItem('user');
       }
@@ -252,25 +251,8 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const collections = json.filesPersonnel;
 
       if (Array.isArray(collections)) {
-        // For each collection, fetch its palettes.
-        // Fetch palettes of collections and add them when they contain associated colors.
-        const collectionsWithPalettes = await Promise.all(
-          collections.map(async (collection) => {
-            const res = await fetch(
-              `${process.env.REACT_APP_SERVER}/files/${collection.id}/palettes`,
-              {
-                headers: {
-                  Authorization: `Bearer ${user.jwt}`,
-                },
-              },
-            );
-            const palette = await res.json();
-            return palette;
-          }),
-        );
-
         // Format to get all color formats per palette
-        const collectionsWithAllColorFormats = collectionsWithPalettes.map(
+        const collectionsWithAllColorFormats = collections.map(
           (collection) => ({
             ...collection,
             palettes: collection.palettes.map((palette) => ({

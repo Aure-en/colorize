@@ -23,7 +23,8 @@ const List = styled.ul`
   height: 100%;
   flex: 1;
   grid-gap: 2rem;
-  align-content: start;
+  align-content: stretch;
+  grid-template-rows: repeat(5, 1fr);
 
   @media all and (min-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
