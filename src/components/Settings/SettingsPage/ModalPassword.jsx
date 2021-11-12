@@ -63,7 +63,7 @@ const ModalPassword = () => {
 
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
         <ChangePasswordTitle placeholder="Password" ref={(_subtitle) => (subtitle = _subtitle)}>Change Password</ChangePasswordTitle>
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <Field>
             <Label htmlFor="current-password">
               Current Password

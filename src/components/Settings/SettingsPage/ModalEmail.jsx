@@ -61,7 +61,7 @@ const ModalEmail = () => {
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
         <ChangeUsernameTitle>Change Email</ChangeUsernameTitle>
 
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <Field>
             <Label htmlFor="email">
               New Email

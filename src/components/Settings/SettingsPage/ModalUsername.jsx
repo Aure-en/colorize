@@ -57,7 +57,7 @@ const ModalItem = () => {
       </EditButtonContainer>
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
         <ChangeUsernameTitle>Change Username</ChangeUsernameTitle>
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <Field>
             <Label htmlFor="username">
               New Username

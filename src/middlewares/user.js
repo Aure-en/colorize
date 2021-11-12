@@ -119,16 +119,7 @@ const userMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const json = await response.json();
-
-      console.log(json);
-      dispatch(successEdit(action.username, action.email, action.jwt));
-      break;
-    }
-
-    case SUCCESS_EDIT: {
-      const { dispatch } = store;
-      const response = await fetch('https://apicolorize.me/api/login_check', {
+      const check = await fetch('https://apicolorize.me/api/login_check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -140,18 +131,47 @@ const userMiddleware = (store) => (next) => async (action) => {
         }),
       });
 
+      const json = await response.json();
+      const checklog = await check.json();
+
+      console.log(json);
+      console.log(checklog);
+      console.log(json.data);
+
+      dispatch(
+        successEdit(action.username,
+          action.email,
+          action.jwt,
+          json.data.username,
+          json.data.email,
+          json.token),
+      );
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          username: json.data.username,
+          email: json.data.email,
+          token: json.token,
+        }),
+      );
+
+      break;
+    }
+
+    /* case SUCCESS_EDIT: {
+     const { dispatch } = store;
       if (response.status === 200) {
         const json = await response.json();
 
         dispatch(
-          successLogin(
+          successEdit(
             json.data.username,
             json.data.email,
             json.token,
           ),
         );
-
-        localStorage.setItem(
+  localStorage.setItem(
           'user',
           JSON.stringify({
             username: json.data.username,
@@ -162,7 +182,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       }
 
       break;
-    }
+    } */
 
     default:
   }
