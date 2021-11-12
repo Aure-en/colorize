@@ -97,7 +97,7 @@ const Login = () => {
             <SignInForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignIn}>
                 <FormBxTitlesIn>Sign In</FormBxTitlesIn>
-                <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+                <Input placeholder="Email" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
                 <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <LogPass>
                   <Input to="/home" className="submit" type="submit" value="Login" />
@@ -154,7 +154,7 @@ const Brand = styled.div`
   align-items: center;
   margin-bottom: 4.5rem;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     display: none;
   }
 `;
@@ -164,7 +164,7 @@ const BrandTitle = styled.p`
   color: ${(props) => props.theme.background};
 
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     font-size: 2.5rem;
   }
 `;
@@ -175,7 +175,7 @@ const Container = styled.div`
   height: 700px;                                  /* hauteur de la fenetre transparente bureau */
   margin: 40px;
 
-  @media all and (max-width: 1024px) {
+  @media all and (max-width: 1150px) {
     max-width: 450px;                             /* largeur de la fenetre transparente mobile */
     height: 800px;                                /* hauteur de la fenetre transparente mobile */
     display: flex;
@@ -197,10 +197,16 @@ const BlueBg = styled.div`
   background: rgba(255,255,255,0.2);
   box-shadow: 0 5px 45px rgba(0,0,0,0.15);
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     top: 0;
     height: 720px;                                  /* hauteur de la fenetre transparente mobile */
     width: 120%;                                     /* Largeur de la fenetre transparente mobile */
+  }
+
+  @media (max-width: 630px) {
+    top: 0;
+    height: 700px;                                  /* hauteur de la fenetre transparente mobile */
+    width: 100%;                                     /* Largeur de la fenetre transparente mobile */
   }
 `;
 
@@ -213,7 +219,7 @@ const box = `
   align-items: center;
   flex-direction: column;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -222,7 +228,7 @@ const box = `
 
 const SignIn = styled.div`
   ${box};
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
   top: 0;
   height: 140px;
 }
@@ -231,7 +237,7 @@ const SignIn = styled.div`
 
 const SignUp = styled.div`
   ${box};
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     padding: 30px;
     height: 190px;
   }
@@ -243,7 +249,7 @@ const BlueBgTitles = styled.h2`
   font-weight: 400;
   margin-bottom: 135px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     font-size: 1.3em;
     margin-bottom: 35px;
   }
@@ -335,9 +341,9 @@ const FormBx = styled.div`
     left: 43%;                                             /* décaler la fenetre blanche bureau */
   }
 
-  @media all and (max-width: 1024px) {
+  @media all and (max-width: 1150px) {
     width: 130%;
-    height: 575px;                                        /* hauteur de la fenetre blanche mobile */
+    height: 575px;                                        /* hauteur de la fenetre blanche tablette */
     top: 0;
     left: -15%;
     box-shadow: none;
@@ -349,9 +355,10 @@ const FormBx = styled.div`
   }
 
   @media all and (max-width: 630px) {
-    width: 130%;
+    width: 100%;
     height: 550px;                                        /* hauteur de la fenetre blanche mobile */
-
+    left: 0;
+    
   }
 `;
 
@@ -440,7 +447,7 @@ color: ${(props) => props.theme.secondaryText};
 margin-left: 49%;
   font-weight: 300;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1150px) {
     margin-left: 85px;
   }
 `;
