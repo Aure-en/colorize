@@ -26,6 +26,8 @@ const Theme = ({ children }) => {
   const darkMode = useSelector(getIsDarkMode);
 
   useEffect(() => {
+    if (palette.colors.length === 0) return;
+
     const newTheme = { ...theme };
     const themeKeys = [
       'primary',
