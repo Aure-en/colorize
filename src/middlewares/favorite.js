@@ -250,29 +250,9 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       // Everything went well
       const collections = json.filesPersonnel;
 
-      console.log(collections);
-
       if (Array.isArray(collections)) {
-        // For each collection, fetch its palettes.
-        // Fetch palettes of collections and add them when they contain associated colors.
-        const collectionsWithPalettes = await Promise.all(
-          collections.map(async (collection) => {
-            const res = await fetch(
-              `${process.env.REACT_APP_SERVER}/files/palettes/${collection.id}/`,
-              {
-                headers: {
-                  Authorization: `Bearer ${user.jwt}`,
-                },
-              },
-            );
-            const palette = await res.json();
-            console.log(palette);
-            return palette;
-          }),
-        );
-
         // Format to get all color formats per palette
-        const collectionsWithAllColorFormats = collectionsWithPalettes.map(
+        const collectionsWithAllColorFormats = collections.map(
           (collection) => ({
             ...collection,
             palettes: collection.palettes.map((palette) => ({
