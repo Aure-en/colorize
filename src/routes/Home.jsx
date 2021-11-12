@@ -43,6 +43,8 @@ const Home = () => {
 
       const json = await response.json();
 
+      console.log(json);
+
       if (response.status === 200) {
         const palettes = json.list.slice(0, 20).map((palette) => ({
           ...palette,
