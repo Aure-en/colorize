@@ -100,13 +100,36 @@ const userMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
       const { user } = store.getState();
 
+      // Le champ qu'on veut éditer
+      // Email de l'utilisateur
+      // Mot de passe de l'utilisateur
+
+      const loginCheck = await fetch(
+        'https://apicolorize.me/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: user.email,
+            password: action.password,
+          }),
+        },
+      );
+
+      const loginCheckJson = await loginCheck.json();
+
+      // Login was not done because password was incorrect.
+      if (loginCheckJson.status === 400) {
+        return;
+      }
+
       const body = JSON.stringify({
         username: action.username,
         email: action.email,
-        password: action.password,
+        newPassword: action.newPassword,
       });
-
-      console.log(body);
 
       const response = await fetch(
         `https://apicolorize.me/api/v1/user/${user.id}`,
@@ -119,35 +142,39 @@ const userMiddleware = (store) => (next) => async (action) => {
         },
       );
 
-      const check = await fetch('https://apicolorize.me/api/login_check', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: user.email,
-          password: action.password,
-        }),
-      });
-
       const json = await response.json();
-      const checklog = await check.json();
 
-      console.log(json);
-      console.log(checklog);
+      const check = await fetch(
+        'https://apicolorize.me/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: action.email || user.email,
+            password: action.password,
+          }),
+        },
+      );
 
-      // dispatch(
-      //   successEdit({
-      //     username: action.
-      //   }),
-      // );
+      const checkJson = await check.json();
+
+      dispatch(
+        successEdit({
+          username: action.username || checkJson.data.username,
+          email: action.email || checkJson.data.email,
+          token: checkJson.token,
+        }),
+      );
 
       localStorage.setItem(
         'user',
         JSON.stringify({
-          username: json.data.username,
-          email: json.data.email,
-          token: json.token,
+          username: action.username || checkJson.data.username,
+          email: action.email || checkJson.data.email,
+          token: checkJson.token,
+          id: user.id,
         }),
       );
 

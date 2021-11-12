@@ -39,21 +39,14 @@ const user = (state = initialState, action = {}) => {
         jwt: action.jwt,
       };
 
-    case EDIT:
+    case SUCCESS_EDIT: {
       return {
         ...state,
         username: action.username,
         email: action.email,
-        password: action.password,
+        jwt: action.token,
       };
-
-    case SUCCESS_EDIT:
-      return {
-        ...state,
-        username: action.username,
-        email: action.email,
-        jwt: action.jwt,
-      };
+    }
 
     default:
       return state;

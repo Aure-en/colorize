@@ -45,10 +45,9 @@ export const edit = ({ username, email, password }) => ({
   password,
 });
 
-export const successEdit = ({ username, email, password, jwt }) => ({
+export const successEdit = ({ username, email, token }) => ({
   type: SUCCESS_EDIT,
   username,
   email,
-  password,
-  jwt,
+  token,
 });

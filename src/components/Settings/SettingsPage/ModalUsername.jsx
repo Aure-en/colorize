@@ -35,7 +35,7 @@ const ModalItem = () => {
 
     setErrors(errorObj);
     if (error) return;
-    dispatch(edit({ username }));
+    dispatch(edit({ username, password: confirmPassword }));
   }
 
   function openModal() {
