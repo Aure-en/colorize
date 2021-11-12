@@ -15,8 +15,13 @@ const ExtractInput = () => {
       const src = URL.createObjectURL(event.target.files[0]);
       const imageElem = createImageElem(src);
       const afterExtraction = (palette) => {
-        dispatch(setMainPalette({ id: null, colors: palette }));
-        dispatch(setOriginalPalette({ id: null, colors: palette }));
+        const newPalette = {
+          id: null,
+          colors: palette.map((color, index) => ({ ...color, id: index, position: index })),
+        };
+
+        dispatch(setMainPalette(newPalette));
+        dispatch(setOriginalPalette(newPalette));
         dispatch(setShades(palette));
         removeImageElem(imageElem);
       };
