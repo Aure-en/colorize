@@ -7,8 +7,8 @@ const AddColor = () => {
   const dispatch = useDispatch();
 
   return (
-    <Button type="button" onClick={() => dispatch(addColor)}>
-      add color
+    <Button type="button" onClick={() => dispatch(addColor())}>
+      +
     </Button>
   );
 };
