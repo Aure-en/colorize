@@ -28,8 +28,8 @@ const paletteMiddleware = (store) => (next) => async (action) => {
 
       const palette = await paletteResponse.json();
 
-      dispatch(setMainPalette(palette));
-      dispatch(setOriginalPalette(palette));
+      dispatch(setMainPalette({ ...palette, ...chosenPalette }));
+      dispatch(setOriginalPalette({ ...palette, ...chosenPalette }));
       dispatch(setPaletteLoading('fulfilled'));
     }
 
