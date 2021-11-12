@@ -46,7 +46,7 @@ const Home = () => {
       console.log(json);
 
       if (response.status === 200) {
-        const palettes = json.list.slice(0, 20).map((palette) => ({
+        const palettes = json.slice(0, 20).map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
