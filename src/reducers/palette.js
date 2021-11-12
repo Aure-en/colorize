@@ -12,6 +12,7 @@ import {
   UNLOCK_COLOR,
   SET_PALETTE_LOADING,
   REMOVE_COLOR,
+  ADD_COLOR,
 } from '../actions/palette';
 import {
   getLighterShades,
@@ -171,12 +172,24 @@ const palette = (state = initialState, action = {}) => {
         },
       };
 
-    case REMOVE_COLOR: {
+    case REMOVE_COLOR:
       return {
         ...state,
         palette: {
           ...state.palette,
           colors: state.palette.colors.filter((color) => color.position !== action.position),
+        },
+      };
+
+    case ADD_COLOR: {
+      const DEFAULT_COLOR = '#FFFFFF';
+      const newColors = [...state.palette.colors, getColorFromHex(DEFAULT_COLOR)];
+
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: newColors,
         },
       };
     }
