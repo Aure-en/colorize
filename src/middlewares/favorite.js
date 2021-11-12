@@ -243,7 +243,6 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       // Expired JWT.
       if (json.code === 401 && /expired jwt token/i.test(json.message)) {
-        dispatch(openModal('expiredToken'));
         dispatch(logout());
         localStorage.removeItem('user');
       }

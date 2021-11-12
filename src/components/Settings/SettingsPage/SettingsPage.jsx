@@ -12,12 +12,14 @@ import ModalEmail from './ModalEmail';
 import Theme from './Theme';
 import Format from './Format';
 
+import DeleteAccount from './DeleteAccount/DeleteAccount';
+
 const SettingsPage = () => (
   <SettingsContainer>
     <Heading>Settings</Heading>
 
     <section>
-      <Subheading>Account Preferences</Subheading>
+      <Subheading>Preferences</Subheading>
 
       <Field>
         <CurrentUsername />
@@ -43,6 +45,11 @@ const SettingsPage = () => (
     <section>
       <Subheading>Format</Subheading>
       <Format />
+    </section>
+
+    <section>
+      <Subheading>Account Removal</Subheading>
+      <DeleteAccount />
     </section>
   </SettingsContainer>
 );
