@@ -128,7 +128,7 @@ Menu.defaultProps = {
 const Wrapper = styled.div`
   position: absolute;
   bottom: ${(props) => props.$position && '0'};
-  right: ${(props) => props.$position && '8.76rem'};
+  right: ${(props) => (props.$position ? '8.76rem' : 0)};
   padding: ${(props) => (props.$entered || props.$position ? '0.5rem 0' : 0)};
   max-height: ${(props) => (props.$entered || props.$position ? '10rem' : 0)};
   overflow-y: auto;
@@ -153,6 +153,10 @@ const Wrapper = styled.div`
   &::-webkit-scrollbar-thumb {
     border-radius: 5rem;
     background-color: ${(props) => props.theme.primary};
+  }
+
+  @media all and (min-width: 768px) {
+    right: ${(props) => (props.$position ? '8.76rem' : 'initial')};
   }
 `;
 

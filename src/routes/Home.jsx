@@ -86,7 +86,6 @@ const Home = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
 
   @media screen and (min-width: 768px) {
     display: grid;
@@ -104,6 +103,10 @@ const Main = styled.main`
 const Content = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
+
+  @media all and (min-width: 768px) {
+    padding-right: 1rem;
+  }
 `;
 
 const Heading = styled.h1`
