@@ -6,6 +6,7 @@ import {
   requestLogin,
   successEdit,
   EDIT,
+  SUCCESS_EDIT,
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
@@ -23,22 +24,36 @@ const userMiddleware = (store) => (next) => async (action) => {
 
       const user = await response.json();
 
-      const responseToken = await fetch(
-        'https://apicolorize.me/api/login_check',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: action.email,
-            password: action.password,
-          }),
+      const login = await fetch('https://apicolorize.me/api/login_check', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          email: action.email,
+          password: action.password,
+        }),
+      });
+
+      const json = await login.json();
+      dispatch(
+        successLogin(
+          json.data.username,
+          json.data.id,
+          json.token,
+          json.data.email,
+        ),
       );
 
-      const token = await responseToken.json();
-      dispatch(successLogin(action.username, user.id, token, action.email));
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          username: json.data.username,
+          email: json.data.email,
+          id: json.data.id,
+          token: json.token,
+        }),
+      );
       break;
     }
 
@@ -56,24 +71,24 @@ const userMiddleware = (store) => (next) => async (action) => {
       });
 
       if (response.status === 200) {
-        const loginSuccess = await response.json();
+        const json = await response.json();
 
         dispatch(
           successLogin(
-            loginSuccess.data.username,
-            loginSuccess.data.id,
-            loginSuccess.token,
-            loginSuccess.data.email,
+            json.data.username,
+            json.data.id,
+            json.token,
+            json.data.email,
           ),
         );
 
         localStorage.setItem(
           'user',
           JSON.stringify({
-            username: loginSuccess.data.username,
-            email: loginSuccess.data.email,
-            id: loginSuccess.data.id,
-            token: loginSuccess.token,
+            username: json.data.username,
+            email: json.data.email,
+            id: json.data.id,
+            token: json.token,
           }),
         );
       }
@@ -107,9 +122,48 @@ const userMiddleware = (store) => (next) => async (action) => {
       const json = await response.json();
 
       console.log(json);
-      // dispatch(successEdit(action.username, action.email, action.password));
+      dispatch(successEdit(action.username, action.email, action.jwt));
       break;
     }
+
+    case SUCCESS_EDIT: {
+      const { dispatch } = store;
+      const response = await fetch('https://apicolorize.me/api/login_check', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: action.username,
+          email: action.email,
+          jwt: action.jwt,
+        }),
+      });
+
+      if (response.status === 200) {
+        const json = await response.json();
+
+        dispatch(
+          successLogin(
+            json.data.username,
+            json.data.email,
+            json.token,
+          ),
+        );
+
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            username: json.data.username,
+            email: json.data.email,
+            token: json.token,
+          }),
+        );
+      }
+
+      break;
+    }
+
     default:
   }
 

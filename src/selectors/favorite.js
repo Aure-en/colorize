@@ -11,6 +11,11 @@ export const getCollections = (state) => state.favorite.collections;
 
 export const getCollection = (state, id) => state.favorite.collections.find((collection) => collection.id === +id);
 
+export const getFavoriteCollections = (state, paletteId) => state.favorite.collections.filter(
+  (collection) => collection.palettes.find((palette) => palette.id === paletteId)
+    !== undefined,
+);
+
 export const getFavoriteCollection = (state, paletteId) => {
   const collectionWithPalette = state.favorite.collections.find(
     (collection) => collection.palettes.find((palette) => palette.id === paletteId),

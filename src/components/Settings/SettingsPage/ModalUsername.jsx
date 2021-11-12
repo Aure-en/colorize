@@ -3,13 +3,16 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
-import Modal from 'react-modal';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { edit } from '../../../actions/user';
-import { useDispatch } from 'react-redux';
+import { getUser } from '../../../selectors/user';
+
+import Modal from '../../Modal/Modal';
+import DisabledButton from './DisabledButton';
 
 const ModalItem = () => {
-  let subtitle;
   const errorsObj = { username: '' };
   const dispatch = useDispatch();
 
@@ -18,31 +21,17 @@ const ModalItem = () => {
   const [errors, setErrors] = useState(errorsObj);
   const [confirmPassword, setConfirm] = useState('');
 
-  const customStyles = {
-    content: {
-      background: '#4B5C6B',
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width: '100vw',
-      height: '100vh',
-      maxWidth: '20rem',
-      maxHeight: '12rem',
-    },
-  };
+  const user = useSelector(getUser);
 
   function submit(e) {
     e.preventDefault();
     let error = false;
     const errorObj = { ...errorsObj };
 
-    // if (username === '') {
-    //   errorObj.username = 'username is Required';
-    //   error = true;
-    // }
+    if (username === '') {
+      errorObj.username = 'Username is required.';
+      error = true;
+    }
 
     setErrors(errorObj);
     if (error) return;
@@ -53,10 +42,6 @@ const ModalItem = () => {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    subtitle.style.color = '#fff';
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -64,21 +49,40 @@ const ModalItem = () => {
   return (
     <ModalContainer>
       <EditButtonContainer>
-        <EditButton onClick={openModal}>Edit</EditButton>
+        {user.id === Number(process.env.REACT_APP_SAMPLE_ID) ? (
+          <DisabledButton />
+        ) : (
+          <Button onClick={openModal}>Edit</Button>
+        )}
       </EditButtonContainer>
-      <Modal
-        isOpen={isOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <ChangeUsernameTitle ref={(_subtitle) => (subtitle = _subtitle)}>Change Username</ChangeUsernameTitle>
-        <CloseButton onClick={closeModal}>&#10005;</CloseButton>
-        <FormContainer onSubmit={submit}>
-          <ModalInput placeholder="New Username" required value={username} onChange={(e) => setUsername(e.target.value)} />
-          <ModalInput type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
-          <SubmitButton type="submit">Valider</SubmitButton>
+      <Modal isModalOpen={isOpen} closeModal={closeModal}>
+        <ChangeUsernameTitle>Change Username</ChangeUsernameTitle>
+        <FormContainer onSubmit={edit}>
+          <Field>
+            <Label htmlFor="username">
+              New Username
+              <Input
+                placeholder="New Username"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </Label>
+          </Field>
+
+          <Field>
+            <Label htmlFor="password">
+              Password
+              <Input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirm(e.target.value)}
+              />
+            </Label>
+          </Field>
+          <Button type="submit">Valider</Button>
         </FormContainer>
       </Modal>
     </ModalContainer>
@@ -86,48 +90,72 @@ const ModalItem = () => {
 };
 
 const ModalContainer = styled.div`
-display:flex;
-`;
-
-const SubmitButton = styled.button`
-align-self: center;
-color: #fff;
-background-color: #C3CFD9;
-padding: 0.2em;
-`;
-
-const EditButton = styled.button`
-background-color: #4B5C6B;
-font-size: 1.2em;
-border-radius: 0.2em;
-padding: 0.2em 1em 0.2em 1em;
+  display: flex;
 `;
 
 const EditButtonContainer = styled.div`
-display: flex;
-width: 100%;
-justify-content: center;
-`;
-
-const CloseButton = styled.button`
-position: absolute;
-top: 0;
-right: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 const ChangeUsernameTitle = styled.h2`
-display: flex;
-justify-content: center;
-padding-bottom: 1em;
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const FormContainer = styled.form`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
-const ModalInput = styled.input`
-margin-bottom: 1em;
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+`;
+
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.textPrimary};
+  padding: 0.5rem 0 0.25rem 0;
+  background: transparent;
+  color: ${(props) => props.theme.textPrimary};
+
+  &::placeholder {
+    color: ${(props) => props.theme.textSecondary};
+  }
+
+  &:focus {
+    border-bottom: 1px solid ${(props) => props.theme.textPrimary};
+    outline: 2px solid transparent;
+  }
+`;
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: column;
+  text-transform: uppercase;
+  font-size: 0.825rem;
+  letter-spacing: 1px;
+  color: ${(props) => props.theme.textPrimary};
+`;
+
+const Button = styled.button`
+  color: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  font-size: 0.925rem;
+  border: none;
+  transition: background-color 0.2s ease-out;
+  align-self: center;
+
+  &:hover {
+    background: ${(props) => props.theme.primaryText};
+  }
 `;
 
 export default ModalItem;

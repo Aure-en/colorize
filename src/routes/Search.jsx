@@ -19,11 +19,13 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const query = new URLSearchParams(useLocation().search);
   const search = query.get('search');
+  const page = Number(query.get('page')) || 1;
 
   const key = `/search/${search}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
@@ -45,42 +47,59 @@ const Search = () => {
 
       const json = await response.json();
 
-      console.log(json);
-
       if (response.status === 200) {
-        const palettes = json.map((palette) => ({
+        const palettes = json.list.map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
+        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
       } else {
         setError('Sorry, something went wrong.');
       }
       setLoading(false);
-    }
-    )();
+    })();
   }, [search]);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <Wrapper>
       <LeftNav />
       <Filter />
       <Main>
-        <Heading>Explore</Heading>
-        {error && <Error>{error}</Error>}
-        {palettes?.length > 0
-          ? (
-            <Content>
-              <Palettes palettes={palettes} />
-              <Pagination />
-            </Content>
-          )
-          : <NoPalettes />}
+        <Header>
+          <Heading>Search</Heading>
+          {!loading && (
+            <div>
+              Search Results —
+              {' '}
+              <Span>{palettes.length}</Span>
+              {' '}
+              palettes found for
+              {' '}
+              <Span>{search}</Span>
+            </div>
+          )}
+        </Header>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            {error && <Error>{error}</Error>}
+            {palettes?.length > 0 ? (
+              <Content>
+                <Palettes
+                  palettes={palettes}
+                  numberOfPages={numberOfPages}
+                  currentPage={Number(page)}
+                />
+                <Pagination />
+              </Content>
+            ) : (
+              <NoPalettes />
+            )}
+          </>
+        )}
       </Main>
     </Wrapper>
   );
@@ -109,16 +128,24 @@ const Content = styled.div`
   grid-template-rows: 1fr auto;
 `;
 
+const Header = styled.header`
+  margin-bottom: 2rem;
+`;
+
 const Heading = styled.h1`
   font-size: 2rem;
   text-transform: capitalize;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Error = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Span = styled.span`
+  color: ${(props) => props.theme.primaryText};
 `;
 
 export default Search;

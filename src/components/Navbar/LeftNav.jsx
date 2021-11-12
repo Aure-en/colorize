@@ -11,11 +11,12 @@ const Title = styled.div`
   color: ${(props) => props.theme.textOnPrimary};
   align-items: center;
   font-size: 1.5px;
+  font-weight: 600;
   padding-left: 5px;
   display: none;
 
-  @media (max-width: 768px) {
-    color: ${(props) => props.theme.background};
+  @media (max-width: 1024px) {
+    color: ${(props) => props.theme.textOnPrimary};
     display: flex;
     justify-content: center;
     align-items: center;

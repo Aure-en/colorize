@@ -19,16 +19,15 @@ const Save = ({ paletteId, closeMenu }) => {
         Save Palette
       </Button>
 
-      {isCollectionsOpen && (
       <Menu
         paletteId={paletteId}
+        isOpen={isCollectionsOpen}
         close={() => {
           setIsCollectionsOpen(false);
           closeMenu();
         }}
         position="left"
       />
-      )}
     </Wrapper>
   );
 };

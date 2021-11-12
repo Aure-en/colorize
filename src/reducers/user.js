@@ -52,7 +52,6 @@ const user = (state = initialState, action = {}) => {
         ...state,
         username: action.username,
         email: action.email,
-        password: action.password,
         jwt: action.jwt,
       };
 

@@ -96,7 +96,7 @@ const Login = () => {
           <FormBx className={isActive ? 'active' : null}>
             <SignInForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignIn}>
-                <FormBxTitles>Sign In</FormBxTitles>
+                <FormBxTitlesIn>Sign In</FormBxTitlesIn>
                 <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
                 <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <LogPass>
@@ -108,7 +108,7 @@ const Login = () => {
 
             <SignUpForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignUp}>
-                <FormBxTitles>Sign Up</FormBxTitles>
+                <FormBxTitlesUp>Sign Up</FormBxTitlesUp>
                 <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -154,8 +154,8 @@ const Brand = styled.div`
   align-items: center;
   margin-bottom: 4.5rem;
 
-  @media (max-width: 768px) {
-    margin-bottom: 2rem;                          /* espace entre la box et le titre et la marque */
+  @media (max-width: 1024px) {
+    display: none;
   }
 `;
 
@@ -164,7 +164,7 @@ const BrandTitle = styled.p`
   color: ${(props) => props.theme.background};
 
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-size: 2.5rem;
   }
 `;
@@ -175,7 +175,7 @@ const Container = styled.div`
   height: 700px;                                  /* hauteur de la fenetre transparente bureau */
   margin: 40px;
 
-  @media all and (max-width: 768px) {
+  @media all and (max-width: 1024px) {
     max-width: 450px;                             /* largeur de la fenetre transparente mobile */
     height: 800px;                                /* hauteur de la fenetre transparente mobile */
     display: flex;
@@ -197,11 +197,10 @@ const BlueBg = styled.div`
   background: rgba(255,255,255,0.2);
   box-shadow: 0 5px 45px rgba(0,0,0,0.15);
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     top: 0;
     height: 720px;                                  /* hauteur de la fenetre transparente mobile */
-    width: 90%;                                     /* Largeur de la fenetre transparente mobile */
-    border-radius: 3%;
+    width: 120%;                                     /* Largeur de la fenetre transparente mobile */
   }
 `;
 
@@ -214,7 +213,7 @@ const box = `
   align-items: center;
   flex-direction: column;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -223,7 +222,7 @@ const box = `
 
 const SignIn = styled.div`
   ${box};
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
   top: 0;
   height: 140px;
 }
@@ -232,7 +231,7 @@ const SignIn = styled.div`
 
 const SignUp = styled.div`
   ${box};
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     padding: 30px;
     height: 190px;
   }
@@ -244,7 +243,7 @@ const BlueBgTitles = styled.h2`
   font-weight: 400;
   margin-bottom: 135px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     font-size: 1.3em;
     margin-bottom: 35px;
   }
@@ -270,18 +269,19 @@ const link = `
   font-family: sans-serif;
   font-size: 27px;                                        /* augmente la taille du texte signup */
   letter-spacing: 2px;
-  color: #fff;                        color attention
   text-decoration: none;
 `;
 
 const SignInBtn = styled(Link)`
   ${link};
   margin-top: 40px;
+  color: ${(props) => props.theme.background}
 `;
 
 const SignUpBtn = styled(Link)`
   ${link};
   margin-top: 40px;
+  color: ${(props) => props.theme.background}
 `;
 
 const commonSvgRect = `
@@ -322,9 +322,8 @@ const FormBx = styled.div`
   width: 50%;
   height: 100%;
   background: ${(props) => props.theme.background};
-  border-radius: 5%; +++++++++++
 
-  z-index: 1000;
+  z-index: 15;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -336,16 +335,23 @@ const FormBx = styled.div`
     left: 43%;                                             /* décaler la fenetre blanche bureau */
   }
 
-  @media all and (max-width: 768px) {
-    width: 100%;
+  @media all and (max-width: 1024px) {
+    width: 130%;
     height: 575px;                                        /* hauteur de la fenetre blanche mobile */
     top: 0;
+    left: -15%;
     box-shadow: none;
 
     &.active {
-      left: 0;
+      left: -15%;
       top: 170px;
     }
+  }
+
+  @media all and (max-width: 630px) {
+    width: 130%;
+    height: 550px;                                        /* hauteur de la fenetre blanche mobile */
+
   }
 `;
 
@@ -385,7 +391,7 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const FormBxTitles = styled.h3`
+const FormBxTitlesIn = styled.h3`
   font-size: 1.8em;
   color: ${(props) => props.theme.secondaryText};
   margin-bottom: 80px;
@@ -395,16 +401,21 @@ const FormBxTitles = styled.h3`
   text-align: center;
 `;
 
+const FormBxTitlesUp = styled.h3`
+  font-size: 1.8em;
+  color: ${(props) => props.theme.secondaryText};
+  margin-bottom: 40px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`;
+
 const inputSubmit = `
   background: ${(props) => props.theme.primaryText} !important;
   border: none;
-  // color: ${(props) => props.theme.background};
   max-width: 100px;
   cursor: pointer;
-
-  &.active {
-    // background: ${(props) => props.theme.primaryText};
-  }
 `;
 
 const Input = styled.input`
@@ -429,7 +440,7 @@ color: ${(props) => props.theme.secondaryText};
 margin-left: 49%;
   font-weight: 300;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     margin-left: 85px;
   }
 `;

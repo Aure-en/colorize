@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Transition } from 'react-transition-group';
+
 import useDropdown from '../../../hooks/shared/useDropdown';
 
-const ColorFormat = ({ format, setFormat }) => {
+const CodeFormat = ({ format, setFormat }) => {
   const ref = useRef();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
   const formats = ['css', 'scss', 'object', 'array'];
@@ -21,27 +23,38 @@ const ColorFormat = ({ format, setFormat }) => {
         {/* Caret down */}
       </DropdownHeader>
 
-      {isDropdownOpen && (
-        <DropdownList>
-          {formats.map((format) => (
-            <Button
-              type="button"
-              onClick={() => {
-                setFormat(format);
-              }}
-              key={format}
-              $format={format}
-            >
-              {format}
-            </Button>
-          ))}
-        </DropdownList>
-      )}
+      <Transition
+        in={isDropdownOpen}
+        timeout={{
+          enter: 0,
+          exit: 500,
+        }}
+        mountOnEnter={false}
+        unmountOnExit
+      >
+        {(state) => (
+          <DropdownList $entered={state === 'entered'}>
+            {formats.map((format) => (
+              <Button
+                type="button"
+                onClick={() => {
+                  setFormat(format);
+                }}
+                key={format}
+                $format={format}
+              >
+                {format}
+              </Button>
+            ))}
+          </DropdownList>
+        )}
+
+      </Transition>
     </Dropdown>
   );
 };
 
-ColorFormat.propTypes = {
+CodeFormat.propTypes = {
   format: PropTypes.string.isRequired,
   setFormat: PropTypes.func.isRequired,
 };
@@ -76,9 +89,12 @@ const DropdownList = styled.div`
   flex-direction: column;
   z-index: 10;
   width: 110%;
-  padding: 0.25rem 0;
+  padding: ${(props) => (props.$entered ? '0.25rem 0' : 0)};
   background: ${(props) => props.theme.background};
-  border: 1px solid ${(props) => props.theme.textPrimary};
+  border: 1px solid ${(props) => (props.$entered ? props.theme.textPrimary : 'transparent')};
+  max-height: ${(props) => (props.$entered ? '10rem' : 0)};
+  transition: all 0.5s ease;
+  overflow: hidden;
 `;
 
 const Button = styled.button`
@@ -96,4 +112,4 @@ const Button = styled.button`
   }
 `;
 
-export default ColorFormat;
+export default CodeFormat;

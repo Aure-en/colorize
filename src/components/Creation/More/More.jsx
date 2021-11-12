@@ -14,9 +14,11 @@ const More = ({ palette }) => {
   return (
     <Wrapper ref={dropdownRef}>
       <Button toggleMenu={() => setIsDropdownOpen(!isDropdownOpen)} />
-      {isDropdownOpen && (
-        <Menu palette={palette} closeMenu={() => setIsDropdownOpen(false)} />
-      )}
+      <Menu
+        palette={palette}
+        isOpen={isDropdownOpen}
+        closeMenu={() => setIsDropdownOpen(false)}
+      />
     </Wrapper>
   );
 };
@@ -24,9 +26,7 @@ const More = ({ palette }) => {
 More.propTypes = {
   palette: PropTypes.shape({
     id: PropTypes.number,
-    colors: PropTypes.arrayOf(
-      PropTypes.shape({}).isRequired,
-    ).isRequired,
+    colors: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
   }).isRequired,
 };
 

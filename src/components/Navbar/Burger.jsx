@@ -18,8 +18,8 @@ const Burger = () => {
         <Barre />
       </StyledBurger>
       {isLoggedIn
-        ? <RightNavAfterSignIn open={open} />
-        : <RightNav open={open} />}
+        ? <RightNavAfterSignIn open={open} setOpen={setOpen} />
+        : <RightNav open={open} setOpen={setOpen} />}
     </>
   );
 };
@@ -31,20 +31,20 @@ const StyledBurger = styled.div`
   display: none;
   cursor: pointer;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     display: flex;
     justify-content: space-around;
     flex-flow: column nowrap;
     z-index: 25;
     position: relative;
-    margin-left: 1rem;
+    margin-left: 2px;
   }
 `;
 
 const Barre = styled.div`
   width: 2rem;
   height: 0.25rem;
-  background: ${(props) => props.theme.background};
+  background: ${(props) => props.theme.textPrimary};
   color: ${(props) => props.theme.primaryText};
   border-radius: 10px;
   transform-origin: 1px;

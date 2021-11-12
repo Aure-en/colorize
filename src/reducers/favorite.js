@@ -71,12 +71,14 @@ const favorite = (state = initialState, action = {}) => {
     case DELETE_PALETTE_FROM_COLLECTION:
       return {
         ...state,
-        collections: [...state.collections].map((collection) => ({
-          ...collection,
-          palettes: collection.palettes.filter(
-            (palette) => palette.id !== action.paletteId,
-          ),
-        })),
+        collections: [...state.collections].map((collection) => (collection.id === action.collectionId
+          ? {
+            ...collection,
+            palettes: collection.palettes.filter(
+              (palette) => palette.id !== action.paletteId,
+            ),
+          }
+          : collection)),
       };
 
     case CREATE_COLLECTION:
