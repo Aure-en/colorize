@@ -9,7 +9,6 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
-import { getSortBy, getFilterBy } from '../selectors/settings';
 import { getPalettesPage } from '../selectors/palettes';
 import { savePalettes } from '../actions/palettes';
 
@@ -23,10 +22,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const sort = useSelector(getSortBy);
-  const filter = useSelector(getFilterBy);
-
-  const key = `/palettes/${filter}/${sort}/1`;
+  const key = '/palettes/0/1/1';
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
 
   // Get palettes of the current page
@@ -38,17 +34,15 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort=${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/searchBySort?sort=save&filter=0&page=1`,
       );
 
       const json = await response.json();
 
-      console.log(json);
-
       if (response.status === 200) {
-        const palettes = json.slice(0, 20).map((palette) => ({
+        const palettes = json.list.map((palette) => ({
           ...palette,
-          colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+          colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
@@ -59,7 +53,7 @@ const Home = () => {
       setLoading(false);
     }
     )();
-  }, [filter, sort]);
+  }, []);
 
   if (loading) {
     return <Loading />;
