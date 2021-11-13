@@ -45,7 +45,7 @@ const Home = () => {
 
       if (response.status === 200) {
         const palettes = json.list.map((palette) => ({
-          ...palette,
+          ...palette.palette,
           colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
