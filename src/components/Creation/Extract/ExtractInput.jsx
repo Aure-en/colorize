@@ -17,7 +17,7 @@ const ExtractInput = () => {
       const afterExtraction = (palette) => {
         const newPalette = {
           id: null,
-          colors: palette.map((color, index) => ({ ...color, id: index, position: index })),
+          colors: palette.map((color, index) => ({ ...color, id: index })),
         };
 
         dispatch(setMainPalette(newPalette));
