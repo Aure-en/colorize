@@ -9,6 +9,7 @@ import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
 
+import { getSortBy, getFilterBy } from '../selectors/settings';
 import { getPalettesPage } from '../selectors/palettes';
 import { savePalettes } from '../actions/palettes';
 
@@ -22,7 +23,10 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const key = '/palettes/0/1/1';
+  const sort = useSelector(getSortBy);
+  const filter = useSelector(getFilterBy);
+
+  const key = `/palettes/${filter}/${sort}/1`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
 
   // Get palettes of the current page
@@ -34,7 +38,7 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/searchBySort?sort=save&filter=0&page=1`,
+        `${process.env.REACT_APP_SERVER}/palettes/searchBySort?page=1&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
@@ -53,7 +57,7 @@ const Home = () => {
       setLoading(false);
     }
     )();
-  }, []);
+  }, [filter, sort]);
 
   if (loading) {
     return <Loading />;

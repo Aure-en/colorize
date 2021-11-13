@@ -54,7 +54,7 @@ const Palettes = () => {
           .slice((page - 1) * 20, page * 20)
           .map((palette) => ({
             ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+            colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
         setPalettes(palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));

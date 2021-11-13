@@ -17,8 +17,30 @@ const LeftNav = () => {
   const sortBy = useSelector(getSortBy);
   const filterBy = useSelector(getFilterBy);
 
-  const sorts = ['popular', 'new'];
-  const filters = ['all', 'generated', 'creations'];
+  const sorts = [
+    {
+      name: 'popular',
+      value: 'save',
+    },
+    {
+      name: 'new',
+      value: 'new',
+    },
+  ];
+  const filters = [
+    {
+      name: 'all',
+      value: 0,
+    },
+    {
+      name: 'generated',
+      value: 1,
+    },
+    {
+      name: 'creations',
+      value: 2,
+    },
+  ];
 
   return (
     <Nav>
@@ -27,22 +49,22 @@ const LeftNav = () => {
         {sorts.map((sort) => (
           <Button
             type="button"
-            onClick={() => dispatch(updateSortBy(sort))}
-            $selected={sortBy === sort}
-            key={sort}
+            onClick={() => dispatch(updateSortBy(sort.value))}
+            $selected={sortBy === sort.value}
+            key={sort.value}
           >
-            {sort}
+            {sort.name}
           </Button>
         ))}
         <Line />
         {filters.map((filter) => (
           <Button
             type="button"
-            onClick={() => dispatch(updateFilterBy(filter))}
-            $selected={filterBy === filter}
-            key={filter}
+            onClick={() => dispatch(updateFilterBy(filter.value))}
+            $selected={filterBy === filter.value}
+            key={filter.value}
           >
-            {filter}
+            {filter.name}
           </Button>
         ))}
         <Line />
@@ -110,34 +132,6 @@ const NavMenu = styled.div`
 
   @media screen and (max-width: 768px) {
     display: none;
-  }
-`;
-
-const Searchbar = styled.div`
-  padding-bottom: 25px;
-  display: flex;
-  @media screen and (max-width: 768px) {
-    align-self: center;
-    margin-top: 2em;
-  }
-`;
-
-const Input = styled.input`
-  height: 40px;
-  @media screen and (max-width: 768px) {
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    border: none;
-  }
-`;
-
-const Btn = styled.button`
-  display: flex;
-  padding-left: 0.3rem;
-  padding-top: 0.1rem;
-  .search-icon {
-    stroke: ${(props) => props.theme.textPrimary};
   }
 `;
 

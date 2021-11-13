@@ -9,8 +9,8 @@ import {
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'
   format: 'hex',
-  sortBy: 'popular',
-  filterBy: 'all',
+  sortBy: 'save',
+  filterBy: 0,
   isDarkMode: JSON.parse(localStorage.getItem('isDarkMode')) || false,
 };
 
