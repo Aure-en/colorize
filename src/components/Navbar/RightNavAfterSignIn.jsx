@@ -13,6 +13,7 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 const RightNavAfterSignIn = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const currentUsername = useSelector(getUser)?.username;
 
   return (
     <Ul open={open}>
@@ -28,7 +29,7 @@ const RightNavAfterSignIn = ({ open, setOpen }) => {
         <NavLink to="/collections" exact className="navlink" onClick={() => setOpen(false)}>Collections</NavLink>
       </NavLinkBetween>
       <NavLinkBetween>
-        <Username>Username</Username>
+        <Username>{currentUsername}</Username>
         <NavLink to={`/users/${user.id}`} exact className="navlink" onClick={() => setOpen(false)}>Profile</NavLink>
         <NavLink to="/settings" exact className="navlink" onClick={() => setOpen(false)}>Settings</NavLink>
         <button
