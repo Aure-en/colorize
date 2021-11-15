@@ -33,9 +33,10 @@ const Ul = styled.ul`
     text-decoration: none;
     color: ${(props) => props.theme.textOnPrimary};
     font-weight: 500;
+    line-height: 1.5em;
 
     &.active {
-      font-size: 25px;
+      font-weight: 700;
     }
   }
   @media (max-width: 1024px) {
