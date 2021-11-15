@@ -24,7 +24,11 @@ const Remove = ({ position }) => {
   };
 
   return (
-    <Button type="button" onClick={handleClick}>
+    <Button
+      type="button"
+      onClick={handleClick}
+      title="Remove color"
+    >
       <IconRemove />
     </Button>
   );
