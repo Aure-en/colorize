@@ -14,7 +14,7 @@ import NoPalettes from '../components/Palettes/NoPalettes';
 
 import { saveThemePalettes } from '../actions/themes';
 import { getSortBy, getFilterBy } from '../selectors/settings';
-import { getThemes, getThemePage } from '../selectors/themes';
+import { getThemes, getThemePage, getThemesLoading } from '../selectors/themes';
 
 import { getColorFromHex } from '../utils/colors';
 
@@ -24,6 +24,7 @@ const Theme = ({ match }) => {
   const themeId = Number(match.params.themeId);
 
   const themes = useSelector(getThemes);
+  const themesLoading = useSelector(getThemesLoading);
   const sort = useSelector(getSortBy);
   const filter = useSelector(getFilterBy);
   const theme = themes.find((theme) => theme.id === themeId);
@@ -72,7 +73,8 @@ const Theme = ({ match }) => {
     })();
   }, [theme, page, filter, sort]);
 
-  if (!theme) {
+  if (!theme && themesLoading !== 'pending') {
+    console.log(themesLoading);
     return <NotFound />;
   }
 
@@ -82,7 +84,7 @@ const Theme = ({ match }) => {
       <Filter />
       <Main>
         <Heading>{theme?.name}</Heading>
-        {loading ? (
+        {loading || themesLoading === 'pending' ? (
           <Loading />
         ) : (
           <>

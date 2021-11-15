@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { requestAddPaletteToCollection, requestDeletePaletteFromCollection } from '../../../../actions/favorite';
+import { requestAddPaletteToCollection, requestDeletePaletteFromCollections } from '../../../../actions/favorite';
 import { openModal } from '../../../../actions/modals';
 import { getCurrentCollection, getAllFavorites } from '../../../../selectors/favorite';
 import { getIsLoggedIn } from '../../../../selectors/user';
@@ -22,7 +22,7 @@ const ButtonSave = ({ paletteId }) => {
     if (!isLoggedIn) {
       dispatch(openModal('auth'));
     } else if (isFavorite) {
-      dispatch(requestDeletePaletteFromCollection(paletteId));
+      dispatch(requestDeletePaletteFromCollections(paletteId));
     } else {
       dispatch(requestAddPaletteToCollection(paletteId, currentCollection));
     }

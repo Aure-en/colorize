@@ -7,10 +7,11 @@ import styled from 'styled-components';
 
 import { getIsLoggedIn, getUser } from './selectors/user';
 import { fetchThemes } from './actions/themes';
+import { fetchFirstPalette } from './actions/palette';
+import { fetchCollections } from './actions/favorite';
+import { getPaletteLoading } from './selectors/palette';
 
 import GlobalStyles from './styles/globalStyles';
-
-import { fetchCollections } from './actions/favorite';
 
 import EntryRoute from './routes/types/EntryRoute';
 import PrivateRoute from './routes/types/PrivateRoute';
@@ -37,11 +38,12 @@ import Toast from './components/Shared/Toast';
 
 function App() {
   const dispatch = useDispatch();
-
   const isLoggedIn = useSelector(getIsLoggedIn);
+  const paletteLoading = useSelector(getPaletteLoading);
   const user = useSelector(getUser);
 
   useEffect(() => {
+    dispatch(fetchFirstPalette());
     dispatch(fetchThemes());
   }, []);
 
@@ -55,27 +57,31 @@ function App() {
     <Router>
       <GlobalStyles />
       <ThemeProvider>
-        <Wrapper>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/creation" component={Creation} />
-            <Route exact path="/palettes" component={Palettes} />
-            <Route exact path="/themes/:themeId" component={Theme} />
-            <Route exact path="/generate" component={Generate} />
-            <Route exact path="/palettes/:paletteId" component={Palette} />
-            <Route exact path="/users/:userId" component={Profile} />
-            <Route exact path="/search" component={Search} />
-            <PrivateRoute exact path="/collections" component={Collections} />
-            <PrivateRoute exact path="/collections/:collectionId" component={Collection} />
-            <PrivateRoute exact path="/settings" component={Settings} />
-            <EntryRoute exact path="/login" component={Login} />
-            <Route component={NotFound} />
-          </Switch>
-          <Copies />
-          <Modals />
-          <Toast />
-        </Wrapper>
+        {paletteLoading === 'pending'
+          ? <></>
+          : (
+            <Wrapper>
+              <Navbar />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/creation" component={Creation} />
+                <Route exact path="/palettes" component={Palettes} />
+                <Route exact path="/themes/:themeId" component={Theme} />
+                <Route exact path="/generate" component={Generate} />
+                <Route exact path="/palettes/:paletteId" component={Palette} />
+                <Route exact path="/users/:userId" component={Profile} />
+                <Route exact path="/search" component={Search} />
+                <PrivateRoute exact path="/collections" component={Collections} />
+                <PrivateRoute exact path="/collections/:collectionId" component={Collection} />
+                <PrivateRoute exact path="/settings" component={Settings} />
+                <EntryRoute exact path="/login" component={Login} />
+                <Route component={NotFound} />
+              </Switch>
+              <Copies />
+              <Modals />
+              <Toast />
+            </Wrapper>
+          )}
       </ThemeProvider>
     </Router>
   );

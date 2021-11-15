@@ -19,8 +19,13 @@ const Generate = () => {
     const src = await fetchRandomImage();
     const imageElem = createImageElem(src);
     const afterExtraction = (palette) => {
-      dispatch(setMainPalette({ id: null, colors: palette }));
-      dispatch(setOriginalPalette({ id: null, colors: palette }));
+      const newPalette = {
+        id: null,
+        colors: palette.map((color, index) => ({ ...color, id: index })),
+      };
+
+      dispatch(setMainPalette(newPalette));
+      dispatch(setOriginalPalette(newPalette));
       dispatch(setShades(palette));
       removeImageElem(imageElem);
       setLoading(false);

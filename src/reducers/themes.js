@@ -1,8 +1,9 @@
-import { SAVE_THEMES, SAVE_THEME_PALETTES } from '../actions/themes';
+import { SAVE_THEMES, SAVE_THEME_PALETTES, SET_THEMES_LOADING } from '../actions/themes';
 
 export const initialState = {
   list: [],
   palettes: [],
+  themesLoading: 'pending',
 };
 
 const themes = (state = initialState, action = {}) => {
@@ -33,6 +34,12 @@ const themes = (state = initialState, action = {}) => {
         ],
       };
     }
+
+    case SET_THEMES_LOADING:
+      return {
+        ...state,
+        themesLoading: action.loading,
+      };
 
     default:
       return state;

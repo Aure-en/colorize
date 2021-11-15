@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -8,44 +8,81 @@ import PageChange from '../PageChange';
 import GenerateButton from '../Controls/GenerateButton';
 import ResetButton from '../Controls/ResetButton';
 import SaveButton from '../Controls/SaveButton';
+import AddColor from '../Controls/AddColor';
 import More from '../More/More';
 import ExtractInput from '../Extract/ExtractInput';
 
-import Center from './Center';
-import Cover from './Cover';
-import Triangles from './Triangles';
-import Leaves from './Leaves';
-import Corner from './Corner';
 import Buttons from './Buttons';
+import Previews from './Previews';
 
 import { getMainPalette } from '../../../selectors/palette';
 
-const preview = (number) => {
-  switch (number) {
-    case 1:
-      return <Center />;
-    case 2:
-      return <Triangles />;
-    case 3:
-      return <Cover />;
-    case 4:
-      return <Leaves />;
-    case 5:
-      return <Corner />;
-    default:
-      return <></>;
-  }
-};
+import useWindowSize from '../../../hooks/shared/useWindowSize';
 
 const Preview = () => {
-  const TOTAL_PREVIEW = 5;
-  const [currentPreview, setCurrentPreview] = useState(1);
+  const [slide, setSlide] = useState({
+    number: 1,
+    direction: 'next', // 'prev' | 'next'
+  });
+
   const palette = useSelector(getMainPalette);
+
+  const windowSize = useWindowSize();
+
+  const TOTAL_PREVIEWS = 5;
+
+  let throttle = false;
+
+  const prevPreview = () => {
+    setSlide((prev) => ({
+      number: prev.number === 1 ? TOTAL_PREVIEWS : prev.number - 1,
+      direction: 'prev',
+    }));
+  };
+
+  const nextPreview = () => {
+    setSlide((prev) => ({
+      number: prev.number === TOTAL_PREVIEWS ? 1 : prev.number + 1,
+      direction: 'next',
+    }));
+  };
+
+  const onMouseWheel = (e) => {
+    if (!throttle) {
+      e.stopPropagation();
+      if (e.deltaY > 0) {
+        nextPreview();
+      } else {
+        prevPreview();
+      }
+      throttle = true;
+      setTimeout(() => {
+        throttle = false;
+      }, 300);
+    }
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') prevPreview();
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') nextPreview();
+  };
+
+  useEffect(() => {
+    if (windowSize.width > 900) {
+      window.addEventListener('wheel', onMouseWheel);
+      window.addEventListener('keydown', onKeyDown);
+    }
+    return () => {
+      window.removeEventListener('wheel', onMouseWheel);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [windowSize.width]);
 
   return (
     <Wrapper>
       <PaletteWrapper>
         <Palette palette={palette} direction="vertical" />
+        {palette.colors.length < 5 && <AddColor />}
       </PaletteWrapper>
 
       <Controls>
@@ -58,7 +95,11 @@ const Preview = () => {
         <PageChange />
       </PageChangeWrapper>
 
-      <Previews>{preview(currentPreview)}</Previews>
+      <Previews
+        number={slide.number}
+        direction={slide.direction}
+        hasTransitions={windowSize.width > 900}
+      />
 
       {palette.id !== null && (
         <Informations name={palette.name} author={palette.owner} />
@@ -71,9 +112,9 @@ const Preview = () => {
 
       <SlidesButtons>
         <Buttons
-          select={setCurrentPreview}
-          total={TOTAL_PREVIEW}
-          current={currentPreview}
+          select={(number) => setSlide((prev) => ({ ...prev, number }))}
+          total={TOTAL_PREVIEWS}
+          current={slide.number}
         />
       </SlidesButtons>
     </Wrapper>
@@ -102,11 +143,16 @@ const Wrapper = styled.div`
 const PaletteWrapper = styled.div`
   grid-row: 2;
   grid-column: 1 / span 2;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  grid-gap: 1rem;
 
   @media all and (min-width: 900px) {
     grid-row: 1 / span 2;
     grid-column: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 `;
@@ -165,29 +211,6 @@ const Controls = styled.div`
     grid-row: 3;
     grid-column: 1;
     justify-content: center;
-  }
-`;
-
-const Previews = styled.div`
-  position: relative;
-  flex: 1;
-  grid-row: 3;
-  grid-column: 1 / span 2;
-
-  & > div {
-    width: 100%;
-    height: 100%;
-  }
-
-  @media all and (min-width: 900px) {
-    grid-row: 2;
-    grid-column: 2 / span 2;
-  }
-
-  @media all and (min-width: 768px) {
-    & > div {
-      position: absolute;
-    }
   }
 `;
 

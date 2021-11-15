@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Palettes from '../components/Palettes/Palettes';
 import LeftNav from '../components/LeftNavbar/LeftNav';
-import Pagination from '../components/Shared/Pagination';
+import Pagination from '../components/Search/Pagination';
 import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';
 import Loading from '../components/Shared/Loading';
@@ -19,6 +19,7 @@ const Search = () => {
   const dispatch = useDispatch();
 
   const [palettes, setPalettes] = useState([]);
+  const [numberOfPalettes, setNumberOfPalettes] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,7 +28,7 @@ const Search = () => {
   const search = query.get('search');
   const page = Number(query.get('page')) || 1;
 
-  const key = `/search/${search}`;
+  const key = `/search/${search}/${page}`;
   const palettesPage = useSelector((state) => getPalettesPage(state, key));
 
   // Get palettes of the current page
@@ -38,6 +39,8 @@ const Search = () => {
       if (palettesPage) {
         setPalettes(palettesPage.palettes);
         setLoading(false);
+      } else {
+        setLoading(true);
       }
 
       // API request to make a research
@@ -48,11 +51,12 @@ const Search = () => {
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.list.map((palette) => ({
+        const palettes = json.list.slice((page - 1) * 20, page * 20).map((palette) => ({
           ...palette,
           colors: palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
+        setNumberOfPalettes(json.nbr_palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
       } else {
@@ -60,7 +64,7 @@ const Search = () => {
       }
       setLoading(false);
     })();
-  }, [search]);
+  }, [search, page]);
 
   return (
     <Wrapper>
@@ -73,7 +77,7 @@ const Search = () => {
             <div>
               Search Results —
               {' '}
-              <Span>{palettes.length}</Span>
+              <Span>{numberOfPalettes}</Span>
               {' '}
               palettes found for
               {' '}
@@ -90,10 +94,12 @@ const Search = () => {
               <Content>
                 <Palettes
                   palettes={palettes}
+                />
+                <Pagination
                   numberOfPages={numberOfPages}
                   currentPage={Number(page)}
+                  search={search}
                 />
-                <Pagination />
               </Content>
             ) : (
               <NoPalettes />

@@ -41,7 +41,6 @@ const RightNavAfterSignIn = ({ open, setOpen }) => {
           className="navlink"
         >
           Log Out
-
         </button>
       </NavLinkBetween>
     </Ul>

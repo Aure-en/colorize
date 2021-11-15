@@ -57,7 +57,10 @@ const Palette = ({ match }) => {
         const palette = {
           ...paletteJson,
           ...ownerJson,
-          colors: paletteJson.colors.map((color) => getColorFromHex(color.hex)),
+          colors: paletteJson.colors.map((color) => ({
+            ...color,
+            ...getColorFromHex(color.hex),
+          })),
         };
         dispatch(savePalette(key, palette));
         dispatch(setMainPalette(palette));
