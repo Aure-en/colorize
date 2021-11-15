@@ -29,7 +29,7 @@ const Menu = ({ palette, closeMenu, isOpen }) => {
         <Wrapper $entered={state === 'entered'}>
           {isLoggedIn && palette.id && <Save paletteId={palette.id} closeMenu={closeMenu} />}
           <Export palette={palette} closeMenu={closeMenu} />
-          <Copy paletteId={palette.id} closeMenu={closeMenu} />
+          {palette.id && <Copy paletteId={palette.id} closeMenu={closeMenu} />}
           {user?.id === palette.owner?.id && <Delete palette={palette} />}
         </Wrapper>
       )}
