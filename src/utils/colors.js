@@ -71,7 +71,7 @@ export const getDarkerShades = (palette, shadesNumber) => {
   return darkerShades;
 };
 
-const getLighterShade = (colorHex, shadesNumber, currentShade) => {
+export const getLighterShade = (colorHex, shadesNumber = 1, currentShade = 1) => {
   const color = Color(colorHex);
   const luminosity = color.lightness();
   const lighter = color.lightness(
@@ -80,7 +80,7 @@ const getLighterShade = (colorHex, shadesNumber, currentShade) => {
   return getColorData(lighter);
 };
 
-const getDarkerShade = (colorHex, shadesNumber, currentShade) => {
+export const getDarkerShade = (colorHex, shadesNumber = 1, currentShade = 1) => {
   const color = Color(colorHex);
   const luminosity = color.lightness();
   const darker = color.lightness(

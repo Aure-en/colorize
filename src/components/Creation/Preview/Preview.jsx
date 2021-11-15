@@ -8,6 +8,7 @@ import PageChange from '../PageChange';
 import GenerateButton from '../Controls/GenerateButton';
 import ResetButton from '../Controls/ResetButton';
 import SaveButton from '../Controls/SaveButton';
+import AddColor from '../Controls/AddColor';
 import More from '../More/More';
 import ExtractInput from '../Extract/ExtractInput';
 
@@ -67,7 +68,7 @@ const Preview = () => {
   };
 
   useEffect(() => {
-    if (windowSize.width > 600) {
+    if (windowSize.width > 900) {
       window.addEventListener('wheel', onMouseWheel);
       window.addEventListener('keydown', onKeyDown);
     }
@@ -81,6 +82,7 @@ const Preview = () => {
     <Wrapper>
       <PaletteWrapper>
         <Palette palette={palette} direction="vertical" />
+        {palette.colors.length < 5 && <AddColor />}
       </PaletteWrapper>
 
       <Controls>
@@ -141,11 +143,16 @@ const Wrapper = styled.div`
 const PaletteWrapper = styled.div`
   grid-row: 2;
   grid-column: 1 / span 2;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  grid-gap: 1rem;
 
   @media all and (min-width: 900px) {
     grid-row: 1 / span 2;
     grid-column: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 `;

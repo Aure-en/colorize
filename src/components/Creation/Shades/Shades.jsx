@@ -12,6 +12,7 @@ import ExtractInput from '../Extract/ExtractInput';
 import GenerateButton from '../Controls/GenerateButton';
 import ResetButton from '../Controls/ResetButton';
 import SaveButton from '../Controls/SaveButton';
+import AddColor from '../Controls/AddColor';
 import More from '../More/More';
 
 const Shades = () => {
@@ -30,6 +31,7 @@ const Shades = () => {
         <GenerateButton />
         <ResetButton />
         <ExtractInput />
+        {palette.colors.length < 5 && <AddColor isSmall />}
       </Buttons>
 
       <PageChangeWrapper>
