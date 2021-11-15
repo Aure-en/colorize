@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink as Link } from 'react-router-dom';
-import { requestLogin, requestSignUp } from '../../actions/user';
+
+import { requestLogin, requestSignUp, setAuthError } from '../../actions/user';
 
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
@@ -27,6 +28,7 @@ const Login = () => {
     e.preventDefault();
     let error = false;
     setErrorsSignIn({});
+    dispatch(setAuthError('signIn', ''));
 
     if (!password) {
       setErrorsSignIn((prev) => ({ ...prev, password: 'Password is required' }));
@@ -47,6 +49,7 @@ const Login = () => {
     e.preventDefault();
     let error = false;
     setErrorsSignUp({});
+    dispatch(setAuthError('signUp', ''));
 
     if (!username) {
       setErrorsSignUp((prev) => ({ ...prev, username: 'Username is required.' }));

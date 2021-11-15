@@ -86,14 +86,19 @@ const Theme = ({ match }) => {
           <Loading />
         ) : (
           <>
-            {error && <Error>{error}</Error>}
-            {palettes?.length > 0 ? (
-              <Content>
-                <Palettes palettes={palettes} />
-                <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
-              </Content>
+            {error ? (
+              <Error>{error}</Error>
             ) : (
-              <NoPalettes />
+              <>
+                {palettes?.length > 0 ? (
+                  <Content>
+                    <Palettes palettes={palettes} />
+                    <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
+                  </Content>
+                ) : (
+                  <NoPalettes />
+                )}
+              </>
             )}
           </>
         )}
