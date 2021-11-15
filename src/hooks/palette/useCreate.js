@@ -43,9 +43,8 @@ const useCreate = () => {
 
   const user = useSelector(getUser);
 
-  const onSuccess = (paletteId) => {
+  const onSuccess = () => {
     setLoading('fulfilled');
-    history.push(`/palettes/${paletteId}`);
     dispatch(closeModal('createPalette'));
     toastify('Palette successfully created.');
   };
@@ -71,7 +70,7 @@ const useCreate = () => {
     const json = await response.json();
 
     if (json.id) {
-      onSuccess(json.id);
+      onSuccess();
     } else {
       setLoading('rejected');
     }
