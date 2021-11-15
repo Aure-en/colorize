@@ -168,6 +168,29 @@ const userMiddleware = (store) => (next) => async (action) => {
         }),
       );
 
+      const checkEmail = await fetch(
+        'https://apicolorize.me/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: action.email || user.email,
+            password: action.password,
+          }),
+        },
+      );
+
+      const checkEmailJson = await checkEmail.json();
+
+      dispatch(
+        successEdit({
+          email: action.email || checkEmailJson.data.email,
+          token: checkEmailJson.token,
+        }),
+      );
+
       localStorage.setItem(
         'user',
         JSON.stringify({
