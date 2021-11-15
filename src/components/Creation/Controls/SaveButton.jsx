@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { getIsLoggedIn, getUser } from '../../../selectors/user';
 import { getMainPalette, getDidPaletteChange } from '../../../selectors/palette';
+import { getAllFavorites } from '../../../selectors/favorite';
 
 import AuthButton from '../Save/AuthButton';
 import CreateButton from '../Save/CreateButton';
 import FavoriteButton from '../Save/FavoriteButton';
+import UnfavoriteButton from '../Save/UnfavoriteButton';
 import UpdateButton from '../Save/UpdateButton';
 
 const SaveButton = () => {
@@ -27,7 +29,7 @@ const SaveButton = () => {
    *
    *        * If the palette was created by another user and not
    *          modified.
-   *          ➝ Display a button to save as favorite.
+   *          ➝ Display a button to save as favorite or unsave as favorite.
    *
    *        * If the palette was created by another user and
    *          modified by the current user
@@ -39,6 +41,8 @@ const SaveButton = () => {
   const user = useSelector(getUser);
   const mainPalette = useSelector(getMainPalette);
   const didPaletteChange = useSelector(getDidPaletteChange);
+  const favorites = useSelector(getAllFavorites);
+  const isFavorite = favorites.find((favorite) => favorite.id === mainPalette.id) !== undefined;
 
   if (!isLoggedIn) {
     return <AuthButton />;
@@ -54,6 +58,9 @@ const SaveButton = () => {
 
   if (mainPalette.id && mainPalette.owner?.id !== user.id) {
     if (!didPaletteChange) {
+      if (isFavorite) {
+        return <UnfavoriteButton paletteId={mainPalette.id} />;
+      }
       return <FavoriteButton paletteId={mainPalette.id} />;
     }
     return <CreateButton />;
