@@ -9,14 +9,28 @@ const FilterBy = () => {
   const ref = useRef();
   const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const filters = ['all', 'generated', 'creations'];
+  const filters = [
+    {
+      name: 'all',
+      value: 0,
+    },
+    {
+      name: 'generated',
+      value: 1,
+    },
+    {
+      name: 'creations',
+      value: 2,
+    },
+  ];
   const currentFilter = useSelector(getFilterBy);
+  const currentFilterName = (() => filters.find((sort) => sort.value === currentFilter))();
   const filterWithoutCurrent = (() => filters.filter((filter) => filter !== currentFilter))();
 
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentFilter}
+        {currentFilterName.name}
         {' '}
         &#9660; {/* Caret down */}
       </DropdownHeader>
@@ -26,10 +40,10 @@ const FilterBy = () => {
           {filterWithoutCurrent.map((filter) => (
             <Button
               type="button"
-              onClick={() => { dispatch(updateFilterBy(filter)); }}
-              key={filter}
+              onClick={() => { dispatch(updateFilterBy(filter.value)); }}
+              key={filter.value}
             >
-              {filter}
+              {filter.name}
             </Button>
           ))}
         </DropdownList>
