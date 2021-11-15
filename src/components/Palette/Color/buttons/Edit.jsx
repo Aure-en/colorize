@@ -39,6 +39,7 @@ const Edit = ({ color }) => {
       }}
       $index={color.position}
       $color={color}
+      title="Edit color"
     >
       <IconEdit />
       <input
