@@ -42,12 +42,12 @@ const Home = () => {
       );
 
       const json = await response.json();
-
       if (response.status === 200) {
         const palettes = json.list.map((palette) => ({
           ...palette.palette,
           colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
+        console.log(palettes);
         setPalettes(palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
