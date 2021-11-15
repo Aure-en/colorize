@@ -52,9 +52,10 @@ const Palettes = () => {
       if (response.status === 200) {
         const palettes = json.list
           .map((palette) => ({
-            ...palette,
+            ...palette.palette,
             colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
+
         setPalettes(palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         dispatch(savePalettes(key, palettes));
