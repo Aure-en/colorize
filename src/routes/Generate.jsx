@@ -181,6 +181,45 @@ const Generate = () => {
     }));
   };
 
+  const sendFeaturedPalettes = async () => {
+    const featuredPalettes = palettesData.slice(1).map((palette) => ({
+      ...palette,
+      colors: palette.colors.map((color) => formatColorToDatabase(color)),
+    }));
+
+    await Promise.all(featuredPalettes.map(async (palette) => {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/1`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            colors: palette.colors,
+            themes: [],
+            name: '',
+            public: true,
+          }),
+        },
+      );
+
+      const json = await response.json();
+    }));
+  };
+
+  const featurePalettes = async () => {
+    for (let i = 265; i < 287; i += 1) {
+      fetch(
+        `${process.env.REACT_APP_SERVER}/palettes/${i}/features`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({ features: true }),
+          headers: {
+            Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MzY4MDkyMzMsImV4cCI6MTYzNjgxOTIzMywicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJlbWFpbCI6ImFkbWluQGNvbG9yaXplLmNvbSJ9.cyFKRnNuCUAGwcEFKgwARB3uFUf-OCvJP1tZ9HcLNMhq-F8zVRN4_sG9QnWLeqmUfvkzhamiuAzQWzJABeN2gzRp6xRe5GDyVetYKF2__uk_RnwieCT5dbS2ph8EhayVWbTxXu8iw7sl788bmTlw5gSHagkIqm0JnX9lP9czA4GvxYfE6B8FBKGXa4OlICmZ-zA-3KV73GlVOG8meRtd7VmiUWDprwLrJlBj45iByc_tEy27KBk_50Z_YwKLk5k1h6ewcuw_Pk1xXK_zl9p82s7qYBOXTi_4t2VMc1aQ5F44FsG6YGLnqSAUc-BawamOyl8v34pJATQkFPmV6C-cfw',
+          },
+        },
+      );
+    }
+  };
+
   return (
     <Wrapper>
       <button type="button" onClick={getPaletteFromImage}>Generate One</button>
@@ -190,6 +229,7 @@ const Generate = () => {
       <button type="button" onClick={() => sendPalettesToDB('artsy')}>Send Palettes</button>
       <button type="button" onClick={sendOneToDB}>Send one</button>
       <button type="button" onClick={setAllPalettesToVisible}>Visibility</button>
+      <button type="button" onClick={featurePalettes}>Featured</button>
       <Wrapper>
         <Image id="image" crossOrigin="anonymous" ref={ref} />
         <Palette>{palette.map((color) => <ColorSquare $color={color.hex} />)}</Palette>

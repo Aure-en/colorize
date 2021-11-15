@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Palettes from '../components/Palettes/Palettes';
-import LeftNav from '../components/LeftNavbar/LeftNav';
+import LeftNav from '../components/Search/LeftNav';
 import Pagination from '../components/Search/Pagination';
 import Filter from '../components/Filter/Filter';
 import NoPalettes from '../components/Palettes/NoPalettes';

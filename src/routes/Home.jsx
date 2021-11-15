@@ -38,15 +38,15 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/colors?page=1&filter=${filter}&sort=${sort}`,
+        `${process.env.REACT_APP_SERVER}/palettes/searchBySort?page=1&filter=${filter}&sort=${sort}`,
       );
 
       const json = await response.json();
 
       if (response.status === 200) {
-        const palettes = json.list.slice(0, 20).map((palette) => ({
-          ...palette,
-          colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+        const palettes = json.list.map((palette) => ({
+          ...palette.palette,
+          colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
         }));
         setPalettes(palettes);
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
