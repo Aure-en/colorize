@@ -63,7 +63,7 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.textOnPrimary};
     
 
     &.active {
@@ -73,7 +73,7 @@ const Ul = styled.ul`
 
   @media (max-width: 1024px) {
     flex-flow: column nowrap;
-    background: ${(props) => props.theme.background};
+    background: ${(props) => props.theme.primary};
     
     position: fixed;
     justify-content: start;
@@ -89,13 +89,13 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
-      color: ${(props) => props.theme.textPrimary};
+      color: ${(props) => props.theme.textOnPrimary};
     }
   }
 `;
 
 const NavLinkBetween = styled.div`
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textOnPrimary};
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -147,7 +147,7 @@ const Username = styled.p`
     font-size: 3rem;
     margin: 1rem;
     margin-top: 4rem;
-    color: ${(props) => props.theme.textPrimary}
+    color: ${(props) => props.theme.textOnPrimary}
   }
 `;
 
