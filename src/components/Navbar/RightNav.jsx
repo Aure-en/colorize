@@ -31,7 +31,7 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: ${(props) => props.theme.textPrimary};
+    color: ${(props) => props.theme.textOnPrimary};
     font-weight: 500;
     line-height: 1.5em;
 
@@ -55,7 +55,7 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
-      color: ${(props) => props.theme.textPrimary};
+      color: ${(props) => props.theme.textOnPrimary};
     }
   }
 `;
@@ -65,7 +65,7 @@ const NavLinkBetween = styled.div`
   flex-direction: column;
   padding-left: 10px;
   z-index: 20;
-  color: ${(props) => props.theme.textPrimary};
+  color: ${(props) => props.theme.textOnPrimary};
 
   @media (min-width: 1024px) {
     flex-direction: row;
