@@ -19,7 +19,6 @@ import PrivateRoute from './routes/types/PrivateRoute';
 import Collection from './routes/Collection';
 import Collections from './routes/Collections';
 import Creation from './routes/Creation';
-import Generate from './routes/Generate';
 import Home from './routes/Home';
 import Theme from './routes/Theme';
 import Palette from './routes/Palette';
@@ -67,7 +66,6 @@ function App() {
                 <Route exact path="/creation" component={Creation} />
                 <Route exact path="/palettes" component={Palettes} />
                 <Route exact path="/themes/:themeId" component={Theme} />
-                <Route exact path="/generate" component={Generate} />
                 <Route exact path="/palettes/:paletteId" component={Palette} />
                 <Route exact path="/users/:userId" component={Profile} />
                 <Route exact path="/search" component={Search} />
