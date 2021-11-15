@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getMainPalette } from '../../../selectors/palette';
 import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/palette';
+
 import {
   createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
+
 import { ReactComponent as IconExtract } from '../../../assets/icons/palette/extract.svg';
 
 const ExtractInput = () => {
   const dispatch = useDispatch();
+  const mainPalette = useSelector(getMainPalette);
 
   const handleChange = (event) => {
     if (event.target.files.length > 0) {
@@ -25,7 +30,7 @@ const ExtractInput = () => {
         dispatch(setShades(palette));
         removeImageElem(imageElem);
       };
-      extractFromImage(imageElem, afterExtraction);
+      extractFromImage(imageElem, mainPalette.colors.length, afterExtraction);
     }
   };
 
