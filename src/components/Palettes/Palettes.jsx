@@ -5,7 +5,7 @@ import Card from './Card';
 
 const Palettes = ({ palettes }) => (
   <List>
-    {palettes.map((palette) => <Card palette={palette} key={palette.id} />)}
+    {palettes.map((palette, index) => <Card palette={palette} key={`${index}-${palette.id}`} />)}
   </List>
 );
 
