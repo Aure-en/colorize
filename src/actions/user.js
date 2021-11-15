@@ -2,6 +2,7 @@ export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
 export const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
 export const SUCCESS_SIGNUP = 'SUCCESS_SIGNUP';
+export const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 export const LOGOUT = 'LOGOUT';
 export const EDIT = 'EDIT';
 export const SUCCESS_EDIT = 'SUCCESS_EDIT';
@@ -51,4 +52,10 @@ export const successEdit = ({ username, email, token }) => ({
   username,
   email,
   token,
+});
+
+export const setAuthError = (field, error) => ({
+  type: SET_AUTH_ERROR,
+  field,
+  error,
 });

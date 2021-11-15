@@ -36,7 +36,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       ).name;
 
       const favoriteRes = await fetch(
-        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${action.paletteId}`,
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${action.paletteId}/${user.id}`,
         {
           method: 'PATCH',
           headers: {
@@ -78,7 +78,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/palettes/${action.paletteId}`,
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/palettes/${action.paletteId}/${user.id}`,
         {
           method: 'DELETE',
           headers: {
@@ -164,7 +164,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
 
       // TO-DO: Request to API to update the collection.
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}`,
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${user.id}`,
         {
           method: 'PATCH',
           body: JSON.stringify({ name: action.name }),
@@ -197,7 +197,7 @@ const favoriteMiddleware = (store) => (next) => async (action) => {
       const { dispatch } = store;
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}`,
+        `${process.env.REACT_APP_SERVER}/files/${action.collectionId}/${user.id}`,
         {
           method: 'DELETE',
           headers: {

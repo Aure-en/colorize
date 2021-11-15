@@ -106,7 +106,7 @@ const Preview = () => {
       )}
 
       <Save>
-        {palette.id !== null && <More palette={palette} />}
+        <More palette={palette} />
         <SaveButton />
       </Save>
 
