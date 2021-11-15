@@ -6,11 +6,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { edit } from '../../../actions/user';
+import { successEdit } from '../../../actions/user';
 import { getUser } from '../../../selectors/user';
 
 import Modal from '../../Modal/Modal';
 import DisabledButton from './DisabledButton';
+import { toastify } from '../../Shared/Toast';
 
 const ModalItem = () => {
   const errorsObj = { username: '' };
@@ -23,9 +24,11 @@ const ModalItem = () => {
 
   const user = useSelector(getUser);
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
     let error = false;
+
+    setErrors({});
 
     if (username === '') {
       setErrors((prev) => ({ ...prev, username: 'Username is required.' }));
@@ -38,7 +41,82 @@ const ModalItem = () => {
     }
 
     if (error) return;
-    dispatch(edit({ username, password: confirmPassword }));
+
+    const loginCheck = await fetch(
+      'https://apicolorize.me/api/login_check',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: confirmPassword,
+        }),
+      },
+    );
+
+    const loginCheckJson = await loginCheck.json();
+
+    // Login was not done because password was incorrect.
+    if (loginCheckJson.status === 400 || loginCheckJson.code === 401) {
+      setErrors((prev) => ({ ...prev, password: 'Invalid password.' }));
+      return;
+    }
+
+    const body = JSON.stringify({
+      username,
+    });
+
+    const response = await fetch(
+      `https://apicolorize.me/api/v1/user/${user.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
+        },
+        body,
+      },
+    );
+
+    const json = await response.json();
+
+    const check = await fetch(
+      'https://apicolorize.me/api/login_check',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: confirmPassword,
+        }),
+      },
+    );
+
+    const checkJson = await check.json();
+
+    dispatch(
+      successEdit({
+        username,
+        email: checkJson.data.email,
+        token: checkJson.token,
+      }),
+    );
+
+    setIsOpen(false);
+    toastify('Username successfully updated.');
+
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        username,
+        email: checkJson.data.email,
+        token: checkJson.token,
+        id: user.id,
+      }),
+    );
   }
 
   function openModal() {
