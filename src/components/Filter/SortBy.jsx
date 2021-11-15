@@ -9,14 +9,26 @@ const SortBy = () => {
   const ref = useRef();
   const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const sorts = ['popular', 'saved', 'new'];
+
+  const sorts = [
+    {
+      name: 'popular',
+      value: 'save',
+    },
+    {
+      name: 'new',
+      value: 'new',
+    },
+  ];
+
   const currentSort = useSelector(getSortBy);
-  const sortWithoutCurrent = (() => sorts.filter((sort) => sort !== currentSort))();
+  const currentSortName = (() => sorts.find((sort) => sort.value === currentSort))();
+  const sortWithoutCurrent = (() => sorts.filter((sort) => sort.name !== currentSort.name))();
 
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentSort}
+        {currentSortName.name}
         {' '}
         &#9660; {/* Caret down */}
       </DropdownHeader>
@@ -26,10 +38,10 @@ const SortBy = () => {
           {sortWithoutCurrent.map((sort) => (
             <Button
               type="button"
-              onClick={() => { dispatch(updateSortBy(sort)); }}
-              key={sort}
+              onClick={() => { dispatch(updateSortBy(sort.value)); }}
+              key={sort.value}
             >
-              {sort}
+              {sort.name}
             </Button>
           ))}
         </DropdownList>
