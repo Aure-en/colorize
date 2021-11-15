@@ -1,5 +1,5 @@
 import {
-  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, EDIT, SET_AUTH_ERROR,
+  SUCCESS_LOGIN, SUCCESS_SIGNUP, LOGOUT, SUCCESS_EDIT, SET_AUTH_ERROR,
 } from '../actions/user';
 
 const localStorageUser = JSON.parse(localStorage.getItem('user'));
@@ -43,13 +43,14 @@ const user = (state = initialState, action = {}) => {
         jwt: action.jwt,
       };
 
-    case EDIT:
+    case SUCCESS_EDIT: {
       return {
         ...state,
         username: action.username,
         email: action.email,
-        password: action.password,
+        jwt: action.token,
       };
+    }
 
     case SET_AUTH_ERROR:
       return {

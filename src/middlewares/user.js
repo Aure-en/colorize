@@ -1,8 +1,9 @@
 import {
   REQUEST_SIGNUP,
   REQUEST_LOGIN,
-  EDIT,
   successLogin,
+  successEdit,
+  EDIT,
   setAuthError,
 } from '../actions/user';
 
@@ -105,25 +106,88 @@ const userMiddleware = (store) => (next) => async (action) => {
     case EDIT: {
       const { dispatch } = store;
       const { user } = store.getState();
-      const response = await fetch(
-        `http://apicolorize.me/projet-o-en-couleurs/public/api/v1/user/${user.id}`,
+
+      // Le champ qu'on veut éditer
+      // Email de l'utilisateur
+      // Mot de passe de l'utilisateur
+
+      const loginCheck = await fetch(
+        'https://apicolorize.me/api/login_check',
         {
-          method: 'PATCH',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            username: action.username,
-            email: action.email,
+            email: user.email,
             password: action.password,
           }),
         },
       );
 
-      const edit = await response.json();
-      dispatch(edit(action.username, action.email, action.password));
+      const loginCheckJson = await loginCheck.json();
+
+      // Login was not done because password was incorrect.
+      if (loginCheckJson.status === 400) {
+        return;
+      }
+
+      const body = JSON.stringify({
+        username: action.username,
+        email: action.email,
+        password: action.newPassword,
+      });
+
+      const response = await fetch(
+        `https://apicolorize.me/api/v1/user/${user.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+          body,
+        },
+      );
+
+      const json = await response.json();
+
+      const check = await fetch(
+        'https://apicolorize.me/api/login_check',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: action.email || user.email,
+            password: action.newPassword || action.password,
+          }),
+        },
+      );
+
+      const checkJson = await check.json();
+
+      dispatch(
+        successEdit({
+          username: action.username || checkJson.data.username,
+          email: action.email || checkJson.data.email,
+          token: checkJson.token,
+        }),
+      );
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          username: action.username || checkJson.data.username,
+          email: action.email || checkJson.data.email,
+          token: checkJson.token,
+          id: user.id,
+        }),
+      );
+
       break;
     }
+
     default:
   }
 
