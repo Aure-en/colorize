@@ -172,7 +172,7 @@ const BrandTitle = styled.p`
 const Container = styled.div`
   position: relative;
   width: 1200px;
-  height: 700px;                                  /* hauteur de la fenetre transparente bureau */
+  height:  650px;                                 /* hauteur de la fenetre transparente bureau */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -193,7 +193,7 @@ const BlueBg = styled.div`
   position: absolute;
   top: 40px;
   width: 90%;                                      /* largeur de la fenetre transparente bureau */
-  height: 620px;                                   /* hauteur de la fenetre transparente bureau */
+  height: 570px;                                   /* hauteur de la fenetre transparente bureau */
   display: flex;
   justify-content: center;
   align-items: center;    
