@@ -107,7 +107,7 @@ export const getBackgroundActiveShade = (colorData) => {
 }
 
 export const getLightShade = (colorData) => {
-  const color = Color(colorData.hex);
+  const color = Color(colorData.hex || colorData);
   let lightColor;
 
   if (color.lightness() > 80) {
@@ -121,7 +121,7 @@ export const getLightShade = (colorData) => {
 }
 
 export const getDarkShade = (colorData) => {
-  const color = Color(colorData.hex);
+  const color = Color(colorData.hex || colorData);
   let darkColor;
 
   if (color.lightness() < 40) {
