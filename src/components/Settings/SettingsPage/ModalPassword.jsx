@@ -38,7 +38,7 @@ const ModalPassword = () => {
 
     if (error) return;
 
-    dispatch(edit(password));
+    dispatch(edit({ password, newPassword }));
   }
 
   const [isOpen, setIsOpen] = React.useState(false);
@@ -68,6 +68,7 @@ const ModalPassword = () => {
             <Label htmlFor="current-password">
               Current Password
               <Input
+                type="password"
                 placeholder="Current Password"
                 id="current-password"
                 value={password}
@@ -78,8 +79,9 @@ const ModalPassword = () => {
 
           <Field>
             <Label htmlFor="new-password">
-              Password
+              New Password
               <Input
+                type="password"
                 placeholder="New Password"
                 id="new-password"
                 value={newPassword}
@@ -92,9 +94,10 @@ const ModalPassword = () => {
             <Label htmlFor="confirm-password">
               Confirm Password
               <Input
+                type="password"
                 placeholder="Confirm Password"
                 id="confirm-password"
-                value={password}
+                value={confirmPassword}
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>

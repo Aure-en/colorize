@@ -38,11 +38,12 @@ export const logout = () => ({
   type: LOGOUT,
 });
 
-export const edit = ({ username, email, password }) => ({
+export const edit = ({ username, email, password, newPassword }) => ({
   type: EDIT,
   username,
   email,
   password,
+  newPassword,
 });
 
 export const successEdit = ({ username, email, token }) => ({

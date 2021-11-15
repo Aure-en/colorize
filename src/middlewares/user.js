@@ -128,7 +128,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       const body = JSON.stringify({
         username: action.username,
         email: action.email,
-        newPassword: action.newPassword,
+        password: action.newPassword,
       });
 
       const response = await fetch(
@@ -153,7 +153,7 @@ const userMiddleware = (store) => (next) => async (action) => {
           },
           body: JSON.stringify({
             email: action.email || user.email,
-            password: action.password,
+            password: action.newPassword || action.password,
           }),
         },
       );
@@ -165,29 +165,6 @@ const userMiddleware = (store) => (next) => async (action) => {
           username: action.username || checkJson.data.username,
           email: action.email || checkJson.data.email,
           token: checkJson.token,
-        }),
-      );
-
-      const checkEmail = await fetch(
-        'https://apicolorize.me/api/login_check',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: action.email || user.email,
-            password: action.password,
-          }),
-        },
-      );
-
-      const checkEmailJson = await checkEmail.json();
-
-      dispatch(
-        successEdit({
-          email: action.email || checkEmailJson.data.email,
-          token: checkEmailJson.token,
         }),
       );
 

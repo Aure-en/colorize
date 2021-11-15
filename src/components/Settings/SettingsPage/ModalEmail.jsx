@@ -38,7 +38,7 @@ const ModalEmail = () => {
 
     if (error) return;
 
-    dispatch(edit(email));
+    dispatch(edit({ email, password: confirmPassword }));
   }
 
   function openModal() {
