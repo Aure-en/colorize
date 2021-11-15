@@ -13,7 +13,12 @@ export const createImageElem = (src) => {
 };
 
 export const getPaletteFromImage = (img, number) => {
-  let palette = colorThief.getPalette(img, number);
+  let palette;
+  if (number > 1) {
+    palette = colorThief.getPalette(img, number);
+  } else {
+    palette = [colorThief.getColor(img)];
+  }
   palette = palette.map((rgb) => getColorFromRgb(rgb));
   return palette;
 };
