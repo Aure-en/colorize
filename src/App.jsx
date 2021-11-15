@@ -92,6 +92,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   background: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.textPrimary}
+  color: ${(props) => props.theme.textPrimary};
 `;
 export default App;

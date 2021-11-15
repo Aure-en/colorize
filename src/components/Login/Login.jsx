@@ -97,7 +97,7 @@ const Login = () => {
             <SignInForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignIn}>
                 <FormBxTitlesIn>Sign In</FormBxTitlesIn>
-                <Input placeholder="Username" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+                <Input placeholder="Email" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
                 <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 <LogPass>
                   <Input to="/home" className="submit" type="submit" value="Login" />
@@ -173,15 +173,18 @@ const Container = styled.div`
   position: relative;
   width: 1200px;
   height: 700px;                                  /* hauteur de la fenetre transparente bureau */
-  margin: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media all and (max-width: 1024px) {
-    max-width: 450px;                             /* largeur de la fenetre transparente mobile */
-    height: 800px;                                /* hauteur de la fenetre transparente mobile */
+    max-width: 450px;                             /* largeur de la fenetre transparente tablette */
+    height: 800px;                                /* hauteur de la fenetre transparente tablette */
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
 `;
 
 /* ******************************************** BlueBg - fenetre transparente **************************************** */
@@ -199,8 +202,16 @@ const BlueBg = styled.div`
 
   @media (max-width: 1024px) {
     top: 0;
-    height: 720px;                                  /* hauteur de la fenetre transparente mobile */
-    width: 120%;                                     /* Largeur de la fenetre transparente mobile */
+    height: 720px;                                  /* hauteur de la fenetre transparente tablette */
+    width: 120%;                                     /* Largeur de la fenetre transparente tablette */
+  }
+
+  @media (max-width: 630px) {
+    top: 0;
+    left: 0;
+    height: 700px;                                  /* hauteur de la fenetre transparente mobile */
+    width: 90%;                                     /* Largeur de la fenetre transparente mobile */
+    margin-left: 20px;
   }
 `;
 
@@ -332,12 +343,12 @@ const FormBx = styled.div`
   overflow: hidden;
 
   &.active {
-    left: 43%;                                             /* décaler la fenetre blanche bureau */
+    left: 50%;                                             /* décaler la fenetre blanche bureau */
   }
 
   @media all and (max-width: 1024px) {
     width: 130%;
-    height: 575px;                                        /* hauteur de la fenetre blanche mobile */
+    height: 575px;                                        /* hauteur de la fenetre blanche tablette */
     top: 0;
     left: -15%;
     box-shadow: none;
@@ -349,9 +360,15 @@ const FormBx = styled.div`
   }
 
   @media all and (max-width: 630px) {
-    width: 130%;
+    width: 90%;
     height: 550px;                                        /* hauteur de la fenetre blanche mobile */
-
+    left: 0;
+    margin-left: 20px;
+    
+    &.active {
+      left: 0;
+    }
+    
   }
 `;
 
