@@ -8,9 +8,9 @@ const ProfilePage = ({ username }) => (
   <ProfileContainer>
     <TopContainer>
       <Username username={username} />
-      <FilterSpaceContainer>
+      {/* <FilterSpaceContainer>
         <Filter />
-      </FilterSpaceContainer>
+      </FilterSpaceContainer> */}
     </TopContainer>
     <CreationTitle>Creations</CreationTitle>
   </ProfileContainer>
