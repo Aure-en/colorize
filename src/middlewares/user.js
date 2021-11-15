@@ -1,10 +1,9 @@
 import {
   REQUEST_SIGNUP,
-  successSignUp,
   REQUEST_LOGIN,
-  successLogin,
-  requestLogin,
   EDIT,
+  successLogin,
+  setAuthError,
 } from '../actions/user';
 
 const userMiddleware = (store) => (next) => async (action) => {
@@ -20,6 +19,10 @@ const userMiddleware = (store) => (next) => async (action) => {
         }),
       });
 
+      if (response.status === 500) {
+        return dispatch(setAuthError('signUp', 'Email is already taken.'));
+      }
+
       const user = await response.json();
 
       const login = await fetch('https://apicolorize.me/api/login_check', {
@@ -34,6 +37,7 @@ const userMiddleware = (store) => (next) => async (action) => {
       });
 
       const json = await login.json();
+
       dispatch(
         successLogin(
           json.data.username,
@@ -68,9 +72,10 @@ const userMiddleware = (store) => (next) => async (action) => {
         }),
       });
 
-      if (response.status === 200) {
-        const json = await response.json();
+      const json = await response.json();
 
+      // Everything went well
+      if (json.data?.id) {
         dispatch(
           successLogin(
             json.data.username,
@@ -89,6 +94,9 @@ const userMiddleware = (store) => (next) => async (action) => {
             token: json.token,
           }),
         );
+      } else {
+        // Error handling
+        dispatch(setAuthError('signIn', json.message));
       }
 
       break;
