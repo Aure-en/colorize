@@ -51,16 +51,15 @@ const Theme = ({ match }) => {
       if (theme) {
         if (!themePage) setLoading(true);
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER}/themes/${themeId}/palettes?page=${page}&filter=${filter}&sort=${sort}`,
+          `${process.env.REACT_APP_SERVER}/palettes/searchByTheme?theme=${theme.name}&page=${page}&sort=${sort}&filter=${filter}`,
         );
 
         if (response.status === 200) {
           const json = await response.json();
-          const palettes = json.list.palettes
-            .slice((page - 1) * 20, page * 20)
+          const palettes = json.list
             .map((palette) => ({
-              ...palette,
-              colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+              ...palette[0],
+              colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
             }));
           setPalettes(palettes);
           dispatch(saveThemePalettes(key, palettes));
@@ -74,7 +73,6 @@ const Theme = ({ match }) => {
   }, [theme, page, filter, sort]);
 
   if (!theme && themesLoading !== 'pending') {
-    console.log(themesLoading);
     return <NotFound />;
   }
 
@@ -88,14 +86,19 @@ const Theme = ({ match }) => {
           <Loading />
         ) : (
           <>
-            {error && <Error>{error}</Error>}
-            {palettes?.length > 0 ? (
-              <Content>
-                <Palettes palettes={palettes} />
-                <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
-              </Content>
+            {error ? (
+              <Error>{error}</Error>
             ) : (
-              <NoPalettes />
+              <>
+                {palettes?.length > 0 ? (
+                  <Content>
+                    <Palettes palettes={palettes} />
+                    <Pagination numberOfPages={numberOfPages} currentPage={Number(page)} />
+                  </Content>
+                ) : (
+                  <NoPalettes />
+                )}
+              </>
             )}
           </>
         )}

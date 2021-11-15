@@ -46,9 +46,9 @@ ShadesTable.propTypes = {
     colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        hex: PropTypes.string,
+        rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+        hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
       }).isRequired,
     ).isRequired,
   }).isRequired,
@@ -57,9 +57,9 @@ ShadesTable.propTypes = {
       PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
-          hex: PropTypes.string.isRequired,
-          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          hex: PropTypes.string,
+          rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+          hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
         }),
       ),
     ),
@@ -67,9 +67,9 @@ ShadesTable.propTypes = {
       PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
-          hex: PropTypes.string.isRequired,
-          rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-          hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+          hex: PropTypes.string,
+          rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+          hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
         }),
       ),
     ),
@@ -82,12 +82,6 @@ const Wrapper = styled.main`
   height: 100%;
   grid-gap: 1rem;
   width: 100%;
-  grid-row: 2;
-  grid-column: 1 / span 2;
-
-  @media all and (min-width: 900px) {
-    grid-column: 2 / span 2;
-  }
 `;
 
 export default ShadesTable;

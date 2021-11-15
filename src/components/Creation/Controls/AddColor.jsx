@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { addColor, setShades } from '../../../actions/palette';
 
-import IconAdd from '../../../assets/icons/palette/IconAdd';
+import { ReactComponent as IconAdd } from '../../../assets/icons/palette/add.svg';
 
 const AddColor = ({ isSmall }) => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const AddColor = ({ isSmall }) => {
   const handleClick = () => {
     dispatch(addColor());
     dispatch(setShades());
-  }
+  };
 
   return (
     <Button
@@ -22,7 +22,7 @@ const AddColor = ({ isSmall }) => {
       title="Add a color"
       $isDark={isSmall}
     >
-      <IconAdd size={isSmall ? 36 : 74} />
+      <IconAdd />
     </Button>
   );
 };

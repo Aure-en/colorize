@@ -19,9 +19,9 @@ Buttons.propTypes = {
     colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        hex: PropTypes.string,
+        rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+        hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
       }).isRequired,
     ).isRequired,
   }).isRequired,
