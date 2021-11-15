@@ -106,6 +106,8 @@ const ModalItem = () => {
     );
 
     setIsOpen(false);
+    setConfirm('');
+    setUsername('');
     toastify('Username successfully updated.');
 
     localStorage.setItem(
@@ -149,7 +151,7 @@ const ModalItem = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Label>
-            {errors.username && <div>{errors.username}</div>}
+            {errors.username && <ErrorResponse>{errors.username}</ErrorResponse>}
           </Field>
 
           <Field>
@@ -163,7 +165,7 @@ const ModalItem = () => {
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>
-            {errors.password && <div>{errors.password}</div>}
+            {errors.password && <ErrorResponse>{errors.password}</ErrorResponse>}
           </Field>
           <Button type="submit">Valider</Button>
         </FormContainer>
@@ -171,6 +173,10 @@ const ModalItem = () => {
     </ModalContainer>
   );
 };
+
+const ErrorResponse = styled.div`
+color: ${(props) => props.theme.textPrimary};
+`;
 
 const ModalContainer = styled.div`
   display: flex;
