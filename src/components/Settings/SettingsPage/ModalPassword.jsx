@@ -27,15 +27,25 @@ const ModalPassword = () => {
   function submit(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
 
     if (password === '') {
-      errorObj.password = 'password is Required';
+      setErrors((prev) => ({ ...prev, password: 'Password is required.' }));
+      error = true;
+    }
+    if (!newPassword) {
+      setErrors((prev) => ({ ...prev, newPassword: 'New Password is required.' }));
       error = true;
     }
 
-    setErrors(errorObj);
+    if (!confirmPassword) {
+      setErrors((prev) => ({ ...prev, confirmPassword: 'Confirm Password is required.' }));
+      error = true;
+    }
 
+    if (newPassword !== confirmPassword) {
+      setErrors((prev) => ({ ...prev, newPassword: 'New password and confirmation do not match.', confirmPassword: 'New password and confirmation do not match.' }));
+      error = true;
+    }
     if (error) return;
 
     dispatch(edit({ password, newPassword }));
@@ -75,6 +85,7 @@ const ModalPassword = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Label>
+            {errors.password && <div>{errors.password}</div>}
           </Field>
 
           <Field>
@@ -88,6 +99,7 @@ const ModalPassword = () => {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
             </Label>
+            {errors.newPassword && <div>{errors.newPassword}</div>}
           </Field>
 
           <Field>
@@ -101,6 +113,7 @@ const ModalPassword = () => {
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>
+            {errors.confirmPassword && <div>{errors.confirmPassword}</div>}
           </Field>
 
           <Button type="submit">Valider</Button>

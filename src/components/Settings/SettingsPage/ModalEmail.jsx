@@ -13,7 +13,6 @@ import Modal from '../../Modal/Modal';
 import DisabledButton from './DisabledButton';
 
 const ModalEmail = () => {
-  let subtitle;
   const errorsObj = { email: '' };
   const dispatch = useDispatch();
 
@@ -27,14 +26,16 @@ const ModalEmail = () => {
   function submit(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
 
     if (email === '') {
-      errorObj.email = 'email is Required';
+      setErrors((prev) => ({ ...prev, email: 'Email is required.' }));
       error = true;
     }
 
-    setErrors(errorObj);
+    if (!confirmPassword) {
+      setErrors((prev) => ({ ...prev, password: 'Password is required.' }));
+      error = true;
+    }
 
     if (error) return;
 
@@ -73,6 +74,7 @@ const ModalEmail = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Label>
+            {errors.email && <div>{errors.email}</div>}
           </Field>
 
           <Field>
@@ -86,6 +88,7 @@ const ModalEmail = () => {
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>
+            {errors.password && <div>{errors.password}</div>}
           </Field>
 
           <Button type="submit">Valider</Button>

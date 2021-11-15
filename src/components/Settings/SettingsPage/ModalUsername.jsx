@@ -26,14 +26,17 @@ const ModalItem = () => {
   function submit(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
 
     if (username === '') {
-      errorObj.username = 'Username is required.';
+      setErrors((prev) => ({ ...prev, username: 'Username is required.' }));
       error = true;
     }
 
-    setErrors(errorObj);
+    if (!confirmPassword) {
+      setErrors((prev) => ({ ...prev, password: 'Password is required.' }));
+      error = true;
+    }
+
     if (error) return;
     dispatch(edit({ username, password: confirmPassword }));
   }
@@ -68,6 +71,7 @@ const ModalItem = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Label>
+            {errors.username && <div>{errors.username}</div>}
           </Field>
 
           <Field>
@@ -81,6 +85,7 @@ const ModalItem = () => {
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>
+            {errors.password && <div>{errors.password}</div>}
           </Field>
           <Button type="submit">Valider</Button>
         </FormContainer>
