@@ -20,7 +20,7 @@ const useDelete = (palette) => {
 
   const handleDelete = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_SERVER}/palettes/${palette.id}`,
+      `${process.env.REACT_APP_SERVER}/palettes/${palette.id}/${user.id}`,
       {
         method: 'DELETE',
         headers: {
