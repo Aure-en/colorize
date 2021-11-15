@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { getMainPalette } from '../../../selectors/palette';
 import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/palette';
 
 import {
@@ -13,6 +14,7 @@ import { ReactComponent as IconGenerate } from '../../../assets/icons/palette/ge
 const Generate = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const mainPalette = useSelector(getMainPalette);
 
   const generateRandomPalette = async () => {
     setLoading(true);
@@ -30,7 +32,7 @@ const Generate = () => {
       removeImageElem(imageElem);
       setLoading(false);
     };
-    extractFromImage(imageElem, afterExtraction);
+    extractFromImage(imageElem, mainPalette.colors.length, afterExtraction);
   };
 
   return (
