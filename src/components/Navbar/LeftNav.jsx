@@ -8,7 +8,7 @@ const LeftNav = () => (
 );
 
 const Title = styled.div`
-  color: ${(props) => props.theme.textOnPrimary};
+  color: ${(props) => props.theme.textPrimary};
   align-items: center;
   font-size: 1.5px;
   font-weight: 600;
@@ -16,7 +16,7 @@ const Title = styled.div`
   display: none;
 
   @media (max-width: 1024px) {
-    color: ${(props) => props.theme.textOnPrimary};
+    color: ${(props) => props.theme.textPrimary};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@ const Title = styled.div`
 `;
 
 const TitleBrand = styled.div`
-  color: ${(props) => props.theme.textOnPrimary};
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 export default LeftNav;
