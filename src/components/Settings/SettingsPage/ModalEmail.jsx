@@ -6,14 +6,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { edit } from '../../../actions/user';
+import { successEdit } from '../../../actions/user';
 import { getUser } from '../../../selectors/user';
 
 import Modal from '../../Modal/Modal';
 import DisabledButton from './DisabledButton';
+import { toastify } from '../../Shared/Toast';
 
 const ModalEmail = () => {
-  let subtitle;
   const errorsObj = { email: '' };
   const dispatch = useDispatch();
 
@@ -24,21 +24,105 @@ const ModalEmail = () => {
 
   const user = useSelector(getUser);
 
-  function edit(e) {
+  async function submit(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
 
     if (email === '') {
-      errorObj.email = 'email is Required';
+      setErrors((prev) => ({ ...prev, email: 'Email is required.' }));
       error = true;
     }
 
-    setErrors(errorObj);
+    if (!confirmPassword) {
+      setErrors((prev) => ({ ...prev, password: 'Password is required.' }));
+      error = true;
+    }
 
     if (error) return;
 
-    dispatch(edit(email));
+    const loginCheck = await fetch(
+      'https://apicolorize.me/api/login_check',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: confirmPassword,
+        }),
+      },
+    );
+
+    const loginCheckJson = await loginCheck.json();
+
+    // Login was not done because password was incorrect.
+    if (loginCheckJson.status === 400 || loginCheckJson.code === 401) {
+      setErrors((prev) => ({ ...prev, password: 'Invalid password.' }));
+      return;
+    }
+
+    const body = JSON.stringify({
+      email,
+    });
+
+    const response = await fetch(
+      `https://apicolorize.me/api/v1/user/${user.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${user.jwt}`,
+        },
+        body,
+      },
+    );
+
+    const json = await response.json();
+
+    const check = await fetch(
+      'https://apicolorize.me/api/login_check',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password: confirmPassword,
+        }),
+      },
+    );
+
+    const checkJson = await check.json();
+
+    dispatch(
+      successEdit({
+        username: user.username,
+        email: checkJson.data.email,
+        token: checkJson.token,
+      }),
+    );
+
+    setIsOpen(false);
+    setConfirm('');
+    setEmail('');
+    toastify('Email successfully updated.');
+
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        username: user.username,
+        email: checkJson.data.email,
+        token: checkJson.token,
+        id: user.id,
+      }),
+    );
+
+    dispatch(successEdit({
+      username: user.username,
+      email: checkJson.data.email,
+      token: checkJson.token,
+    }));
   }
 
   function openModal() {
@@ -61,7 +145,7 @@ const ModalEmail = () => {
       <Modal isModalOpen={isOpen} closeModal={closeModal}>
         <ChangeUsernameTitle>Change Email</ChangeUsernameTitle>
 
-        <FormContainer onSubmit={edit}>
+        <FormContainer onSubmit={submit}>
           <Field>
             <Label htmlFor="email">
               New Email
@@ -73,19 +157,21 @@ const ModalEmail = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Label>
+            {errors.email && <ErrorResponse>{errors.email}</ErrorResponse>}
           </Field>
 
           <Field>
             <Label htmlFor="password">
-              New Password
+              Password
               <Input
                 type="password"
                 id="password"
-                placeholder="Confirm Password"
+                placeholder="Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirm(e.target.value)}
               />
             </Label>
+            {errors.password && <ErrorResponse>{errors.password}</ErrorResponse>}
           </Field>
 
           <Button type="submit">Valider</Button>
@@ -95,6 +181,11 @@ const ModalEmail = () => {
     </ModalContainer>
   );
 };
+
+const ErrorResponse = styled.div`
+color: ${(props) => props.theme.textPrimary};
+`;
+
 const ModalContainer = styled.div`
   display: flex;
 `;

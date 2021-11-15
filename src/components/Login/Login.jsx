@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink as Link } from 'react-router-dom';
-import { requestLogin, requestSignUp } from '../../actions/user';
+
+import { requestLogin, requestSignUp, setAuthError } from '../../actions/user';
 
 const Login = () => {
   const [identifier, setIdentifier] = useState('');
-  const errorsObj = { username: '', email: '', password: '' };
-  const [errors, setErrors] = useState(errorsObj);
+  const [errorsSignIn, setErrorsSignIn] = useState({});
+  const [errorsSignUp, setErrorsSignUp] = useState({});
   const [password, setPassword] = useState('');
 
   const [username, setUsername] = useState('');
@@ -17,6 +18,8 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
+  const storeError = useSelector((state) => state.user.error);
+
   const toggleClass = () => {
     setActive(!isActive);
   };
@@ -24,19 +27,18 @@ const Login = () => {
   function onSignIn(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
+    setErrorsSignIn({});
+    dispatch(setAuthError('signIn', ''));
 
-    if (password === '') {
-      errorObj.email = 'Password is Required';
+    if (!password) {
+      setErrorsSignIn((prev) => ({ ...prev, password: 'Password is required' }));
       error = true;
     }
 
-    if (identifier === '') {
-      errorObj.email = 'Identifier is Required';
+    if (!identifier) {
+      setErrorsSignIn((prev) => ({ ...prev, identifier: 'Email is required' }));
       error = true;
     }
-
-    setErrors(errorObj);
 
     if (error) return;
 
@@ -46,24 +48,35 @@ const Login = () => {
   function onSignUp(e) {
     e.preventDefault();
     let error = false;
-    const errorObj = { ...errorsObj };
+    setErrorsSignUp({});
+    dispatch(setAuthError('signUp', ''));
 
-    if (username === '') {
-      errorObj.username = 'Username is Required';
+    if (!username) {
+      setErrorsSignUp((prev) => ({ ...prev, username: 'Username is required.' }));
       error = true;
     }
 
-    if (email === '') {
-      errorObj.email = 'Email is Required';
+    if (!email) {
+      setErrorsSignUp((prev) => ({ ...prev, email: 'Email is required.' }));
       error = true;
     }
 
-    if (password === '') {
-      errorObj.email = 'Password is Required';
+    if (!password) {
+      setErrorsSignUp((prev) => ({ ...prev, password: 'Password is required.' }));
       error = true;
     }
 
-    setErrors(errorObj);
+    if (!confirmPassword) {
+      setErrorsSignUp((prev) => ({ ...prev, confirmPassword: 'Confirmation is required.' }));
+    }
+
+    if (password !== confirmPassword) {
+      setErrorsSignUp((prev) => ({
+        ...prev,
+        password: 'Password and confirmation do not match.',
+        confirmPassword: 'Password and confirmation do not match.',
+      }));
+    }
 
     if (error) return;
 
@@ -97,11 +110,18 @@ const Login = () => {
             <SignInForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignIn}>
                 <FormBxTitlesIn>Sign In</FormBxTitlesIn>
-                <Input placeholder="Email" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
-                <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Field>
+                  <Input placeholder="Email" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+                  {errorsSignIn.identifier && <div>{errorsSignIn.identifier}</div>}
+                </Field>
+
+                <Field>
+                  <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  {errorsSignIn.password && <div>{errorsSignIn.password}</div>}
+                  {storeError.signIn && <div>{storeError.signIn}</div>}
+                </Field>
                 <LogPass>
                   <Input to="/home" className="submit" type="submit" value="Login" />
-                  <Forgot to="/forgetPass">Forgot Password</Forgot>
                 </LogPass>
               </Form>
             </SignInForm>
@@ -109,10 +129,26 @@ const Login = () => {
             <SignUpForm className={isActive ? 'active' : null}>
               <Form onSubmit={onSignUp}>
                 <FormBxTitlesUp>Sign Up</FormBxTitlesUp>
-                <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
+                <Field>
+                  <Input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                  {errorsSignUp.username && <div>{errorsSignUp.username}</div>}
+                </Field>
+
+                <Field>
+                  <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  {errorsSignUp.email && <div>{errorsSignUp.email}</div>}
+                  {storeError.signUp && <div>{storeError.signUp}</div>}
+                </Field>
+
+                <Field>
+                  <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  {errorsSignUp.password && <div>{errorsSignUp.password}</div>}
+                </Field>
+
+                <Field>
+                  <Input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirm(e.target.value)} />
+                  {errorsSignUp.confirmPassword && <div>{errorsSignUp.confirmPassword}</div>}
+                </Field>
                 <Input className="submit" type="submit" value="Register" />
               </Form>
             </SignUpForm>
@@ -437,7 +473,6 @@ const inputSubmit = `
 
 const Input = styled.input`
   width: 100%;
-  margin-bottom: 30px;
   padding: 15px;
   outline: none;
   font-size: 18px;
@@ -447,6 +482,10 @@ const Input = styled.input`
   &.submit {
     ${inputSubmit};
   }
+`;
+
+const Field = styled.div`
+  margin-bottom: 30px;
 `;
 
 const LogPass = styled.div`
