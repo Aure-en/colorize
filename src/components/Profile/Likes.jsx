@@ -118,6 +118,7 @@ const Loader = styled.div`
 const Content = styled.div`
   display: grid;
   grid-template-rows: 1fr auto;
+  height: 100%;
 `;
 
 const Error = styled.div`
