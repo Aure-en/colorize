@@ -9,15 +9,15 @@ import { getUserProfile } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
 import Username from '../components/Profile/Username';
-import NoPalettes from '../components/Profile/NoPalettes';
-import PageChange from '../components/Profile/PageChange';
 import Palettes from '../components/Palettes/Palettes';
 import Pagination from '../components/Shared/Pagination';
+import NoPalettes from '../components/Profile/NoPalettes';
+import PageChange from '../components/Profile/PageChange';
 import Loading from '../components/Shared/Loading';
 
 import { getColorFromHex } from '../utils/colors';
 
-const Profile = ({ match }) => {
+const Likes = ({ match }) => {
   const dispatch = useDispatch();
   const { userId } = match.params;
   const currentUser = useSelector(getUser);
@@ -31,20 +31,21 @@ const Profile = ({ match }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = Number(query.get('page')) || 1;
 
-  const key = `/users/${userId}/${page}`;
-  const userProfile = useSelector((state) => getUserProfile(state, key));
+  const key = `/users/${userId}/likes/${page}`;
+  const userLikes = useSelector((state) => getUserProfile(state, key));
 
   // Fetch user and palettes
   useEffect(() => {
     (async () => {
-      if (userProfile) {
-        setUser(userProfile.user);
-        setPalettes(userProfile.palettes);
+      if (userLikes) {
+        setUser(userLikes.user);
+        setPalettes(userLikes.palettes);
         setLoading(false);
       }
 
-      if (!userProfile) setLoading(true);
+      if (!userLikes) setLoading(true);
 
+      // Route for likes
       const userResponse = await fetch(
         `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
       );
@@ -83,10 +84,10 @@ const Profile = ({ match }) => {
   return (
     <Wrapper>
       {user && (
-        <Header>
-          <Username username={user.username} />
-          {currentUser.id === user.id && <PageChange currentPage="creations" />}
-        </Header>
+      <Header>
+        <Username username={user.username} />
+        {currentUser.id === user.id && <PageChange currentPage="likes" />}
+      </Header>
       )}
       <Main>
         {loading ? (<Loader><Loading /></Loader>) : (
@@ -107,7 +108,7 @@ const Profile = ({ match }) => {
   );
 };
 
-Profile.propTypes = {
+Likes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       userId: PropTypes.string.isRequired,
@@ -126,13 +127,13 @@ const Wrapper = styled.div`
   }
 `;
 
+const Main = styled.main`
+  flex: 1;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-`;
-
-const Main = styled.main`
-  flex: 1;
 `;
 
 const Loader = styled.div`
@@ -154,4 +155,4 @@ const Error = styled.div`
   justify-content: center;
 `;
 
-export default Profile;
+export default Likes;
