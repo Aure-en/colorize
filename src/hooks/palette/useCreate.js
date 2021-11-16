@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { getUser } from '../../selectors/user';
 import { getMainPalette } from '../../selectors/palette';
@@ -11,7 +10,6 @@ import { formatColorToDatabase } from '../../utils/colors';
 import { toastify } from '../../components/Shared/Toast';
 
 const useCreate = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');

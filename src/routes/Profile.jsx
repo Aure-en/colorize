@@ -1,53 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserProfile } from '../selectors/users';
+import { getUser } from '../selectors/user';
+import { getUsersPage } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
-import ProfilePage from '../components/Profile/ProfilePage';
-import Palettes from '../components/Palettes/Palettes';
-import Pagination from '../components/Shared/Pagination';
-import NoPalettes from '../components/Profile/NoPalettes';
-import Loading from '../components/Shared/Loading';
-
-import { getColorFromHex } from '../utils/colors';
+import Username from '../components/Profile/Username';
+import PageChange from '../components/Profile/PageChange';
+import Creations from '../components/Profile/Creations';
+import Likes from '../components/Profile/Likes';
 
 const Profile = ({ match }) => {
   const dispatch = useDispatch();
-  const { userId } = match.params;
+  const userId = Number(match.params.userId);
+  const currentUser = useSelector(getUser);
 
   const [user, setUser] = useState();
-  const [palettes, setPalettes] = useState([]);
-  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState('creations');
 
-  const query = new URLSearchParams(useLocation().search);
-  const page = Number(query.get('page')) || 1;
-
-  const key = `/users/${userId}/${page}`;
-  const userProfile = useSelector((state) => getUserProfile(state, key));
+  const key = `/users/${userId}`;
+  const userProfile = useSelector((state) => getUsersPage(state, key));
 
   // Fetch user and palettes
   useEffect(() => {
     (async () => {
       if (userProfile) {
         setUser(userProfile.user);
-        setPalettes(userProfile.palettes);
         setLoading(false);
       }
 
       if (!userProfile) setLoading(true);
 
-      const userResponse = await fetch(
+      const response = await fetch(
         `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
       );
 
-      if (userResponse.status === 200) {
-        const json = await userResponse.json();
+      if (response.status === 200) {
+        const json = await response.json();
 
         const user = {
           username: json.list.username,
@@ -56,18 +54,9 @@ const Profile = ({ match }) => {
 
         setUser(user);
 
-        const palettes = json.list.palettesCreated
-          .slice((page - 1) * 20, page * 20)
-          .map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-          }));
-
-        setPalettes(palettes);
-        dispatch(saveUser(key, user, palettes));
-        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
+        dispatch(saveUser(key, user));
         setLoading(false);
-      } else if (userResponse.status === 422) {
+      } else if (response.status === 422) {
         setError('This user does not exist.');
         setLoading(false);
       } else {
@@ -75,26 +64,29 @@ const Profile = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, [userId, page]);
+  }, [userId]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <Wrapper>
-      {user && <ProfilePage username={user.username} />}
-      <Main>
-        {loading ? (<Loader><Loading /></Loader>) : (
-          <>
-            {error && <Error>{error}</Error>}
-            {palettes.length > 0 ? (
-              <Content>
-                <Palettes palettes={palettes} />
-                <Pagination numberOfPages={numberOfPages} currentPage={page} />
-              </Content>
-            ) : (
-              <NoPalettes />
-            )}
-          </>
-        )}
-      </Main>
+      {user && (
+        <Header>
+          <Username username={user.username} />
+          {currentUser.id === user.id && (
+            <PageChange
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
+        </Header>
+      )}
+      <Palettes>
+        {currentPage === 'creations' && <Creations userId={userId} />}
+        {currentPage === 'likes' && <Likes userId={userId} />}
+      </Palettes>
     </Wrapper>
   );
 };
@@ -110,7 +102,7 @@ Profile.propTypes = {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 3rem;
+  padding: 3rem;
 
   @media screen and (max-width: 768px) {
     display: flex;
@@ -118,7 +110,12 @@ const Wrapper = styled.div`
   }
 `;
 
-const Main = styled.main`
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Palettes = styled.main`
   flex: 1;
 `;
 
