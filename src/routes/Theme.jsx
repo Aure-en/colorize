@@ -56,7 +56,6 @@ const Theme = ({ match }) => {
 
         if (response.status === 200) {
           const json = await response.json();
-          console.log(json);
           const palettes = json.list
             .map((palette) => ({
               ...palette.palette,
