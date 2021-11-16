@@ -1,5 +1,7 @@
-export const getSortBy = (state) => state.palettes.sortBy;
+export const getAllPalettes = (state) => state.palettes.palettes;
 
-export const getFilterBy = (state) => state.palettes.filterBy;
+export const getPalettesPage = (state, key) =>
+  state.palettes.palettes.find((page) => page.key === key);
 
-export const getPalettes = (state) => state.palettes.palettes;
+export const getPalettePage = (state, key) =>
+  state.palettes.palette.find((page) => page.key === key);

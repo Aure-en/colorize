@@ -1,33 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { likePalette, unlikePalette } from '../../../actions/like';
-import IconHeart from '../../../assets/icons/card/IconHeart';
-import { getLikes } from '../../../selectors/like';
+import styled from 'styled-components';
 
-const ButtonLike = ({ paletteId }) => {
-  const likes = useSelector(getLikes);
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  requestLikePalette,
+  requestUnlikePalette,
+} from '../../../actions/like';
+import { openModal } from '../../../actions/modals';
+import { getLikes } from '../../../selectors/like';
+import { getIsLoggedIn } from '../../../selectors/user';
+
+import IconHeart from '../../../assets/icons/card/IconHeart';
+
+const ButtonLike = ({ palette }) => {
   const dispatch = useDispatch();
 
-  const isLiked = likes.includes(paletteId);
+  const isLoggedIn = useSelector(getIsLoggedIn);
+  const likes = useSelector(getLikes);
+  const isLiked = likes.find((liked) => liked === palette.id) !== undefined;
 
+  /**
+   * If the user is not logged in, open the sign up modal.
+   * Else, allow them to like / unlike a palette.
+   */
   const handleClick = () => {
-    if (isLiked) {
-      dispatch(unlikePalette(paletteId));
+    if (!isLoggedIn) {
+      dispatch(openModal('auth'));
+    } else if (isLiked) {
+      dispatch(requestUnlikePalette(palette.id));
     } else {
-      dispatch(likePalette(paletteId));
+      dispatch(requestLikePalette(palette.id));
     }
   };
 
   return (
-    <button type="button" onClick={handleClick}>
+    <BtnLike
+      type="button"
+      onClick={handleClick}
+      title={palette.nbrLikes > 0 ? palette.nbrLikes : undefined}
+      aria-label={`like palette ${palette.id}`}
+    >
       <IconHeart isLiked={isLiked} />
-    </button>
+    </BtnLike>
   );
 };
 
+const BtnLike = styled.button`
+  color: ${(props) => props.theme.textPrimary};
+`;
+
 ButtonLike.propTypes = {
-  paletteId: PropTypes.number.isRequired,
+  palette: PropTypes.shape({
+    nbrLikes: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ButtonLike;

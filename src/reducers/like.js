@@ -8,7 +8,7 @@ const like = (state = initialState, action = {}) => {
       return [...state, action.paletteId];
 
     case UNLIKE_PALETTE:
-      return [...state].filter((palette) => palette !== action.paletteId);
+      return [...state].filter((paletteId) => paletteId !== action.paletteId);
 
     default:
       return state;

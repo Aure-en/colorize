@@ -7,13 +7,20 @@ const CurrentEmail = () => {
   const currentEmail = useSelector(getEmail);
 
   return (
-    <CurrentEmailContainer>{currentEmail}</CurrentEmailContainer>
+    <Wrapper>
+      <strong>Email</strong>
+      <div>{currentEmail}</div>
+    </Wrapper>
   );
 };
 
-const CurrentEmailContainer = styled.div`
-font-size: 1.8em;
-padding-right: 2em;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > strong {
+    font-weight: 500;
+  }
 `;
 
 export default CurrentEmail;

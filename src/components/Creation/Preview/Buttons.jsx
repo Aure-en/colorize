@@ -25,11 +25,14 @@ Buttons.propTypes = {
 
 const Wrapper = styled.div`
   display: flex;
-  align-self: center;
-  justify-self: center;
+  justify-content: space-between;
+  min-width: 7rem;
 
   @media all and (min-width: 900px) {
     flex-direction: column;
+    min-width: initial;
+    justify-self: center;
+    align-self: center;
   }
 `;
 
@@ -41,9 +44,10 @@ const Button = styled.button`
   transition: color 0.2s linear, transform 0.2s linear;
   opacity: ${(props) => (props.$current ? 1 : 0.5)};
   transform: ${(props) => props.$current && 'scale(1.2)'};
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    color: ${(props) => props.theme.tertiary};
+    color: ${(props) => props.theme.secondaryText};
     transform: scale(1.2);
     opacity: 1;
   }

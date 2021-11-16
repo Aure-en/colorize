@@ -1,14 +1,42 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { getPalettes } from '../../selectors/palettes';
-import CardsList from './CardsList';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import Card from './Card';
 
-const Palettes = () => {
-  const palettes = useSelector(getPalettes);
+const Palettes = ({ palettes }) => (
+  <List>
+    {palettes.map((palette, index) => <Card palette={palette} key={`${index}-${palette.id}`} />)}
+  </List>
+);
 
-  return (
-    <CardsList palettes={palettes} />
-  );
+Palettes.propTypes = {
+  palettes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
 };
+
+const List = styled.ul`
+  display: grid;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  grid-gap: 2rem;
+  align-content: stretch;
+  grid-template-rows: repeat(5, 1fr);
+
+  @media all and (min-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media all and (min-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media all and (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
 
 export default Palettes;

@@ -1,17 +1,23 @@
-import Color from 'color';
-
-const formatRgb = (rgb) => Color.rgb(rgb).rgb().round().string();
-
-const formatHsl = (hsl) => Color.hsl(hsl).hsl().round().string();
+import {
+  getColorHex,
+  getColorRgb,
+  getColorHsl,
+  getColorHsv,
+  getColorCmyk,
+} from './exportColors';
 
 const formatColorCode = (format, color) => {
   switch (format) {
     case 'rgb':
-      return formatRgb(color.rgb);
+      return getColorRgb(color);
     case 'hsl':
-      return formatHsl(color.hsl);
+      return getColorHsl(color);
+    case 'hsv':
+      return getColorHsv(color);
+    case 'cmyk':
+      return getColorCmyk(color);
     default:
-      return color.hex;
+      return getColorHex(color);
   }
 };
 

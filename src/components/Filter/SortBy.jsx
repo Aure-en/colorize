@@ -2,21 +2,33 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import useDropdown from '../../hooks/shared/useDropdown';
-import { getSortBy } from '../../selectors/palettes';
-import { updateSortBy } from '../../actions/palettes';
+import { getSortBy } from '../../selectors/settings';
+import { updateSortBy } from '../../actions/settings';
 
 const SortBy = () => {
   const ref = useRef();
   const dispatch = useDispatch();
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
-  const sorts = ['popular', 'saved', 'new'];
+
+  const sorts = [
+    {
+      name: 'popular',
+      value: 'save',
+    },
+    {
+      name: 'new',
+      value: 'new',
+    },
+  ];
+
   const currentSort = useSelector(getSortBy);
-  const sortWithoutCurrent = (() => sorts.filter((sort) => sort !== currentSort))();
+  const currentSortName = (() => sorts.find((sort) => sort.value === currentSort))();
+  const sortWithoutCurrent = (() => sorts.filter((sort) => sort.name !== currentSort.name))();
 
   return (
     <Dropdown ref={ref}>
       <DropdownHeader onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        {currentSort}
+        {currentSortName.name}
         {' '}
         &#9660; {/* Caret down */}
       </DropdownHeader>
@@ -26,10 +38,10 @@ const SortBy = () => {
           {sortWithoutCurrent.map((sort) => (
             <Button
               type="button"
-              onClick={() => { dispatch(updateSortBy(sort)); }}
-              key={sort}
+              onClick={() => { dispatch(updateSortBy(sort.value)); }}
+              key={sort.value}
             >
-              {sort}
+              {sort.name}
             </Button>
           ))}
         </DropdownList>
@@ -45,7 +57,6 @@ const Dropdown = styled.div`
   padding: 0.5rem 0;
   font-weight: 300;
   text-align: center;
-  min-width: 6rem;
   justify-self: end;
 `;
 
@@ -56,6 +67,7 @@ const DropdownHeader = styled.button`
   cursor: pointer;
   font-weight: 300;
   text-transform: capitalize;
+  color: ${(props) => props.theme.textPrimary};
 
   & > svg {
     margin-left: 0.25rem;
@@ -69,7 +81,7 @@ const DropdownList = styled.div`
   flex-direction: column;
   border: 1px solid ${(props) => props.theme.textPrimary};
   z-index: 5;
-  width: 100%;
+  min-width: 100%;
   background: ${(props) => props.theme.background};
   padding: 0.25rem 0;
 `;
@@ -79,9 +91,10 @@ const Button = styled.button`
   font-weight: 300;
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.primaryBackground}; // (color with 0.15 opacity)
   }
 `;
 

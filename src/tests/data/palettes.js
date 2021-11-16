@@ -135,6 +135,7 @@ export const palette = {
   ...palettes[0],
   colors: palettes[0].colors.map((color, index) => ({
     ...color,
+    position: index,
     id: index,
   })),
 };

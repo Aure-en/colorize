@@ -3,22 +3,21 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const RightNav = ({ open }) => (
+const RightNav = ({ open, setOpen }) => (
   <Ul open={open}>
     <NavLinkBetween>
-      <NavLink to="/" className="navlink">Home</NavLink>
-      <NavLink to="/creation" className="navlink">Creation</NavLink>
+      <NavLink to="/" exact className="navlink" onClick={() => setOpen(false)}>Home</NavLink>
+      <NavLink to="/creation" exact className="navlink" onClick={() => setOpen(false)}>Creation</NavLink>
     </NavLinkBetween>
     <NavLinkBetween>
-      <NavLink to="/signup" className="navlink">Sign Up</NavLink>
-      <NavLink to="/signin" className="navlink">Sign In</NavLink>
+      <NavLink to="/Login" exact className="navlink" onClick={() => setOpen(false)}>Login</NavLink>
     </NavLinkBetween>
-
   </Ul>
 );
 
 RightNav.propTypes = {
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.bool.isRequired,
 };
 
 const Ul = styled.ul`
@@ -32,42 +31,45 @@ const Ul = styled.ul`
   .navlink {
     padding: 18px 10px;
     text-decoration: none;
-    color: white;
+    color: ${(props) => props.theme.textOnPrimary};
+    font-weight: 500;
+    line-height: 1.5em;
 
-    &:active {
-      text-decoration : underline;
+    &.active {
+      font-weight: 700;
     }
-    
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-flow: column nowrap;
-    background-color: ${(props) => props.theme.backgroundColorNav};
+    background: ${(props) => props.theme.secondary};
     position: fixed;
     justify-content: start;
     transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
-    top: 0;
+    top: 60px;
     right: 0;
-    height: 100vh;
+    height: calc(100vh - 60px);
     width: 100%;
     padding-top: 3.5rem;
     z-index: 20;
 
     .navlink {
-      color: #fff;
       text-align: center;
       font-size: 2rem;
+      color: ${(props) => props.theme.textOnPrimary};
     }
   }
 `;
 
 const NavLinkBetween = styled.div`
-display: flex;
-flex-direction: column;
-padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  z-index: 20;
+  color: ${(props) => props.theme.textOnPrimary};
 
-@media (min-width: 768px) {
-  flex-direction: row;
-}
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 `;
 
 export default RightNav;

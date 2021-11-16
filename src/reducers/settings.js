@@ -1,8 +1,17 @@
-import { UPDATE_CREATION_PAGE, UPDATE_FORMAT } from '../actions/settings';
+import {
+  UPDATE_SORT_BY,
+  UPDATE_FILTER_BY,
+  UPDATE_CREATION_PAGE,
+  UPDATE_FORMAT,
+  TOGGLE_SWITCHER,
+} from '../actions/settings';
 
 export const initialState = {
   creationPage: 'preview', // 'preview', 'shades'
   format: 'hex',
+  sortBy: 'save',
+  filterBy: 0,
+  isDarkMode: JSON.parse(localStorage.getItem('isDarkMode')) || false,
 };
 
 const settings = (state = initialState, action = {}) => {
@@ -17,6 +26,24 @@ const settings = (state = initialState, action = {}) => {
       return {
         ...state,
         format: action.format,
+      };
+
+    case TOGGLE_SWITCHER:
+      return {
+        ...state,
+        isDarkMode: !state.isDarkMode,
+      };
+
+    case UPDATE_SORT_BY:
+      return {
+        ...state,
+        sortBy: action.sortBy,
+      };
+
+    case UPDATE_FILTER_BY:
+      return {
+        ...state,
+        filterBy: action.filterBy,
       };
     default:
       return state;

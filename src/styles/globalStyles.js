@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -83,6 +82,47 @@ a {
 
 input {
   font-family: 'Assistant', sans-serif;
+  font-size: 1rem;
+}
+
+@media all and (min-width: 500px) {
+  .ReactModal__Content {
+    min-width: 30rem;  
+  }
+}
+
+/* Animations */
+.slide-enter,
+.slide-enter-active,
+.slide-exit,
+.slide-exit-active {
+  transition: transform 0.75s ease-in-out;
+}
+
+.next .slide-enter {
+  transform: translateY(100%);
+}
+
+.prev .slide-enter {
+  transform: translateY(-100%);
+}
+
+.next .slide-enter-active,
+.prev .slide-enter-active {
+  transform: translateY(0%);
+}
+
+.next .slide-exit,
+.prev .slide-exit {
+  transform: translateY(0%);
+}
+
+.prev .slide-exit-active {
+  transform: translateY(100%);
+}
+
+.next .slide-exit-active {
+  transform: translateY(-100%);
 }
 `;
 

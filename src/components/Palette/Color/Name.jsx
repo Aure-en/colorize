@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Color from 'color';
+
 import { useSelector } from 'react-redux';
-import { getFormat } from '../../../selectors/settings';
+import { getFormat, getIsDarkMode } from '../../../selectors/settings';
+
 import formatColorCode from '../../../utils/format';
+import { getTextShade } from '../../../utils/colors';
 
 const Name = ({ color }) => {
   const [textColor, setTextColor] = useState('');
   const format = useSelector(getFormat);
+  const isDarkMode = useSelector(getIsDarkMode);
 
-  // If the color is bright, darken it to use it on the card.
+  // Adapt the color so the text stays visible on the background.
   useEffect(() => {
-    const newColor = Color.rgb(color.rgb);
-    if (newColor.hsl().array()[2] > 70) {
-      setTextColor(newColor.lightness(70).hsl().string());
-    } else {
-      setTextColor(newColor.hsl().string());
-    }
-  }, [color]);
+    setTextColor(getTextShade(color, isDarkMode));
+  }, [color, isDarkMode]);
 
   return (
     <Informations>
@@ -33,9 +31,9 @@ const Name = ({ color }) => {
 Name.propTypes = {
   color: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    hex: PropTypes.string.isRequired,
-    rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-    hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    hex: PropTypes.string,
+    rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+    hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
   }).isRequired,
 };
 

@@ -1,31 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setPalette, setOriginalPalette, setShades } from '../../../actions/palette';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getMainPalette } from '../../../selectors/palette';
+import { setMainPalette, setOriginalPalette, setShades } from '../../../actions/palette';
+
 import {
   createImageElem, extractFromImage, removeImageElem,
 } from '../../../utils/extractColors';
+
 import { ReactComponent as IconExtract } from '../../../assets/icons/palette/extract.svg';
 
 const ExtractInput = () => {
   const dispatch = useDispatch();
+  const mainPalette = useSelector(getMainPalette);
 
   const handleChange = (event) => {
     if (event.target.files.length > 0) {
       const src = URL.createObjectURL(event.target.files[0]);
       const imageElem = createImageElem(src);
-      const callback = (palette) => {
-        dispatch(setPalette(palette));
-        dispatch(setOriginalPalette(palette));
+      const afterExtraction = (palette) => {
+        const newPalette = {
+          id: null,
+          colors: palette.map((color, index) => ({ ...color, id: index })),
+        };
+
+        dispatch(setMainPalette(newPalette));
+        dispatch(setOriginalPalette(newPalette));
         dispatch(setShades(palette));
         removeImageElem(imageElem);
       };
-      extractFromImage(imageElem, callback);
+      extractFromImage(imageElem, mainPalette.colors.length, afterExtraction);
     }
   };
 
   return (
-    <Label htmlFor="extract-image">
+    <Label htmlFor="extract-image" title="Extract palette">
       <IconExtract />
       <Input type="file" accept="image/*" id="extract-image" name="extract-image" onChange={handleChange} />
     </Label>
@@ -40,7 +50,7 @@ const Label = styled.label`
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.primaryText};
   }
 
   & > svg {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Modal from '../Shared/Modal/Modal';
+import Modal from '../Modal/Modal';
 import CodeFormat from './Format/CodeFormat';
 import ColorFormat from './Format/ColorFormat';
 import Code from './Code';
@@ -58,15 +58,15 @@ ExportModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
   palette: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     colors: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        hex: PropTypes.string.isRequired,
-        rgb: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-        hsl: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-      }).isRequired,
-    ).isRequired,
+        hex: PropTypes.string,
+        rgb: PropTypes.arrayOf(PropTypes.number.isRequired),
+        hsl: PropTypes.arrayOf(PropTypes.number.isRequired),
+      }),
+    ),
   }).isRequired,
 };
 
@@ -76,6 +76,7 @@ const Content = styled.div`
   width: calc(100vw - 6rem); // Modal padding
   max-width: 30rem;
   max-height: 30rem;
+  color: ${(props) => props.theme.textPrimary};
 `;
 
 const Heading = styled.h2`

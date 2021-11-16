@@ -1,5 +1,6 @@
 import {
-  SET_PALETTE,
+  SET_MODAL_PALETTE,
+  SET_MAIN_PALETTE,
   SET_ORIGINAL_PALETTE,
   RESET_PALETTE,
   DECREMENT_SHADES,
@@ -9,11 +10,16 @@ import {
   UPDATE_COLOR,
   LOCK_COLOR,
   UNLOCK_COLOR,
+  SET_PALETTE_LOADING,
+  REMOVE_COLOR,
+  ADD_COLOR,
 } from '../actions/palette';
-import palettesData from '../data/palettes';
 import {
   getLighterShades,
   getDarkerShades,
+  getLighterShade,
+  getDarkerShade,
+  isColorLight,
   getColorFromHex,
   getColorSteps,
 } from '../utils/colors';
@@ -21,55 +27,55 @@ import {
 export const initialState = {
   // JSON.parse + JSON.stringify to recreate a new object
   // with nested arrays and objects with different references from originalPalette.
-  palette: JSON.parse(JSON.stringify({
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
-      ...color,
-      id: index,
-    })),
-  })),
-  originalPalette: JSON.parse(JSON.stringify({
-    id: palettesData[0].id,
-    colors: palettesData[0].colors.map((color, index) => ({
-      ...color,
-      id: index,
-    })),
-  })),
+  palette: {
+    id: null,
+    colors: [],
+  },
+  originalPalette: {
+    id: null,
+    colors: [],
+  },
   locked: [null, null, null, null, null],
   shadesNumber: 2,
   shades: {
     light: [],
     dark: [],
   },
-  loading: 'fulfilled', // 'idle' | 'pending' | 'rejected' | 'fulfilled'
+  modalPalette: null,
+  loading: 'pending',
 };
 
 const palette = (state = initialState, action = {}) => {
   switch (action.type) {
-    case SET_PALETTE: {
+    case SET_MAIN_PALETTE: {
       return {
         ...state,
-        palette: JSON.parse(JSON.stringify({
-          id: null,
-          colors: action.palette.map((color, index) => ({
-            ...color,
-            id: index,
-          })),
-        })),
-
+        palette: JSON.parse(
+          JSON.stringify({
+            ...state.palette,
+            ...action.palette,
+            colors: action.palette.colors.map((color, index) => ({
+              ...color,
+              position: index,
+            })),
+          }),
+        ),
       };
     }
 
     case SET_ORIGINAL_PALETTE: {
       return {
         ...state,
-        originalPalette: JSON.parse(JSON.stringify({
-          id: null,
-          colors: action.palette.map((color, index) => ({
-            ...color,
-            id: index,
-          })),
-        })),
+        originalPalette: JSON.parse(
+          JSON.stringify({
+            ...state.palette,
+            ...action.palette,
+            colors: action.palette.colors.map((color, index) => ({
+              ...color,
+              position: index,
+            })),
+          }),
+        ),
       };
     }
 
@@ -153,6 +159,90 @@ const palette = (state = initialState, action = {}) => {
       return {
         ...state,
         locked: newLocked,
+      };
+    }
+
+    case SET_MODAL_PALETTE:
+      return {
+        ...state,
+        modalPalette: action.palette,
+      };
+
+    case SET_PALETTE_LOADING:
+      return {
+        ...state,
+        loading: {
+          action: action.action,
+          status: action.status,
+          id: action.paletteId,
+        },
+      };
+
+    case REMOVE_COLOR:
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: state.palette.colors.filter(
+            (color) => color.position !== action.position,
+          ),
+        },
+      };
+
+    case ADD_COLOR: {
+      /* If original palette has more colors than the main palette,
+       * adding a color restore one of the original palette's colors.
+       */
+      const mainPaletteIds = state.palette.colors.map((color) => color.id);
+      const originalPaletteIds = state.originalPalette.colors.map(
+        (color) => color.id,
+      );
+
+      // Colors ids that are in the original palette but not in the main palette anymore.
+      const nextColorsIds = originalPaletteIds.filter(
+        (id) => !mainPaletteIds.includes(id),
+      );
+
+      if (nextColorsIds.length > 0) {
+        return {
+          ...state,
+          palette: {
+            ...state.palette,
+            colors: [
+              ...state.palette.colors,
+              {
+                ...JSON.parse(
+                  JSON.stringify(
+                    state.originalPalette.colors.find(
+                      (color) => color.id === nextColorsIds[0],
+                    ),
+                  ),
+                ),
+                position: state.palette.colors.length,
+              },
+            ],
+          },
+        };
+      }
+
+      // Otherwise, a shade of the first color is added.
+      const firstColor = state.palette.colors[0];
+      const firstColorShade = isColorLight(firstColor.hex)
+        ? getDarkerShade(firstColor.hex, 5, state.palette.colors.length)
+        : getLighterShade(firstColor.hex, 5, state.palette.colors.length);
+
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: [
+            ...state.palette.colors,
+            {
+              ...firstColorShade,
+              position: state.palette.colors.length,
+            },
+          ],
+        },
       };
     }
 

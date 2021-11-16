@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import Shape from "../../../assets/preview/Triangles";
+import React from 'react';
+import styled from 'styled-components';
+import Shape from '../../../assets/preview/Triangles';
 
 const Triangle = () => (
   <Wrapper>
@@ -15,13 +15,16 @@ const Triangle = () => (
 
       <Main>
         <Heading>
-          Welcome to Colorize<Accent>.</Accent>
+          Welcome to Colorize
+          <Accent>.</Accent>
         </Heading>
         <Subheading>Free up your creation process</Subheading>
         <p>
           Regain inspiration for your next project by creating the perfect
           palette or getting inspired by thousands of beautiful color schemes.
-          Don't worry, we'll make it all fit <Accent>together.</Accent>
+          Don&apos;t worry, we&apos;ll make it all fit
+          {' '}
+          <Accent>together.</Accent>
         </p>
       </Main>
 
@@ -35,12 +38,12 @@ export default Triangle;
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   overflow: hidden;
   padding: 1rem;
 
   @media all and (min-width: 800px) {
-    padding: 3rem;
+    grid-column-gap: 3rem;
   }
 `;
 
@@ -48,10 +51,6 @@ const Text = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: 1rem;
-
-  @media all and (min-width: 800px) {
-    padding: 0 3rem;
-  }
 `;
 
 const Header = styled.div`
@@ -71,7 +70,7 @@ const Main = styled.div`
   & > p {
     line-height: 2rem;
 
-    @media all and (min-width: 800px) {
+    @media all and (min-width: 900px) {
       max-width: 60%;
     }
   }
@@ -134,7 +133,7 @@ const Button = styled.div`
   display: inline-block;
   padding: 0.75rem 1rem;
   background: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.textOnPrimary};
   border-radius: 3px;
   cursor: pointer;
   margin: 1rem 0;
@@ -143,6 +142,7 @@ const Button = styled.div`
 
   &:hover {
     background: ${(props) => props.theme.secondary};
+    color: ${(props) => props.theme.textOnSecondary}
   }
 
   @media all and (min-width: 1000px) {

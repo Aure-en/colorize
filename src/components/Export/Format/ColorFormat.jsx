@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Transition } from 'react-transition-group';
 import useDropdown from '../../../hooks/shared/useDropdown';
 
 const ColorFormat = ({ format, setFormat }) => {
@@ -18,19 +19,29 @@ const ColorFormat = ({ format, setFormat }) => {
         {/* Caret down */}
       </DropdownHeader>
 
-      {isDropdownOpen && (
-        <DropdownList>
-          {formats.map((format) => (
-            <Button
-              type="button"
-              onClick={() => { setFormat(format); }}
-              key={format}
-            >
-              {format}
-            </Button>
-          ))}
-        </DropdownList>
-      )}
+      <Transition
+        in={isDropdownOpen}
+        timeout={{
+          enter: 0,
+          exit: 500,
+        }}
+        mountOnEnter={false}
+        unmountOnExit
+      >
+        {(state) => (
+          <DropdownList $entered={state === 'entered'}>
+            {formats.map((format) => (
+              <Button
+                type="button"
+                onClick={() => { setFormat(format); }}
+                key={format}
+              >
+                {format}
+              </Button>
+            ))}
+          </DropdownList>
+        )}
+      </Transition>
     </Dropdown>
   );
 };
@@ -54,6 +65,7 @@ const DropdownHeader = styled.button`
   cursor: pointer;
   font-weight: 300;
   text-transform: capitalize;
+  color: ${(props) => props.theme.textPrimary};
 
   & > svg {
     margin-left: 0.25rem;
@@ -66,10 +78,13 @@ const DropdownList = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 10;
-  width: 100%;
-  padding: 0.25rem 0;
+  width: 110%;
+  padding: ${(props) => (props.$entered ? '0.25rem 0' : 0)};
   background: ${(props) => props.theme.background};
-  border: 1px solid ${(props) => props.theme.textPrimary};
+  border: 1px solid ${(props) => (props.$entered ? props.theme.textPrimary : 'transparent')};
+  max-height: ${(props) => (props.$entered ? '10rem' : 0)};
+  transition: all 0.5s ease;
+  overflow: hidden;
 `;
 
 const Button = styled.button`
@@ -77,9 +92,11 @@ const Button = styled.button`
   font-weight: 300;
   text-transform: capitalize;
   padding: 0.1rem 0.5rem;
+  color: ${(props) => props.theme.textPrimary};
 
   &:hover {
-    background: ${(props) => props.theme.secondary}15; // (color with 0.15 opacity)
+    background: ${(props) => props.theme.primaryBackground};
+    color: ${(props) => props.theme.primaryText};
   }
 `;
 
