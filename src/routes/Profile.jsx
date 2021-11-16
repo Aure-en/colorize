@@ -119,23 +119,4 @@ const Palettes = styled.main`
   flex: 1;
 `;
 
-const Loader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const Content = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-`;
-
-const Error = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export default Profile;
