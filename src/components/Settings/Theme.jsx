@@ -10,9 +10,10 @@ import {
   getShadeOnBackground,
   isColorLight,
 } from '../../utils/colors';
+import getFullThemePalette from '../../utils/themeColors';
 
 const Theme = ({ children }) => {
-  const DARK_DEFAULT = '#2E3136';
+  const DARK_DEFAULT = '#000000';
   const LIGHT_DEFAULT = '#FFFFFF';
 
   const initial = {
@@ -36,23 +37,22 @@ const Theme = ({ children }) => {
       'quaternary',
       'quinary',
     ];
-    const [primary, secondary, tertiary] = palette.colors;
+
+    const themePalette = palette.colors.map((color) => color.hex);
+    const filledThemePalette = getFullThemePalette(themePalette);
+    const [primary, secondary, tertiary] = filledThemePalette;
 
     // Set the main palette in the theme
     themeKeys.forEach((key, index) => {
-      if (palette.colors[index]) {
-        newTheme[key] = palette.colors[index].hex;
-      } else {
-        newTheme[key] = '#000';
-      }
+      newTheme[key] = filledThemePalette[index];
     });
 
     // Text color depending on how bright the primary color is.
-    newTheme.textOnPrimary = isColorLight(primary.hex)
+    newTheme.textOnPrimary = isColorLight(primary)
       ? DARK_DEFAULT
       : LIGHT_DEFAULT;
 
-    newTheme.textOnTertiary = isColorLight(tertiary.hex)
+    newTheme.textOnTertiary = isColorLight(tertiary)
       ? DARK_DEFAULT
       : LIGHT_DEFAULT;
 

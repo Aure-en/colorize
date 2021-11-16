@@ -17,6 +17,7 @@ const RightNav = ({ open, setOpen }) => (
 
 RightNav.propTypes = {
   open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.bool.isRequired,
 };
 
 const Ul = styled.ul`
@@ -31,7 +32,8 @@ const Ul = styled.ul`
     padding: 18px 10px;
     text-decoration: none;
     color: ${(props) => props.theme.textOnPrimary};
-    font-weight: 600;
+    font-weight: 500;
+    line-height: 1.5em;
 
     &.active {
       font-weight: 700;
@@ -53,7 +55,7 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
-      color: ${(props) => props.theme.background};
+      color: ${(props) => props.theme.textOnPrimary};
     }
   }
 `;

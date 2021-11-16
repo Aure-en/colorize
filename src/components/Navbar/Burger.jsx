@@ -44,8 +44,8 @@ const StyledBurger = styled.div`
 const Barre = styled.div`
   width: 2rem;
   height: 0.25rem;
-  background: ${(props) => props.theme.textPrimary};
-  color: ${(props) => props.theme.primaryText};
+  background: ${(props) => props.theme.textOnPrimary};
+  color: ${(props) => props.theme.textPrimary};
   border-radius: 10px;
   transform-origin: 1px;
   transition: all 0.3s linear;

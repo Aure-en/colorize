@@ -40,6 +40,7 @@ const updateForm = () => {
             placeholder="Enter the palette name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.stopPropagation()}
           />
         </Label>
       </Field>

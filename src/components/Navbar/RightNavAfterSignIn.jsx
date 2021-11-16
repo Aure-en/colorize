@@ -13,6 +13,7 @@ import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 const RightNavAfterSignIn = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const currentUsername = useSelector(getUser)?.username;
 
   return (
     <Ul open={open}>
@@ -28,7 +29,7 @@ const RightNavAfterSignIn = ({ open, setOpen }) => {
         <NavLink to="/collections" exact className="navlink" onClick={() => setOpen(false)}>Collections</NavLink>
       </NavLinkBetween>
       <NavLinkBetween>
-        <Username>Username</Username>
+        <Username>{currentUsername}</Username>
         <NavLink to={`/users/${user.id}`} exact className="navlink" onClick={() => setOpen(false)}>Profile</NavLink>
         <NavLink to="/settings" exact className="navlink" onClick={() => setOpen(false)}>Settings</NavLink>
         <button
@@ -73,7 +74,7 @@ const Ul = styled.ul`
 
   @media (max-width: 1024px) {
     flex-flow: column nowrap;
-    background: ${(props) => props.theme.textPrimary};
+    background: ${(props) => props.theme.primary};
     
     position: fixed;
     justify-content: start;
@@ -89,13 +90,13 @@ const Ul = styled.ul`
     .navlink {
       text-align: center;
       font-size: 2rem;
-      color: ${(props) => props.theme.background};
+      color: ${(props) => props.theme.textOnPrimary};
     }
   }
 `;
 
 const NavLinkBetween = styled.div`
-  color: ${(props) => props.theme.background};
+  color: ${(props) => props.theme.textOnPrimary};
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -110,12 +111,7 @@ const Searchbar = styled.div`
   display: none;
 
   @media (max-width: 1024px) {
-    display: flex;
-    padding: 2rem 0;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    color: ${(props) => props.theme.textOnPrimary}
+    display: none;
   }
 `;
 

@@ -11,10 +11,15 @@ import {
   LOCK_COLOR,
   UNLOCK_COLOR,
   SET_PALETTE_LOADING,
+  REMOVE_COLOR,
+  ADD_COLOR,
 } from '../actions/palette';
 import {
   getLighterShades,
   getDarkerShades,
+  getLighterShade,
+  getDarkerShade,
+  isColorLight,
   getColorFromHex,
   getColorSteps,
 } from '../utils/colors';
@@ -45,29 +50,32 @@ const palette = (state = initialState, action = {}) => {
     case SET_MAIN_PALETTE: {
       return {
         ...state,
-        palette: JSON.parse(JSON.stringify({
-          ...state.palette,
-          ...action.palette,
-          colors: action.palette.colors.map((color, index) => ({
-            ...color,
-            id: index,
-          })),
-        })),
-
+        palette: JSON.parse(
+          JSON.stringify({
+            ...state.palette,
+            ...action.palette,
+            colors: action.palette.colors.map((color, index) => ({
+              ...color,
+              position: index,
+            })),
+          }),
+        ),
       };
     }
 
     case SET_ORIGINAL_PALETTE: {
       return {
         ...state,
-        originalPalette: JSON.parse(JSON.stringify({
-          ...state.palette,
-          ...action.palette,
-          colors: action.palette.colors.map((color, index) => ({
-            ...color,
-            id: index,
-          })),
-        })),
+        originalPalette: JSON.parse(
+          JSON.stringify({
+            ...state.palette,
+            ...action.palette,
+            colors: action.palette.colors.map((color, index) => ({
+              ...color,
+              position: index,
+            })),
+          }),
+        ),
       };
     }
 
@@ -169,6 +177,74 @@ const palette = (state = initialState, action = {}) => {
           id: action.paletteId,
         },
       };
+
+    case REMOVE_COLOR:
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: state.palette.colors.filter(
+            (color) => color.position !== action.position,
+          ),
+        },
+      };
+
+    case ADD_COLOR: {
+      /* If original palette has more colors than the main palette,
+       * adding a color restore one of the original palette's colors.
+       */
+      const mainPaletteIds = state.palette.colors.map((color) => color.id);
+      const originalPaletteIds = state.originalPalette.colors.map(
+        (color) => color.id,
+      );
+
+      // Colors ids that are in the original palette but not in the main palette anymore.
+      const nextColorsIds = originalPaletteIds.filter(
+        (id) => !mainPaletteIds.includes(id),
+      );
+
+      if (nextColorsIds.length > 0) {
+        return {
+          ...state,
+          palette: {
+            ...state.palette,
+            colors: [
+              ...state.palette.colors,
+              {
+                ...JSON.parse(
+                  JSON.stringify(
+                    state.originalPalette.colors.find(
+                      (color) => color.id === nextColorsIds[0],
+                    ),
+                  ),
+                ),
+                position: state.palette.colors.length,
+              },
+            ],
+          },
+        };
+      }
+
+      // Otherwise, a shade of the first color is added.
+      const firstColor = state.palette.colors[0];
+      const firstColorShade = isColorLight(firstColor.hex)
+        ? getDarkerShade(firstColor.hex, 5, state.palette.colors.length)
+        : getLighterShade(firstColor.hex, 5, state.palette.colors.length);
+
+      return {
+        ...state,
+        palette: {
+          ...state.palette,
+          colors: [
+            ...state.palette.colors,
+            {
+              ...firstColorShade,
+              position: state.palette.colors.length,
+            },
+          ],
+        },
+      };
+    }
 
     default:
       return state;

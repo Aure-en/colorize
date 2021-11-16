@@ -23,7 +23,7 @@ const useDelete = () => {
       },
     );
 
-    const json = response.json();
+    const json = await response.json();
 
     // Everything went well
     if (json.id) {

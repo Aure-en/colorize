@@ -12,19 +12,24 @@ export const createImageElem = (src) => {
   return img;
 };
 
-export const getPaletteFromImage = (img) => {
-  let palette = colorThief.getPalette(img, 5);
+export const getPaletteFromImage = (img, number) => {
+  let palette;
+  if (number > 1) {
+    palette = colorThief.getPalette(img, number);
+  } else {
+    palette = [colorThief.getColor(img)];
+  }
   palette = palette.map((rgb) => getColorFromRgb(rgb));
   return palette;
 };
 
-export const extractFromImage = (imgElem, callback) => {
+export const extractFromImage = (imgElem, number, callback) => {
   if (imgElem.complete) {
     const palette = getPaletteFromImage(imgElem);
     callback(palette);
   } else {
     imgElem.addEventListener('load', () => {
-      const palette = getPaletteFromImage(imgElem);
+      const palette = getPaletteFromImage(imgElem, number);
       callback(palette);
     });
   }

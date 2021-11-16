@@ -12,6 +12,7 @@ import ExtractInput from '../Extract/ExtractInput';
 import GenerateButton from '../Controls/GenerateButton';
 import ResetButton from '../Controls/ResetButton';
 import SaveButton from '../Controls/SaveButton';
+import AddColor from '../Controls/AddColor';
 import More from '../More/More';
 
 const Shades = () => {
@@ -38,7 +39,10 @@ const Shades = () => {
 
       <ShadesButtons />
 
-      <ShadesTable mainPalette={palette} shades={shades} />
+      <Chart>
+        <ShadesTable mainPalette={palette} shades={shades} />
+        {palette.colors.length < 5 && <AddColor />}
+      </Chart>
 
       <Save>
         {palette.id !== null && <More palette={palette} />}
@@ -67,6 +71,19 @@ const PageChangeWrapper = styled.div`
   grid-column: 2;
   display: flex;
   justify-content: flex-end;
+`;
+
+const Chart = styled.div`
+  display: flex;
+  height: 100%;
+  grid-gap: 1rem;
+  width: 100%;
+  grid-row: 2;
+  grid-column: 1 / span 2;
+
+  @media all and (min-width: 900px) {
+    grid-column: 2 / span 2;
+  }
 `;
 
 const Save = styled.div`

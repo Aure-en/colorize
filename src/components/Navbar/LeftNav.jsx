@@ -16,7 +16,7 @@ const Title = styled.div`
   display: none;
 
   @media (max-width: 1024px) {
-    color: ${(props) => props.theme.textOnPrimary};
+    color: ${(props) => props.theme.textPrimary};
     display: flex;
     justify-content: center;
     align-items: center;

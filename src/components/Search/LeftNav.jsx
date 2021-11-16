@@ -47,25 +47,25 @@ const LeftNav = () => {
       <SearchBar />
       <NavMenu>
         {sorts.map((sort) => (
-          <Button
-            type="button"
+          <NavLink
+            to="/palettes"
             onClick={() => dispatch(updateSortBy(sort.value))}
             $selected={sortBy === sort.value}
             key={sort.value}
           >
             {sort.name}
-          </Button>
+          </NavLink>
         ))}
         <Line />
         {filters.map((filter) => (
-          <Button
-            type="button"
+          <NavLink
+            to="/palettes"
             onClick={() => dispatch(updateFilterBy(filter.value))}
             $selected={filterBy === filter.value}
             key={filter.value}
           >
             {filter.name}
-          </Button>
+          </NavLink>
         ))}
         <Line />
         <NavLink to="/" $selected={pathname === '/'}>
@@ -102,22 +102,6 @@ const NavLink = styled(Link)`
   background: ${(props) => props.$selected && props.theme.primaryBackground};
   border-radius: 5px;
   width: 100%;
-
-  &:hover {
-    color: ${(props) => props.theme.primaryText};
-  }
-`;
-
-const Button = styled.button`
-  color: ${(props) => props.theme.textPrimary};
-  text-transform: capitalize;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  width: 100%;
-  text-align: start;
-  background: ${(props) => props.$selected && props.theme.primaryBackground};
-  border-radius: 5px;
 
   &:hover {
     color: ${(props) => props.theme.primaryText};
