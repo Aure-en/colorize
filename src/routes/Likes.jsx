@@ -14,12 +14,13 @@ import Pagination from '../components/Shared/Pagination';
 import NoPalettes from '../components/Profile/NoPalettes';
 import PageChange from '../components/Profile/PageChange';
 import Loading from '../components/Shared/Loading';
+import NotAllowed from '../components/Error/NotAllowed';
 
 import { getColorFromHex } from '../utils/colors';
 
 const Likes = ({ match }) => {
   const dispatch = useDispatch();
-  const { userId } = match.params;
+  const userId = Number(match.params.userId);
   const currentUser = useSelector(getUser);
 
   const [user, setUser] = useState();
@@ -37,6 +38,12 @@ const Likes = ({ match }) => {
   // Fetch user and palettes
   useEffect(() => {
     (async () => {
+      // If the current user is not the user of the profile, not allowed.
+      if (currentUser.id !== userId) {
+        setLoading(false);
+        return;
+      }
+
       if (userLikes) {
         setUser(userLikes.user);
         setPalettes(userLikes.palettes);
@@ -45,23 +52,39 @@ const Likes = ({ match }) => {
 
       if (!userLikes) setLoading(true);
 
-      // Route for likes
+      // Get user
       const userResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+        `${process.env.REACT_APP_SERVER}/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
       );
 
-      if (userResponse.status === 200) {
-        const json = await userResponse.json();
+      const userJson = await userResponse.json();
 
-        const user = {
-          username: json.list.username,
-          id: json.list.id,
-        };
+      const user = {
+        username: userJson.username,
+        id: userJson.id,
+      };
 
-        setUser(user);
+      setUser(user);
 
-        const palettes = json.list.palettesCreated
-          .slice((page - 1) * 20, page * 20)
+      // Get palettes liked
+      const palettesResponse = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/like?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
+      );
+
+      if (userResponse.status === 200 && palettesResponse.status === 200) {
+        const json = await palettesResponse.json();
+
+        const palettes = json.list
           .map((palette) => ({
             ...palette,
             colors: palette.colors.map((color) => getColorFromHex(color.hex)),
@@ -71,7 +94,7 @@ const Likes = ({ match }) => {
         dispatch(saveUser(key, user, palettes));
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         setLoading(false);
-      } else if (userResponse.status === 422) {
+      } else if (palettesResponse.status === 422) {
         setError('This user does not exist.');
         setLoading(false);
       } else {
@@ -80,6 +103,13 @@ const Likes = ({ match }) => {
       }
     })();
   }, [userId, page]);
+
+  // If user is not allowed
+  if (currentUser.id !== userId) {
+    return (
+      <NotAllowed />
+    );
+  }
 
   return (
     <Wrapper>
