@@ -8,7 +8,8 @@ Find the next palette for your new project! Whether you want to renovate your ho
 * Palette generator from random images.
 * User authentification with JWT and password encryption.
 * Palette creation page with previews and a color chart.
-* Ability to save, update and explore palettes created by users.
+* Creation, deletion and update of user made palettes.
+* Ability to save, like and explore palettes created by users.
 * Easy copy paste of colors or entire palettes, in any format (hex, rgb, cmyk, hsl, hsv).
 * Save palettes in collections to find them with ease.
 * Search for specific palettes.
@@ -18,6 +19,9 @@ Find the next palette for your new project! Whether you want to renovate your ho
 ## Preview
 
 Try out Colorize with a sample account by using the following credentials: anonymous@colorize.com / colorize.
+
+![colorize](https://user-images.githubusercontent.com/68861848/141996499-605c8d40-e190-4418-b4f1-4f897feead5b.gif)
+
 
 ## Installation
 
@@ -38,6 +42,12 @@ REACT_APP_UNSPLASH_API=Your [Unsplash](https://unsplash.com/) API Key.
 ```
 
 ### Start
+
+#### Development
+```
+$ npm run start
+```
+#### Production
 ```
 $ npm run build
 $ npm install -g serve
