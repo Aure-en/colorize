@@ -9,17 +9,18 @@ import { getUserProfile } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
 import Username from '../components/Profile/Username';
-import NoPalettes from '../components/Profile/NoPalettes';
-import PageChange from '../components/Profile/PageChange';
 import Palettes from '../components/Palettes/Palettes';
 import Pagination from '../components/Shared/Pagination';
+import NoPalettes from '../components/Profile/NoPalettes';
+import PageChange from '../components/Profile/PageChange';
 import Loading from '../components/Shared/Loading';
+import NotAllowed from '../components/Error/NotAllowed';
 
 import { getColorFromHex } from '../utils/colors';
 
-const Profile = ({ match }) => {
+const Likes = ({ match }) => {
   const dispatch = useDispatch();
-  const { userId } = match.params;
+  const userId = Number(match.params.userId);
   const currentUser = useSelector(getUser);
 
   const [user, setUser] = useState();
@@ -31,46 +32,69 @@ const Profile = ({ match }) => {
   const query = new URLSearchParams(useLocation().search);
   const page = Number(query.get('page')) || 1;
 
-  const key = `/users/${userId}/${page}`;
-  const userProfile = useSelector((state) => getUserProfile(state, key));
+  const key = `/users/${userId}/likes/${page}`;
+  const userLikes = useSelector((state) => getUserProfile(state, key));
 
   // Fetch user and palettes
   useEffect(() => {
     (async () => {
-      if (userProfile) {
-        setUser(userProfile.user);
-        setPalettes(userProfile.palettes);
+      // If the current user is not the user of the profile, not allowed.
+      if (currentUser.id !== userId) {
+        setLoading(false);
+        return;
+      }
+
+      if (userLikes) {
+        setUser(userLikes.user);
+        setPalettes(userLikes.palettes);
         setLoading(false);
       }
 
-      if (!userProfile) setLoading(true);
+      if (!userLikes) setLoading(true);
 
+      // Get user
       const userResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+        `${process.env.REACT_APP_SERVER}/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
       );
 
-      if (userResponse.status === 200) {
-        const json = await userResponse.json();
+      const userJson = await userResponse.json();
 
-        const user = {
-          username: json.list.username,
-          id: json.list.id,
-        };
+      const user = {
+        username: userJson.username,
+        id: userJson.id,
+      };
 
-        setUser(user);
+      setUser(user);
 
-        const palettes = json.list.palettesCreated
-          .slice((page - 1) * 20, page * 20)
+      // Get palettes liked
+      const palettesResponse = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/like?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
+      );
+
+      if (userResponse.status === 200 && palettesResponse.status === 200) {
+        const json = await palettesResponse.json();
+
+        const palettes = json.list
           .map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+            ...palette.palette,
+            colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
 
         setPalettes(palettes);
         dispatch(saveUser(key, user, palettes));
         setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
         setLoading(false);
-      } else if (userResponse.status === 422) {
+      } else if (palettesResponse.status === 422) {
         setError('This user does not exist.');
         setLoading(false);
       } else {
@@ -80,13 +104,20 @@ const Profile = ({ match }) => {
     })();
   }, [userId, page]);
 
+  // If user is not allowed
+  if (currentUser.id !== userId) {
+    return (
+      <NotAllowed />
+    );
+  }
+
   return (
     <Wrapper>
       {user && (
-        <Header>
-          <Username username={user.username} />
-          {currentUser.id === user.id && <PageChange currentPage="creations" />}
-        </Header>
+      <Header>
+        <Username username={user.username} />
+        {currentUser.id === user.id && <PageChange currentPage="likes" />}
+      </Header>
       )}
       <Main>
         {loading ? (<Loader><Loading /></Loader>) : (
@@ -107,7 +138,7 @@ const Profile = ({ match }) => {
   );
 };
 
-Profile.propTypes = {
+Likes.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       userId: PropTypes.string.isRequired,
@@ -126,13 +157,13 @@ const Wrapper = styled.div`
   }
 `;
 
+const Main = styled.main`
+  flex: 1;
+`;
+
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
-`;
-
-const Main = styled.main`
-  flex: 1;
 `;
 
 const Loader = styled.div`
@@ -154,4 +185,4 @@ const Error = styled.div`
   justify-content: center;
 `;
 
-export default Profile;
+export default Likes;
