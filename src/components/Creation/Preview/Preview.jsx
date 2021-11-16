@@ -18,6 +18,7 @@ import Previews from './Previews';
 import { getMainPalette } from '../../../selectors/palette';
 
 import useWindowSize from '../../../hooks/shared/useWindowSize';
+import ButtonLike from '../../Palettes/Buttons/ButtonLike';
 
 const Preview = () => {
   const [slide, setSlide] = useState({
@@ -106,6 +107,7 @@ const Preview = () => {
       )}
 
       <Save>
+        {palette.id && <ButtonLike palette={palette} />}
         <More palette={palette} />
         <SaveButton />
       </Save>
