@@ -14,6 +14,7 @@ import ResetButton from '../Controls/ResetButton';
 import SaveButton from '../Controls/SaveButton';
 import AddColor from '../Controls/AddColor';
 import More from '../More/More';
+import ButtonLike from '../../Palettes/Buttons/ButtonLike';
 
 const Shades = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,8 @@ const Shades = () => {
       </Chart>
 
       <Save>
-        {palette.id !== null && <More palette={palette} />}
+        {palette.id && <ButtonLike palette={palette} />}
+        <More palette={palette} />
         <SaveButton />
       </Save>
     </Wrapper>

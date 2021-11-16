@@ -1,4 +1,6 @@
-import { LIKE_PALETTE, UNLIKE_PALETTE } from '../actions/like';
+import {
+  LIKE_PALETTE, UNLIKE_PALETTE, SAVE_LIKES, RESET_LIKES,
+} from '../actions/like';
 
 export const initialState = [];
 
@@ -9,6 +11,12 @@ const like = (state = initialState, action = {}) => {
 
     case UNLIKE_PALETTE:
       return [...state].filter((paletteId) => paletteId !== action.paletteId);
+
+    case SAVE_LIKES:
+      return action.likes;
+
+    case RESET_LIKES:
+      return [];
 
     default:
       return state;
