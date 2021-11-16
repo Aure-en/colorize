@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink as Link } from 'react-router-dom';
 
 const LeftNav = () => (
   <Title>
-    <TitleBrand>Colorize</TitleBrand>
+    <TitleBrand to="/">Colorize</TitleBrand>
   </Title>
 );
 
@@ -25,7 +26,7 @@ const Title = styled.div`
   }
 `;
 
-const TitleBrand = styled.div`
+const TitleBrand = styled(Link)`
   color: ${(props) => props.theme.textOnPrimary};
 `;
 
