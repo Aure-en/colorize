@@ -86,8 +86,8 @@ const Likes = ({ match }) => {
 
         const palettes = json.list
           .map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
+            ...palette.palette,
+            colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
           }));
 
         setPalettes(palettes);
