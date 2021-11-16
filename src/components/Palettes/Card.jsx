@@ -17,6 +17,7 @@ const Card = ({ palette }) => {
             key={color.hex}
             $color={color.hex}
             onMouseEnter={() => setCurrentColor(color)}
+            aria-label={color.hex}
             onClick={(e) => {
               copy(e.pageX, e.pageY, color);
             }}

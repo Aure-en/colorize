@@ -1,5 +1,5 @@
-import { render, screen } from '../../utils/test-utils';
-import Previews from '../../../components/Creation/Preview/Previews';
+import { render, screen } from '../../../utils/test-utils';
+import Previews from '../../../../components/Creation/Preview/Previews';
 
 const setup = (number) => {
   render(
@@ -11,8 +11,8 @@ const setup = (number) => {
   );
 };
 
-describe('renders properly', () => {
-  test('first preview renders', () => {
+describe('Renders previews', () => {
+  test('First preview renders', () => {
     setup(1);
     const title = screen.getByRole('heading', { name: /colorize/i });
     expect(title).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('renders properly', () => {
     expect(subtitle).toBeInTheDocument();
   });
 
-  test('second preview renders', () => {
+  test('Second preview renders', () => {
     setup(2);
     const title = screen.getByRole('heading', { name: /welcome to colorize/i });
     expect(title).toBeInTheDocument();
@@ -30,13 +30,13 @@ describe('renders properly', () => {
     expect(subheading).toBeInTheDocument();
   });
 
-  test('third preview renders', () => {
+  test('Third preview renders', () => {
     setup(3);
     const title = screen.getByRole('heading', { name: /the cover/i });
     expect(title).toBeInTheDocument();
   });
 
-  test('fourth preview renders', () => {
+  test('Fourth preview renders', () => {
     setup(4);
     const title = screen.getByRole('heading', { name: /explore/i });
     expect(title).toBeInTheDocument();
@@ -45,7 +45,7 @@ describe('renders properly', () => {
     expect(subheading).toBeInTheDocument();
   });
 
-  test('fifth preview renders', () => {
+  test('Fifth preview renders', () => {
     setup(5);
     const title = screen.getByRole('heading', { name: /find/i });
     expect(title).toBeInTheDocument();
