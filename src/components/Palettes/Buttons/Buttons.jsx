@@ -8,7 +8,7 @@ import More from './More/More';
 const Buttons = ({ palette }) => (
   <Wrapper>
     <Save paletteId={palette.id} />
-    {/* <ButtonLike palette={palette} /> */}
+    <ButtonLike palette={palette} />
     <More palette={palette} />
   </Wrapper>
 );
