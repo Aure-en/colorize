@@ -107,8 +107,6 @@ const ModalPassword = () => {
 
     const checkJson = await check.json();
 
-    console.log(checkJson);
-
     dispatch(successEdit({
       username: user.username,
       email: user.email,
