@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUser } from '../selectors/user';
-import { getUserProfile } from '../selectors/users';
+import { getUsersPage } from '../selectors/users';
 import { saveUser } from '../actions/users';
 
 import Username from '../components/Profile/Username';
-import NoPalettes from '../components/Profile/NoPalettes';
 import PageChange from '../components/Profile/PageChange';
-import Palettes from '../components/Palettes/Palettes';
-import Pagination from '../components/Shared/Pagination';
-import Loading from '../components/Shared/Loading';
-
-import { getColorFromHex } from '../utils/colors';
 
 const Profile = ({ match }) => {
   const dispatch = useDispatch();
@@ -23,54 +16,39 @@ const Profile = ({ match }) => {
   const currentUser = useSelector(getUser);
 
   const [user, setUser] = useState();
-  const [palettes, setPalettes] = useState([]);
-  const [numberOfPages, setNumberOfPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const query = new URLSearchParams(useLocation().search);
-  const page = Number(query.get('page')) || 1;
-
-  const key = `/users/${userId}/${page}`;
-  const userProfile = useSelector((state) => getUserProfile(state, key));
+  const key = `/users/${userId}`;
+  const userProfile = useSelector((state) => getUsersPage(state, key));
 
   // Fetch user and palettes
   useEffect(() => {
     (async () => {
       if (userProfile) {
         setUser(userProfile.user);
-        setPalettes(userProfile.palettes);
         setLoading(false);
       }
 
       if (!userProfile) setLoading(true);
 
-      const userResponse = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/${userId}`,
       );
 
-      if (userResponse.status === 200) {
-        const json = await userResponse.json();
+      if (response.status === 200) {
+        const json = await response.json();
 
         const user = {
-          username: json.list.username,
-          id: json.list.id,
+          username: json.username,
+          id: json.id,
         };
 
         setUser(user);
 
-        const palettes = json.list.palettesCreated
-          .slice((page - 1) * 20, page * 20)
-          .map((palette) => ({
-            ...palette,
-            colors: palette.colors.map((color) => getColorFromHex(color.hex)),
-          }));
-
-        setPalettes(palettes);
-        dispatch(saveUser(key, user, palettes));
-        setNumberOfPages(Math.ceil(json.nbr_palettes / 20));
+        dispatch(saveUser(key, user));
         setLoading(false);
-      } else if (userResponse.status === 422) {
+      } else if (response.status === 422) {
         setError('This user does not exist.');
         setLoading(false);
       } else {
@@ -78,7 +56,11 @@ const Profile = ({ match }) => {
         setLoading(false);
       }
     })();
-  }, [userId, page]);
+  }, [userId]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <Wrapper>
@@ -88,21 +70,7 @@ const Profile = ({ match }) => {
           {currentUser.id === user.id && <PageChange currentPage="creations" />}
         </Header>
       )}
-      <Main>
-        {loading ? (<Loader><Loading /></Loader>) : (
-          <>
-            {error && <Error>{error}</Error>}
-            {palettes.length > 0 ? (
-              <Content>
-                <Palettes palettes={palettes} />
-                <Pagination numberOfPages={numberOfPages} currentPage={page} />
-              </Content>
-            ) : (
-              <NoPalettes />
-            )}
-          </>
-        )}
-      </Main>
+      <></>
     </Wrapper>
   );
 };
