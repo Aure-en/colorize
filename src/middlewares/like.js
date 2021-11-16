@@ -1,6 +1,8 @@
 import {
   REQUEST_LIKE_PALETTE,
   REQUEST_UNLIKE_PALETTE,
+  REQUEST_LIKES,
+  saveLikes,
   likePalette,
   unlikePalette,
 } from '../actions/like';
@@ -14,7 +16,7 @@ const likeMiddleware = (store) => (next) => async (action) => {
       const dispatch = store;
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/like`,
+        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/${user.id}/like`,
         {
           method: 'PATCH',
           headers: {
@@ -44,7 +46,7 @@ const likeMiddleware = (store) => (next) => async (action) => {
       const dispatch = store;
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/dislike`,
+        `${process.env.REACT_APP_SERVER}/palettes/${action.paletteId}/${user.id}/dislike`,
         {
           method: 'PATCH',
           headers: {
@@ -66,6 +68,35 @@ const likeMiddleware = (store) => (next) => async (action) => {
       if (json.id) {
         store.dispatch(unlikePalette(action.paletteId));
       }
+
+      break;
+    }
+
+    case REQUEST_LIKES: {
+      const { user } = store.getState();
+      const dispatch = store;
+
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER}/user/${user.id}/palettes/likes`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.jwt}`,
+          },
+        },
+      );
+
+      const json = await response.json();
+
+      // Expired JWT.
+      if (json.code === 401 && /expired jwt token/i.test(json.message)) {
+        dispatch(logout());
+        localStorage.removeItem('user');
+        return;
+      }
+
+      // Everything went well.
+      const likesList = json.list.palettesLikes.map((palette) => palette.id);
+      store.dispatch(saveLikes(likesList));
 
       break;
     }

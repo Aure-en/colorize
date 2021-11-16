@@ -9,6 +9,7 @@ import { getIsLoggedIn, getUser } from './selectors/user';
 import { fetchThemes } from './actions/themes';
 import { fetchFirstPalette } from './actions/palette';
 import { fetchCollections } from './actions/favorite';
+import { requestLikes } from './actions/like';
 import { getPaletteLoading } from './selectors/palette';
 
 import GlobalStyles from './styles/globalStyles';
@@ -49,6 +50,7 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchCollections());
+      dispatch(requestLikes());
     }
   }, [isLoggedIn, user]);
 

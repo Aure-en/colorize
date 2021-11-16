@@ -10,7 +10,7 @@ const users = (state = initialState, action = {}) => {
         return [
           ...state,
         ].map((page) => (page.key === action.key
-          ? { key: action.key, user: action.user, palettes: action.palettes } : page));
+          ? { key: action.key, user: action.user } : page));
       }
 
       // If the key was not present, add the key, user and palettes.
@@ -19,7 +19,6 @@ const users = (state = initialState, action = {}) => {
         {
           key: action.key,
           user: action.user,
-          palettes: action.palettes,
         },
       ];
     }
