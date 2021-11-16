@@ -51,14 +51,15 @@ const Theme = ({ match }) => {
       if (theme) {
         if (!themePage) setLoading(true);
         const response = await fetch(
-          `${process.env.REACT_APP_SERVER}/palettes/searchByTheme?theme=${theme.name}&page=${page}&sort=${sort}&filter=${filter}`,
+          `${process.env.REACT_APP_SERVER}/palettes/${theme.name}/searchBySort?&page=${page}&sort=${sort}&filter=${filter}`,
         );
 
         if (response.status === 200) {
           const json = await response.json();
+          console.log(json);
           const palettes = json.list
             .map((palette) => ({
-              ...palette[0],
+              ...palette.palette,
               colors: palette.palette.colors.map((color) => getColorFromHex(color.hex)),
             }));
           setPalettes(palettes);
