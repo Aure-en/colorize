@@ -1,28 +1,16 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { Transition } from 'react-transition-group';
 
-import { Link } from 'react-router-dom';
 import useDropdown from '../../hooks/shared/useDropdown';
 
-import { getUser } from '../../selectors/user';
-
-const PageChange = ({ currentPage }) => {
+const PageChange = ({ currentPage, setCurrentPage }) => {
   const ref = useRef();
-  const user = useSelector(getUser);
   const { isDropdownOpen, setIsDropdownOpen } = useDropdown(ref);
 
-  const pages = [{
-    name: 'creations',
-    to: `/users/${user.id}`,
-  }, {
-    name: 'likes',
-    to: `/users/${user.id}/likes`,
-  }];
-
-  const pagesWithoutCurrent = (() => pages.filter((page) => page.name !== currentPage))();
+  const pages = ['creations', 'likes'];
+  const pagesWithoutCurrent = pages.filter((page) => page !== currentPage);
 
   return (
     <Dropdown ref={ref}>
@@ -46,12 +34,12 @@ const PageChange = ({ currentPage }) => {
         {(state) => (
           <DropdownList $entered={state === 'entered'}>
             {pagesWithoutCurrent.map((page) => (
-              <ProfileLink
-                to={page.to}
-                key={page.name}
+              <Button
+                onClick={() => setCurrentPage(page)}
+                key={page}
               >
-                {page.name}
-              </ProfileLink>
+                {page}
+              </Button>
             ))}
           </DropdownList>
         )}
@@ -62,6 +50,7 @@ const PageChange = ({ currentPage }) => {
 
 PageChange.propTypes = {
   currentPage: PropTypes.string.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
 };
 
 const Dropdown = styled.div`
@@ -103,7 +92,7 @@ const DropdownList = styled.div`
   overflow: hidden;
 `;
 
-const ProfileLink = styled(Link)`
+const Button = styled.button`
   text-align: start;
   font-weight: 300;
   text-transform: capitalize;
