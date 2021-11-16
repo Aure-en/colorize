@@ -9,15 +9,18 @@ import { saveUser } from '../actions/users';
 
 import Username from '../components/Profile/Username';
 import PageChange from '../components/Profile/PageChange';
+import Creations from '../components/Profile/Creations';
+import Likes from '../components/Profile/Likes';
 
 const Profile = ({ match }) => {
   const dispatch = useDispatch();
-  const { userId } = match.params;
+  const userId = Number(match.params.userId);
   const currentUser = useSelector(getUser);
 
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState('creations');
 
   const key = `/users/${userId}`;
   const userProfile = useSelector((state) => getUsersPage(state, key));
@@ -33,15 +36,20 @@ const Profile = ({ match }) => {
       if (!userProfile) setLoading(true);
 
       const response = await fetch(
-        `${process.env.REACT_APP_SERVER}/user/${userId}`,
+        `${process.env.REACT_APP_SERVER}/user/${userId}/palettes/created`,
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser.jwt}`,
+          },
+        },
       );
 
       if (response.status === 200) {
         const json = await response.json();
 
         const user = {
-          username: json.username,
-          id: json.id,
+          username: json.list.username,
+          id: json.list.id,
         };
 
         setUser(user);
@@ -67,10 +75,18 @@ const Profile = ({ match }) => {
       {user && (
         <Header>
           <Username username={user.username} />
-          {currentUser.id === user.id && <PageChange currentPage="creations" />}
+          {currentUser.id === user.id && (
+            <PageChange
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </Header>
       )}
-      <></>
+      <Palettes>
+        {currentPage === 'creations' && <Creations userId={userId} />}
+        {currentPage === 'likes' && <Likes userId={userId} />}
+      </Palettes>
     </Wrapper>
   );
 };
@@ -99,7 +115,7 @@ const Header = styled.header`
   justify-content: space-between;
 `;
 
-const Main = styled.main`
+const Palettes = styled.main`
   flex: 1;
 `;
 

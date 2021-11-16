@@ -35,7 +35,6 @@ import Login from './components/Login/Login';
 import NotFound from './components/Error/NotFound';
 import ThemeProvider from './components/Settings/Theme';
 import Toast from './components/Shared/Toast';
-import Likes from './routes/Likes';
 
 function App() {
   const dispatch = useDispatch();
@@ -71,7 +70,6 @@ function App() {
                 <Route exact path="/themes/:themeId" component={Theme} />
                 <Route exact path="/palettes/:paletteId" component={Palette} />
                 <Route exact path="/users/:userId" component={Profile} />
-                <Route exact path="/users/:userId/likes" component={Likes} />
                 <Route exact path="/search" component={Search} />
                 <PrivateRoute exact path="/collections" component={Collections} />
                 <PrivateRoute exact path="/collections/:collectionId" component={Collection} />
